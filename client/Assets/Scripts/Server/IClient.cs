@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+
+//TODO: add other data that can be sent
+[System.Serializable]
+public enum DataType{
+    transform = 0,
+    charmessage
+};
+
 public interface IClient {
     void Login(string username, string password);
     void Disconnect();
     void Connect(string server, int port);
-    void SendRequest(string name, object data);
+    void Send(DataType type, object data);
     void Update();
-    void OnResponse();
 
     string Username {
         get;

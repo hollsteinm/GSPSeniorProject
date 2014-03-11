@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Server\IClient.cs" />
+     <Compile Include="Assets\Scripts\Server\IEventListener.cs" />
+     <Compile Include="Assets\Scripts\Server\IEventMessenger.cs" />
      <Compile Include="Assets\Scripts\Server\SFSClient.cs" />
      <Compile Include="Assets\iTween\Plugins\iTween.cs" />
      <Compile Include="Assets\iTween\Sample\MoveSample.cs" />
