@@ -1,2 +1,16 @@
 /server/StarboundAcesSFS/nbproject/private/
 client/Library/metadata/
+client/Temp/
+client/Assembly-CSharp-firstpass-vs.csproj
+client/Assembly-CSharp-firstpass.csproj
+client/Assembly-CSharp-vs.csproj
+client/Assembly-CSharp.csproj
+client/Assembly-UnityScript-firstpass-vs.unityproj
+client/Assembly-UnityScript-firstpass.unityproj
+client/Library/AssetServerCacheV3
+client/Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll.mdb
+client/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll.mdb
+client/Library/assetDatabase3
+client/Library/guidmapper
+client/client-csharp.sln
+client/client.sln
