@@ -9,17 +9,17 @@ using Sfs2X;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class SFSClient : IClient , IEventMessenger{
+public class SFSClient : IClientController{
     private SmartFox SFSInstance;
     private static SFSClient client;
     public LogLevel logLevel = LogLevel.DEBUG;
     private static object mutex = new object();
     public bool debug;
-    public string server;
-    public int port;
-    public string username;
-    private string room;
-    private string zone;
+    private string username = "";
+    private string server = "";
+    private int port = 0;
+    private string zone = "";
+    private string room = "";
     private string currentMessage;
     private List<IEventListener> listeners = new List<IEventListener>();
 
