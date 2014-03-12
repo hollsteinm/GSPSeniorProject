@@ -4,8 +4,9 @@ using System.Collections;
 //TODO: add other data that can be sent
 [System.Serializable]
 public enum DataType{
-    transform = 0,
-    charmessage
+    TRANSFORM = 0,
+    CHARMESSAGE,
+    ROOMREQUEST
 };
 
 public interface IClient {

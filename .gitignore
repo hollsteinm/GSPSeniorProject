@@ -14,3 +14,5 @@ client/Library/assetDatabase3
 client/Library/guidmapper
 client/client-csharp.sln
 client/client.sln
+/server/StarboundAcesSFS/dist/
+/server/StarboundAcesSFS/build/

@@ -79,6 +79,7 @@ public class SFSClient : IClientController{
     }
 
     private void OnPublicMessage(BaseEvent evt) {
+        Debug.Log("[Public Message]: " + (string)evt.Params[""]);
     }
 
     private void OnJoinRoom(BaseEvent evt) {
@@ -107,7 +108,7 @@ public class SFSClient : IClientController{
         } else {
             // On to the lobby
             currentMessage = "Successful Login.";
-            Application.LoadLevel(lobby);
+            Application.LoadLevel ( "lobby" );
         }
     }
 
@@ -134,7 +135,7 @@ public class SFSClient : IClientController{
     public void Login(string username, string password) {
         this.username = username;
         //TODO: implement using a password.
-        SFSInstance.Send(new LoginRequest(this.username, "", "StarboundAces"));
+        SFSInstance.Send(new LoginRequest(this.username, password, "StarboundAces"));
     }
 
     public void Disconnect() {
@@ -150,24 +151,19 @@ public class SFSClient : IClientController{
     }
 
     public void Send(DataType type, object data){
-        SFSObject sfso = new SFSObject();
         switch (type) {
-            case DataType.transform:
-                Transform t = data as Transform;
-                float[] position = {t.position.x, t.position.y, t.position.z};
-                float[] rotation = {t.rotation.x, t.rotation.y, t.rotation.z, t.rotation.w};
-
-                sfso.PutFloatArray("position", position);
-                sfso.PutFloatArray("rotation", rotation);
-
-                SFSInstance.Send(new ExtensionRequest("transform", sfso, SFSInstance.LastJoinedRoom, true));
-                
+            case DataType.TRANSFORM:
+                SendTransform ( data );                
                 break;
-            case DataType.charmessage:
-                string message = data as string;
-                SFSInstance.Send(new PublicMessageRequest(message, null, SFSInstance.LastJoinedRoom));
 
+            case DataType.CHARMESSAGE:
+                SendCharMessage ( data );
                 break;
+
+            case DataType.ROOMREQUEST:
+                SendRoomRequest ( data );
+                break;
+
             default:
                 Debug.LogError("Should not reach this point in Send(GameObject, SendType, object)");
                 break;
@@ -229,4 +225,30 @@ public class SFSClient : IClientController{
         }
     }
     //end eventmessenger interface methods
+    //methods for send()
+    private void SendTransform ( object data ) {
+        SFSObject sfso = new SFSObject ();
+        Transform t = data as Transform;
+        float[] position = { t.position.x, t.position.y, t.position.z };
+        float[] rotation = { t.rotation.x, t.rotation.y, t.rotation.z, t.rotation.w };
+
+        sfso.PutFloatArray ( "position", position );
+        sfso.PutFloatArray ( "rotation", rotation );
+
+        SFSInstance.Send ( new ExtensionRequest ( "server.transform", sfso, SFSInstance.LastJoinedRoom, true ) );
+    }
+
+    private void SendCharMessage ( object data ) {
+        string message = data as string;
+        SFSInstance.Send ( new PublicMessageRequest ( message, null, SFSInstance.LastJoinedRoom ) );
+    }
+
+    private void SendRoomRequest ( object data ) {
+        RoomSettings settings = new RoomSettings ( SFSInstance.MySelf.Name + "'s game." );
+        settings.Extension = new RoomExtension("starboundaces", "com.gspteama.main.StarboundAcesExtension");
+        settings.MaxUsers = 2;
+        settings.IsGame = true;
+        SFSInstance.Send ( new CreateRoomRequest ( settings, true ) );
+    }
+    //end methods for send()
 }
