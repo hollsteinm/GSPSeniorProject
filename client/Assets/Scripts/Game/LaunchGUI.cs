@@ -19,9 +19,23 @@ public class LaunchGUI : MonoBehaviour {
             Application.LoadLevel ( "singleplayer" );
         }
 
-        if ( GUI.Button ( new Rect ( 0, 128, Screen.width, 64 ), "Multiplayer" ) ) {
+        if ( GUI.Button ( new Rect ( 0, 128, Screen.width, 64 ), "Multi Player" ) ) {
             GameManager.gameManager.gameType = GameType.MULTIPLAYER;
             Application.LoadLevel ( "login" );
+        }
+
+        if (GUI.Button(new Rect(0, 224, Screen.width, 64), "High Scores")) {
+            GameManager.gameManager.gameType = GameType.MULTIPLAYER;
+            Application.LoadLevel("highscores");
+        }
+
+        if (GUI.Button(new Rect(0, 320, Screen.width, 64), "Credits")) {
+            GameManager.gameManager.gameType = GameType.SINGLEPLAYER;
+            Application.LoadLevel("credits");
+        }
+
+        if (GUI.Button(new Rect(0, 416, Screen.width, 64), "Quit")) {
+            Application.Quit();
         }
     }
 }
