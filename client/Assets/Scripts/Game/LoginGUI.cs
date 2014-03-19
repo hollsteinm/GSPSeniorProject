@@ -8,7 +8,7 @@ public class LoginGUI : MonoBehaviour, IEventListener {
 	void Start () {
         server = GameManager.gameManager.ClientController;
         server.Register ( this );
-        server.Connect ( "localhost", 9933 );	
+        server.Connect ( "ec2-54-201-26-249.us-west-2.compute.amazonaws.com", 9933 );	
 	}
 	
 	// Update is called once per frame
