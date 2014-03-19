@@ -6,7 +6,8 @@ using System.Collections;
 public enum DataType{
     TRANSFORM = 0,
     CHARMESSAGE,
-    ROOMREQUEST
+    ROOMREQUEST,
+    ROOMJOIN
 };
 
 public interface IClient {

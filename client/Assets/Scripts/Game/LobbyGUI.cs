@@ -1,17 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LobbyGUI : MonoBehaviour, IEventListener {
     private IClientController server = null;
+    private List<string> createdGames = new List<string> ();
 
 	// Use this for initialization
 	void Start () {
         server = GameManager.gameManager.ClientController;
-	
+        server.Send ( DataType.ROOMJOIN, "lobby" );
+        server.Register ( this );
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 	
 	}
 
@@ -19,22 +23,28 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
         if ( GUI.Button ( new Rect ( 0, 32, Screen.width, 64 ), "Play" ) ) {
             server.Send ( DataType.ROOMREQUEST, null );
         }
+        DrawGameList ();
     }
 
     public void  Notify(string eventType, object o)
     {
         switch ( eventType ) {
-            case "server":
-                break;
-            case "playerjoin":
-                //bring the creator (me) to the game and notify the other player
-                break;
-            case "join":
-                //bring me to this game and notify the creator
+            case "roomadd":
+                createdGames.Add ( ( string ) o );
                 break;
 
             default:
                 break;
+        }
+    }
+
+    private void DrawGameList ( ) {
+        int top = 96;
+        foreach ( string s in createdGames ) {
+            if ( GUI.Button ( new Rect ( 0, top, Screen.width, 32 ), s ) ) {
+                server.Send ( DataType.ROOMJOIN, s );
+            }
+            top += 32;
         }
     }
 }

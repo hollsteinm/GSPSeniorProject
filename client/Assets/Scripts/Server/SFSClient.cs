@@ -22,6 +22,7 @@ public class SFSClient : IClientController{
     private string room = "";
     private string currentMessage;
     private List<IEventListener> listeners = new List<IEventListener>();
+    private bool useUDP = false;
 
     //names of 'levels/scenes' for each respective part.
     public string lobby;
@@ -51,6 +52,7 @@ public class SFSClient : IClientController{
 
         SFSInstance.AddEventListener(SFSEvent.CONNECTION, OnConnection);
         SFSInstance.AddEventListener(SFSEvent.CONNECTION_LOST, OnConnectionLost);
+        SFSInstance.AddEventListener ( SFSEvent.UDP_INIT, OnUDPInit );
 
         SFSInstance.AddEventListener(SFSEvent.LOGIN, OnLogin);
         SFSInstance.AddEventListener(SFSEvent.LOGOUT, OnLogout);
@@ -66,38 +68,85 @@ public class SFSClient : IClientController{
         SFSInstance.AddEventListener(SFSEvent.USER_EXIT_ROOM, OnUserExitRoom);
 
         SFSInstance.AddLogListener(logLevel, OnDebugMessage);
-        SFSInstance.InitUDP();
     }
 
     //SFS callbacks
     private void OnExtensionReponse(BaseEvent evt) {
         string cmd = (string)evt.Params["cmd"];
-        OnEvent("server", (BaseEvent)evt);
+        SFSObject sfsdata = (SFSObject)evt.Params["params"];
+
+        switch ( cmd ) {
+            case "transform":
+                int id = sfsdata.GetInt ( "player" );
+                //ignore my own updates of position from server
+                if ( id != SFSInstance.MySelf.Id ) {
+                    if ( !GameManager.gameManager.Players.ContainsKey(id) ) {
+                        GameManager.gameManager.AddRemotePlayer ( id );
+                    }
+
+                    GameObject other = GameManager.gameManager.Players[ id ];
+
+                    float px = sfsdata.GetFloat ( "position.x" );
+                    float py = sfsdata.GetFloat ( "position.y" );
+                    float pz = sfsdata.GetFloat ( "position.z" );
+                    float rx = sfsdata.GetFloat ( "rotation.x" );
+                    float ry = sfsdata.GetFloat ( "rotation.y" );
+                    float rz = sfsdata.GetFloat ( "rotation.z" );
+
+                    other.transform.position = new Vector3 ( px, py, pz );
+                    other.transform.localEulerAngles = new Vector3 ( rx, ry, rz );
+                }
+                break;
+            default:
+                break;
+        }       
+    }
+
+    private void OnUDPInit ( BaseEvent evt ) {
+        if ( (bool)evt.Params["success"]) {
+            Debug.Log ( "UPD Initialized" );
+            useUDP = true;
+        } else {
+            Debug.LogWarning ( "UPD Not Initialized, using TCP" );
+        }
     }
 
     private void OnLogout(BaseEvent evt) {
+        Debug.Log ( "[User Logged Out: " + ( ( User ) evt.Params[ "user" ] ).Name +"]");
     }
 
     private void OnPublicMessage(BaseEvent evt) {
-        Debug.Log("[Public Message]: " + (string)evt.Params[""]);
+        Debug.Log("[Public Message]: " + (string)evt.Params["message"]);
     }
 
     private void OnJoinRoom(BaseEvent evt) {
+        Room room = ( Room ) evt.Params[ "room" ];
+        Debug.Log ( "[Room Joined: " + room.Name + "]" );
+        if ( room.IsGame ) {
+            Application.LoadLevel ( "multiplayer" );
+        }
+        this.room = room.Name;
     }
 
     private void OnRoomCreationError(BaseEvent evt) {
+        Debug.LogError ( "[Room Creation Error" + ( string ) evt.Params[ "error" ] + "]" );
     }
 
     private void OnRoomAdd(BaseEvent evt) {
+        Debug.Log ( "[Room Added: " + ( ( Room ) evt.Params[ "room" ] ).Name + "]" );
+        OnEvent ( "roomadd", ( string ) ( ( Room ) evt.Params[ "room" ] ).Name );
     }
 
     private void OnRoomRemove(BaseEvent evt) {
+        Debug.Log ( "[Room Removed: " + ( ( Room ) evt.Params[ "room" ] ).Name + "]" );
     }
 
     private void OnUserEnterRoom(BaseEvent evt) {
+        Debug.Log ( "[User Enter Room: " + ( ( User ) evt.Params[ "user" ] ).Name + "]" );
     }
 
     private void OnUserExitRoom(BaseEvent evt) {
+        Debug.Log ( "[User Exit Room: " + ( ( User ) evt.Params[ "user" ] ).Name + "]" );
     }
 
     private void OnLogin(BaseEvent evt) {
@@ -119,6 +168,7 @@ public class SFSClient : IClientController{
         } else {
             currentMessage = "Cannot connect to the server.";
         }
+        SFSInstance.InitUDP (server, port);
         Debug.Log(currentMessage);
     }
 
@@ -145,8 +195,14 @@ public class SFSClient : IClientController{
     }
 
     public void Connect(string server, int port) {
+        this.server = server;
+        this.port = port;
         if (!SFSInstance.IsConnected) {
             SFSInstance.Connect(server, port);
+            while ( SFSInstance.IsConnecting ) {
+                //block and show some kind of connection graphics
+                Debug.Log ( "Connecting...\n" );
+            }
         }
     }
 
@@ -164,8 +220,12 @@ public class SFSClient : IClientController{
                 SendRoomRequest ( data );
                 break;
 
+            case DataType.ROOMJOIN:
+                SendRoomJoinRequest ( data );
+                break;
+
             default:
-                Debug.LogError("Should not reach this point in Send(GameObject, SendType, object)");
+                Debug.LogError("Should not reach this point in Send( SendType, object)");
                 break;
         }
     }
@@ -229,18 +289,24 @@ public class SFSClient : IClientController{
     private void SendTransform ( object data ) {
         SFSObject sfso = new SFSObject ();
         Transform t = data as Transform;
-        float[] position = { t.position.x, t.position.y, t.position.z };
-        float[] rotation = { t.rotation.x, t.rotation.y, t.rotation.z, t.rotation.w };
 
-        sfso.PutFloatArray ( "position", position );
-        sfso.PutFloatArray ( "rotation", rotation );
+        sfso.PutFloat ( "position.x", t.position.x );
+        sfso.PutFloat ( "position.y", t.position.y );
+        sfso.PutFloat ( "position.z", t.position.z );
+        sfso.PutFloat ( "rotation.x", t.localEulerAngles.x );
+        sfso.PutFloat ( "rotation.y", t.localEulerAngles.y );
+        sfso.PutFloat ( "rotation.z", t.localEulerAngles.z );
 
-        SFSInstance.Send ( new ExtensionRequest ( "server.transform", sfso, SFSInstance.LastJoinedRoom, true ) );
+        SFSInstance.Send ( new ExtensionRequest ( "server.transform", sfso, null, useUDP) );
     }
 
     private void SendCharMessage ( object data ) {
-        string message = data as string;
-        SFSInstance.Send ( new PublicMessageRequest ( message, null, SFSInstance.LastJoinedRoom ) );
+        if ( SFSInstance.LastJoinedRoom == null ) {
+            Debug.LogError ( "Cannot send CharMessage request as not in room" );
+        } else {
+            string message = data as string;
+            SFSInstance.Send ( new PublicMessageRequest ( message, null ) );
+        }
     }
 
     private void SendRoomRequest ( object data ) {
@@ -248,7 +314,17 @@ public class SFSClient : IClientController{
         settings.Extension = new RoomExtension("starboundaces", "com.gspteama.main.StarboundAcesExtension");
         settings.MaxUsers = 2;
         settings.IsGame = true;
-        SFSInstance.Send ( new CreateRoomRequest ( settings, true ) );
+        SFSInstance.Send ( new CreateRoomRequest ( settings, false ) );
+        SendRoomJoinRequest ( settings.Name );
+    }
+
+    private void SendRoomJoinRequest ( object data ) {
+        if ( SFSInstance.LastJoinedRoom != null ) {
+            //no private games/passwords supported as of yet.
+            SFSInstance.Send ( new JoinRoomRequest ( data, "", SFSInstance.LastJoinedRoom.Id, false ) );
+        } else {
+            SFSInstance.Send ( new JoinRoomRequest ( data ) );
+        }
     }
     //end methods for send()
 }

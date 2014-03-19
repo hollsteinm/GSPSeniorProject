@@ -13,13 +13,13 @@ import com.smartfoxserver.v2.entities.data.SFSObject;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
 import com.smartfoxserver.v2.extensions.SFSExtension;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+
 
 /**
  *
  * @author Martin
  */
+@com.smartfoxserver.v2.annotations.MultiHandler
 public class MultiHandler extends BaseClientRequestHandler{
     
     @Override
@@ -30,9 +30,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             case "transform":
                 handleTransform(user, params);
                 break;
-            case "charmessage":
-                handleCharMessage(user, params);
-                break;
+
             default:
                 trace("Unrecognized request Id sent... ignoring");
                 break;
@@ -41,44 +39,27 @@ public class MultiHandler extends BaseClientRequestHandler{
     
     private void handleTransform(User user, ISFSObject params){
         trace("Handling transform");
-        Game game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
-        Ship ship = game.getShip(user.getId());
+        try{
+            Game game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
+            Ship ship = game.getShip(user.getId());
+
+            ship.setPosition(new float[]{params.getFloat("position.x"), params.getFloat("position.y"), params.getFloat("position.z")});
+            ship.setRotation(new float[]{params.getFloat("rotation.x"), params.getFloat("position.y"), params.getFloat("position.z")});
+
+
+            ISFSObject response = SFSObject.newInstance();
+            response.putInt("player", user.getId());
+            response.putFloat("position.x", ship.getPosition()[0]);
+            response.putFloat("position.y", ship.getPosition()[1]);
+            response.putFloat("position.z", ship.getPosition()[2]);
+            response.putFloat("rotation.x", ship.getRotation()[0]);
+            response.putFloat("rotation.y", ship.getRotation()[1]);
+            response.putFloat("rotation.z", ship.getRotation()[2]);        
         
-        float position[] = new float[3];        
-        int i = 0;
-        for(float f : params.getFloatArray("position")){
-            position[i] = f;
-            i++;
+            //this.send("transform", response, user.getLastJoinedRoom().getPlayersList(), true);
+            this.send("transform", response, user.getLastJoinedRoom().getPlayersList());
+        }catch(Exception e){
+            trace(e.toString());
         }
-        ship.setPosition(position);
-        
-        float rotation[] = new float[3];
-        i = 0;
-        for(float f : params.getFloatArray("rotation")){
-            rotation[i] = f;
-            i++;
-        }
-        ship.setRotation(rotation);
-        
-        ISFSObject response = SFSObject.newInstance();
-        response.putInt("playerid", user.getId());
-        
-        //the arrays for SFSObjects require collections... so cannot call get()
-        //methods from the ship as they return primitive arrays...
-        ArrayList<Float> data = new ArrayList<>();
-        for(float f : position){
-            data.add(f);
-        }
-        data.clear();
-        response.putFloatArray("position", data);
-        for(float f : rotation){
-            data.add(f);
-        }
-        response.putFloatArray("rotation", data);
-        this.send("transform", response, user.getLastJoinedRoom().getPlayersList(), true);
-    }
-    
-    private void handleCharMessage(User user, ISFSObject params){
-        
     }
 }

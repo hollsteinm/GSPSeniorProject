@@ -82,4 +82,18 @@ public class GameManager : MonoBehaviour {
             return client;
         }
     }
+
+    private Dictionary<int, GameObject> players = new Dictionary<int, GameObject> ();
+
+    public Dictionary<int, GameObject> Players {
+        get {
+            return players;
+        }
+    }
+
+    public void AddRemotePlayer ( int id ) {
+        GameObject newPlayer = (GameObject)Instantiate ( Resources.Load("RemotePlayer") );
+        players.Add ( id, newPlayer );
+        Debug.Log ( "New Player added: " + id.ToString () );
+    }
 }
