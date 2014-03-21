@@ -78,24 +78,33 @@ public class SFSClient : IClientController{
         switch ( cmd ) {
             case "transform":
                 int id = sfsdata.GetInt ( "player" );
+
+                //clever nullreference check, or annoying statement?
+                float px = (sfsdata.GetFloat ( "position.x" ) != null ? sfsdata.GetFloat("position.x") : 0.0f);
+                float py = (sfsdata.GetFloat ( "position.y" ) != null ? sfsdata.GetFloat("position.y") : 0.0f);
+                float pz = (sfsdata.GetFloat ( "position.z" ) != null ? sfsdata.GetFloat("position.z") : 0.0f);
+                float rx = (sfsdata.GetFloat ( "rotation.x" ) != null ? sfsdata.GetFloat("rotation.x") : 0.0f);
+                float ry = (sfsdata.GetFloat ( "rotation.y" ) != null ? sfsdata.GetFloat("rotation.y") : 0.0f);
+                float rz = (sfsdata.GetFloat ( "rotation.z" ) != null ? sfsdata.GetFloat("rotation.z") : 0.0f);
+                float rw = (sfsdata.GetFloat ( "rotation.w" ) != null ? sfsdata.GetFloat("rotation.w") : 0.0f);
+
                 //ignore my own updates of position from server
-                if ( id != SFSInstance.MySelf.Id ) {
-                    if ( !GameManager.gameManager.Players.ContainsKey(id) ) {
-                        GameManager.gameManager.AddRemotePlayer ( id );
+                if (id != SFSInstance.MySelf.Id) {
+                    if (!GameManager.gameManager.Players.ContainsKey(id)) {
+                        Debug.LogError("Player does not exist! What happened!?!?");
                     }
 
-                    GameObject other = GameManager.gameManager.Players[ id ];
+                    GameObject other = GameManager.gameManager.Players[id];
 
-                    float px = sfsdata.GetFloat ( "position.x" );
-                    float py = sfsdata.GetFloat ( "position.y" );
-                    float pz = sfsdata.GetFloat ( "position.z" );
-                    float rx = sfsdata.GetFloat ( "rotation.x" );
-                    float ry = sfsdata.GetFloat ( "rotation.y" );
-                    float rz = sfsdata.GetFloat ( "rotation.z" );
-
-                    other.transform.position = new Vector3 ( px, py, pz );
-                    other.transform.localEulerAngles = new Vector3 ( rx, ry, rz );
+                    other.transform.position = new Vector3(px, py, pz);
+                    other.transform.rotation = new Quaternion(rx, ry, rz, rw);
+                } else {
+                    //server is my boss, tell me where to go (mostly for spawns)
+                    GameObject player = GameManager.gameManager.ClientPlayer;
+                    player.transform.position = new Vector3(px, py, pz);
+                    player.transform.rotation = new Quaternion(rx, ry, rz, rw);
                 }
+
                 break;
             default:
                 break;
@@ -142,7 +151,16 @@ public class SFSClient : IClientController{
     }
 
     private void OnUserEnterRoom(BaseEvent evt) {
-        Debug.Log ( "[User Enter Room: " + ( ( User ) evt.Params[ "user" ] ).Name + "]" );
+        User user = (User)evt.Params["user"];
+        Debug.Log ( "[User Enter Room: " + user.Name + "]" );
+        Room room = (Room)evt.Params["room"];
+ 
+        if (room.IsGame) {
+            int id = user.Id;
+            if (!GameManager.gameManager.Players.ContainsKey(id) && id != SFSInstance.MySelf.Id) {
+                GameManager.gameManager.AddRemotePlayer(id, user.Name);
+            }
+        }
     }
 
     private void OnUserExitRoom(BaseEvent evt) {
@@ -293,9 +311,10 @@ public class SFSClient : IClientController{
         sfso.PutFloat ( "position.x", t.position.x );
         sfso.PutFloat ( "position.y", t.position.y );
         sfso.PutFloat ( "position.z", t.position.z );
-        sfso.PutFloat ( "rotation.x", t.localEulerAngles.x );
-        sfso.PutFloat ( "rotation.y", t.localEulerAngles.y );
-        sfso.PutFloat ( "rotation.z", t.localEulerAngles.z );
+        sfso.PutFloat ( "rotation.x", t.rotation.x );
+        sfso.PutFloat ( "rotation.y", t.rotation.y );
+        sfso.PutFloat ( "rotation.z", t.rotation.z );
+        sfso.PutFloat ( "rotation.w", t.rotation.w );
 
         SFSInstance.Send ( new ExtensionRequest ( "server.transform", sfso, null, useUDP) );
     }

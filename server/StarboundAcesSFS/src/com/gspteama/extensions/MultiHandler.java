@@ -38,13 +38,22 @@ public class MultiHandler extends BaseClientRequestHandler{
     }    
     
     private void handleTransform(User user, ISFSObject params){
-        trace("Handling transform");
         try{
             Game game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
             Ship ship = game.getShip(user.getId());
 
-            ship.setPosition(new float[]{params.getFloat("position.x"), params.getFloat("position.y"), params.getFloat("position.z")});
-            ship.setRotation(new float[]{params.getFloat("rotation.x"), params.getFloat("position.y"), params.getFloat("position.z")});
+            ship.setPosition(new float[]{
+                params.getFloat("position.x"), 
+                params.getFloat("position.y"), 
+                params.getFloat("position.z")
+            });
+            
+            ship.setRotation(new float[]{
+                params.getFloat("rotation.x"), 
+                params.getFloat("position.y"), 
+                params.getFloat("position.z"),
+                params.getFloat("position.w")
+            });
 
 
             ISFSObject response = SFSObject.newInstance();
@@ -54,7 +63,8 @@ public class MultiHandler extends BaseClientRequestHandler{
             response.putFloat("position.z", ship.getPosition()[2]);
             response.putFloat("rotation.x", ship.getRotation()[0]);
             response.putFloat("rotation.y", ship.getRotation()[1]);
-            response.putFloat("rotation.z", ship.getRotation()[2]);        
+            response.putFloat("rotation.z", ship.getRotation()[2]);  
+            response.putFloat("rotation.w", ship.getRotation()[3]);
         
             //this.send("transform", response, user.getLastJoinedRoom().getPlayersList(), true);
             this.send("transform", response, user.getLastJoinedRoom().getPlayersList());

@@ -10,7 +10,7 @@ package com.gspteama.gamedriver;
  */
 public class Ship {
     private float       position[]  = {0.0f, 0.0f, 0.0f};
-    private float       rotation[]  = {0.0f, 0.0f, 0.0f};
+    private float       rotation[]  = {0.0f, 0.0f, 0.0f, 0.0f};
 
     public float[] getPosition() {
         return position;

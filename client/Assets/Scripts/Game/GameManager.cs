@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private Dictionary<int, GameObject> players = new Dictionary<int, GameObject> ();
+    private GameObject clientPlayer = null;
 
     public Dictionary<int, GameObject> Players {
         get {
@@ -91,9 +92,20 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public void AddRemotePlayer ( int id ) {
+    public void AddRemotePlayer ( int id, string name ) {
         GameObject newPlayer = (GameObject)Instantiate ( Resources.Load("RemotePlayer") );
         players.Add ( id, newPlayer );
-        Debug.Log ( "New Player added: " + id.ToString () );
+        GameObject other = players[id];
+        other.GetComponent<RemotePlayer>().Name = name;
+        Debug.Log ( "New Player added: " + id.ToString () + "/" + name );
+    }
+
+    public GameObject ClientPlayer {
+        get {
+            return clientPlayer;
+        }
+        set {
+            clientPlayer = value;
+        }
     }
 }

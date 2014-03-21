@@ -9,6 +9,7 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
 	void Start () {
 	    server = GameManager.gameManager.ClientController;
         server.Register ( this );
+        GameManager.gameManager.ClientPlayer = this.gameObject;
 	}
 	
 	// Update is called once per frame
@@ -28,7 +29,13 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         }
     }
 
+    private float delay = 0.1f;
+    private float timepassed = 0.0f;
     private void SendData ( ) {
-        server.Send ( DataType.TRANSFORM, transform );
+        timepassed += Time.deltaTime;
+        if (timepassed >= delay) {
+            server.Send(DataType.TRANSFORM, transform);
+            timepassed = 0.0f;
+        }
     }
 }
