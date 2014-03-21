@@ -43,16 +43,10 @@ public class SFSClient : IClientController{
         }
     }
 
-    private SFSClient() {
-        SFSInstance = new SmartFox(debug);
-
-        if (Application.isWebPlayer || Application.isEditor) {
-            Security.PrefetchSocketPolicy(server, port, 500);
-        }
-
+    private void RegisterCallbacks(){
         SFSInstance.AddEventListener(SFSEvent.CONNECTION, OnConnection);
         SFSInstance.AddEventListener(SFSEvent.CONNECTION_LOST, OnConnectionLost);
-        SFSInstance.AddEventListener ( SFSEvent.UDP_INIT, OnUDPInit );
+        SFSInstance.AddEventListener(SFSEvent.UDP_INIT, OnUDPInit);
 
         SFSInstance.AddEventListener(SFSEvent.LOGIN, OnLogin);
         SFSInstance.AddEventListener(SFSEvent.LOGOUT, OnLogout);
@@ -66,6 +60,35 @@ public class SFSClient : IClientController{
         SFSInstance.AddEventListener(SFSEvent.ROOM_REMOVE, OnRoomRemove);
         SFSInstance.AddEventListener(SFSEvent.USER_ENTER_ROOM, OnUserEnterRoom);
         SFSInstance.AddEventListener(SFSEvent.USER_EXIT_ROOM, OnUserExitRoom);
+    }
+
+    private void UnregisterCallbacks() {
+        SFSInstance.RemoveEventListener(SFSEvent.CONNECTION, OnConnection);
+        SFSInstance.RemoveEventListener(SFSEvent.CONNECTION_LOST, OnConnectionLost);
+        SFSInstance.RemoveEventListener(SFSEvent.UDP_INIT, OnUDPInit);
+
+        SFSInstance.RemoveEventListener(SFSEvent.LOGIN, OnLogin);
+        SFSInstance.RemoveEventListener(SFSEvent.LOGOUT, OnLogout);
+
+        SFSInstance.RemoveEventListener(SFSEvent.EXTENSION_RESPONSE, OnExtensionReponse);
+        SFSInstance.RemoveEventListener(SFSEvent.PUBLIC_MESSAGE, OnPublicMessage);
+
+        SFSInstance.RemoveEventListener(SFSEvent.ROOM_JOIN, OnJoinRoom);
+        SFSInstance.RemoveEventListener(SFSEvent.ROOM_CREATION_ERROR, OnRoomCreationError);
+        SFSInstance.RemoveEventListener(SFSEvent.ROOM_ADD, OnRoomAdd);
+        SFSInstance.RemoveEventListener(SFSEvent.ROOM_REMOVE, OnRoomRemove);
+        SFSInstance.RemoveEventListener(SFSEvent.USER_ENTER_ROOM, OnUserEnterRoom);
+        SFSInstance.RemoveEventListener(SFSEvent.USER_EXIT_ROOM, OnUserExitRoom);
+    }
+
+    private SFSClient() {
+        SFSInstance = new SmartFox(debug);
+
+        if (Application.isWebPlayer || Application.isEditor) {
+            Security.PrefetchSocketPolicy(server, port, 500);
+        }
+
+        RegisterCallbacks();
 
         SFSInstance.AddLogListener(logLevel, OnDebugMessage);
     }
@@ -74,12 +97,10 @@ public class SFSClient : IClientController{
     private void OnExtensionReponse(BaseEvent evt) {
         string cmd = (string)evt.Params["cmd"];
         SFSObject sfsdata = (SFSObject)evt.Params["params"];
-        Debug.Log(cmd);
 
         switch ( cmd ) {
             case "transform":
                 int id = sfsdata.GetInt ( "player" );
-                Debug.Log(id.ToString() + "\n");
 
                 float px = sfsdata.GetFloat ( "position.x" );
                 float py = sfsdata.GetFloat ( "position.y" );
@@ -100,12 +121,12 @@ public class SFSClient : IClientController{
 
                     other.transform.position = new Vector3(px, py, pz);
                     other.transform.rotation = new Quaternion(rx, ry, rz, rw);
-                } else {
+                /*} else {
                     //server is my boss, tell me where to go (mostly for spawns)
                     GameObject player = GameManager.gameManager.ClientPlayer;
                     player.transform.position = new Vector3(px, py, pz);
                     player.transform.rotation = new Quaternion(rx, ry, rz, rw);
-                }
+                */}
 
                 break;
             default:
@@ -128,6 +149,10 @@ public class SFSClient : IClientController{
 
     private void OnPublicMessage(BaseEvent evt) {
         Debug.Log("[Public Message]: " + (string)evt.Params["message"]);
+        string message = (string)evt.Params["message"];
+        User sender = (User)evt.Params["sender"];
+        string charmessage = sender.Name + "-> " + message;
+        OnEvent("charmessage", (string)charmessage);
     }
 
     private void OnJoinRoom(BaseEvent evt) {
@@ -135,13 +160,14 @@ public class SFSClient : IClientController{
         Debug.Log ( "[Room Joined: " + room.Name + "]" );
         if ( room.IsGame ) {
             Application.LoadLevel ( "multiplayer" );
+            
             List<User> users = room.UserList;
             foreach (User u in users) {
                 if (u.Id != SFSInstance.MySelf.Id) {
                     GameManager.gameManager.AddRemotePlayer(u.Id, u.Name);
+                    Debug.Log("User " + u.Name + " is in room.");
                 }
             }
-            //GameManager.gameManager.ClientPlayer = GameObject.FindGameObjectWithTag("Player");
         }
         this.room = room.Name;
     }
@@ -174,6 +200,7 @@ public class SFSClient : IClientController{
 
     private void OnUserExitRoom(BaseEvent evt) {
         Debug.Log ( "[User Exit Room (" + ((Room)evt.Params["room"]).Name + "): " + ( ( User ) evt.Params[ "user" ] ).Name + "]" );
+        GameManager.gameManager.RemoveRemotePlayer(((User)evt.Params["user"]).Id);
     }
 
     private void OnLogin(BaseEvent evt) {
@@ -216,6 +243,7 @@ public class SFSClient : IClientController{
     }
 
     public void Disconnect() {
+        UnregisterCallbacks();
         if(SFSInstance.IsConnected){
             SFSInstance.Disconnect();
         }
@@ -228,7 +256,6 @@ public class SFSClient : IClientController{
             SFSInstance.Connect(server, port);
             while ( SFSInstance.IsConnecting ) {
                 //block and show some kind of connection graphics
-                Debug.Log ( "Connecting...\n" );
             }
         }
     }
@@ -318,7 +345,7 @@ public class SFSClient : IClientController{
     //end eventmessenger interface methods
     //methods for send()
     private void SendSpawnRequest(object data) {
-        SFSInstance.Send(new ExtensionRequest("server.spawn", new SFSObject(), null));
+        SFSInstance.Send(new ExtensionRequest("server.spawn", new SFSObject()));
     }
 
     private void SendTransform ( object data ) {
@@ -332,11 +359,8 @@ public class SFSClient : IClientController{
         sfso.PutFloat ( "rotation.y", t.rotation.y );
         sfso.PutFloat ( "rotation.z", t.rotation.z );
         sfso.PutFloat ( "rotation.w", t.rotation.w );
-        Debug.Log(t.position.ToString());
-        Debug.Log(t.rotation.ToString());
 
         SFSInstance.Send ( new ExtensionRequest ( "server.transform", sfso));//, null, useUDP) );
-        Debug.Log("data sent from client");
     }
 
     private void SendCharMessage ( object data ) {
@@ -351,7 +375,7 @@ public class SFSClient : IClientController{
     private void SendRoomRequest ( object data ) {
         RoomSettings settings = new RoomSettings ( SFSInstance.MySelf.Name + "'s game." );
         settings.Extension = new RoomExtension("StarboundAcesExtension", "com.gspteama.main.StarboundAcesExtension");
-        settings.MaxUsers = 2;
+        settings.MaxUsers = 8;
         settings.IsGame = true;
         SFSInstance.Send ( new CreateRoomRequest ( settings, false ) );
         SendRoomJoinRequest ( settings.Name );

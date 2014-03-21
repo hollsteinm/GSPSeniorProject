@@ -45,6 +45,15 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    void OnLevelWasLoaded(int id) {
+        if (id == 4) { //multiplayer
+            foreach (int i in queuedplayers.Keys) {
+                AddRemotePlayer(id, queuedplayers[id]);
+                queuedplayers.Remove(i);
+            }
+        }
+    }
+
     public void OnDestroy ( ) {
         applicationIsQuitting = true;
     }
@@ -84,6 +93,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private Dictionary<int, GameObject> players = new Dictionary<int, GameObject> ();
+    private Dictionary<int, string> queuedplayers = new Dictionary<int, string>();
     private GameObject clientPlayer = null;
 
     public Dictionary<int, GameObject> Players {
@@ -93,16 +103,22 @@ public class GameManager : MonoBehaviour {
     }
 
     public void AddRemotePlayer ( int id, string name ) {
-        GameObject newPlayer = (GameObject)Instantiate ( Resources.Load("RemotePlayer") );
-        players.Add ( id, newPlayer );
-        GameObject other = players[id];
-        other.GetComponent<RemotePlayer>().Name = name;
-        Debug.Log ( "New Player added: " + id.ToString () + "/" + name );
+        if (Application.loadedLevelName == "multiplayer") {
+            GameObject newPlayer = (GameObject)Instantiate(Resources.Load("RemotePlayer"));
+            players.Add(id, newPlayer);
+            GameObject other = players[id];
+            other.GetComponent<RemotePlayer>().Name = name;
+            Debug.Log("New Player added: " + id.ToString() + "/" + name);
+        } else {
+            queuedplayers.Add(id, name);
+            Debug.Log("Queueing Player: " + id.ToString() + "/" + name);
+        }
     }
 
     public void RemoveRemotePlayer(int id) {
         if (players.ContainsKey(id)) {
-            //players.Remove(id);
+            Destroy(players[id]);
+            players.Remove(id);
         }
     }
 

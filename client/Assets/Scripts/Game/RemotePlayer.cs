@@ -3,21 +3,18 @@ using System.Collections;
 
 public class RemotePlayer : MonoBehaviour {
     private string name = "";
+    GUIText guiText;
 
 	// Use this for initialization
 	void Start () {
-	
+        guiText = gameObject.GetComponentInChildren<GUIText>();
+        guiText.text = name;
+        guiText.color = new Color(1.0f, 0.0f, 0.0f);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
 	}
-
-    void OnGUI() {
-        Vector3 wts = Camera.main.WorldToScreenPoint(transform.position);
-        GUI.TextArea(new Rect(wts.z, wts.y, 128, 32), name);
-    }
 
     public string Name {
         get {
@@ -25,6 +22,7 @@ public class RemotePlayer : MonoBehaviour {
         }
         set {
             name = value;
+            guiText.text = name;
         }
     }
 }

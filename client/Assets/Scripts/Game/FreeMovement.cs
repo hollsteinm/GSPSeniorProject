@@ -6,7 +6,7 @@ public class FreeMovement : MonoBehaviour {
     private float rotationY = 0.0f;
 
     public float lookSpeed = 10.0f;
-    public float moveSpeed = 2.0f;
+    private float moveSpeed = 0.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -22,7 +22,9 @@ public class FreeMovement : MonoBehaviour {
         transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
         transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
 
-        transform.position += transform.forward * moveSpeed * Input.GetAxis("Vertical");
+        moveSpeed += Input.GetAxis("Vertical");
+
+        transform.position += transform.forward * moveSpeed * Time.fixedDeltaTime;
         transform.position += transform.right * moveSpeed * Input.GetAxis("Horizontal");
 	}
 }
