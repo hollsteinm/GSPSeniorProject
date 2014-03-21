@@ -17,40 +17,134 @@ Platform assembly: C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Dat
 Loading C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
 Platform assembly: C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Data\Managed\SmartFox2X.dll (this message is harmless)
 Loading C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Data\Managed\SmartFox2X.dll into Unity Child Domain
-- Completed reload, in  0.134 seconds
+- Completed reload, in  0.640 seconds
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: still lost
+HandleD3DDeviceLost
+  HandleD3DDeviceLost: needs reset, doing it
+FullResetD3DDevice
+ResetD3DDevice
+dev->Reset
+D3Dwindow device not lost anymore
 Platform assembly: C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Data\Managed\System.dll (this message is harmless)
-UnloadTime: 0.397794 ms
+UnloadTime: 0.428591 ms
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
 Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 144.
-Total: 1.025711 ms (FindLiveObjects: 0.016253 ms CreateObjectMapping: 0.017109 ms MarkObjects: 0.283161 ms  DeleteObjects: 0.007699 ms)
+Total: 1.581768 ms (FindLiveObjects: 0.141152 ms CreateObjectMapping: 0.020531 ms MarkObjects: 0.450833 ms  DeleteObjects: 0.017964 ms)
 
 [SFS - ERROR] Exception initializing UDP: Object reference not set to an instance of an object
 Connection successful.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-UnloadTime: 0.372130 ms
+UnloadTime: 0.384962 ms
 Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 142.
-Total: 1.150610 ms (FindLiveObjects: 0.009410 ms CreateObjectMapping: 0.013687 ms MarkObjects: 0.479919 ms  DeleteObjects: 0.006843 ms)
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 143.
+Total: 1.054797 ms (FindLiveObjects: 0.010265 ms CreateObjectMapping: 0.014543 ms MarkObjects: 0.384962 ms  DeleteObjects: 0.005988 ms)
 
 [Room Joined: lobby]
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-[Public Message]: message test
+[Public Message]: can you see this?
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Public Message]: something
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Public Message]: well that was intelligent
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Public Message]: yeah, maybe
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Room Added: AceGuest#11's game.]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Room Joined: AceGuest#11's game.]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[User Exit Room (lobby): AceGuest#11]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 0.407204 ms
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 177.
+Total: 1.507342 ms (FindLiveObjects: 0.012832 ms CreateObjectMapping: 0.016253 ms MarkObjects: 0.633904 ms  DeleteObjects: 0.007699 ms)
+
+[User Enter Room: AceGuest#10]
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
 NullReferenceException: Object reference not set to an instance of an object
-  at SFSClient.OnPublicMessage (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
+  at RemotePlayer.set_Name (System.String value) [0x00000] in <filename unknown>:0 
+  at GameManager.AddRemotePlayer (Int32 id, System.String name) [0x00000] in <filename unknown>:0 
+  at SFSClient.OnUserEnterRoom (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
   at Sfs2X.Core.EventDispatcher.DispatchEvent (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
-Rethrow as Exception: Error dispatching event publicMessage: Object reference not set to an instance of an object   at SFSClient.OnPublicMessage (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
+Rethrow as Exception: Error dispatching event userEnterRoom: Object reference not set to an instance of an object   at RemotePlayer.set_Name (System.String value) [0x00000] in <filename unknown>:0 
+  at GameManager.AddRemotePlayer (Int32 id, System.String name) [0x00000] in <filename unknown>:0 
+  at SFSClient.OnUserEnterRoom (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
   at Sfs2X.Core.EventDispatcher.DispatchEvent (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
   at Sfs2X.Core.EventDispatcher.DispatchEvent (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
   at Sfs2X.SmartFox.ProcessEvents () [0x00000] in <filename unknown>:0 
@@ -59,11 +153,43 @@ Rethrow as Exception: Error dispatching event publicMessage: Object reference no
  
 (Filename:  Line: -1)
 
-[Public Message]: well, this will be fun
+[Public Message]: message?
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-[Public Message]: asdfasfd
+[Public Message]: send
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Public Message]: wicked awesome!
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Public Message]: well, im lost in space
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Public Message]: ill catch you!
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Public Message]: DANGER MR>ROBINSON
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Public Message]: wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Public Message]: NOOOOO!!!!
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Public Message]: oh meh gerd
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Public Message]: DIE
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
@@ -73,19 +199,3 @@ Rethrow as Exception: Error dispatching event publicMessage: Object reference no
 
 [SFS - WARN] Unexpected UDP I/O Error. Error reading data from socket: A blocking operation was interrupted by a call to WSACancelBlockingCall.
  [Interrupted]
-[Public Message]: Houston, we have chat!
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-NullReferenceException: Object reference not set to an instance of an object
-  at SFSClient.OnPublicMessage (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
-  at Sfs2X.Core.EventDispatcher.DispatchEvent (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
-Rethrow as Exception: Error dispatching event publicMessage: Object reference not set to an instance of an object   at SFSClient.OnPublicMessage (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
-  at Sfs2X.Core.EventDispatcher.DispatchEvent (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
-  at Sfs2X.Core.EventDispatcher.DispatchEvent (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
-  at Sfs2X.SmartFox.ProcessEvents () [0x00000] in <filename unknown>:0 
-  at SFSClient.Update () [0x00000] in <filename unknown>:0 
-  at GameManager.FixedUpdate () [0x00000] in <filename unknown>:0 
- 
-(Filename:  Line: -1)
-

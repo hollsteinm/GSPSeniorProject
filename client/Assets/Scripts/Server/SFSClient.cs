@@ -200,7 +200,9 @@ public class SFSClient : IClientController{
 
     private void OnUserExitRoom(BaseEvent evt) {
         Debug.Log ( "[User Exit Room (" + ((Room)evt.Params["room"]).Name + "): " + ( ( User ) evt.Params[ "user" ] ).Name + "]" );
-        GameManager.gameManager.RemoveRemotePlayer(((User)evt.Params["user"]).Id);
+        if (((Room)evt.Params["room"]).IsGame) {
+            GameManager.gameManager.RemoveRemotePlayer(((User)evt.Params["user"]).Id);
+        }
     }
 
     private void OnLogin(BaseEvent evt) {
@@ -368,7 +370,7 @@ public class SFSClient : IClientController{
             Debug.LogError ( "Cannot send CharMessage request as not in room" );
         } else {
             string message = data as string;
-            SFSInstance.Send ( new PublicMessageRequest ( message, null ) );
+            SFSInstance.Send ( new PublicMessageRequest ( message, new SFSObject(), SFSInstance.LastJoinedRoom ) );
         }
     }
 
