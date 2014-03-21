@@ -16,7 +16,7 @@ public class RemotePlayer : MonoBehaviour {
 
     void OnGUI() {
         Vector3 wts = Camera.main.WorldToScreenPoint(transform.position);
-        GUI.TextArea(new Rect(wts.x, wts.y, 128, 32), name);
+        GUI.TextArea(new Rect(wts.z, wts.y, 128, 32), name);
     }
 
     public string Name {

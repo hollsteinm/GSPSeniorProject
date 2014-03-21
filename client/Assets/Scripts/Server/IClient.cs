@@ -7,7 +7,8 @@ public enum DataType{
     TRANSFORM = 0,
     CHARMESSAGE,
     ROOMREQUEST,
-    ROOMJOIN
+    ROOMJOIN,
+    SPAWNED
 };
 
 public interface IClient {

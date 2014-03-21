@@ -100,6 +100,12 @@ public class GameManager : MonoBehaviour {
         Debug.Log ( "New Player added: " + id.ToString () + "/" + name );
     }
 
+    public void RemoveRemotePlayer(int id) {
+        if (players.ContainsKey(id)) {
+            //players.Remove(id);
+        }
+    }
+
     public GameObject ClientPlayer {
         get {
             return clientPlayer;

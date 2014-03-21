@@ -25,7 +25,8 @@ public class RoomAddEvent extends BaseServerEventHandler{
        try{
           ((StarboundAcesExtension)this.getParentExtension()).createGame(room.getId());
        } catch (Exception e){
-           trace(e.getMessage());
+           trace("exception");
+           e.printStackTrace();
        }
     }    
 }

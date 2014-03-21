@@ -74,23 +74,25 @@ public class SFSClient : IClientController{
     private void OnExtensionReponse(BaseEvent evt) {
         string cmd = (string)evt.Params["cmd"];
         SFSObject sfsdata = (SFSObject)evt.Params["params"];
+        Debug.Log(cmd);
 
         switch ( cmd ) {
             case "transform":
                 int id = sfsdata.GetInt ( "player" );
+                Debug.Log(id.ToString() + "\n");
 
-                //clever nullreference check, or annoying statement?
-                float px = (sfsdata.GetFloat ( "position.x" ) != null ? sfsdata.GetFloat("position.x") : 0.0f);
-                float py = (sfsdata.GetFloat ( "position.y" ) != null ? sfsdata.GetFloat("position.y") : 0.0f);
-                float pz = (sfsdata.GetFloat ( "position.z" ) != null ? sfsdata.GetFloat("position.z") : 0.0f);
-                float rx = (sfsdata.GetFloat ( "rotation.x" ) != null ? sfsdata.GetFloat("rotation.x") : 0.0f);
-                float ry = (sfsdata.GetFloat ( "rotation.y" ) != null ? sfsdata.GetFloat("rotation.y") : 0.0f);
-                float rz = (sfsdata.GetFloat ( "rotation.z" ) != null ? sfsdata.GetFloat("rotation.z") : 0.0f);
-                float rw = (sfsdata.GetFloat ( "rotation.w" ) != null ? sfsdata.GetFloat("rotation.w") : 0.0f);
+                float px = sfsdata.GetFloat ( "position.x" );
+                float py = sfsdata.GetFloat ( "position.y" );
+                float pz = sfsdata.GetFloat ( "position.z" );
+                float rx = sfsdata.GetFloat ( "rotation.x" );
+                float ry = sfsdata.GetFloat ( "rotation.y" );
+                float rz = sfsdata.GetFloat ( "rotation.z" );
+                float rw = sfsdata.GetFloat ( "rotation.w" );
 
                 //ignore my own updates of position from server
                 if (id != SFSInstance.MySelf.Id) {
                     if (!GameManager.gameManager.Players.ContainsKey(id)) {
+                        GameManager.gameManager.AddRemotePlayer(id, "[!]ERROR[!]");
                         Debug.LogError("Player does not exist! What happened!?!?");
                     }
 
@@ -133,6 +135,13 @@ public class SFSClient : IClientController{
         Debug.Log ( "[Room Joined: " + room.Name + "]" );
         if ( room.IsGame ) {
             Application.LoadLevel ( "multiplayer" );
+            List<User> users = room.UserList;
+            foreach (User u in users) {
+                if (u.Id != SFSInstance.MySelf.Id) {
+                    GameManager.gameManager.AddRemotePlayer(u.Id, u.Name);
+                }
+            }
+            //GameManager.gameManager.ClientPlayer = GameObject.FindGameObjectWithTag("Player");
         }
         this.room = room.Name;
     }
@@ -164,7 +173,7 @@ public class SFSClient : IClientController{
     }
 
     private void OnUserExitRoom(BaseEvent evt) {
-        Debug.Log ( "[User Exit Room: " + ( ( User ) evt.Params[ "user" ] ).Name + "]" );
+        Debug.Log ( "[User Exit Room (" + ((Room)evt.Params["room"]).Name + "): " + ( ( User ) evt.Params[ "user" ] ).Name + "]" );
     }
 
     private void OnLogin(BaseEvent evt) {
@@ -242,6 +251,10 @@ public class SFSClient : IClientController{
                 SendRoomJoinRequest ( data );
                 break;
 
+            case DataType.SPAWNED:
+                SendSpawnRequest(data);
+                break;
+
             default:
                 Debug.LogError("Should not reach this point in Send( SendType, object)");
                 break;
@@ -304,6 +317,10 @@ public class SFSClient : IClientController{
     }
     //end eventmessenger interface methods
     //methods for send()
+    private void SendSpawnRequest(object data) {
+        SFSInstance.Send(new ExtensionRequest("server.spawn", new SFSObject(), null));
+    }
+
     private void SendTransform ( object data ) {
         SFSObject sfso = new SFSObject ();
         Transform t = data as Transform;
@@ -315,8 +332,11 @@ public class SFSClient : IClientController{
         sfso.PutFloat ( "rotation.y", t.rotation.y );
         sfso.PutFloat ( "rotation.z", t.rotation.z );
         sfso.PutFloat ( "rotation.w", t.rotation.w );
+        Debug.Log(t.position.ToString());
+        Debug.Log(t.rotation.ToString());
 
-        SFSInstance.Send ( new ExtensionRequest ( "server.transform", sfso, null, useUDP) );
+        SFSInstance.Send ( new ExtensionRequest ( "server.transform", sfso));//, null, useUDP) );
+        Debug.Log("data sent from client");
     }
 
     private void SendCharMessage ( object data ) {
@@ -330,7 +350,7 @@ public class SFSClient : IClientController{
 
     private void SendRoomRequest ( object data ) {
         RoomSettings settings = new RoomSettings ( SFSInstance.MySelf.Name + "'s game." );
-        settings.Extension = new RoomExtension("starboundaces", "com.gspteama.main.StarboundAcesExtension");
+        settings.Extension = new RoomExtension("StarboundAcesExtension", "com.gspteama.main.StarboundAcesExtension");
         settings.MaxUsers = 2;
         settings.IsGame = true;
         SFSInstance.Send ( new CreateRoomRequest ( settings, false ) );

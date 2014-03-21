@@ -10,6 +10,7 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
 	    server = GameManager.gameManager.ClientController;
         server.Register ( this );
         GameManager.gameManager.ClientPlayer = this.gameObject;
+        server.Send(DataType.SPAWNED, null);
 	}
 	
 	// Update is called once per frame
@@ -29,13 +30,14 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         }
     }
 
-    private float delay = 0.1f;
-    private float timepassed = 0.0f;
+    //private float delay = 0.1f;
+    //private float timepassed = 0.0f;
     private void SendData ( ) {
-        timepassed += Time.deltaTime;
-        if (timepassed >= delay) {
+        //timepassed += Time.deltaTime;
+        //if (timepassed >= delay) {
             server.Send(DataType.TRANSFORM, transform);
-            timepassed = 0.0f;
-        }
+            Debug.Log("sent data");
+            //timepassed = 0.0f;
+        //}
     }
 }
