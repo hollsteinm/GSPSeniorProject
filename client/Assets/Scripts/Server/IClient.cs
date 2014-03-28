@@ -8,7 +8,9 @@ public enum DataType{
     CHARMESSAGE,
     ROOMREQUEST,
     ROOMJOIN,
-    SPAWNED
+    SPAWNED,
+    FIRE,
+    DEATH
 };
 
 public interface IClient {

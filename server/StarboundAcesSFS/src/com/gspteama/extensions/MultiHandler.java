@@ -13,6 +13,8 @@ import com.smartfoxserver.v2.entities.data.SFSObject;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
 import com.smartfoxserver.v2.extensions.SFSExtension;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -33,6 +35,17 @@ public class MultiHandler extends BaseClientRequestHandler{
                 
             case "spawn":
                 handleSpawn(user, params);
+                break;
+                
+            case "fire":
+                trace("Player <" + user.getId() + "> is firing.");
+                handleFire(user, params);
+                break;
+                
+            case "death":
+                trace("Player <" + user.getId() + "> is dead.");
+                handleDeath(user, params);
+                break;
 
             default:
                 trace("Unrecognized request Id sent... ignoring");
@@ -41,33 +54,37 @@ public class MultiHandler extends BaseClientRequestHandler{
     }
     
     private void handleSpawn(User user, ISFSObject params){
-        trace("handling spawn");
-        Game game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
-        int playerid = user.getId();
-        Ship ship = game.getShip(playerid);
-        trace(ship.toString());
+        try {
+            trace("handling spawn");
+            Game game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
+            int playerid = user.getId();
+            Ship ship = game.getShip(playerid);
+            //trace(ship.toString());
 
-        ship.setPosition(new float[]{2*playerid, 2*playerid, 0.0f});
-        ISFSObject response = SFSObject.newInstance();
-        response.putInt("player", playerid);
-        response.putFloat("position.x", ship.getPosition()[0]);
-        response.putFloat("position.y", ship.getPosition()[1]);
-        response.putFloat("position.z", ship.getPosition()[2]);
-        response.putFloat("rotation.x", ship.getRotation()[0]);
-        response.putFloat("rotation.y", ship.getRotation()[1]);
-        response.putFloat("rotation.z", ship.getRotation()[2]);  
-        response.putFloat("rotation.w", ship.getRotation()[3]);
+            ship.setPosition(new float[]{2*playerid, 2*playerid, 0.0f});
+            ISFSObject response = SFSObject.newInstance();
+            response.putInt("player", playerid);
+            response.putFloat("position.x", ship.getPosition()[0]);
+            response.putFloat("position.y", ship.getPosition()[1]);
+            response.putFloat("position.z", ship.getPosition()[2]);
+            response.putFloat("rotation.x", ship.getRotation()[0]);
+            response.putFloat("rotation.y", ship.getRotation()[1]);
+            response.putFloat("rotation.z", ship.getRotation()[2]);  
+            response.putFloat("rotation.w", ship.getRotation()[3]);
 
-        //this.send("transform", response, user.getLastJoinedRoom().getPlayersList(), true);
-        send("transform", response, user.getLastJoinedRoom().getPlayersList());
+            //this.send("transform", response, user.getLastJoinedRoom().getPlayersList(), true);
+            send("transform", response, user.getLastJoinedRoom().getPlayersList());
+        } catch (Exception ex) {
+            Logger.getLogger(MultiHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
     
     private void handleTransform(User user, ISFSObject params){
         //try{
-            trace("handling transform");
+            //trace("handling transform");
             //Game game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
-            Ship ship = new Ship();//game.getShip(user.getId());
+            //Ship ship = game.getShip(user.getId());
 /*
             ship.setPosition(new float[]{
                 params.getFloat("position.x"), 
@@ -113,5 +130,21 @@ public class MultiHandler extends BaseClientRequestHandler{
         //    }
         //   e.printStackTrace();
         //}
+    }
+    
+    private void handleFire(User user, ISFSObject params){
+
+        ISFSObject response = SFSObject.newInstance();
+        response.putFloat("damage", params.getFloat("damage"));
+        response.putInt("player.hit.id", params.getInt("player.hit.id"));
+
+        send("player.hit", response, user.getLastJoinedRoom().getPlayersList());
+    }
+    
+    private void handleDeath(User user, ISFSObject params){
+        ISFSObject response = SFSObject.newInstance();
+        response.putInt("id", user.getId());
+        
+        send("death", response, user.getLastJoinedRoom().getPlayersList());
     }
 }

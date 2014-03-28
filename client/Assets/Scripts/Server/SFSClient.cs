@@ -100,35 +100,17 @@ public class SFSClient : IClientController{
 
         switch ( cmd ) {
             case "transform":
-                int id = sfsdata.GetInt ( "player" );
-
-                float px = sfsdata.GetFloat ( "position.x" );
-                float py = sfsdata.GetFloat ( "position.y" );
-                float pz = sfsdata.GetFloat ( "position.z" );
-                float rx = sfsdata.GetFloat ( "rotation.x" );
-                float ry = sfsdata.GetFloat ( "rotation.y" );
-                float rz = sfsdata.GetFloat ( "rotation.z" );
-                float rw = sfsdata.GetFloat ( "rotation.w" );
-
-                //ignore my own updates of position from server
-                if (id != SFSInstance.MySelf.Id) {
-                    if (!GameManager.gameManager.Players.ContainsKey(id)) {
-                        GameManager.gameManager.AddRemotePlayer(id, "[!]ERROR[!]");
-                        Debug.LogError("Player does not exist! What happened!?!?");
-                    }
-
-                    GameObject other = GameManager.gameManager.Players[id];
-
-                    other.transform.position = new Vector3(px, py, pz);
-                    other.transform.rotation = new Quaternion(rx, ry, rz, rw);
-                /*} else {
-                    //server is my boss, tell me where to go (mostly for spawns)
-                    GameObject player = GameManager.gameManager.ClientPlayer;
-                    player.transform.position = new Vector3(px, py, pz);
-                    player.transform.rotation = new Quaternion(rx, ry, rz, rw);
-                */}
-
+                TransformResponse(sfsdata);
                 break;
+
+            case "player.hit":
+                PlayerHitResponse(sfsdata);
+                break;
+
+            case "death":
+                DeathResponse(sfsdata);
+                break;
+            
             default:
                 break;
         }       
@@ -284,6 +266,14 @@ public class SFSClient : IClientController{
                 SendSpawnRequest(data);
                 break;
 
+            case DataType.FIRE:
+                SendFireRequest(data);
+                break;
+
+            case DataType.DEATH:
+                SendDeathRequest(data);
+                break;
+
             default:
                 Debug.LogError("Should not reach this point in Send( SendType, object)");
                 break;
@@ -391,5 +381,72 @@ public class SFSClient : IClientController{
             SFSInstance.Send ( new JoinRoomRequest ( data ) );
         }
     }
+
+    private void SendFireRequest(object data) {
+        SFSObject sfsdata = new SFSObject();
+        Dictionary<string, object> firedata = data as Dictionary<string, object>;
+
+        sfsdata.PutFloat("damage", (float)firedata["damage"]);
+        sfsdata.PutInt("player.hit.id", (int)firedata["player.hit.id"]);
+
+        SFSInstance.Send(new ExtensionRequest("server.fire", sfsdata, SFSInstance.LastJoinedRoom, useUDP));
+    }
+
+    private void SendDeathRequest(object data) {
+        SFSObject sfsdata = new SFSObject();
+        SFSInstance.Send(new ExtensionRequest("server.death", sfsdata, SFSInstance.LastJoinedRoom, useUDP));
+    }
     //end methods for send()
+    //methods for responses
+    private void TransformResponse(SFSObject sfsdata){
+        int id = sfsdata.GetInt("player");
+
+        float px = sfsdata.GetFloat("position.x");
+        float py = sfsdata.GetFloat("position.y");
+        float pz = sfsdata.GetFloat("position.z");
+        float rx = sfsdata.GetFloat("rotation.x");
+        float ry = sfsdata.GetFloat("rotation.y");
+        float rz = sfsdata.GetFloat("rotation.z");
+        float rw = sfsdata.GetFloat("rotation.w");
+
+        //ignore my own updates of position from server
+        if (id != SFSInstance.MySelf.Id) {
+            if (!GameManager.gameManager.Players.ContainsKey(id)) {
+                GameManager.gameManager.AddRemotePlayer(id, "[!]ERROR[!]");
+                Debug.LogError("Player does not exist! What happened!?!?");
+            }
+
+            GameObject other = GameManager.gameManager.Players[id];
+
+            other.transform.position = new Vector3(px, py, pz);
+            other.transform.rotation = new Quaternion(rx, ry, rz, rw);
+        } else {
+            //server is my boss, tell me where to go (mostly for spawns)
+            Dictionary<string, float> data = new Dictionary<string, float>();
+            data.Add("position.x", px);
+            data.Add("position.y", py);
+            data.Add("position.z", pz);
+            data.Add("rotation.x", rx);
+            data.Add("rotation.y", ry);
+            data.Add("rotation.z", rz);
+            data.Add("rotation.w", rw);
+            OnEvent("transform", data);
+        }
+    }
+
+    private void PlayerHitResponse(SFSObject sfsdata) {
+        float damage = sfsdata.GetFloat("damage");
+        int playerid = sfsdata.GetInt("player.hit.id");
+
+        if (playerid == SFSInstance.MySelf.Id) {
+            OnEvent("player.hit", damage);
+        } else {
+            //throw away for now, later, show feedback that other players are getting hit
+        }
+    }
+
+    private void DeathResponse(SFSObject sfsdata) {
+        GameManager.gameManager.RemoveRemotePlayer(sfsdata.GetInt("id"));
+    }
+    //end methods for response
 }

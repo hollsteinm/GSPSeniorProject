@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour {
     private GameType type;
 
     void FixedUpdate ( ) {
-        if ( client != null ) {
-            client.Update ();
+        if (client != null) {
+            client.Update();
         }
     }
 
@@ -107,7 +107,8 @@ public class GameManager : MonoBehaviour {
             GameObject newPlayer = (GameObject)Instantiate(Resources.Load("RemotePlayer"));
             players.Add(id, newPlayer);
             GameObject other = players[id];
-            other.GetComponent<RemotePlayer>().Name = name;
+            other.GetComponent<RemotePlayerScript>().Name = name;
+            other.GetComponent<RemotePlayerScript>().Id = id;
             Debug.Log("New Player added: " + id.ToString() + "/" + name);
         } else {
             queuedplayers.Add(id, name);
@@ -117,7 +118,8 @@ public class GameManager : MonoBehaviour {
 
     public void RemoveRemotePlayer(int id) {
         if (players.ContainsKey(id)) {
-            Destroy(players[id]);
+            GameObject obj = players[id];
+            Destroy(obj);
             players.Remove(id);
         }
     }

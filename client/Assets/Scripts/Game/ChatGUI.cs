@@ -64,6 +64,10 @@ public class ChatGUI : MonoBehaviour, IEventListener {
     public void Notify(string eventType, object o) {
         switch (eventType) {
             case "charmessage":
+                if (o.GetType() != typeof(string)) {
+                    return;
+                }
+
                 messages.Add((string)o);
                 scrollPos.y = Mathf.Infinity;
                 break;
