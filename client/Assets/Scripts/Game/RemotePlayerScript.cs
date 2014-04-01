@@ -3,35 +3,41 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class RemotePlayerScript : MonoBehaviour {
-    private string name = "";
-    GUIText guiText;
+public class RemotePlayerScript : MonoBehaviour, IEventListener {
+    private string username = "";
+    GUIText guiTextref;
     private int remoteId = -1;
-    private float localHealth = 0.0f;
-    IClient server;
+    private float localHealth = 100.0f;
+    IClientController server;
 
 	// Use this for initialization
 	void Start () {
-        guiText = gameObject.GetComponentInChildren<GUIText>();
-        guiText.text = name;
-        guiText.color = new Color(1.0f, 0.0f, 0.0f);
+        guiTextref = gameObject.GetComponentInChildren<GUIText>();
+        guiTextref.text = username;
+        guiTextref.color = new Color(1.0f, 0.0f, 0.0f);
         server = GameManager.gameManager.ClientController;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (localHealth <= 0.0f) {
-            Destroy(this);
-        }
+        server.Register(this);
 	}
 
-    public string Name {
+	// Update is called once per frame
+	void Update () {
+	}
+
+    void OnDestroy() {
+        //TODO: instantiate explosion prefab
+    }
+
+    public string Username {
         get {
-            return name;
+            return username;
         }
         set {
-            name = value;
-            guiText.text = name;
+            username = value;
+            try {
+                guiTextref.text = username;
+            } catch (System.Exception e) {
+                //eat it
+            }
         }
     }
 
@@ -44,4 +50,27 @@ public class RemotePlayerScript : MonoBehaviour {
         }
     }
 
+    public void Notify(string eventType, object o) {
+        switch (eventType) {
+            case "player.remote.hit":
+                Dictionary<string, object> data = o as Dictionary<string, object>;
+                if ((int)data["player.hit.id"] == remoteId) {
+                    localHealth -= (float)data["damage"];
+                    Debug.Log("Damage taken <Damage : Health> <" + ((float)data["damage"]).ToString() + " : " + localHealth.ToString() + ">");
+                }
+                break;
+
+            case "player.remote.death":
+                if ((int)o == remoteId) {
+                    GameManager.gameManager.RemoveRemotePlayer(remoteId);
+                }
+                break;
+
+            case "transform":
+                break;
+
+            default:
+                break;
+        }
+    }
 }

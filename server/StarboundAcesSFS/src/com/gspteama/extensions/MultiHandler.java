@@ -38,7 +38,8 @@ public class MultiHandler extends BaseClientRequestHandler{
                 break;
                 
             case "fire":
-                trace("Player <" + user.getId() + "> is firing.");
+                trace("Player <" + user.getId() + "> is firing at <" +
+                        params.getInt("player.hit.id"));
                 handleFire(user, params);
                 break;
                 
@@ -81,35 +82,6 @@ public class MultiHandler extends BaseClientRequestHandler{
     }
     
     private void handleTransform(User user, ISFSObject params){
-        //try{
-            //trace("handling transform");
-            //Game game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
-            //Ship ship = game.getShip(user.getId());
-/*
-            ship.setPosition(new float[]{
-                params.getFloat("position.x"), 
-                params.getFloat("position.y"), 
-                params.getFloat("position.z")
-            });
-            
-            ship.setRotation(new float[]{
-                params.getFloat("rotation.x"), 
-                params.getFloat("rosition.y"), 
-                params.getFloat("rosition.z"),
-                params.getFloat("rosition.w")
-            });
-
-
-            ISFSObject response = SFSObject.newInstance();
-            response.putInt("player", user.getId());
-            response.putFloat("position.x", ship.getPosition()[0]);
-            response.putFloat("position.y", ship.getPosition()[1]);
-            response.putFloat("position.z", ship.getPosition()[2]);
-            response.putFloat("rotation.x", ship.getRotation()[0]);
-            response.putFloat("rotation.y", ship.getRotation()[1]);
-            response.putFloat("rotation.z", ship.getRotation()[2]);  
-            response.putFloat("rotation.w", ship.getRotation()[3]);
-        */
             ISFSObject response = SFSObject.newInstance();
             response.putInt("player", user.getId());
             response.putFloat("position.x", params.getFloat("position.x"));
@@ -122,14 +94,6 @@ public class MultiHandler extends BaseClientRequestHandler{
             
             //this.send("transform", response, user.getLastJoinedRoom().getPlayersList(), true);
             send("transform", response, user.getLastJoinedRoom().getPlayersList());
-        //}catch(Exception e){
-        //    trace("exception in transform");
-        //    trace(e.getMessage());
-        //    for(StackTraceElement s : e.getStackTrace()){
-        //        trace(s.toString());
-        //    }
-        //   e.printStackTrace();
-        //}
     }
     
     private void handleFire(User user, ISFSObject params){

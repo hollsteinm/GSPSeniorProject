@@ -53,6 +53,7 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
 
                 float dmg = (float)o;
                 hullHealth -= dmg;
+                Debug.Log("Damage Taken by Client. Damage: " + dmg + " Remaining Health: " + hullHealth);
 
                 break;
             default:
@@ -70,6 +71,9 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         }
         if (hullHealth <= 0.0f) {
             server.Send(DataType.DEATH, null);
+            //TODO: handle death for player clientside
+            server.Send(DataType.ROOMJOIN, "lobby");
+            //TODO: be careful, the camera will be destroyed if the player is
         }
     }
 }

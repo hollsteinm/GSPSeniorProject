@@ -45,6 +45,39 @@ public class DummyClient : IClientController {
     }
 
     public void Send ( DataType type, object data ) {
+        switch (type) {
+            case DataType.CHARMESSAGE:
+                ForwardCharMessage(data);
+                break;
+
+            case DataType.DEATH:
+                ForwardDeath(data);
+                break;
+
+            case DataType.FIRE:
+                ForwardFire(data);
+                break;
+
+            case DataType.ROOMJOIN:
+                ForwardRoomJoinRequest(data);
+                break;
+
+            case DataType.ROOMREQUEST:
+                ForwardRoomRequest(data);
+                break;
+
+            case DataType.SPAWNED:
+                ForwardSpawned(data);
+                break;
+
+            case DataType.TRANSFORM:
+                ForwardTransform(data);
+                break;
+
+            default:
+                Debug.LogError("Unkown DataType... ignoring.");
+                break;
+        }
     }
 
     public void Update ( ) {
@@ -93,4 +126,58 @@ public class DummyClient : IClientController {
             el.Notify ( eventType, o );
         }
     }
+
+    //dummy client forwards (like send)
+    private void CheckType(object data, System.Type expected){
+        if (data.GetType() != expected) {
+            Debug.LogError("Wrong Type passed for message!\n[Expected]: " + expected.ToString() + "\n[Actual]: " + data.GetType().ToString());
+        }
+    }
+
+    private void ForwardTransform(object data) {
+        CheckType(data, typeof(Transform));
+    }
+
+    private void ForwardFire(object data) {
+        CheckType(data, typeof(Dictionary<string, object>));
+        Dictionary<string, object> fdata = data as Dictionary<string, object>;
+
+        float damage = (float)fdata["damage"];
+        int playerid = (int)fdata["player.hit.id"];
+        
+        GameObject other = null;
+        try {
+            other = GameManager.gameManager.Players[playerid];
+        } catch (System.Exception e) {
+            //throw it away
+        } finally {
+            Debug.Log("Forwarding Fire Message to: " + playerid.ToString());
+            if (other == null) {
+                OnEvent("player.hit", damage);
+            } else {
+                OnEvent("player.remote.hit", fdata);
+            }
+        }
+    }
+
+    private void ForwardDeath(object data){
+        //typical will be null data, don't need to check
+    }
+
+    private void ForwardSpawned(object data){
+        //will also not need to send any data
+    }
+
+    private void ForwardCharMessage(object data) {
+        CheckType(data, typeof(string));
+    }
+
+    private void ForwardRoomJoinRequest(object data) {
+        CheckType(data, typeof(string));
+    }
+
+    private void ForwardRoomRequest(object data) {
+        //will need to check for strings at a later date when we allow users to create rooms with thier own names
+    }
+    //end dummy client forwards
 }

@@ -43,14 +43,34 @@ public class GameManager : MonoBehaviour {
         if (client != null) {
             client.Update();
         }
+        if (queuedplayers.Count > 0) {
+            AddQueuedPlayers();
+        }
     }
 
     void OnLevelWasLoaded(int id) {
-        if (id == 4) { //multiplayer
-            foreach (int i in queuedplayers.Keys) {
-                AddRemotePlayer(id, queuedplayers[id]);
-                queuedplayers.Remove(i);
-            }
+        if (id == 4 || id == 2) { //multiplayer or singleplayer
+            AddQueuedPlayers();
+        }
+    }
+
+    private void AddQueuedPlayers() {
+        Debug.Log("Adding Queued Players");
+        Dictionary<int, string>.KeyCollection keys = queuedplayers.Keys;
+        int[] keylist = new int[keys.Count];
+        keys.CopyTo(keylist, 0);        
+
+        for(int i = 0; i < keys.Count; ++i){
+            int id = keylist[i];
+
+            GameObject other = (GameObject)Instantiate(Resources.Load("RemotePlayer"));
+            other.GetComponent<RemotePlayerScript>().Id = id;
+            other.GetComponent<RemotePlayerScript>().Username = queuedplayers[id];
+
+            players.Add(id, other);
+            queuedplayers.Remove(id);
+            Debug.Log("Player added <Id : Username> <" + other.GetComponent<RemotePlayerScript>().Id + " : "
+                + other.GetComponent<RemotePlayerScript>().Username + ">");
         }
     }
 
@@ -103,16 +123,11 @@ public class GameManager : MonoBehaviour {
     }
 
     public void AddRemotePlayer ( int id, string name ) {
-        if (Application.loadedLevelName == "multiplayer") {
-            GameObject newPlayer = (GameObject)Instantiate(Resources.Load("RemotePlayer"));
-            players.Add(id, newPlayer);
-            GameObject other = players[id];
-            other.GetComponent<RemotePlayerScript>().Name = name;
-            other.GetComponent<RemotePlayerScript>().Id = id;
-            Debug.Log("New Player added: " + id.ToString() + "/" + name);
-        } else {
-            queuedplayers.Add(id, name);
-            Debug.Log("Queueing Player: " + id.ToString() + "/" + name);
+        if (Application.loadedLevelName == "multiplayer" || Application.loadedLevelName == "singleplayer") {
+            if (!queuedplayers.ContainsKey(id)) {
+                queuedplayers.Add(id, name);
+                Debug.Log("Queueing Player: " + id.ToString() + "/" + name);
+            }
         }
     }
 
@@ -130,6 +145,14 @@ public class GameManager : MonoBehaviour {
         }
         set {
             clientPlayer = value;
+        }
+    }
+
+    private int fkplayers = 10000;
+    public void Update() {
+        if (Input.GetKeyDown(KeyCode.R) && Application.isEditor) {
+            AddRemotePlayer(fkplayers, "FakePlayer#"+fkplayers);
+            fkplayers++;
         }
     }
 }

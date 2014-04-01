@@ -130,10 +130,16 @@ public class SFSClient : IClientController{
     }
 
     private void OnPublicMessage(BaseEvent evt) {
-        Debug.Log("[Public Message]: " + (string)evt.Params["message"]);
         string message = (string)evt.Params["message"];
+        Debug.Log("[Public Message]: " + (string)evt.Params["message"]);
         User sender = (User)evt.Params["sender"];
-        string charmessage = sender.Name + "-> " + message;
+        string charmessage = "";
+        if (sender == null) {
+            //avoid null reference exception
+            charmessage = "???-> " + message;
+        } else {
+            charmessage = sender.Name + "-> " + message;
+        }
         OnEvent("charmessage", (string)charmessage);
     }
 
@@ -141,7 +147,9 @@ public class SFSClient : IClientController{
         Room room = ( Room ) evt.Params[ "room" ];
         Debug.Log ( "[Room Joined: " + room.Name + "]" );
         if ( room.IsGame ) {
+            UnregisterCallbacks();
             Application.LoadLevel ( "multiplayer" );
+            RegisterCallbacks();
             
             List<User> users = room.UserList;
             foreach (User u in users) {
@@ -335,6 +343,13 @@ public class SFSClient : IClientController{
         }
     }
     //end eventmessenger interface methods
+
+    private void CheckType(object data, System.Type expected) {
+        if (data.GetType() != expected) {
+            Debug.LogError("Wrong Type passed for message!\n[Expected]: " + expected.ToString() + "\n[Actual]: " + data.GetType().ToString());
+        }
+    }
+
     //methods for send()
     private void SendSpawnRequest(object data) {
         SFSInstance.Send(new ExtensionRequest("server.spawn", new SFSObject()));
@@ -441,12 +456,17 @@ public class SFSClient : IClientController{
         if (playerid == SFSInstance.MySelf.Id) {
             OnEvent("player.hit", damage);
         } else {
-            //throw away for now, later, show feedback that other players are getting hit
+            Debug.Log("Player hit: " + playerid.ToString());
+            Dictionary<string, object> fdata = new Dictionary<string, object>();
+            fdata.Add("player.hit.id", playerid);
+            fdata.Add("damage", damage);
+
+            OnEvent("player.remote.hit", fdata);
         }
     }
 
     private void DeathResponse(SFSObject sfsdata) {
-        GameManager.gameManager.RemoveRemotePlayer(sfsdata.GetInt("id"));
+        OnEvent("player.remote.death", sfsdata.GetInt("id"));
     }
     //end methods for response
 }
