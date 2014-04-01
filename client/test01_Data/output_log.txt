@@ -17,7 +17,131 @@ Platform assembly: C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Dat
 Loading C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
 Platform assembly: C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Data\Managed\SmartFox2X.dll (this message is harmless)
 Loading C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Data\Managed\SmartFox2X.dll into Unity Child Domain
-- Completed reload, in  0.135 seconds
+- Completed reload, in  0.137 seconds
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
+Platform assembly: C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Data\Managed\System.dll (this message is harmless)
+UnloadTime: 0.520126 ms
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 145.
+Total: 1.270374 ms (FindLiveObjects: 0.019675 ms CreateObjectMapping: 0.040207 ms MarkObjects: 0.393516 ms  DeleteObjects: 0.023953 ms)
+
+[SFS - ERROR] Exception initializing UDP: Object reference not set to an instance of an object
+Connection successful.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 0.345610 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 143.
+Total: 1.174561 ms (FindLiveObjects: 0.009410 ms CreateObjectMapping: 0.013687 ms MarkObjects: 0.570599 ms  DeleteObjects: 0.014543 ms)
+
+[Room Joined: lobby]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 0.510716 ms
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 145.
+Total: 1.326835 ms (FindLiveObjects: 0.011121 ms CreateObjectMapping: 0.017109 ms MarkObjects: 0.550923 ms  DeleteObjects: 0.007699 ms)
+
+[Room Added: AceGuest#48's game.]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Room Joined: AceGuest#48's game.]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[User Exit Room (lobby): AceGuest#48]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 0.504727 ms
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 172.
+Total: 1.694687 ms (FindLiveObjects: 0.011976 ms CreateObjectMapping: 0.013687 ms MarkObjects: 0.780189 ms  DeleteObjects: 0.008554 ms)
+
+Adding Queued Players
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[User Enter Room: AceGuest#47]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Queueing Player: 47/AceGuest#47
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Player does not exist! What happened!?!?
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+KeyNotFoundException: The given key was not present in the dictionary.
+  at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].get_Item (Int32 key) [0x00000] in <filename unknown>:0 
+  at SFSClient.TransformResponse (Sfs2X.Entities.Data.SFSObject sfsdata) [0x00000] in <filename unknown>:0 
+  at SFSClient.OnExtensionReponse (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
+  at Sfs2X.Core.EventDispatcher.DispatchEvent (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
+Rethrow as Exception: Error dispatching event extensionResponse: The given key was not present in the dictionary.   at System.Collections.Generic.Dictionary`2[System.Int32,UnityEngine.GameObject].get_Item (Int32 key) [0x00000] in <filename unknown>:0 
+  at SFSClient.TransformResponse (Sfs2X.Entities.Data.SFSObject sfsdata) [0x00000] in <filename unknown>:0 
+  at SFSClient.OnExtensionReponse (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
+  at Sfs2X.Core.EventDispatcher.DispatchEvent (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
+  at Sfs2X.Core.EventDispatcher.DispatchEvent (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
+  at Sfs2X.SmartFox.ProcessEvents () [0x00000] in <filename unknown>:0 
+  at SFSClient.Update () [0x00000] in <filename unknown>:0 
+  at GameManager.FixedUpdate () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+Adding Queued Players
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Player added <Id : Username> <47 : AceGuest#47>
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Player hit: 47
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Damage taken <Damage : Health> <100 : 0>
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Player hit: 47
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Damage taken <Damage : Health> <100 : -100>
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Player hit: 47
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Damage taken <Damage : Health> <100 : -200>
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Player hit: 47
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Damage taken <Damage : Health> <100 : -300>
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[User Exit Room (AceGuest#48's game.): AceGuest#47]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[SFS - ERROR] TCPSocketLayer: General error reading data from socket: Read failure   at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
+  at Sfs2X.Core.Sockets.TCPSocketLayer.Read () [0x00000] in <filename unknown>:0 

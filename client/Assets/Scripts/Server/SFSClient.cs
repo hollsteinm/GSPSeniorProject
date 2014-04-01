@@ -158,6 +158,10 @@ public class SFSClient : IClientController{
                     Debug.Log("User " + u.Name + " is in room.");
                 }
             }
+        } else if (room.Name == "lobby") {
+            UnregisterCallbacks();
+            Application.LoadLevel("lobby");
+            RegisterCallbacks();
         }
         this.room = room.Name;
     }
