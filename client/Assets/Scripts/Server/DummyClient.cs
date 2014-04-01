@@ -141,19 +141,15 @@ public class DummyClient : IClientController {
     private void ForwardFire(object data) {
         CheckType(data, typeof(Dictionary<string, object>));
         Dictionary<string, object> fdata = data as Dictionary<string, object>;
-
-        float damage = (float)fdata["damage"];
-        int playerid = (int)fdata["player.hit.id"];
         
         GameObject other = null;
         try {
-            other = GameManager.gameManager.Players[playerid];
+            other = GameManager.gameManager.Players[((int)fdata["player.hit.id"])];
         } catch (System.Exception e) {
             //throw it away
         } finally {
-            Debug.Log("Forwarding Fire Message to: " + playerid.ToString());
             if (other == null) {
-                OnEvent("player.hit", damage);
+                OnEvent("player.hit", data);
             } else {
                 OnEvent("player.remote.hit", fdata);
             }

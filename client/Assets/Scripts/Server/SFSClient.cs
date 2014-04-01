@@ -151,7 +151,7 @@ public class SFSClient : IClientController{
             Application.LoadLevel ( "multiplayer" );
             RegisterCallbacks();
             
-            List<User> users = room.UserList;
+            List<User> users = SFSInstance.LastJoinedRoom.UserList;
             foreach (User u in users) {
                 if (u.Id != SFSInstance.MySelf.Id) {
                     GameManager.gameManager.AddRemotePlayer(u.Id, u.Name);

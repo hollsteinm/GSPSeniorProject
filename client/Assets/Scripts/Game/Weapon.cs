@@ -13,16 +13,20 @@ public class Weapon : MonoBehaviour {
     public float effectCooldown;
     private float currCooldown = 0.0f;
     private float currEffectCooldown = 0.0f;
+    public Transform weaponMuzzlePoint;
 
 	// Use this for initialization
 	void Start () {
         server = GameManager.gameManager.ClientController;
         laser = GetComponent<LineRenderer>();
         laser.enabled = false;
+        if (weaponMuzzlePoint == null) {
+            weaponMuzzlePoint = transform;
+        }
 	}
 	
 	// Update is called once per frame
-	void LateUpdate () {
+	void FixedUpdate () {
         if (laser.enabled && currEffectCooldown <= 0.0f) {
             laser.enabled = false;
         } else if (currEffectCooldown > 0.0f) {
@@ -44,11 +48,16 @@ public class Weapon : MonoBehaviour {
         currEffectCooldown = effectCooldown;
 
         RaycastHit hitInfo = new RaycastHit();
-        if(Physics.Raycast(new Ray(transform.position, transform.TransformDirection(Vector3.forward)), out hitInfo, range)){
+        if(Physics.Raycast(new Ray(weaponMuzzlePoint.position, weaponMuzzlePoint.TransformDirection(Vector3.forward)), out hitInfo, range)){
             RemotePlayerScript rmplayer = hitInfo.collider.gameObject.GetComponent<RemotePlayerScript>();
             Dictionary<string, object> data = new Dictionary<string, object>();
             data.Add("damage", damage);
             data.Add("player.hit.id", rmplayer.Id);
+
+            Vector3 contactPoint = hitInfo.point;
+            data.Add("contact.point.x", contactPoint.x);
+            data.Add("contact.point.y", contactPoint.y);
+            data.Add("contact.point.z", contactPoint.z);
             server.Send(DataType.FIRE, data);
         }
         currCooldown = cooldown;

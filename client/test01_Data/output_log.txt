@@ -17,65 +17,65 @@ Platform assembly: C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Dat
 Loading C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Data\Managed\Assembly-UnityScript-firstpass.dll into Unity Child Domain
 Platform assembly: C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Data\Managed\SmartFox2X.dll (this message is harmless)
 Loading C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Data\Managed\SmartFox2X.dll into Unity Child Domain
-- Completed reload, in  0.137 seconds
+- Completed reload, in  0.141 seconds
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 Platform assembly: C:\Users\Martin\Documents\DeVry\GSP494\code\client\test01_Data\Managed\System.dll (this message is harmless)
-UnloadTime: 0.520126 ms
+UnloadTime: 0.518415 ms
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 145.
-Total: 1.270374 ms (FindLiveObjects: 0.019675 ms CreateObjectMapping: 0.040207 ms MarkObjects: 0.393516 ms  DeleteObjects: 0.023953 ms)
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 146.
+Total: 1.805043 ms (FindLiveObjects: 0.029086 ms CreateObjectMapping: 0.034218 ms MarkObjects: 0.486762 ms  DeleteObjects: 0.011121 ms)
 
 [SFS - ERROR] Exception initializing UDP: Object reference not set to an instance of an object
 Connection successful.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-UnloadTime: 0.345610 ms
+UnloadTime: 0.367852 ms
 Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 143.
-Total: 1.174561 ms (FindLiveObjects: 0.009410 ms CreateObjectMapping: 0.013687 ms MarkObjects: 0.570599 ms  DeleteObjects: 0.014543 ms)
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 144.
+Total: 1.182260 ms (FindLiveObjects: 0.009410 ms CreateObjectMapping: 0.013687 ms MarkObjects: 0.457676 ms  DeleteObjects: 0.006843 ms)
 
 [Room Joined: lobby]
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-UnloadTime: 0.510716 ms
+UnloadTime: 0.355875 ms
 Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 145.
-Total: 1.326835 ms (FindLiveObjects: 0.011121 ms CreateObjectMapping: 0.017109 ms MarkObjects: 0.550923 ms  DeleteObjects: 0.007699 ms)
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 146.
+Total: 1.344800 ms (FindLiveObjects: 0.010265 ms CreateObjectMapping: 0.014543 ms MarkObjects: 0.514137 ms  DeleteObjects: 0.005988 ms)
 
-[Room Added: AceGuest#48's game.]
+[Room Added: AceGuest#49's game.]
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-[Room Joined: AceGuest#48's game.]
+[Room Joined: AceGuest#49's game.]
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-[User Exit Room (lobby): AceGuest#48]
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-UnloadTime: 0.504727 ms
+UnloadTime: 0.364430 ms
 Unloading 4 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 172.
-Total: 1.694687 ms (FindLiveObjects: 0.011976 ms CreateObjectMapping: 0.013687 ms MarkObjects: 0.780189 ms  DeleteObjects: 0.008554 ms)
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 173.
+Total: 1.213057 ms (FindLiveObjects: 0.014543 ms CreateObjectMapping: 0.016253 ms MarkObjects: 0.431157 ms  DeleteObjects: 0.009410 ms)
 
 Adding Queued Players
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-[User Enter Room: AceGuest#47]
+[User Exit Room (lobby): AceGuest#51]
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Queueing Player: 47/AceGuest#47
+[User Enter Room: AceGuest#49]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Queueing Player: 49/AceGuest#49
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
@@ -103,43 +103,7 @@ Adding Queued Players
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player added <Id : Username> <47 : AceGuest#47>
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 47
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <100 : 0>
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 47
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <100 : -100>
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 47
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <100 : -200>
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 47
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <100 : -300>
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-[User Exit Room (AceGuest#48's game.): AceGuest#47]
+Player added <Id : Username> <49 : AceGuest#49>
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 

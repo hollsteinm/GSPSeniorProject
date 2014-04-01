@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ClientPlayer : MonoBehaviour, IEventListener {
     IClientController server;
     public float hullHealth = 100.0f;
+    public GameObject deathprefab;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +14,12 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         GameManager.gameManager.ClientPlayer = this.gameObject;
         server.Send(DataType.SPAWNED, null);
 	}
+
+    void OnDestroy() {
+        if (deathprefab != null) {
+            Instantiate(deathprefab, transform.position, transform.rotation);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -47,12 +54,20 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
                 break;
 
             case "player.hit":
-                if (o.GetType() != typeof(float)) {
+                if (o.GetType() != typeof(Dictionary<string, object>)) {
                     return;
                 }
 
-                float dmg = (float)o;
+                Dictionary<string, object> hitdata = o as Dictionary<string, object>;
+                float dmg = (float)hitdata["damage"];
+                Vector3 contactPoint = new Vector3(
+                    (float)hitdata["contact.point.x"],
+                    (float)hitdata["contact.point.y"],
+                    (float)hitdata["contact.point.z"]);
+                
                 hullHealth -= dmg;
+                Instantiate(Resources.Load("HitPrefab"), contactPoint, transform.rotation);
+
                 Debug.Log("Damage Taken by Client. Damage: " + dmg + " Remaining Health: " + hullHealth);
 
                 break;

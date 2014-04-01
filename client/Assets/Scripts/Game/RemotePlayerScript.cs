@@ -56,7 +56,14 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
                 Dictionary<string, object> data = o as Dictionary<string, object>;
                 if ((int)data["player.hit.id"] == remoteId) {
                     localHealth -= (float)data["damage"];
-                    Debug.Log("Damage taken <Damage : Health> <" + ((float)data["damage"]).ToString() + " : " + localHealth.ToString() + ">");
+                    Vector3 contactPoint = new Vector3(
+                        (float)data["contact.point.x"],
+                        (float)data["contact.point.y"],
+                        (float)data["contact.point.z"]);
+                    Instantiate(Resources.Load("HitPrefab"), contactPoint, transform.rotation);
+
+                    Debug.Log("Damage taken <Damage : Health> <" + ((float)data["damage"]).ToString() + " : " 
+                        + localHealth.ToString() + "> to remote player.");
                 }
                 break;
 
