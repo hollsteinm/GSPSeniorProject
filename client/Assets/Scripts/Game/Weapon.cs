@@ -49,16 +49,21 @@ public class Weapon : MonoBehaviour {
 
         RaycastHit hitInfo = new RaycastHit();
         if(Physics.Raycast(new Ray(weaponMuzzlePoint.position, weaponMuzzlePoint.TransformDirection(Vector3.forward)), out hitInfo, range)){
-            RemotePlayerScript rmplayer = hitInfo.collider.gameObject.GetComponent<RemotePlayerScript>();
-            Dictionary<string, object> data = new Dictionary<string, object>();
-            data.Add("damage", damage);
-            data.Add("player.hit.id", rmplayer.Id);
+            RemotePlayerScript rmplayer = null;
+            try {
+                rmplayer = hitInfo.collider.gameObject.GetComponent<RemotePlayerScript> ();
+                Dictionary<string, object> data = new Dictionary<string, object> ();
+                data.Add ( "damage", damage );
+                data.Add ( "player.hit.id", rmplayer.Id );
 
-            Vector3 contactPoint = hitInfo.point;
-            data.Add("contact.point.x", contactPoint.x);
-            data.Add("contact.point.y", contactPoint.y);
-            data.Add("contact.point.z", contactPoint.z);
-            server.Send(DataType.FIRE, data);
+                Vector3 contactPoint = hitInfo.point;
+                data.Add ( "contact.point.x", contactPoint.x );
+                data.Add ( "contact.point.y", contactPoint.y );
+                data.Add ( "contact.point.z", contactPoint.z );
+                server.Send ( DataType.FIRE, data );
+            } catch ( System.Exception e ) {
+                //here I actually intend to ignore the null reference because that means i hit something that isn't a player.
+            }
         }
         currCooldown = cooldown;
     }

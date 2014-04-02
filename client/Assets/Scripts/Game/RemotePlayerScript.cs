@@ -53,24 +53,11 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
     public void Notify(string eventType, object o) {
         switch (eventType) {
             case "player.remote.hit":
-                Dictionary<string, object> data = o as Dictionary<string, object>;
-                if ((int)data["player.hit.id"] == remoteId) {
-                    localHealth -= (float)data["damage"];
-                    Vector3 contactPoint = new Vector3(
-                        (float)data["contact.point.x"],
-                        (float)data["contact.point.y"],
-                        (float)data["contact.point.z"]);
-                    Instantiate(Resources.Load("HitPrefab"), contactPoint, transform.rotation);
-
-                    Debug.Log("Damage taken <Damage : Health> <" + ((float)data["damage"]).ToString() + " : " 
-                        + localHealth.ToString() + "> to remote player.");
-                }
+                handlePlayerRemoteHit ( o );
                 break;
 
             case "player.remote.death":
-                if ((int)o == remoteId) {
-                    GameManager.gameManager.RemoveRemotePlayer(remoteId);
-                }
+                handlePlayerRemoteDeath ( o );
                 break;
 
             case "transform":
@@ -79,5 +66,46 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
             default:
                 break;
         }
+    }
+
+    private void handlePlayerRemoteHit(object o){
+        Dictionary<string, object> data = o as Dictionary<string, object>;
+        if ( ( int ) data[ "player.hit.id" ] == remoteId ) {
+            localHealth -= ( float ) data[ "damage" ];
+            Vector3 contactPoint = new Vector3 (
+                ( float ) data[ "contact.point.x" ],
+                ( float ) data[ "contact.point.y" ],
+                ( float ) data[ "contact.point.z" ] );
+            Instantiate ( Resources.Load ( "HitPrefab" ), contactPoint, transform.rotation );
+
+            Debug.Log ( "Damage taken <Damage : Health> <" + ( ( float ) data[ "damage" ] ).ToString () + " : "
+                + localHealth.ToString () + "> to remote player." );
+        }
+    }
+
+    private void handlePlayerRemoteDeath ( object o ) {
+        if ( ( int ) o == remoteId ) {
+            GameManager.gameManager.RemoveRemotePlayer ( remoteId );
+        }
+    }
+
+    private void handleTransform ( object o ) {
+        Dictionary<string, object> data = o as Dictionary<string, object>;
+        int id = (int)data["id"];
+
+        if ( id != remoteId ) {
+            return;
+        }
+
+        float px = (float)data["position.x"];
+        float py = (float)data["position.y"];
+        float pz = (float)data["position.z"];
+        float rx = (float)data["rotation.x"];
+        float ry = (float)data["rotation.y"];
+        float rz = (float)data["rotation.z"];
+        float rw = (float)data["rotation.w"];
+
+        transform.position = new Vector3 ( px, py, pz );
+        transform.rotation = new Quaternion ( rx, ry, rz, rw );
     }
 }

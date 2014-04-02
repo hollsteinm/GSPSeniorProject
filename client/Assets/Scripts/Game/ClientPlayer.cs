@@ -32,9 +32,8 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         }
 
         switch ( eventType ) {
-            case "transform":
+            case "spawn":
                 //early out for debugging due to 'jittering' issue on spawn - conflicting information, need to have a gameStart() method
-                return;
                 if (o.GetType() != typeof(Dictionary<string, float>)) {
                     return;
                 }
@@ -87,7 +86,7 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         if (hullHealth <= 0.0f) {
             server.Send(DataType.DEATH, null);
             //TODO: handle death for player clientside
-            server.Send(DataType.ROOMJOIN, "lobby");
+            server.Send(DataType.JOINGAME, "lobby");
             //TODO: be careful, the camera will be destroyed if the player is
         }
     }

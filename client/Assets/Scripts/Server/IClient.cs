@@ -6,8 +6,8 @@ using System.Collections;
 public enum DataType{
     TRANSFORM = 0,
     CHARMESSAGE,
-    ROOMREQUEST,
-    ROOMJOIN,
+    MAKEGAME,
+    JOINGAME,
     SPAWNED,
     FIRE,
     DEATH

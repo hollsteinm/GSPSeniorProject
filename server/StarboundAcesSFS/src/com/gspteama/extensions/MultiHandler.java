@@ -61,8 +61,9 @@ public class MultiHandler extends BaseClientRequestHandler{
             int playerid = user.getId();
             Ship ship = game.getShip(playerid);
             //trace(ship.toString());
-
-            ship.setPosition(new float[]{2*playerid, 2*playerid, 0.0f});
+            
+            int size = user.getLastJoinedRoom().getUserList().size();
+            ship.setPosition( new float[]{ 2.0f * size, 2.0f * size, 0.0f } );
             ISFSObject response = SFSObject.newInstance();
             response.putInt("player", playerid);
             response.putFloat("position.x", ship.getPosition()[0]);
@@ -74,7 +75,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             response.putFloat("rotation.w", ship.getRotation()[3]);
 
             //this.send("transform", response, user.getLastJoinedRoom().getPlayersList(), true);
-            send("transform", response, user.getLastJoinedRoom().getPlayersList());
+            send("spawn", response, user.getLastJoinedRoom().getPlayersList());
         } catch (Exception ex) {
             Logger.getLogger(MultiHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -101,6 +102,9 @@ public class MultiHandler extends BaseClientRequestHandler{
         ISFSObject response = SFSObject.newInstance();
         response.putFloat("damage", params.getFloat("damage"));
         response.putInt("player.hit.id", params.getInt("player.hit.id"));
+        response.putFloat("contact.point.x", params.getFloat("contact.point.x"));
+        response.putFloat("contact.point.y", params.getFloat("contact.point.y"));
+        response.putFloat("contact.point.z", params.getFloat("contact.point.z"));
 
         send("player.hit", response, user.getLastJoinedRoom().getPlayersList());
     }

@@ -58,11 +58,11 @@ public class DummyClient : IClientController {
                 ForwardFire(data);
                 break;
 
-            case DataType.ROOMJOIN:
+            case DataType.JOINGAME:
                 ForwardRoomJoinRequest(data);
                 break;
 
-            case DataType.ROOMREQUEST:
+            case DataType.MAKEGAME:
                 ForwardRoomRequest(data);
                 break;
 

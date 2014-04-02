@@ -17,3 +17,4 @@ client/client-csharp.sln
 client/client.sln
 /server/StarboundAcesSFS/dist/
 /server/StarboundAcesSFS/build/
+client/test01_Data/output_log.txt
