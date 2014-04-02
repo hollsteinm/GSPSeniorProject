@@ -11,12 +11,11 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
 	void Start () {
 	    server = GameManager.gameManager.ClientController;
         server.Register ( this );
-        GameManager.gameManager.ClientPlayer = this.gameObject;
         server.Send(DataType.SPAWNED, null);
 	}
 
     void OnDestroy() {
-        if (deathprefab != null) {
+        if (deathprefab != null ) {
             Instantiate(deathprefab, transform.position, transform.rotation);
         }
     }
@@ -85,9 +84,7 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         }
         if (hullHealth <= 0.0f) {
             server.Send(DataType.DEATH, null);
-            //TODO: handle death for player clientside
-            server.Send(DataType.JOINGAME, "lobby");
-            //TODO: be careful, the camera will be destroyed if the player is
+            Destroy ( gameObject );
         }
     }
 }

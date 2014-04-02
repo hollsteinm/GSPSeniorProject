@@ -139,15 +139,6 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    public GameObject ClientPlayer {
-        get {
-            return clientPlayer;
-        }
-        set {
-            clientPlayer = value;
-        }
-    }
-
     private int fkplayers = 10000;
     public void Update() {
         if (Input.GetKeyDown(KeyCode.R) && Application.isEditor) {
@@ -155,4 +146,6 @@ public class GameManager : MonoBehaviour {
             fkplayers++;
         }
     }
+
+
 }

@@ -61,6 +61,7 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
                 break;
 
             case "transform":
+                handleTransform ( o );
                 break;
 
             default:

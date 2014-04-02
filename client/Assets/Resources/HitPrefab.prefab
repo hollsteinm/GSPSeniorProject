@@ -42,7 +42,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 852dbcf58ed2c6f4faee03920a6bc733, type: 2}
+  - {fileID: 2100000, guid: e667992b28845df99060a8f876d1d11b, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251a3e44892a0ad4ca4cf4975a28151c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectLength: 1
+  effectLength: .25
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1
