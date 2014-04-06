@@ -81,6 +81,9 @@ public class StarboundAcesExtension extends SFSExtension{
         signup.getConfig().maxPasswordLength = 64;
         
         signup.getConfig().passwordMode = PasswordMode.MD5;
+        signup.getConfig().usernameField = UsernameTable.ROW_USER_NAME;
+        signup.getConfig().passwordField = UsernameTable.ROW_USER_PASSWORD;
+        signup.getConfig().emailField = UsernameTable.ROW_USER_EMAIL;
         signup.getConfig().userIsActiveField = UsernameTable.ROW_USER_STATE;
         signup.getConfig().activationCodeField = UsernameTable.ROW_USER_ACTIVATION_CODE;
         signup.getConfig().logSQL = true;

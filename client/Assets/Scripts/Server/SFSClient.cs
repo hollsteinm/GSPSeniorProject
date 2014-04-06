@@ -115,6 +115,10 @@ public class SFSClient : IClientController {
                 SpawnResponse ( sfsdata );
                 break;
 
+            case "$SignUp.Submit":
+                SignUpResponse(sfsdata);
+                break;
+
             default:
                 break;
         }
@@ -130,7 +134,7 @@ public class SFSClient : IClientController {
     }
 
     private void OnLogout ( BaseEvent evt ) {
-        Debug.Log ( "[User Logged Out: " + ( ( User ) evt.Params[ "user" ] ).Name + "]" );
+        Debug.Log ( "User Logged Out" );
     }
 
     private void OnPublicMessage ( BaseEvent evt ) {
@@ -202,7 +206,12 @@ public class SFSClient : IClientController {
         } else {
             // On to the lobby
             currentMessage = "Successful Login.";
-            Application.LoadLevel ( "lobby" );
+
+            if (Application.loadedLevelName != "register") {
+                Application.LoadLevel("lobby");
+            } else {
+                OnEvent("login.success", null);
+            }
         }
     }
 
@@ -229,8 +238,14 @@ public class SFSClient : IClientController {
     //start client interface methods
     public void Login ( string username, string password ) {
         this.username = username;
-        //TODO: implement using a password.
+        if (!password.Equals("")) {
+            password = Sfs2X.Util.PasswordUtil.MD5Password(password);
+        }
         SFSInstance.Send ( new LoginRequest ( this.username, password, "StarboundAces" ) );
+    }
+
+    public void Logout() {
+        SFSInstance.Send(new LogoutRequest());
     }
 
     public void Disconnect ( ) {
@@ -279,6 +294,10 @@ public class SFSClient : IClientController {
 
             case DataType.DEATH:
                 SendDeathRequest ( data );
+                break;
+
+            case DataType.REGISTER:
+                SendRegistrationRequest(data);
                 break;
 
             default:
@@ -350,6 +369,19 @@ public class SFSClient : IClientController {
     }
 
     //methods for send()
+    private void SendRegistrationRequest(object data) {
+        Dictionary<string, string> cdata = data as Dictionary<string, string>;
+        SFSObject sfsdata = new SFSObject();
+        sfsdata.PutUtfString("user_name", cdata["username"]);
+        sfsdata.PutUtfString("user_password", cdata["password"]);
+        sfsdata.PutUtfString("user_email", cdata["email"]);
+        Debug.Log(sfsdata.GetUtfString("user_name"));
+        Debug.Log(sfsdata.GetUtfString("user_password"));
+        Debug.Log(sfsdata.GetUtfString("user_email"));
+
+        SFSInstance.Send(new ExtensionRequest("$SignUp.Submit", sfsdata));
+    }
+
     private void SendSpawnRequest ( object data ) {
         SFSInstance.Send ( new ExtensionRequest ( "server.spawn", new SFSObject () ) );
     }
@@ -416,6 +448,15 @@ public class SFSClient : IClientController {
     }
     //end methods for send()
     //methods for responses
+    private void SignUpResponse(SFSObject sfsdata) {
+        bool success = sfsdata.GetBool("success");
+        if (success) {
+            OnEvent("register", "Registration successful, please check your email for further instructions.");
+        } else {
+            OnEvent("register", sfsdata.GetUtfString("errorMessage"));
+        }
+    }
+
     private void SpawnResponse ( SFSObject sfsdata ) {
         int id = sfsdata.GetInt ( "player" );
         if ( id != SFSInstance.MySelf.Id ) {

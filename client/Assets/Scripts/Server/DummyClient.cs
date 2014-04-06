@@ -15,6 +15,10 @@ public class DummyClient : IClientController {
     private DummyClient ( ) {
     }
 
+    public void Logout() {
+        Debug.Log("Logged Out");
+    }
+
     public static DummyClient Singleton {
         get {
             if ( _instance == null ) {

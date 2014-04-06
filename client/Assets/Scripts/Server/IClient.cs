@@ -10,7 +10,8 @@ public enum DataType{
     JOINGAME,
     SPAWNED,
     FIRE,
-    DEATH
+    DEATH,
+    REGISTER
 };
 
 public interface IClient {
@@ -19,6 +20,7 @@ public interface IClient {
     void Connect(string server, int port);
     void Send(DataType type, object data);
     void Update();
+    void Logout();
 
     string Username {
         get;
