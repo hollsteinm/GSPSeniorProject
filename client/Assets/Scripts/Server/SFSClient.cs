@@ -50,6 +50,7 @@ public class SFSClient : IClientController {
 
         SFSInstance.AddEventListener ( SFSEvent.LOGIN, OnLogin );
         SFSInstance.AddEventListener ( SFSEvent.LOGOUT, OnLogout );
+        SFSInstance.AddEventListener ( SFSEvent.LOGIN_ERROR, OnLoginError );
 
         SFSInstance.AddEventListener ( SFSEvent.EXTENSION_RESPONSE, OnExtensionReponse );
         SFSInstance.AddEventListener ( SFSEvent.PUBLIC_MESSAGE, OnPublicMessage );
@@ -69,6 +70,7 @@ public class SFSClient : IClientController {
 
         SFSInstance.RemoveEventListener ( SFSEvent.LOGIN, OnLogin );
         SFSInstance.RemoveEventListener ( SFSEvent.LOGOUT, OnLogout );
+        SFSInstance.RemoveEventListener ( SFSEvent.LOGIN_ERROR, OnLoginError );
 
         SFSInstance.RemoveEventListener ( SFSEvent.EXTENSION_RESPONSE, OnExtensionReponse );
         SFSInstance.RemoveEventListener ( SFSEvent.PUBLIC_MESSAGE, OnPublicMessage );
@@ -140,6 +142,11 @@ public class SFSClient : IClientController {
     private void OnPublicMessage ( BaseEvent evt ) {
         string message = ( string ) evt.Params[ "message" ];
         OnEvent ( "charmessage", message );
+    }
+
+    private void OnLoginError( BaseEvent evt ) {
+        string message = (string)evt.Params["errorMessage"];
+        Debug.Log(message);
     }
 
     private void OnJoinRoom ( BaseEvent evt ) {

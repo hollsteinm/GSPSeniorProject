@@ -62,13 +62,14 @@ public class StarboundAcesExtension extends SFSExtension{
     private void login(){
         login = new LoginAssistantComponent(this);
         login.getConfig().loginTable = UsernameTable.TABLE_NAME;
-        login.getConfig().userNameField = UsernameTable.ROW_USER_NAME;
-        login.getConfig().passwordField = UsernameTable.ROW_USER_PASSWORD;
+        login.getConfig().userNameField = UsernameTable.COL_USER_NAME;
+        login.getConfig().passwordField = UsernameTable.COL_USER_PASSWORD;
+        login.getConfig().allowGuests = true;
         login.getConfig().useCaseSensitiveNameChecks = true;
-        login.getConfig().activationField = UsernameTable.ROW_USER_ACTIVATION_CODE;
-        login.getConfig().activationErrorMessage =
-                "Your account is not yet activated. "+
-                "Please check you inbox for the confirmation email";
+        //login.getConfig().activationField = UsernameTable.COL_USER_ACTIVATION_CODE;
+        //login.getConfig().activationErrorMessage =
+        //        "Your account is not yet activated. "+
+        //        "Please check you inbox for the confirmation email";
         login.getConfig().postProcessPlugin = new LoginAssistantPlugin();
     }
     
@@ -81,15 +82,16 @@ public class StarboundAcesExtension extends SFSExtension{
         signup.getConfig().maxPasswordLength = 64;
         
         signup.getConfig().passwordMode = PasswordMode.MD5;
-        signup.getConfig().usernameField = UsernameTable.ROW_USER_NAME;
-        signup.getConfig().passwordField = UsernameTable.ROW_USER_PASSWORD;
-        signup.getConfig().emailField = UsernameTable.ROW_USER_EMAIL;
-        signup.getConfig().userIsActiveField = UsernameTable.ROW_USER_STATE;
-        signup.getConfig().activationCodeField = UsernameTable.ROW_USER_ACTIVATION_CODE;
+        signup.getConfig().idField = UsernameTable.COL_USER_ID;
+        signup.getConfig().usernameField = UsernameTable.COL_USER_NAME;
+        signup.getConfig().passwordField = UsernameTable.COL_USER_PASSWORD;
+        signup.getConfig().emailField = UsernameTable.COL_USER_EMAIL;
+        //signup.getConfig().userIsActiveField = UsernameTable.COL_USER_STATE;
+        //signup.getConfig().activationCodeField = UsernameTable.COL_USER_ACTIVATION_CODE;
         signup.getConfig().logSQL = true;
         
         signup.getConfig().emailResponse.isActive = true;
-        signup.getConfig().emailResponse.fromAddress = "signup@starboundaces.com";
+        signup.getConfig().emailResponse.fromAddress = "starboundaces@gmail.com";
         signup.getConfig().emailResponse.subject = "Starbound Aces Registration";
         signup.getConfig().emailResponse.template = "SignUpEmailTemplates/SignUpConfirmation.html";
         signup.getConfig().preProcessPlugin = new SignUpAssistantPlugin();

@@ -10,9 +10,9 @@ package com.gspteama.db;
  */
 public class ScoreTable {
     public static final String      TABLE_NAME          = "sa_score";
-    public static final String      ROW_SCORE_ID        = "score_id";
-    public static final String      ROW_SCORE_VALUE     = "score_value";
-    public static final String      ROW_SCORE_USER_ID   = "score_user_id";
+    public static final String      COL_SCORE_ID        = "score_id";
+    public static final String      COL_SCORE_VALUE     = "score_value";
+    public static final String      COL_SCORE_USER_ID   = "score_user_id";
     
     private long    score   = 0;
     private int     userid  ;

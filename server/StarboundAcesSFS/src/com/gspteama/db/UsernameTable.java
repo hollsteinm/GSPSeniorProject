@@ -12,13 +12,13 @@ import java.util.Date;
  */
 public class UsernameTable {
     public static final String  TABLE_NAME                  = "sa_user";
-    public static final String  ROW_USER_NAME               = "user_name";
-    public static final String  ROW_USER_ID                 = "user_id";
-    public static final String  ROW_USER_PASSWORD           = "user_password";
-    public static final String  ROW_USER_ACTIVATION_CODE    = "user_activation_code";
-    public static final String  ROW_USER_JOIN_DATE          = "user_join_date";
-    public static final String  ROW_USER_EMAIL              = "user_email";
-    public static final String  ROW_USER_STATE              = "user_state";
+    public static final String  COL_USER_NAME               = "user_name";
+    public static final String  COL_USER_ID                 = "user_id";
+    public static final String  COL_USER_PASSWORD           = "user_password";
+    public static final String  COL_USER_ACTIVATION_CODE    = "user_activation_code";
+    public static final String  COL_USER_JOIN_DATE          = "user_join_date";
+    public static final String  COL_USER_EMAIL              = "user_email";
+    public static final String  COL_USER_STATE              = "user_state";
     
     private String  username    = "";
     private String  password    = "";

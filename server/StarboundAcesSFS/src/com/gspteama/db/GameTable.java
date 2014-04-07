@@ -13,13 +13,13 @@ import java.util.Date;
  */
 public class GameTable {
     public static final String      TABLE_NAME          = "sa_game";
-    public static final String      ROW_USER_LIST       = "game_user_list";
-    public static final String      ROW_GAME_ID         = "game_id";
-    public static final String      ROW_GAME_NAME       = "game_name";
-    public static final String      ROW_GAME_PASSWORD   = "game_password";
-    public static final String      ROW_GAME_STATE      = "game_state";
-    public static final String      ROW_GAME_START_TIME = "game_start_time";
-    public static final String      ROW_GAME_END_TIME   = "game_end_time";
+    public static final String      COL_USER_LIST       = "game_user_list";
+    public static final String      COL_GAME_ID         = "game_id";
+    public static final String      COL_GAME_NAME       = "game_name";
+    public static final String      COL_GAME_PASSWORD   = "game_password";
+    public static final String      COL_GAME_STATE      = "game_state";
+    public static final String      COL_GAME_START_TIME = "game_start_time";
+    public static final String      COL_GAME_END_TIME   = "game_end_time";
     
     private ArrayList<Integer>  joinedUserIds   = new ArrayList<Integer>();
     private String              gameName        = "";
