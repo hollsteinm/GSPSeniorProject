@@ -9,6 +9,19 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
     private string message = "";
     private IClientController server;
 
+    public Rect usernameRect;
+    public Rect passwordRect;
+    public Rect emailRect;
+    public Rect registerRect;
+    public Rect backRect;
+    public Rect messageRect;
+
+    public GUIContent registerContent;
+    public GUIContent backContent;
+
+    public GUIStyle registrationStyle;
+    public GUIStyle messageStyle;
+
 	// Use this for initialization
 	void Start () {
         server = GameManager.gameManager.ClientController;
@@ -25,7 +38,7 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
         DrawEmail();
         DrawPassword();
 
-        if (GUI.Button(new Rect(0, 224, Screen.width, 64), "Register")) {
+        if (GUI.Button(registerRect, registerContent, registrationStyle)) {
             if (!username.Equals("") && !password.Equals("") && !email.Equals("")) {
                 message = "Submitting...";
 
@@ -36,23 +49,23 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
             }
         }
 
-        if (GUI.Button(new Rect(0, 288, Screen.width, 64), "Back")) {
+        if (GUI.Button(backRect, backContent, registrationStyle)) {
             Application.LoadLevel("login");
         }
 
-        GUI.TextArea(new Rect(0, 352, Screen.width, 64), message);
+        GUI.TextArea(messageRect, message, messageStyle);
     }
 
     private void DrawUsername() {
-        username = GUI.TextField(new Rect(0, 32, Screen.width, 64), username, 64);
+        username = GUI.TextField(usernameRect, username, 64);
     }
 
     private void DrawEmail() {
-        email = GUI.TextField(new Rect(0, 96, Screen.width, 64), email, 64);
+        email = GUI.TextField(emailRect, email, 128);
     }
 
     private void DrawPassword() {
-        password = GUI.PasswordField(new Rect(0, 160, Screen.width, 64), password, '*', 64);
+        password = GUI.PasswordField(passwordRect, password, '*', 64);
     }
 
     public void Notify(string eventType, object o) {

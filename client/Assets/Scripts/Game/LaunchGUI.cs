@@ -2,39 +2,53 @@
 using System.Collections;
 
 public class LaunchGUI : MonoBehaviour {
+    public Rect singlePlayerRect;
+    public Rect multiPlayerRect;
+    public Rect creditsRect;
+    public Rect highScoreRect;
+    public Rect quitRect;
+
+    public GUIStyle launchStyle;
+
+    public GUIContent singlePlayerContent;
+    public GUIContent multiPlayerContent;
+    public GUIContent creditContent;
+    public GUIContent highScoreContent;
+    public GUIContent quitContent;
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 	
 	}
 
     void OnGUI ( ) {
-        if ( GUI.Button ( new Rect ( 0, 32, Screen.width, 64 ), "Single Player" ) ) {
+        if ( GUI.Button ( singlePlayerRect, singlePlayerContent, launchStyle ) ) {
             GameManager.gameManager.gameType = GameType.SINGLEPLAYER;
             Application.LoadLevel ( "singleplayer" );
         }
 
-        if ( GUI.Button ( new Rect ( 0, 128, Screen.width, 64 ), "Multi Player" ) ) {
+        if ( GUI.Button ( multiPlayerRect, multiPlayerContent, launchStyle ) ) {
             GameManager.gameManager.gameType = GameType.MULTIPLAYER;
             Application.LoadLevel ( "login" );
         }
 
-        if (GUI.Button(new Rect(0, 224, Screen.width, 64), "High Scores")) {
+        if (GUI.Button(highScoreRect, highScoreContent, launchStyle)) {
             GameManager.gameManager.gameType = GameType.MULTIPLAYER;
             Application.LoadLevel("highscores");
         }
 
-        if (GUI.Button(new Rect(0, 320, Screen.width, 64), "Credits")) {
+        if (GUI.Button(creditsRect, creditContent, launchStyle)) {
             GameManager.gameManager.gameType = GameType.SINGLEPLAYER;
             Application.LoadLevel("credits");
         }
 
-        if (GUI.Button(new Rect(0, 416, Screen.width, 64), "Quit")) {
+        if (GUI.Button(quitRect, quitContent, launchStyle)) {
             Application.Quit();
         }
     }

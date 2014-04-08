@@ -6,6 +6,16 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
     private IClientController server = null;
     private List<string> createdGames = new List<string> ();
 
+    public GUIStyle lobbyStyle;
+
+    public GUIContent playContent;
+    public Rect playRect;
+
+    public float gameListHeight;
+    public float gameListWdith;
+    public float gameListX;
+    public float gameListY;
+
 	// Use this for initialization
 	void Start () {
         server = GameManager.gameManager.ClientController;
@@ -20,7 +30,7 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
 	}
 
     void OnGUI ( ) {
-        if ( GUI.Button ( new Rect ( 0, 32, Screen.width, 64 ), "Play" ) ) {
+        if ( GUI.Button ( playRect, playContent, lobbyStyle ) ) {
             server.Send ( DataType.MAKEGAME, null );
         }
         DrawGameList ();
@@ -39,12 +49,12 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
     }
 
     private void DrawGameList ( ) {
-        int top = 96;
+        float top = gameListY;
         foreach ( string s in createdGames ) {
-            if ( GUI.Button ( new Rect ( 0, top, Screen.width, 32 ), s ) ) {
+            if ( GUI.Button ( new Rect ( gameListX, top, gameListWdith, gameListHeight ), s, lobbyStyle ) ) {
                 server.Send ( DataType.JOINGAME, s );
             }
-            top += 32;
+            top += gameListHeight;
         }
     }
 }

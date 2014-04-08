@@ -6,6 +6,18 @@ public class LoginGUI : MonoBehaviour, IEventListener {
     private string username = "Username";
     private string password = "";
 
+    public GUIStyle loginStyle;
+
+    public Rect usernameRect;
+    public Rect passwordRect;
+    public Rect loginRect;
+    public Rect guestRect;
+    public Rect registerRect;
+
+    public GUIContent loginContent;
+    public GUIContent guestContent;
+    public GUIContent registerContent;
+
 	// Use this for initialization
 	void Start () {
         server = GameManager.gameManager.ClientController;
@@ -30,26 +42,26 @@ public class LoginGUI : MonoBehaviour, IEventListener {
         UsernameField();
         PasswordField();
 
-        if ( GUI.Button ( new Rect ( 0, 160, Screen.width, 64 ), "Login" ) ) {
+        if ( GUI.Button ( loginRect, loginContent, loginStyle ) ) {
             if (!username.Equals("") && !username.Equals("")) {
                 server.Login(username, password);
             }
         }
 
-        if (GUI.Button(new Rect(0, 224, Screen.width, 64), "Login As Guest")) {
+        if (GUI.Button(guestRect, guestContent, loginStyle)) {
             server.Login("", "");
         }
 
-        if (GUI.Button(new Rect(0, 288, Screen.width, 64), "Register")) {
+        if (GUI.Button(registerRect, registerContent, loginStyle)) {
             Application.LoadLevel("register");
         }
     }
 
     private void UsernameField() {
-        username = GUI.TextField(new Rect(0, 32, Screen.width, 64), username, 64);
+        username = GUI.TextField(new Rect(0, 32, Screen.width, 64), username, 64, loginStyle);
     }
 
     private void PasswordField() {
-        password = GUI.PasswordField(new Rect(0, 96, Screen.width, 64), password, '*', 64);
+        password = GUI.PasswordField(new Rect(0, 96, Screen.width, 64), password, '*', 64, loginStyle);
     }
 }
