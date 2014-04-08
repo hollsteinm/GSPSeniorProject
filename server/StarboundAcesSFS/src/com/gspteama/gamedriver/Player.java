@@ -9,7 +9,8 @@ package com.gspteama.gamedriver;
  * @author Martin
  */
 public class Player {
-    String  username    = "";
+    private String      username   = "";
+    private float       score      = 0.0f;
     
     public Player(){
     }
@@ -24,5 +25,13 @@ public class Player {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+    
+    public void setScore(float score){
+        this.score = score;
+    }
+    
+    public float getScore(){
+        return score;
     }
 }

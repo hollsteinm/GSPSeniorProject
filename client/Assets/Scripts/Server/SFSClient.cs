@@ -486,6 +486,17 @@ public class SFSClient : IClientController {
         data.Add ( "rotation.y", ry );
         data.Add ( "rotation.z", rz );
         data.Add ( "rotation.w", rw );
+
+        int numWeapons = sfsdata.GetInt("numWeapons");
+        float[] cooldowns = sfsdata.GetFloatArray("damages");
+        float[] damages = sfsdata.GetFloatArray("cooldowns");
+
+        data.Add("numWeapons", (float)sfsdata.GetInt("numWeapons"));
+        for (int i = 0; i < numWeapons; ++i) {
+            data.Add("cooldown" + i.ToString(), cooldowns[i]);
+            data.Add("damage" + i.ToString(), damages[i]);
+        }        
+
         OnEvent ( "spawn", data );
     }
 

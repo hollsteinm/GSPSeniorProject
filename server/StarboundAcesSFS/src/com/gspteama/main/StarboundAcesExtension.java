@@ -20,6 +20,8 @@ import com.smartfoxserver.v2.core.SFSEventType;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.gspteama.db.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -40,6 +42,7 @@ public class StarboundAcesExtension extends SFSExtension{
         addRequestHandler("server", MultiHandler.class);
         addEventHandler(SFSEventType.ROOM_ADDED, RoomAddEvent.class);
         addEventHandler(SFSEventType.USER_JOIN_ROOM, RoomJoinEvent.class);
+        addEventHandler(SFSEventType.USER_LEAVE_ROOM, RoomLeaveEvent.class);
     
         signUp();
         login();
@@ -48,7 +51,16 @@ public class StarboundAcesExtension extends SFSExtension{
     private class SignUpAssistantPlugin implements ISignUpAssistantPlugin{
         @Override
         public void execute(User user, ISFSObject params, SignUpConfiguration config) throws SignUpValidationException{
-            //stuff
+            try{
+                DBService.insertScoreTable(
+                        user.getZone().getDBManager().getConnection(),
+                        DBService.userIdFromUsername(
+                            user.getZone().getDBManager().getConnection(),
+                            params.getUtfString("user_name"))
+                        );
+            } catch(Exception e){
+                Logger.getLogger(DBService.class.getName()).log(Level.SEVERE, null, e);
+            }
         }
     }
     
@@ -94,7 +106,7 @@ public class StarboundAcesExtension extends SFSExtension{
         signup.getConfig().emailResponse.fromAddress = "starboundaces@gmail.com";
         signup.getConfig().emailResponse.subject = "Starbound Aces Registration";
         signup.getConfig().emailResponse.template = "SignUpEmailTemplates/SignUpConfirmation.html";
-        signup.getConfig().preProcessPlugin = new SignUpAssistantPlugin();
+        signup.getConfig().postProcessPlugin = new SignUpAssistantPlugin();
         addRequestHandler(SignUpAssistantComponent.COMMAND_PREFIX, signup);
     }
     
@@ -110,7 +122,7 @@ public class StarboundAcesExtension extends SFSExtension{
         }
         
         try{
-            trace("Getting game: " + roomid);
+            //trace("Getting game: " + roomid);
             return gameList.get(roomid);
         } catch (Exception e){
             throw e;

@@ -49,6 +49,14 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
                 transform.position = new Vector3(px, py, pz);
                 transform.rotation = new Quaternion(rx, ry, rz, rw);
 
+                Weapon[] weapons = GetComponents<Weapon>();
+                int numWeapons = (int)data["numWeapons"];
+
+                for (int i = 0; i < numWeapons; ++i) {
+                    weapons[i].cooldown = data["cooldown"+i.ToString()];
+                    weapons[i].damage = data["damage" + i.ToString()];
+                }
+
                 break;
 
             case "player.hit":
