@@ -48,6 +48,7 @@ public class DBService {
             ps.setLong(2, id);
 
             ps.executeUpdate();
+            con.commit();
         }
 
         rs.close();
@@ -67,6 +68,8 @@ public class DBService {
         ps.setLong(1, userid);
 
         ps.execute();
+        
+        con.commit();
         
         ps.close();
         //con.close();       
