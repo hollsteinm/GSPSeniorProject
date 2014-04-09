@@ -148,7 +148,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 212694542}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -.112276934, y: -.11997024, z: -.0204427652, w: .986196339}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -267,6 +267,11 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: e83b676c929256f4e87e7943b5c0dd4c, type: 2}
+      propertyPath: lobbyStyle.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 772f0e78a4f3d4587b6bc4b78fbe9763,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e83b676c929256f4e87e7943b5c0dd4c, type: 2}
   m_RootGameObject: {fileID: 842727548}
@@ -357,7 +362,7 @@ MonoBehaviour:
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
-    m_Font: {fileID: 0}
+    m_Font: {fileID: 12800000, guid: 772f0e78a4f3d4587b6bc4b78fbe9763, type: 3}
     m_FontSize: 32
     m_FontStyle: 0
     m_Alignment: 4
