@@ -35,6 +35,7 @@ public class RoomLeaveEvent extends BaseServerEventHandler{
                         player);
 
             } catch (Exception e){
+                trace(e.toString());
                 Logger.getLogger(DBService.class.getName()).log(Level.SEVERE, null, e);
             }
         }

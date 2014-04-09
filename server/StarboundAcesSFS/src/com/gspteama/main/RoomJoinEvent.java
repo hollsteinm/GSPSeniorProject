@@ -4,6 +4,7 @@
  */
 package com.gspteama.main;
 
+import com.gspteama.db.DBService;
 import com.gspteama.gamedriver.Game;
 import com.gspteama.gamedriver.Player;
 import com.gspteama.gamedriver.Ship;
@@ -32,7 +33,10 @@ public class RoomJoinEvent extends BaseServerEventHandler{
         trace("Player joining room: " + room.getId() + "/" + user.getLastJoinedRoom().getId());
         
         if(room.isGame()){
-            try {
+            try {                
+                if(((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId()) == null){
+                    ((StarboundAcesExtension)this.getParentExtension()).createGame(user.getLastJoinedRoom().getId());
+                }
                 Game game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
 
                 String username = (String)((User)isfse.getParameter(SFSEventParam.USER)).getName();
@@ -40,6 +44,7 @@ public class RoomJoinEvent extends BaseServerEventHandler{
 
                 game.AddPlayer(playerid, new Player(username));
             } catch (Exception ex) {
+                trace(ex.toString());
                 Logger.getLogger(RoomJoinEvent.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

@@ -3,9 +3,8 @@
  * and open the template in the editor.
  */
 package com.gspteama.main;
+import com.gspteama.db.*;
 import com.gspteama.extensions.MultiHandler;
-import com.smartfoxserver.v2.extensions.*;
-import java.util.concurrent.ConcurrentHashMap;
 import com.gspteama.gamedriver.Game;
 import com.smartfoxserver.v2.annotations.Instantiation;
 import com.smartfoxserver.v2.components.login.ILoginAssistantPlugin;
@@ -19,7 +18,10 @@ import com.smartfoxserver.v2.components.signup.SignUpValidationException;
 import com.smartfoxserver.v2.core.SFSEventType;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
-import com.gspteama.db.*;
+import com.smartfoxserver.v2.extensions.*;
+import java.sql.Connection;
+import java.util.Arrays;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,23 +46,42 @@ public class StarboundAcesExtension extends SFSExtension{
         addEventHandler(SFSEventType.USER_JOIN_ROOM, RoomJoinEvent.class);
         addEventHandler(SFSEventType.USER_LEAVE_ROOM, RoomLeaveEvent.class);
     
-        signUp();
-        login();
+        try{
+            signUp();
+            login();
+        } catch (Exception e){
+            trace(e.toString());
+        }
     }
     
-    private class SignUpAssistantPlugin implements ISignUpAssistantPlugin{
+    private class PostSignUpAssistantPlugin implements ISignUpAssistantPlugin{
+        
         @Override
         public void execute(User user, ISFSObject params, SignUpConfiguration config) throws SignUpValidationException{
+            trace("Entering postprocessor for  SignUpAssistant.");
             try{
+                String user_name = user.getVariable("username").getStringValue();
+                trace("Username: " + user_name);
+                
+                long id = DBService.userIdFromUsername(user.getZone().getDBManager().getConnection(),
+                        user_name);
+                
+                trace("ID: " + Long.toString(id));
+                
                 DBService.insertScoreTable(
                         user.getZone().getDBManager().getConnection(),
-                        DBService.userIdFromUsername(
-                            user.getZone().getDBManager().getConnection(),
-                            params.getUtfString("user_name"))
-                        );
+                        id);
             } catch(Exception e){
+                trace(e.toString());
                 Logger.getLogger(DBService.class.getName()).log(Level.SEVERE, null, e);
             }
+            trace("Operation completed successfully");
+        }
+    }
+    
+    private class PreSignUpAssistantPlugin implements ISignUpAssistantPlugin{
+        @Override
+        public void execute(User user, ISFSObject params, SignUpConfiguration config) throws SignUpValidationException{
         }
     }
     
@@ -88,6 +109,7 @@ public class StarboundAcesExtension extends SFSExtension{
     private void signUp(){
         signup = new SignUpAssistantComponent();
         signup.getConfig().signUpTable = UsernameTable.TABLE_NAME;
+        
         signup.getConfig().minUserNameLength = 4;
         signup.getConfig().maxUserNameLength = 64;
         signup.getConfig().minPasswordLength = 8;
@@ -106,7 +128,8 @@ public class StarboundAcesExtension extends SFSExtension{
         signup.getConfig().emailResponse.fromAddress = "starboundaces@gmail.com";
         signup.getConfig().emailResponse.subject = "Starbound Aces Registration";
         signup.getConfig().emailResponse.template = "SignUpEmailTemplates/SignUpConfirmation.html";
-        signup.getConfig().postProcessPlugin = new SignUpAssistantPlugin();
+        signup.getConfig().postProcessPlugin = new PostSignUpAssistantPlugin();
+        
         addRequestHandler(SignUpAssistantComponent.COMMAND_PREFIX, signup);
     }
     
@@ -117,17 +140,7 @@ public class StarboundAcesExtension extends SFSExtension{
     }
     
     public Game getGame(int roomid) throws Exception{
-        if(!gameList.containsKey(roomid)){
-            throw new Exception("Game does not exist: " + roomid);
-        }
-        
-        try{
-            //trace("Getting game: " + roomid);
-            return gameList.get(roomid);
-        } catch (Exception e){
-            throw e;
-        }
- 
+        return gameList.get(roomid); 
     }
     
     public void createGame(int roomid) throws Exception{
@@ -136,5 +149,11 @@ public class StarboundAcesExtension extends SFSExtension{
         }
         gameList.put(roomid, new Game());
         trace("New game added: " + roomid);
+        
+        try{
+            //TODO: put game in database
+        }catch(Exception e){
+            trace(e.toString());
+        }
     }
 }

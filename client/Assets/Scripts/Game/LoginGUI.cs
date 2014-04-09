@@ -58,10 +58,10 @@ public class LoginGUI : MonoBehaviour, IEventListener {
     }
 
     private void UsernameField() {
-        username = GUI.TextField(new Rect(0, 32, Screen.width, 64), username, 64, loginStyle);
+        username = GUI.TextField(usernameRect, username, 64);
     }
 
     private void PasswordField() {
-        password = GUI.PasswordField(new Rect(0, 96, Screen.width, 64), password, '*', 64, loginStyle);
+        password = GUI.PasswordField(passwordRect, password, '*', 64);
     }
 }

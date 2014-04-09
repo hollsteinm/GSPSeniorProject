@@ -4,6 +4,7 @@ using Sfs2X.Core;
 using Sfs2X.Logging;
 using Sfs2X.Requests;
 using Sfs2X.Entities.Data;
+using Sfs2X.Entities.Variables;
 using Sfs2X.Entities;
 using Sfs2X;
 using System.Collections.Generic;
@@ -210,6 +211,7 @@ public class SFSClient : IClientController {
             // Login failed
             currentMessage = ( string ) evt.Params[ "errorMessage" ];
             Debug.Log ( "Login error: " + currentMessage );
+            SFSInstance.InitUDP();
         } else {
             // On to the lobby
             currentMessage = "Successful Login.";
@@ -229,7 +231,6 @@ public class SFSClient : IClientController {
         } else {
             currentMessage = "Cannot connect to the server.";
         }
-        SFSInstance.InitUDP ( server, port );
         Debug.Log ( currentMessage );
     }
 
@@ -382,10 +383,11 @@ public class SFSClient : IClientController {
         sfsdata.PutUtfString("user_name", cdata["username"]);
         sfsdata.PutUtfString("user_password", cdata["password"]);
         sfsdata.PutUtfString("user_email", cdata["email"]);
-        Debug.Log(sfsdata.GetUtfString("user_name"));
-        Debug.Log(sfsdata.GetUtfString("user_password"));
-        Debug.Log(sfsdata.GetUtfString("user_email"));
 
+        SFSUserVariable userVar = new SFSUserVariable("username", cdata["username"]);
+        SFSInstance.MySelf.SetVariable(userVar);
+
+        SFSInstance.Send(new SetUserVariablesRequest(SFSInstance.MySelf.GetVariables()));
         SFSInstance.Send(new ExtensionRequest("$SignUp.Submit", sfsdata));
     }
 
