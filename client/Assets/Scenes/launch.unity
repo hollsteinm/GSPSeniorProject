@@ -20,7 +20,7 @@ RenderSettings:
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientLight: {r: .200000003, g: .200000003, b: .200000003, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: e980bc7fbb00dc34b86b95ac842d1920, type: 2}
   m_HaloStrength: .5
   m_FlareStrength: 1
   m_HaloTexture: {fileID: 0}
@@ -310,12 +310,6 @@ MonoBehaviour:
     y: 224
     width: 512
     height: 64
-  highScoreRect:
-    serializedVersion: 2
-    x: 0
-    y: 320
-    width: 512
-    height: 64
   quitRect:
     serializedVersion: 2
     x: 0
@@ -391,10 +385,6 @@ MonoBehaviour:
     m_Tooltip: 
   creditContent:
     m_Text: Credits
-    m_Image: {fileID: 0}
-    m_Tooltip: 
-  highScoreContent:
-    m_Text: High Score
     m_Image: {fileID: 0}
     m_Tooltip: 
   quitContent:
