@@ -8,13 +8,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
  * @author Martin
  */
 public class DBService {
-    public static void UpdatePlayerScore(Connection connection, Player player) throws SQLException{
+    public static void updatePlayerScore(Connection connection, Player player) throws SQLException{
         Connection con = connection;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -53,7 +54,7 @@ public class DBService {
 
         rs.close();
         ps.close();
-        //con.close();
+        con.close();
     }
     
     public static void insertScoreTable(Connection connection, long userid) throws SQLException{
@@ -61,7 +62,6 @@ public class DBService {
         PreparedStatement ps = null;
         
         String insertstmt = "insert into sa_score (score_user_id, score_value) values (?, 0::bigint)";
-        
 
         con.setAutoCommit(false);
         ps = con.prepareStatement(insertstmt);
@@ -72,7 +72,7 @@ public class DBService {
         con.commit();
         
         ps.close();
-        //con.close();       
+        con.close();       
     }
     
     public static long userIdFromUsername(Connection connection, String username) throws SQLException{
@@ -95,9 +95,63 @@ public class DBService {
 
         rs.close();
         ps.close();
-        //con.close();
+        con.close();
         
         return id;
+    }
+    
+    public static long selectUserScore(Connection connection, long userid) throws SQLException{
+        long score = 0L;
+        Connection con = connection;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String stmt = "select score_value from sa_score where score_user_id = ?";
+        
+        con.setAutoCommit(false);
+        ps = con.prepareStatement(stmt);
+        ps.setLong(1, userid);
+        
+        rs = ps.executeQuery();
+        
+        if(rs.next()){
+            score = rs.getLong("score_value");
+        }
+        
+        rs.close();
+        ps.close();
+        con.close();
+        
+        return score;
+    }
+    
+    //TODO: make type safe
+    public static ArrayList selectTopTenScores(Connection connection) throws SQLException{
+        ArrayList results = new ArrayList();
+        int numToReturn = 10;
+        int currCount = 0;
+        Connection con = connection;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        String stmt = "select u.user_name as username," +
+                " s.score_value as score from sa_user u " +
+                " join sa_score s on user_id = score_user_id " +
+                " order by s.score_value desc;";
+        
+        con.setAutoCommit(false);
+        ps = con.prepareStatement(stmt);
+        rs = ps.executeQuery();
+        while(rs.next() && currCount < numToReturn){
+            currCount++;
+            results.add(rs.getString("username"));
+            results.add(rs.getLong("score"));
+        }
+        
+        rs.close();
+        ps.close();
+        con.close();
+        
+        return results;
     }
     
 }

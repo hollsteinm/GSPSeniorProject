@@ -9,7 +9,9 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
     public GUIStyle lobbyStyle;
 
     public GUIContent playContent;
+    public GUIContent highScoreContent;
     public Rect playRect;
+    public Rect highScoreRect;
 
     public float gameListHeight;
     public float gameListWdith;
@@ -34,6 +36,10 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
             server.Send ( DataType.MAKEGAME, null );
         }
         DrawGameList ();
+
+        if (GUI.Button(highScoreRect, highScoreContent, lobbyStyle)) {
+            Application.LoadLevel("highscores");
+        }
     }
 
     public void  Notify(string eventType, object o)

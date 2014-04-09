@@ -101,9 +101,19 @@ MonoBehaviour:
     m_Text: Make Game
     m_Image: {fileID: 0}
     m_Tooltip: 
+  highScoreContent:
+    m_Text: High Scores
+    m_Image: {fileID: 0}
+    m_Tooltip: 
   playRect:
     serializedVersion: 2
     x: 0
+    y: 0
+    width: 512
+    height: 64
+  highScoreRect:
+    serializedVersion: 2
+    x: 512
     y: 0
     width: 512
     height: 64

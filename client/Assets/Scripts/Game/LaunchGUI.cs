@@ -5,7 +5,6 @@ public class LaunchGUI : MonoBehaviour {
     public Rect singlePlayerRect;
     public Rect multiPlayerRect;
     public Rect creditsRect;
-    public Rect highScoreRect;
     public Rect quitRect;
 
     public GUIStyle launchStyle;
@@ -13,7 +12,6 @@ public class LaunchGUI : MonoBehaviour {
     public GUIContent singlePlayerContent;
     public GUIContent multiPlayerContent;
     public GUIContent creditContent;
-    public GUIContent highScoreContent;
     public GUIContent quitContent;
 
 	// Use this for initialization
@@ -36,11 +34,6 @@ public class LaunchGUI : MonoBehaviour {
         if ( GUI.Button ( multiPlayerRect, multiPlayerContent, launchStyle ) ) {
             GameManager.gameManager.gameType = GameType.MULTIPLAYER;
             Application.LoadLevel ( "login" );
-        }
-
-        if (GUI.Button(highScoreRect, highScoreContent, launchStyle)) {
-            GameManager.gameManager.gameType = GameType.MULTIPLAYER;
-            Application.LoadLevel("highscores");
         }
 
         if (GUI.Button(creditsRect, creditContent, launchStyle)) {

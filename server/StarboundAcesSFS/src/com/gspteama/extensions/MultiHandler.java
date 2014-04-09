@@ -4,6 +4,7 @@
  */
 package com.gspteama.extensions;
 
+import com.gspteama.db.DBService;
 import com.gspteama.gamedriver.Game;
 import com.gspteama.gamedriver.Player;
 import com.gspteama.gamedriver.Ship;
@@ -14,6 +15,7 @@ import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
 import com.smartfoxserver.v2.extensions.SFSExtension;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,11 +51,52 @@ public class MultiHandler extends BaseClientRequestHandler{
                 trace("Player <" + user.getId() + "> is dead.");
                 handleDeath(user, params);
                 break;
+                
+            case "scores":
+                trace("Score event requested");
+                handleScores(user, params);
+                break;
 
             default:
                 trace("Unrecognized request Id sent... ignoring");
                 break;
         }
+    }
+    
+    private void handleScores(User user, ISFSObject params){
+        ArrayList results;
+        long playerScore = 0L;
+        ISFSObject response = SFSObject.newInstance();
+        
+        try{
+            results = DBService.selectTopTenScores(this.getParentExtension().getParentZone().getDBManager().getConnection());
+            
+            long userid = DBService.userIdFromUsername(this.getParentExtension().getParentZone().getDBManager().getConnection()
+                    , user.getName());
+            playerScore = DBService.selectUserScore(this.getParentExtension().getParentZone().getDBManager().getConnection()
+                    , userid);
+            
+            trace(results.toString());
+            trace(Long.toString(userid));
+            trace(Long.toString(playerScore));
+            //TODO: get out of having to do this loop oddly
+            int rank = 0;
+            int size = results.size();
+            for(int i = 0; i < size; i+=2){
+                response.putUtfString("player"+Integer.toString(rank), (String)results.get(rank));
+                response.putLong("score"+Integer.toString(rank), (long)results.get(rank+1));
+                rank++;                
+            }
+            
+            size /= 2;
+            response.putInt("size", size);
+            
+            response.putLong("my.score", playerScore);
+            send("scores", response, user);
+            
+        }catch(SQLException e){
+            trace(e.toString());
+        }      
     }
     
     private void handleSpawn(User user, ISFSObject params){
@@ -95,9 +138,9 @@ public class MultiHandler extends BaseClientRequestHandler{
             response.putFloatArray("cooldowns", cooldowns);
             response.putFloatArray("damages", damages);               
 
-            //this.send("transform", response, user.getLastJoinedRoom().getPlayersList(), true);
             send("spawn", response, user.getLastJoinedRoom().getPlayersList());
         } catch (Exception ex) {
+            trace(ex.toString());
             Logger.getLogger(MultiHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -123,7 +166,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             });
 
         } catch (Exception e){
-            e.printStackTrace();
+            trace(e.toString());
         } finally {
         
             ISFSObject response = SFSObject.newInstance();
@@ -170,6 +213,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             }
             player.setScore(score);
         } catch (Exception ex) {
+            trace(ex.toString());
             Logger.getLogger(MultiHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

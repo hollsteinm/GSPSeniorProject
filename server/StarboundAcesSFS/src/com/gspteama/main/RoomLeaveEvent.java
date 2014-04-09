@@ -30,7 +30,7 @@ public class RoomLeaveEvent extends BaseServerEventHandler{
             try{
                 Game game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
                 Player player = game.getPlayer(user.getId());
-                DBService.UpdatePlayerScore(
+                DBService.updatePlayerScore(
                         this.getParentExtension().getParentZone().getDBManager().getConnection(), 
                         player);
 

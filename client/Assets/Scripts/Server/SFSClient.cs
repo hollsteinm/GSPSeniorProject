@@ -122,6 +122,10 @@ public class SFSClient : IClientController {
                 SignUpResponse(sfsdata);
                 break;
 
+            case "scores":
+                ScoresResponse(sfsdata);
+                break;
+
             default:
                 break;
         }
@@ -308,6 +312,10 @@ public class SFSClient : IClientController {
                 SendRegistrationRequest(data);
                 break;
 
+            case DataType.SCORES_GET:
+                SendGetScoresRequest(data);
+                break;
+
             default:
                 Debug.LogError ( "Should not reach this point in Send( SendType, object)" );
                 break;
@@ -453,7 +461,11 @@ public class SFSClient : IClientController {
 
     private void SendDeathRequest ( object data ) {
         SFSObject sfsdata = new SFSObject ();
-        SFSInstance.Send ( new ExtensionRequest ( "server.death", sfsdata, SFSInstance.LastJoinedRoom, useUDP ) );
+        SFSInstance.Send ( new ExtensionRequest ( "server.death", sfsdata, SFSInstance.LastJoinedRoom ) );
+    }
+
+    private void SendGetScoresRequest(object data){
+        SFSInstance.Send(new ExtensionRequest("server.scores", new SFSObject()));
     }
     //end methods for send()
     //methods for responses
@@ -550,6 +562,25 @@ public class SFSClient : IClientController {
 
     private void DeathResponse ( SFSObject sfsdata ) {
         OnEvent ( "player.remote.death", sfsdata.GetInt ( "id" ) );
+    }
+
+    private void ScoresResponse(SFSObject sfsdata) {
+        Dictionary<string, long> scores = new Dictionary<string, long>();
+        Dictionary<string, string> names = new Dictionary<string, string>();
+        long myscore = sfsdata.GetLong("my.score");
+
+        int size = sfsdata.GetInt("size");
+        for (int i = 0; i < size; ++i) {
+            scores.Add("score" + i.ToString(), sfsdata.GetLong("score" + i.ToString()));
+            names.Add("player" + i.ToString(), sfsdata.GetUtfString("player" + i.ToString()));
+        }
+
+        Dictionary<string, object> package = new Dictionary<string,object>();
+        package.Add("scores", scores);
+        package.Add("names", names);
+        package.Add("my.score", myscore);
+
+        OnEvent("scores", package);
     }
     //end methods for response
 }

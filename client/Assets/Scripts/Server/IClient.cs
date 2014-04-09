@@ -11,7 +11,8 @@ public enum DataType{
     SPAWNED,
     FIRE,
     DEATH,
-    REGISTER
+    REGISTER,
+    SCORES_GET,
 };
 
 public interface IClient {
