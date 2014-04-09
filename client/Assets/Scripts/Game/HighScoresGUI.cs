@@ -19,6 +19,9 @@ public class HighScoresGUI : MonoBehaviour, IEventListener {
     public float scoresWidth;
     public float scoresHeight;
     public float scoresPadding;
+    public float groupWidth;
+    public float groupHeight;
+
 
 	// Use this for initialization
 	void Start () {
@@ -37,7 +40,6 @@ public class HighScoresGUI : MonoBehaviour, IEventListener {
     public void Notify(string eventType, object data) {
         switch (eventType) {
             case "scores":
-                Debug.Log("Data received.");
                 DisplayScores(data);
                 break;
                 
@@ -48,8 +50,9 @@ public class HighScoresGUI : MonoBehaviour, IEventListener {
 
     void OnGUI() {
         if (GUI.Button(backRect, backContent, buttonStyle)) {
-            Application.LoadLevel("launch");
+            Application.LoadLevel("lobby");
         }
+
         DrawMyScore();
         DrawTop();
     }
@@ -60,7 +63,7 @@ public class HighScoresGUI : MonoBehaviour, IEventListener {
     }
 
     private void DrawTop() {
-
+        GUI.BeginGroup(new Rect(Screen.width / 2.0f - groupWidth / 2.0f, Screen.height / 2.0f - groupHeight / 2.0f, groupWidth, groupHeight));
         float top = scoresYMin;
         float xshift = scoresXMin + scoresWidth;
         foreach(long l in topScores){
@@ -73,7 +76,7 @@ public class HighScoresGUI : MonoBehaviour, IEventListener {
             GUI.TextArea(new Rect(scoresXMin, top + scoresPadding, scoresWidth, scoresHeight), s, highScoreStyle);
             top += scoresHeight;
         }
-
+        GUI.EndGroup();
     }
 
     private void DisplayScores(object data) {

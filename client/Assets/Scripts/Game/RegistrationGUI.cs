@@ -21,6 +21,9 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
 
     public GUIStyle registrationStyle;
     public GUIStyle messageStyle;
+    public float groupWidth;
+    public float groupHeight;
+
 
 	// Use this for initialization
 	void Start () {
@@ -34,6 +37,7 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
 	}
 
     void OnGUI() {
+        GUI.BeginGroup(new Rect(Screen.width / 2.0f - groupWidth / 2.0f, Screen.height / 2.0f - groupHeight / 2.0f, groupWidth, groupHeight));
         DrawUsername();
         DrawEmail();
         DrawPassword();
@@ -54,6 +58,7 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
         }
 
         GUI.TextArea(messageRect, message, messageStyle);
+        GUI.EndGroup();
     }
 
     private void DrawUsername() {

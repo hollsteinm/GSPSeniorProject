@@ -408,6 +408,26 @@ Prefab:
       value: 
       objectReference: {fileID: 12800000, guid: 772f0e78a4f3d4587b6bc4b78fbe9763,
         type: 3}
+    - target: {fileID: 11400000, guid: 7d7c754aef9ba8b4f98769824fba131f, type: 2}
+      propertyPath: launchStyle.m_Normal.m_TextColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 7d7c754aef9ba8b4f98769824fba131f, type: 2}
+      propertyPath: launchStyle.m_Normal.m_TextColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 7d7c754aef9ba8b4f98769824fba131f, type: 2}
+      propertyPath: launchStyle.m_Normal.m_TextColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 7d7c754aef9ba8b4f98769824fba131f, type: 2}
+      propertyPath: groupWidth
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 7d7c754aef9ba8b4f98769824fba131f, type: 2}
+      propertyPath: groupHeight
+      value: 512
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7d7c754aef9ba8b4f98769824fba131f, type: 2}
   m_RootGameObject: {fileID: 2002428854}
@@ -540,7 +560,7 @@ MonoBehaviour:
     m_Name: 
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_TextColor: {r: 0, g: 1, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -611,6 +631,8 @@ MonoBehaviour:
     m_Text: Quit
     m_Image: {fileID: 0}
     m_Tooltip: 
+  groupWidth: 512
+  groupHeight: 512
 --- !u!1 &2094942801
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,8 +10,10 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
 
     public GUIContent playContent;
     public GUIContent highScoreContent;
+    public GUIContent logoutContent;
     public Rect playRect;
     public Rect highScoreRect;
+    public Rect logoutRect;
 
     public float gameListHeight;
     public float gameListWdith;
@@ -35,6 +37,11 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
         if ( GUI.Button ( playRect, playContent, lobbyStyle ) ) {
             server.Send ( DataType.MAKEGAME, null );
         }
+        if (GUI.Button(logoutRect, logoutContent, lobbyStyle)) {
+            server.Logout();
+            Application.LoadLevel("launch");
+        }
+
         DrawGameList ();
 
         if (GUI.Button(highScoreRect, highScoreContent, lobbyStyle)) {

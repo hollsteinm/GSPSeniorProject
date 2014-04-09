@@ -42,7 +42,7 @@ MonoBehaviour:
     m_Name: 
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_TextColor: {r: 0, g: 1, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -84,10 +84,10 @@ MonoBehaviour:
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
-    m_Font: {fileID: 0}
+    m_Font: {fileID: 12800000, guid: 772f0e78a4f3d4587b6bc4b78fbe9763, type: 3}
     m_FontSize: 32
     m_FontStyle: 0
-    m_Alignment: 4
+    m_Alignment: 3
     m_WordWrap: 0
     m_RichText: 1
     m_TextClipping: 0
@@ -105,17 +105,27 @@ MonoBehaviour:
     m_Text: High Scores
     m_Image: {fileID: 0}
     m_Tooltip: 
+  logoutContent:
+    m_Text: Logout
+    m_Image: {fileID: 0}
+    m_Tooltip: 
   playRect:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 512
+    width: 256
     height: 64
   highScoreRect:
     serializedVersion: 2
-    x: 512
-    y: 0
-    width: 512
+    x: 0
+    y: 64
+    width: 256
+    height: 64
+  logoutRect:
+    serializedVersion: 2
+    x: 0
+    y: 128
+    width: 256
     height: 64
   gameListHeight: 16
   gameListWdith: 128

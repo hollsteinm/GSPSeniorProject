@@ -14,6 +14,9 @@ public class LaunchGUI : MonoBehaviour {
     public GUIContent creditContent;
     public GUIContent quitContent;
 
+    public float groupWidth;
+    public float groupHeight;
+
 	// Use this for initialization
 	void Start () {
 
@@ -26,6 +29,8 @@ public class LaunchGUI : MonoBehaviour {
 	}
 
     void OnGUI ( ) {
+        GUI.BeginGroup(new Rect(Screen.width / 2.0f - groupWidth / 2.0f, Screen.height / 2.0f - groupHeight / 2.0f, groupWidth, groupHeight));
+
         if ( GUI.Button ( singlePlayerRect, singlePlayerContent, launchStyle ) ) {
             GameManager.gameManager.gameType = GameType.SINGLEPLAYER;
             Application.LoadLevel ( "singleplayer" );
@@ -44,5 +49,7 @@ public class LaunchGUI : MonoBehaviour {
         if (GUI.Button(quitRect, quitContent, launchStyle)) {
             Application.Quit();
         }
+
+        GUI.EndGroup();
     }
 }

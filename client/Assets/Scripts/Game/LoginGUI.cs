@@ -13,10 +13,14 @@ public class LoginGUI : MonoBehaviour, IEventListener {
     public Rect loginRect;
     public Rect guestRect;
     public Rect registerRect;
+    public Rect backRect;
 
     public GUIContent loginContent;
     public GUIContent guestContent;
     public GUIContent registerContent;
+    public GUIContent backContent;
+    public float groupWidth;
+    public float groupHeight;
 
 	// Use this for initialization
 	void Start () {
@@ -38,9 +42,14 @@ public class LoginGUI : MonoBehaviour, IEventListener {
     }
 
     void OnGUI ( ) {
+        GUI.BeginGroup(new Rect(Screen.width / 2.0f - groupWidth / 2.0f, Screen.height / 2.0f - groupHeight / 2.0f, groupWidth, groupHeight));
 
         UsernameField();
         PasswordField();
+
+        if (GUI.Button(backRect, backContent, loginStyle)) {
+            Application.LoadLevel("launch");
+        }
 
         if ( GUI.Button ( loginRect, loginContent, loginStyle ) ) {
             if (!username.Equals("") && !username.Equals("")) {
@@ -55,6 +64,8 @@ public class LoginGUI : MonoBehaviour, IEventListener {
         if (GUI.Button(registerRect, registerContent, loginStyle)) {
             Application.LoadLevel("register");
         }
+
+        GUI.EndGroup();
     }
 
     private void UsernameField() {
