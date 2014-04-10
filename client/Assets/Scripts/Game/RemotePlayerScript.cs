@@ -21,10 +21,22 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
 
 	// Update is called once per frame
 	void Update () {
+        if (Application.isEditor) {
+            if (localHealth <= 0.0f) {
+                Notify("player.remote.death", remoteId);
+            }
+        }
 	}
+
+    public float Health {
+        get {
+            return localHealth;
+        }
+    }
 
     void OnDestroy() {
         //TODO: instantiate explosion prefab
+        Instantiate(Resources.Load("DeathPrefabRemote"));
     }
 
     public string Username {

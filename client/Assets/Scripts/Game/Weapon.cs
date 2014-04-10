@@ -27,6 +27,7 @@ public class Weapon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+
         if (laser.enabled && currEffectCooldown <= 0.0f) {
             laser.enabled = false;
         } else if (currEffectCooldown > 0.0f) {
