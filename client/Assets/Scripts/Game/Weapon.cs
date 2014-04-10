@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class Weapon : MonoBehaviour {
     IClientController server;
     LineRenderer laser;
+    public AudioSource fireAudio;
     public float range;
     public float damage;
     public float cooldown;
@@ -44,6 +45,7 @@ public class Weapon : MonoBehaviour {
 
     protected void OnFire() {
         laser.enabled = true;
+        fireAudio.Play();
         laser.SetPosition(0, transform.position);
         laser.SetPosition(1, transform.position + transform.forward * range);
         currEffectCooldown = effectCooldown;

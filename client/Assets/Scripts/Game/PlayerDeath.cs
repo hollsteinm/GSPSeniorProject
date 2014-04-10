@@ -9,6 +9,7 @@ public class PlayerDeath : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Destroy ( gameObject, effectLength );
+        Destroy ( this, effectLength );
         if (isClient) {
             camera = (Camera)Instantiate(camera, transform.position, transform.rotation);
             camera.GetComponent<SASmoothFollowLook>().target = transform;
@@ -25,9 +26,9 @@ public class PlayerDeath : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.localScale += new Vector3 ( transform.localScale.x + 1.0f * Time.deltaTime,
-            transform.localScale.y + 0.25f * Time.deltaTime,
-            transform.localScale.z + 0.25f * Time.deltaTime );
+        transform.localScale += new Vector3 ( transform.localScale.x + 0.0025f * Time.deltaTime,
+            transform.localScale.y + 0.0025f * Time.deltaTime,
+            transform.localScale.z + 0.0025f * Time.deltaTime );
 	
 	}
 }
