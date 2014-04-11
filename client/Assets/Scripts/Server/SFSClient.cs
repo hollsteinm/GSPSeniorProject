@@ -546,8 +546,13 @@ public class SFSClient : IClientController {
         float damage = sfsdata.GetFloat ( "damage" );
         int playerid = sfsdata.GetInt ( "player.hit.id" );
         Debug.Log ( "Player hit: " + playerid.ToString () );
+
         Dictionary<string, object> fdata = new Dictionary<string, object> ();
-        fdata.Add ( "player.hit.id", playerid );
+        if (playerid == -1) {
+            fdata.Add("player.hit.id", SFSInstance.MySelf.Id);
+        } else {
+            fdata.Add("player.hit.id", playerid);
+        }
         fdata.Add ( "damage", damage );
         fdata.Add ( "contact.point.x", sfsdata.GetFloat ( "contact.point.x" ) );
         fdata.Add ( "contact.point.y", sfsdata.GetFloat ( "contact.point.y" ) );

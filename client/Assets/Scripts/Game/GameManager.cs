@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour {
     private GameManager ( ) {
     }
 
+    void Start() {
+        Physics.gravity = new Vector3(0.0f, 0.0f, 0.0f);
+    }
+
     public static GameManager gameManager {
         get {
             if ( applicationIsQuitting ) {
