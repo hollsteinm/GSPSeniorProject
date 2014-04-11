@@ -17,6 +17,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &100002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400002}
+  - 131: {fileID: 13100000}
+  m_Layer: 0
+  m_Name: MainMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -26,8 +42,20 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 400002}
   m_Father: {fileID: 0}
+--- !u!4 &400002
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .5, y: .5, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400000}
 --- !u!82 &8200000
 AudioSource:
   m_ObjectHideFlags: 1
@@ -100,7 +128,7 @@ MonoBehaviour:
   singlePlayerRect:
     serializedVersion: 2
     x: 0
-    y: 32
+    y: 64
     width: 512
     height: 64
   multiPlayerRect:
@@ -112,26 +140,20 @@ MonoBehaviour:
   creditsRect:
     serializedVersion: 2
     x: 0
-    y: 224
-    width: 512
-    height: 64
-  highScoreRect:
-    serializedVersion: 2
-    x: 0
-    y: 320
+    y: 192
     width: 512
     height: 64
   quitRect:
     serializedVersion: 2
     x: 0
-    y: 416
+    y: 256
     width: 512
     height: 64
   launchStyle:
     m_Name: 
     m_Normal:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Background: {fileID: 2800000, guid: 002a0b9eb3470794bbc3321c8ecf24ed, type: 3}
+      m_TextColor: {r: .758448303, g: .71275866, b: .913793147, a: .921568632}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -145,8 +167,8 @@ MonoBehaviour:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_OnHover:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Background: {fileID: 2800000, guid: 002a0b9eb3470794bbc3321c8ecf24ed, type: 3}
+      m_TextColor: {r: 1, g: 1, b: 1, a: .921568632}
     m_OnActive:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -173,10 +195,10 @@ MonoBehaviour:
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
-    m_Font: {fileID: 0}
-    m_FontSize: 56
+    m_Font: {fileID: 12800000, guid: 772f0e78a4f3d4587b6bc4b78fbe9763, type: 3}
+    m_FontSize: 16
     m_FontStyle: 0
-    m_Alignment: 4
+    m_Alignment: 1
     m_WordWrap: 0
     m_RichText: 1
     m_TextClipping: 0
@@ -185,7 +207,7 @@ MonoBehaviour:
     m_FixedWidth: 0
     m_FixedHeight: 0
     m_StretchWidth: 1
-    m_StretchHeight: 0
+    m_StretchHeight: 1
   singlePlayerContent:
     m_Text: Single Player
     m_Image: {fileID: 0}
@@ -198,14 +220,31 @@ MonoBehaviour:
     m_Text: Credits
     m_Image: {fileID: 0}
     m_Tooltip: 
-  highScoreContent:
-    m_Text: High Score
-    m_Image: {fileID: 0}
-    m_Tooltip: 
   quitContent:
     m_Text: Quit
     m_Image: {fileID: 0}
     m_Tooltip: 
+  groupWidth: 512
+  groupHeight: 512
+--- !u!131 &13100000
+GUITexture:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_Texture: {fileID: 2800000, guid: 8fb5004edf8439a4aac7b6b8b9cc01b5, type: 3}
+  m_Color: {r: .5, g: .5, b: .5, a: .5}
+  m_PixelInset:
+    serializedVersion: 2
+    x: -256
+    y: -256
+    width: 512
+    height: 512
+  m_LeftBorder: 0
+  m_RightBorder: 0
+  m_TopBorder: 0
+  m_BottomBorder: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
