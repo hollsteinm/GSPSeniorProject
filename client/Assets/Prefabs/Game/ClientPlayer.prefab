@@ -25,10 +25,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 400002}
   - 114: {fileID: 11400002}
-  - 114: {fileID: 11400004}
   - 120: {fileID: 12000000}
   - 114: {fileID: 11400000}
   - 54: {fileID: 5400000}
+  - 114: {fileID: 11400008}
   m_Layer: 0
   m_Name: ClientPlayer
   m_TagString: Player
@@ -371,19 +371,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hullHealth: 100
   deathprefab: {fileID: 100000, guid: bf0aa60bf2d0e374da3a1b360aee5272, type: 2}
---- !u!114 &11400004
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fbc900495831c64b8da05ef3d6aed30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lookSpeed: 5
-  maxAcceleration: 2
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -401,6 +388,22 @@ MonoBehaviour:
   damping: 1
   smoothRotation: 1
   rotationDamping: 1
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35822e4adbb0b384a8a0df8d9cdde44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lookSpeed: 3
+  maxAcceleration: 50
+  accelerationReaction: 7.5
+  defaultVelocity: 50
+  velocityDeviation: 25
 --- !u!120 &12000000
 LineRenderer:
   m_ObjectHideFlags: 1
