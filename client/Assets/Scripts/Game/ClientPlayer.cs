@@ -4,8 +4,7 @@ using System.Collections.Generic;
 
 public class ClientPlayer : MonoBehaviour, IEventListener {
     IClientController server;
-    public float hullHealth = 100.0f;
-    public GameObject deathprefab;
+    public ShipHull shipHull;
 
 	// Use this for initialization
 	void Start () {
@@ -13,12 +12,6 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         server.Register ( this );
         server.Send(DataType.SPAWNED, null);
 	}
-
-    void OnDestroy() {
-        if (deathprefab != null ) {
-            Instantiate(deathprefab, transform.position, transform.rotation);
-        }
-    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -70,11 +63,10 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
                     (float)hitdata["contact.point.x"],
                     (float)hitdata["contact.point.y"],
                     (float)hitdata["contact.point.z"]);
-                
-                hullHealth -= dmg;
-                Instantiate(Resources.Load("HitPrefab"), contactPoint, transform.rotation);
 
-                Debug.Log("Damage Taken by Client. Damage: " + dmg + " Remaining Health: " + hullHealth);
+                shipHull.OnHit(dmg, contactPoint);
+
+                Debug.Log("Damage Taken by Client. Damage: " + dmg + " Remaining Health: " + shipHull.Health);
 
                 break;
             default:
@@ -89,10 +81,6 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         if (timepassed >= delay) {
             server.Send(DataType.TRANSFORM, transform);
             timepassed = 0.0f;
-        }
-        if (hullHealth <= 0.0f) {
-            server.Send(DataType.DEATH, null);
-            Destroy ( gameObject );
         }
     }
 }

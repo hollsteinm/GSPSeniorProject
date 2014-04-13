@@ -15,6 +15,16 @@ import java.util.ArrayList;
  * @author Martin
  */
 public class DBService {
+    
+    public static void insertNewGame(Connection connection, int instanceid){
+        Connection con = connection;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        String stmtinsert = "instert into sa_games (";
+    }
+    
+    
     public static void updatePlayerScore(Connection connection, Player player) throws SQLException{
         Connection con = connection;
         PreparedStatement ps = null;

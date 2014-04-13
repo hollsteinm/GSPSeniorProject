@@ -407,13 +407,19 @@ public class SFSClient : IClientController {
         SFSObject sfso = new SFSObject ();
         Transform t = data as Transform;
 
-        sfso.PutFloat ( "position.x", t.position.x );
-        sfso.PutFloat ( "position.y", t.position.y );
-        sfso.PutFloat ( "position.z", t.position.z );
-        sfso.PutFloat ( "rotation.x", t.rotation.x );
-        sfso.PutFloat ( "rotation.y", t.rotation.y );
-        sfso.PutFloat ( "rotation.z", t.rotation.z );
-        sfso.PutFloat ( "rotation.w", t.rotation.w );
+        if (data != null) {
+            if (data.GetType() == typeof(long)) {
+                sfso.PutLong("projectile.type", 0);
+            }
+        }
+        
+        sfso.PutFloat("position.x", t.position.x);
+        sfso.PutFloat("position.y", t.position.y);
+        sfso.PutFloat("position.z", t.position.z);
+        sfso.PutFloat("rotation.x", t.rotation.x);
+        sfso.PutFloat("rotation.y", t.rotation.y);
+        sfso.PutFloat("rotation.z", t.rotation.z);
+        sfso.PutFloat("rotation.w", t.rotation.w);
 
         SFSInstance.Send ( new ExtensionRequest ( "server.transform", sfso ) );//, null, useUDP) );
     }
