@@ -22,30 +22,40 @@ public class Projectile : MonoBehaviour {
 
     private int networkInstanceID;
 
+    public float Speed {
+        set {
+            speed = value;
+        }
+        get {
+            return speed;
+        }
+    }
+
+    public float Damage {
+        set {
+            damage = value;
+        }
+        get {
+            return damage;
+        }
+    }
+
+    public float Range {
+        set {
+            range = value;
+        }
+        get {
+            return range;
+        }
+    }
+
 	// Use this for initialization
-    bool doonce = true;
 	void Start () {
         //give control to the transformations
         gameObject.rigidbody.isKinematic = true;
         gameObject.rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         spawnLocation = gameObject.transform.position;
         //GameManager.gameManager.ClientController.Register(this);
-        if (doonce) {
-            Dictionary<string, float> data = new Dictionary<string, float>();
-            data.Add("position.x", transform.position.x);
-            data.Add("position.y", transform.position.y);
-            data.Add("position.z", transform.position.z);
-            data.Add("rotation.x", transform.rotation.x);
-            data.Add("rotation.y", transform.rotation.y);
-            data.Add("rotation.z", transform.rotation.z);
-            data.Add("rotation.w", transform.rotation.w);
-            data.Add("damage", damage);
-            data.Add("speed", speed);
-            networkInstanceID = GetHashCode();//TODO: make sure to have server calculate this.
-            data.Add("networkId", networkInstanceID);
-            GameManager.gameManager.ClientController.Send(DataType.SHOOT, data);
-            doonce = false;
-        }
 	}
 	
 	// Update is called once per frame

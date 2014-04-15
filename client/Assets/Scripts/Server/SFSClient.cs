@@ -404,11 +404,8 @@ public class SFSClient : IClientController {
         sfsdata.PutFloat("rotation.y", cdata["rotation.y"]);
         sfsdata.PutFloat("rotation.z", cdata["rotation.z"]);
         sfsdata.PutFloat("rotation.w", cdata["rotation.w"]);
-        sfsdata.PutFloat("damage", cdata["damage"]);
-        sfsdata.PutFloat("speed", cdata["speed"]);
-        sfsdata.PutInt("networkId", (int)cdata["networkId"]);
 
-        SFSInstance.Send(new ExtensionRequest("server.shoot", sfsdata, SFSInstance.LastJoinedRoom));
+        SFSInstance.Send(new ExtensionRequest("server.shoot", sfsdata));
 
     }
 
@@ -583,6 +580,7 @@ public class SFSClient : IClientController {
 
         Dictionary<string, object> data = new Dictionary<string, object>();
         data.Add("id", id);
+        data.Add("type", sfsdata.GetUtfString("type"));
         data.Add("position.x", px);
         data.Add("position.y", py);
         data.Add("position.z", pz);
@@ -606,6 +604,7 @@ public class SFSClient : IClientController {
 
         Dictionary<string, object> data = new Dictionary<string, object>();
         data.Add("networkId", id);
+        data.Add("type", sfsdata.GetUtfString("type"));
         data.Add("position.x", px);
         data.Add("position.y", py);
         data.Add("position.z", pz);
@@ -670,7 +669,7 @@ public class SFSClient : IClientController {
         data.Add("rotation.w", sfsdata.GetFloat("rotation.w"));
         data.Add("damage", sfsdata.GetFloat("damage"));
         data.Add("speed", sfsdata.GetFloat("speed"));
-        data.Add("networkInstanceID", sfsdata.GetInt("networkInstanceID"));
+        data.Add("networkId", sfsdata.GetInt("networkId"));
 
         //create instance of projectile
         //temporary

@@ -69,16 +69,16 @@ public class MultiHandler extends BaseClientRequestHandler{
     }
     
     private void handleShoot(User user, ISFSObject params){
-        ISFSObject response = SFSObject.newInstance();
+        int id = 0;
+        Game game = getGame(user);
+        Projectile p = new Projectile();
+        java.util.Random r = new java.util.Random();
+        
         trace("new projectile instantiated");
         try{
-            Game game = getGame(user);
-            int pid = params.getInt("networkId");
-            game.addProjectile(pid, new Projectile());
-            Projectile p = game.getProjectile(pid);
-            
-            p.setDamage(params.getFloat("damage"));
-            p.setSpeed(params.getFloat("speed"));
+            //TODO: get data from database;
+            p.setDamage(50.0f);
+            p.setSpeed(100.0f);
             
             p.setPosition(new float[]{
                 params.getFloat("position.x"),
@@ -93,17 +93,28 @@ public class MultiHandler extends BaseClientRequestHandler{
                 params.getFloat("rotation.w")
             });
             
-            response.putInt("networkId", pid);
+            id = r.nextInt();
+            game.addProjectile(id, p);
+            
+            trace("Properties set");
+        } catch(Exception e){
+            trace(e.getMessage());
+        } finally{
+            ISFSObject response = SFSObject.newInstance();
+            
+            if(id == 0){
+                id = r.nextInt();
+            }
+            
+            response.putInt("networkId", id);
             
             paramsIntoResponseTransform(params, response);
             
-            response.putFloat("damage", params.getFloat("damage"));
-            response.putFloat("speed", params.getFloat("speed"));
+            response.putFloat("damage", p.getDamage());
+            response.putFloat("speed", p.getSpeed());
             
             send("shoot", response, user.getLastJoinedRoom().getUserList());
-            
-        } catch(Exception e){
-            trace(e.getMessage());
+            trace("data sent");
         }
     }
     
@@ -128,10 +139,18 @@ public class MultiHandler extends BaseClientRequestHandler{
             });
 
         } catch (Exception e){
-            trace(e.toString());
+            trace(e.getMessage());
         } finally {
         
             ISFSObject response = SFSObject.newInstance();
+            response.putFloat("position.x", params.getFloat("position.x"));
+            response.putFloat("position.y", params.getFloat("position.y"));
+            response.putFloat("position.z", params.getFloat("position.z"));
+            response.putFloat("rotation.x", params.getFloat("rotation.x"));
+            response.putFloat("rotation.y", params.getFloat("rotation.y"));
+            response.putFloat("rotation.z", params.getFloat("rotation.z"));
+            response.putFloat("rotation.w", params.getFloat("rotation.w"));            
+            
             response.putInt("networkId", pid);
             response.putUtfString("type", "projectile");
             
@@ -143,13 +162,17 @@ public class MultiHandler extends BaseClientRequestHandler{
     }
     
     private void paramsIntoResponseTransform(ISFSObject params, ISFSObject response){
-        response.putFloat("position.x", params.getFloat("position.x"));
-        response.putFloat("position.y", params.getFloat("position.y"));
-        response.putFloat("position.z", params.getFloat("position.z"));
-        response.putFloat("rotation.x", params.getFloat("rotation.x"));
-        response.putFloat("rotation.y", params.getFloat("rotation.y"));
-        response.putFloat("rotation.z", params.getFloat("rotation.z"));  
-        response.putFloat("rotation.w", params.getFloat("rotation.w"));
+        try{
+            response.putFloat("position.x", params.getFloat("position.x"));
+            response.putFloat("position.y", params.getFloat("position.y"));
+            response.putFloat("position.z", params.getFloat("position.z"));
+            response.putFloat("rotation.x", params.getFloat("rotation.x"));
+            response.putFloat("rotation.y", params.getFloat("rotation.y"));
+            response.putFloat("rotation.z", params.getFloat("rotation.z"));  
+            response.putFloat("rotation.w", params.getFloat("rotation.w"));
+        }catch(Exception e){
+            trace(e.getMessage());
+        }
     }
     
     private void handleScores(User user, ISFSObject params){
@@ -188,8 +211,17 @@ public class MultiHandler extends BaseClientRequestHandler{
         }      
     }
     
-    private Game getGame(User user) throws Exception{
-        return ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
+    private Game getGame(User user){
+        Game game = null;
+        try{
+            game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
+        }catch(Exception e){
+            e.printStackTrace();
+            trace(e.getMessage());
+            trace(e.getCause().toString());
+        } finally{
+            return game;
+        }
     }
     
     private void handleSpawn(User user, ISFSObject params){

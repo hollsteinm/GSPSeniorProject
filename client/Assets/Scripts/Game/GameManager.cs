@@ -163,7 +163,11 @@ public class GameManager : MonoBehaviour {
         Vector3 position = new Vector3(px, py, pz);
         Quaternion rotation = new Quaternion(rx, ry, rz, rw);
 
-        Instantiate(Resources.Load("tempProjectile"), position, rotation);
+        GameObject o = (GameObject)Instantiate(Resources.Load("tempProjectile"), position, rotation);
+        //o.GetComponent<Projectile>().Range = (float)data["range"];
+        o.GetComponent<Projectile>().Damage = (float)data["damage"];
+        o.GetComponent<Projectile>().Speed = (float)data["speed"];
+        o.GetComponent<NetworkTransformer>().NetworkId = (int)data["networkId"];
     }
 
 }

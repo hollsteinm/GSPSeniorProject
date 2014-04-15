@@ -18,7 +18,7 @@ public class Projectile {
     public Projectile(){
         this.networkID = this.hashCode();
     }
-
+    
     public float[] getPosition() {
         return position;
     }

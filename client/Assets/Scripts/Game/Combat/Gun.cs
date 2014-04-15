@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Gun : MonoBehaviour {
     public GameObject ammunitionPrefab;
@@ -49,9 +50,21 @@ public class Gun : MonoBehaviour {
         if (CanFire()) {
             shootingSound.Play();
             currentCooldown = cooldown;
-            Instantiate(ammunitionPrefab, muzzlePoint.position, muzzlePoint.rotation);
+            SendShootRequest();
             currentAmmunition--;
         }
+    }
+
+    private void SendShootRequest() {
+        Dictionary<string, float> data = new Dictionary<string, float>();
+        data.Add("position.x", muzzlePoint.transform.position.x);
+        data.Add("position.y", muzzlePoint.transform.position.y);
+        data.Add("position.z", muzzlePoint.transform.position.z);
+        data.Add("rotation.x", muzzlePoint.transform.rotation.x);
+        data.Add("rotation.y", muzzlePoint.transform.rotation.y);
+        data.Add("rotation.z", muzzlePoint.transform.rotation.z);
+        data.Add("rotation.w", muzzlePoint.transform.rotation.w);
+        GameManager.gameManager.ClientController.Send(DataType.SHOOT, data);
     }
 
     private void OnReload() {
