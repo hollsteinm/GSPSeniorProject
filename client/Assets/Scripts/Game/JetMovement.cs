@@ -5,8 +5,9 @@ public class JetMovement : MonoBehaviour {
 	
 	private float rotationX = 0.0f;
     private float rotationY = 0.0f;
+	private float rotationZ = 0.0f;
 
-    public float lookSpeed = 3.0f;
+    public float lookSpeed = 1.0f;
 
     private float forwardAcceleration = 0.0f;
     public float maxForwardAcceleration = 50.0f;
@@ -26,6 +27,7 @@ public class JetMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		forwardVelocity = defaultForwardVelocity;
+		rigidbody.freezeRotation = true;
 	}
 	
 	// Update is called once per frame
@@ -33,12 +35,11 @@ public class JetMovement : MonoBehaviour {
 		
 		//SHIP ROTATION
 		
-		rotationX += Input.GetAxis("Mouse X") * lookSpeed;
-        rotationY += Input.GetAxis("Mouse Y") * lookSpeed;
-        rotationY = Mathf.Clamp(rotationY, -360, 360);
-
-        transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
-        transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
+		float rotX = Input.GetAxis("Mouse X") * lookSpeed;
+        float rotY = Input.GetAxis("Mouse Y") * lookSpeed;
+		
+		transform.Rotate (Vector3.up * rotX);
+		transform.Rotate (Vector3.left * rotY);
 		
 		//FORWARD THRUSTERS
 		

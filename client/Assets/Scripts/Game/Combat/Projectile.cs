@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour {
 
     private float range = 1000.0f;
     private float damage = 50.0f;
-    private float speed = 100.0f;
+    private float speed = 1000.0f;
     private Vector3 spawnLocation;
 
     private int networkInstanceID;
