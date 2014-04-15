@@ -126,6 +126,10 @@ public class SFSClient : IClientController {
                 ScoresResponse(sfsdata);
                 break;
 
+            case "shoot":
+                ShootResponse(sfsdata);
+                break;
+
             default:
                 break;
         }
@@ -316,6 +320,10 @@ public class SFSClient : IClientController {
                 SendGetScoresRequest(data);
                 break;
 
+            case DataType.SHOOT:
+                SendShootRequest(data);
+                break;
+
             default:
                 Debug.LogError ( "Should not reach this point in Send( SendType, object)" );
                 break;
@@ -385,6 +393,25 @@ public class SFSClient : IClientController {
     }
 
     //methods for send()
+    private void SendShootRequest(object data){
+        Dictionary<string, float> cdata = data as Dictionary<string, float>;
+        SFSObject sfsdata = new SFSObject();
+
+        sfsdata.PutFloat("position.x", cdata["position.x"]);
+        sfsdata.PutFloat("position.y", cdata["position.y"]);
+        sfsdata.PutFloat("position.z", cdata["position.z"]);
+        sfsdata.PutFloat("rotation.x", cdata["rotation.x"]);
+        sfsdata.PutFloat("rotation.y", cdata["rotation.y"]);
+        sfsdata.PutFloat("rotation.z", cdata["rotation.z"]);
+        sfsdata.PutFloat("rotation.w", cdata["rotation.w"]);
+        sfsdata.PutFloat("damage", cdata["damage"]);
+        sfsdata.PutFloat("speed", cdata["speed"]);
+        sfsdata.PutInt("networkId", (int)cdata["networkId"]);
+
+        SFSInstance.Send(new ExtensionRequest("server.shoot", sfsdata, SFSInstance.LastJoinedRoom));
+
+    }
+
     private void SendRegistrationRequest(object data) {
         Dictionary<string, string> cdata = data as Dictionary<string, string>;
         SFSObject sfsdata = new SFSObject();
@@ -403,15 +430,33 @@ public class SFSClient : IClientController {
         SFSInstance.Send ( new ExtensionRequest ( "server.spawn", new SFSObject () ) );
     }
 
+    private void SendProjectileTransform(object data) {
+        /*Dictionary<string, object> cdata = data as Dictionary<string, object>;
+        Transform t = cdata["transform"] as Transform;
+        int instanceID = (int)cdata["instanceID"];
+        SFSObject sfso = new SFSObject();
+
+        sfso.PutInt("instanceID", instanceID);
+        sfso.PutFloat("position.x", t.position.x);
+        sfso.PutFloat("position.y", t.position.y);
+        sfso.PutFloat("position.z", t.position.z);
+        sfso.PutFloat("rotation.x", t.rotation.x);
+        sfso.PutFloat("rotation.y", t.rotation.y);
+        sfso.PutFloat("rotation.z", t.rotation.z);
+        sfso.PutFloat("rotation.w", t.rotation.w);
+
+        SFSInstance.Send(new ExtensionRequest("server.transform.projectile", sfso));//, null, useUDP) );*/
+    }
+
     private void SendTransform ( object data ) {
         SFSObject sfso = new SFSObject ();
-        Transform t = data as Transform;
-
-        if (data != null) {
-            if (data.GetType() == typeof(long)) {
-                sfso.PutLong("projectile.type", 0);
-            }
+        Dictionary<string, object> cdata = data as Dictionary<string, object>;
+        Transform t = cdata["transform"] as Transform;
+        string type = cdata["type"] as string;
+        if (type == "projectile") {
+            sfso.PutInt("networkId", (int)cdata["networkId"]);
         }
+        sfso.PutUtfString("type", type);    
         
         sfso.PutFloat("position.x", t.position.x);
         sfso.PutFloat("position.y", t.position.y);
@@ -520,32 +565,71 @@ public class SFSClient : IClientController {
         OnEvent ( "spawn", data );
     }
 
-    private void TransformResponse ( SFSObject sfsdata ) {
-        int id = sfsdata.GetInt ( "player" );
+    private void HandlePlayerTransformResponse(SFSObject sfsdata) {
+        int id = sfsdata.GetInt("player");
 
-        float px = sfsdata.GetFloat ( "position.x" );
-        float py = sfsdata.GetFloat ( "position.y" );
-        float pz = sfsdata.GetFloat ( "position.z" );
-        float rx = sfsdata.GetFloat ( "rotation.x" );
-        float ry = sfsdata.GetFloat ( "rotation.y" );
-        float rz = sfsdata.GetFloat ( "rotation.z" );
-        float rw = sfsdata.GetFloat ( "rotation.w" );
+        float px = sfsdata.GetFloat("position.x");
+        float py = sfsdata.GetFloat("position.y");
+        float pz = sfsdata.GetFloat("position.z");
+        float rx = sfsdata.GetFloat("rotation.x");
+        float ry = sfsdata.GetFloat("rotation.y");
+        float rz = sfsdata.GetFloat("rotation.z");
+        float rw = sfsdata.GetFloat("rotation.w");
 
         //hack, needs to be fixed
-        if ( !GameManager.gameManager.Players.ContainsKey ( id ) && id != SFSInstance.MySelf.Id) {
-            GameManager.gameManager.AddRemotePlayer ( id, "AceGuest#"+id.ToString() );
+        if (!GameManager.gameManager.Players.ContainsKey(id) && id != SFSInstance.MySelf.Id) {
+            GameManager.gameManager.AddRemotePlayer(id, "AceGuest#" + id.ToString());
         }
 
-        Dictionary<string, object> data = new Dictionary<string, object> ();
-        data.Add ( "id", id );
-        data.Add ( "position.x", px );
-        data.Add ( "position.y", py );
-        data.Add ( "position.z", pz );
-        data.Add ( "rotation.x", rx );
-        data.Add ( "rotation.y", ry );
-        data.Add ( "rotation.z", rz );
-        data.Add ( "rotation.w", rw );
-        OnEvent ( "transform", data );
+        Dictionary<string, object> data = new Dictionary<string, object>();
+        data.Add("id", id);
+        data.Add("position.x", px);
+        data.Add("position.y", py);
+        data.Add("position.z", pz);
+        data.Add("rotation.x", rx);
+        data.Add("rotation.y", ry);
+        data.Add("rotation.z", rz);
+        data.Add("rotation.w", rw);
+        OnEvent("transform", data);
+    }
+
+    private void HandleProjectileTransformResponse(SFSObject sfsdata) {
+        int id = sfsdata.GetInt("networkId");
+
+        float px = sfsdata.GetFloat("position.x");
+        float py = sfsdata.GetFloat("position.y");
+        float pz = sfsdata.GetFloat("position.z");
+        float rx = sfsdata.GetFloat("rotation.x");
+        float ry = sfsdata.GetFloat("rotation.y");
+        float rz = sfsdata.GetFloat("rotation.z");
+        float rw = sfsdata.GetFloat("rotation.w");
+
+        Dictionary<string, object> data = new Dictionary<string, object>();
+        data.Add("networkId", id);
+        data.Add("position.x", px);
+        data.Add("position.y", py);
+        data.Add("position.z", pz);
+        data.Add("rotation.x", rx);
+        data.Add("rotation.y", ry);
+        data.Add("rotation.z", rz);
+        data.Add("rotation.w", rw);
+        OnEvent("transform", data);
+    }
+
+    private void TransformResponse ( SFSObject sfsdata ) {
+        string type = sfsdata.GetUtfString("type");
+        switch (type) {
+            case "player":
+                HandlePlayerTransformResponse(sfsdata);
+                break;
+
+            case "projectile":
+                HandleProjectileTransformResponse(sfsdata);
+                break;
+
+            default:
+                break;
+        }
     }
 
     private void PlayerHitResponse ( SFSObject sfsdata ) {
@@ -573,6 +657,24 @@ public class SFSClient : IClientController {
 
     private void DeathResponse ( SFSObject sfsdata ) {
         OnEvent ( "player.remote.death", sfsdata.GetInt ( "id" ) );
+    }
+
+    private void ShootResponse(SFSObject sfsdata) {
+        Dictionary<string, object> data = new Dictionary<string, object>();
+        data.Add("position.x", sfsdata.GetFloat("position.x"));
+        data.Add("position.y", sfsdata.GetFloat("position.y"));
+        data.Add("position.z", sfsdata.GetFloat("position.y"));
+        data.Add("rotation.x", sfsdata.GetFloat("rotation.x"));
+        data.Add("rotation.y", sfsdata.GetFloat("rotation.y"));
+        data.Add("rotation.z", sfsdata.GetFloat("rotation.z"));
+        data.Add("rotation.w", sfsdata.GetFloat("rotation.w"));
+        data.Add("damage", sfsdata.GetFloat("damage"));
+        data.Add("speed", sfsdata.GetFloat("speed"));
+        data.Add("networkInstanceID", sfsdata.GetInt("networkInstanceID"));
+
+        //create instance of projectile
+        //temporary
+        GameManager.gameManager.CreateProjectile(data);
     }
 
     private void ScoresResponse(SFSObject sfsdata) {

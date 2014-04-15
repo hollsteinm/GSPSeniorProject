@@ -59,6 +59,7 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
         }
         set {
             remoteId = value;
+            GetComponent<NetworkTransformer>().NetworkId = remoteId;
         }
     }
 
@@ -70,10 +71,6 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
 
             case "player.remote.death":
                 handlePlayerRemoteDeath ( o );
-                break;
-
-            case "transform":
-                handleTransform ( o );
                 break;
 
             default:
@@ -100,25 +97,5 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
         if ( ( int ) o == remoteId ) {
             GameManager.gameManager.RemoveRemotePlayer ( remoteId );
         }
-    }
-
-    private void handleTransform ( object o ) {
-        Dictionary<string, object> data = o as Dictionary<string, object>;
-        int id = (int)data["id"];
-
-        if ( id != remoteId ) {
-            return;
-        }
-
-        float px = (float)data["position.x"];
-        float py = (float)data["position.y"];
-        float pz = (float)data["position.z"];
-        float rx = (float)data["rotation.x"];
-        float ry = (float)data["rotation.y"];
-        float rz = (float)data["rotation.z"];
-        float rw = (float)data["rotation.w"];
-
-        transform.position = new Vector3 ( px, py, pz );
-        transform.rotation = new Quaternion ( rx, ry, rz, rw );
     }
 }

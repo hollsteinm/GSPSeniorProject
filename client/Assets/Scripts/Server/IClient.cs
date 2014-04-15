@@ -13,6 +13,7 @@ public enum DataType{
     DEATH,
     REGISTER,
     SCORES_GET,
+    SHOOT
 };
 
 public interface IClient {

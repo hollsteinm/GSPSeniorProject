@@ -63,6 +63,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400006}
   - 82: {fileID: 8200000}
+  - 114: {fileID: 11400010}
   m_Layer: 0
   m_Name: ClientPlayer
   m_TagString: Player
@@ -458,7 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65085c7b6b175f439aa657dd23ef033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammunitionPrefab: {fileID: 100000, guid: a44ec0d5277bf9d42ad958dd70f94bc2, type: 2}
+  ammunitionPrefab: {fileID: 100000, guid: b071b2f978aefbc4798d70cdb3536105, type: 2}
   shootingSound: {fileID: 8200002}
   muzzlePoint: {fileID: 400010}
 --- !u!114 &11400008
@@ -478,6 +479,19 @@ MonoBehaviour:
   damping: 1
   smoothRotation: 1
   rotationDamping: 1
+--- !u!114 &11400010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df08725594eec58439849aab107f0845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  commType: 0
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

@@ -151,5 +151,19 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void CreateProjectile(Dictionary<string, object> data) {
+        float px = (float)data["position.x"];
+        float py = (float)data["position.y"];
+        float pz = (float)data["position.z"];
+        float rx = (float)data["rotation.x"];
+        float ry = (float)data["rotation.y"];
+        float rz = (float)data["rotation.z"];
+        float rw = (float)data["rotation.w"];
+
+        Vector3 position = new Vector3(px, py, pz);
+        Quaternion rotation = new Quaternion(rx, ry, rz, rw);
+
+        Instantiate(Resources.Load("tempProjectile"), position, rotation);
+    }
 
 }

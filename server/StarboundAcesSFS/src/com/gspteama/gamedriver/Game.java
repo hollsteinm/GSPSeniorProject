@@ -12,8 +12,9 @@ import java.util.HashMap;
  * @author Martin
  */
 public class Game {
-    private HashMap<Integer, Ship>      ships   = new HashMap<>();
-    private HashMap<Integer, Player>    players = new HashMap<>();
+    private HashMap<Integer, Ship>      ships       = new HashMap<>();
+    private HashMap<Integer, Player>    players     = new HashMap<>();
+    private HashMap<Integer,Projectile> projectiles = new HashMap<>();
     
     public void AddPlayer(int playerId, Player player){
         if(!players.containsKey(playerId)){
@@ -35,4 +36,12 @@ public class Game {
         return ships.get(playerId);
     }
     
+    //adds projecitle to game, returns its key in hashmap
+    public void addProjectile(int id, Projectile p){
+        projectiles.put(id, p);
+    }
+    
+    public Projectile getProjectile(int id){
+        return projectiles.get(id);
+    }
 }

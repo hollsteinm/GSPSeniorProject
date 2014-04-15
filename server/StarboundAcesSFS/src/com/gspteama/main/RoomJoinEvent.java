@@ -43,6 +43,7 @@ public class RoomJoinEvent extends BaseServerEventHandler{
                 int playerid = (int)((User)isfse.getParameter(SFSEventParam.USER)).getId();
 
                 game.AddPlayer(playerid, new Player(username));
+                trace("Game added and player added");
             } catch (Exception ex) {
                 trace(ex.toString());
                 Logger.getLogger(RoomJoinEvent.class.getName()).log(Level.SEVERE, null, ex);
