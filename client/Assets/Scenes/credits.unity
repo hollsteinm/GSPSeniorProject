@@ -139,7 +139,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 273722388}
-  m_Text: Valentin Opera
+  m_Text: Valentin Oprea
   m_OffsetZ: 0
   m_CharacterSize: .25
   m_LineSpacing: 2
@@ -341,7 +341,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 294106083}
-  m_Text: David Tiscerano
+  m_Text: David Tiscareno
   m_OffsetZ: 0
   m_CharacterSize: .25
   m_LineSpacing: 2
@@ -502,7 +502,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 674503139}
-  m_Text: Kevin Veterly
+  m_Text: Kevin Vetterly
   m_OffsetZ: 0
   m_CharacterSize: .25
   m_LineSpacing: 2

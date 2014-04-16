@@ -309,6 +309,7 @@ GameObject:
   - 114: {fileID: 1160049940}
   - 114: {fileID: 1160049944}
   - 82: {fileID: 1160049945}
+  - 114: {fileID: 1160049946}
   m_Layer: 0
   m_Name: ClientPlayer
   m_TagString: Player
@@ -372,7 +373,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -470,6 +471,20 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!114 &1160049946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400010, guid: 9b922a41b3c4ef84bac30dab127f7a51,
+    type: 2}
+  m_PrefabInternal: {fileID: 704666284}
+  m_GameObject: {fileID: 1160049938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df08725594eec58439849aab107f0845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  commType: 0
 --- !u!1 &1238924335
 GameObject:
   m_ObjectHideFlags: 0
