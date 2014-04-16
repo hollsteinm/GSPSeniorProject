@@ -78,8 +78,11 @@ public class DummyClient : IClientController {
                 ForwardTransform(data);
                 break;
 
+            case DataType.SHOOT:
+                break;
+
             default:
-                Debug.LogError("Unkown DataType... ignoring.");
+                Debug.LogError("Unhandled DataType: " + type.ToString());
                 break;
         }
     }
@@ -139,7 +142,7 @@ public class DummyClient : IClientController {
     }
 
     private void ForwardTransform(object data) {
-        CheckType(data, typeof(Transform));
+        CheckType(data, typeof(Dictionary<string, object>));
     }
 
     private void ForwardFire(object data) {
