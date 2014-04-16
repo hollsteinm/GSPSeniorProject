@@ -98,7 +98,7 @@ public class Projectile : MonoBehaviour, IEventListener {
     Vector3 colpoint = new Vector3();
     void OnTriggerEnter(Collider colother) {
         other = colother.gameObject;
-        colpoint = transform.position;
+        colpoint = transform.parent.position;
 
         if (other.GetComponent<ClientPlayer>() != null) {
             OnClientHit();
@@ -124,7 +124,7 @@ public class Projectile : MonoBehaviour, IEventListener {
 
     private void OnCollide() {
         Debug.Log("Collision Entered (" + other.ToString() + "). Remote Component is: " + other.GetComponent<RemotePlayerScript>().ToString());
-        Instantiate(collisionEffectPrefab);
+        Instantiate(collisionEffectPrefab, transform.position, transform.rotation);
         collisionSound.Play();
         Destroy(gameObject);
     }

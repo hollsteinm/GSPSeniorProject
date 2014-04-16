@@ -492,6 +492,7 @@ public class SFSClient : IClientController {
     private void SendDeathRequest ( object data ) {
         SFSObject sfsdata = new SFSObject ();
         SFSInstance.Send ( new ExtensionRequest ( "server.death", sfsdata, SFSInstance.LastJoinedRoom ) );
+        Debug.Log("Death Request sent.");
     }
 
     private void SendGetScoresRequest(object data){

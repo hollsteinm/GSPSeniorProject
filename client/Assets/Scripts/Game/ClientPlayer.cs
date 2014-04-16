@@ -15,7 +15,6 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
 	
 	// Update is called once per frame
 	void Update () {
-        //SendData ();
 	}
 
     public void Notify ( string eventType, object o ) {
@@ -73,14 +72,4 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
                 break;
         }
     }
-    /*
-    private float delay = 0.1f;
-    private float timepassed = 0.0f;
-    private void SendData ( ) {
-        timepassed += Time.deltaTime;
-        if (timepassed >= delay) {
-            server.Send(DataType.TRANSFORM, transform);
-            timepassed = 0.0f;
-        }
-    }*/
 }
