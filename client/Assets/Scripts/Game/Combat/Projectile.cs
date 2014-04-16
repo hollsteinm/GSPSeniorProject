@@ -123,7 +123,7 @@ public class Projectile : MonoBehaviour, IEventListener {
     }
 
     private void OnCollide() {
-        Debug.Log("Collision Entered (" + other.ToString() + ")");
+        Debug.Log("Collision Entered (" + other.ToString() + "). Remote Component is: " + other.GetComponent<RemotePlayerScript>().ToString());
         Instantiate(collisionEffectPrefab);
         collisionSound.Play();
         Destroy(gameObject);
@@ -154,7 +154,13 @@ public class Projectile : MonoBehaviour, IEventListener {
         data.Add("damage", damage);
         data.Add("player.hit.id", rp.Id);
 
-        Vector3 contactPoint = col.contacts[0].point;
+        Vector3 contactPoint;
+        if (col != null) {
+            contactPoint = col.contacts[0].point;
+        } else {
+            contactPoint = colpoint;
+        }
+
         data.Add("contact.point.x", contactPoint.x);
         data.Add("contact.point.y", contactPoint.y);
         data.Add("contact.point.z", contactPoint.z);
