@@ -191,9 +191,8 @@ public class MultiHandler extends BaseClientRequestHandler{
             int rank = 0;
             int size = results.size();
             for(int i = 0; i < size; i+=2){
-                response.putUtfString("player"+Integer.toString(rank), (String)results.get(rank));
-                response.putLong("score"+Integer.toString(rank), (long)results.get(rank+1));
-                rank++;                
+                response.putUtfString("player"+Integer.toString(rank), results.get(rank).toString());
+                response.putLong("score"+Integer.toString(rank), (long)results.get(rank+1));                
             }
             
             size /= 2;
