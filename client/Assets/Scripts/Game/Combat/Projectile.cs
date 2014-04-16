@@ -68,12 +68,37 @@ public class Projectile : MonoBehaviour, IEventListener {
     }
 
     void FixedUpdate() {
+        SweepTest();
+        Move();
+    }
+
+    private void Move() {
         transform.position += transform.forward * speed * Time.fixedDeltaTime;
     }
 
-    void OnCollisionEnter(Collision collision) {
-        other = collision.collider.gameObject;
-        col = collision;
+    private void SweepTest() {
+        RaycastHit hitInfo = new RaycastHit();
+        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.red);
+        if (Physics.Raycast(new Ray(transform.position, transform.TransformDirection(Vector3.forward)), out hitInfo, speed)) {
+            try {
+                other = hitInfo.collider.gameObject;
+                if (other.GetComponent<RemotePlayerScript>() != null) {
+                    OnRemoteHit();
+                } else if (other.GetComponent<ClientPlayer>() != null) {
+                    OnClientHit();
+                }
+
+            } catch (System.Exception e) {
+                //here I actually intend to ignore the null reference because that means i hit something that isn't a player.
+            }
+            OnCollide();
+        }
+    }
+
+    Vector3 colpoint = new Vector3();
+    void OnTriggerEnter(Collider colother) {
+        other = colother.gameObject;
+        colpoint = transform.position;
 
         if (other.GetComponent<ClientPlayer>() != null) {
             OnClientHit();
@@ -81,6 +106,24 @@ public class Projectile : MonoBehaviour, IEventListener {
             OnRemoteHit();
         }
 
+        OnCollide();
+    }
+
+    void OnCollisionEnter(Collision colother) {
+        other = colother.collider.gameObject;
+        col = colother;
+
+        if (other.GetComponent<ClientPlayer>() != null) {
+            OnClientHit();
+        } else if (other.GetComponent<RemotePlayerScript>() != null) {
+            OnRemoteHit();
+        }
+
+        OnCollide();
+    }
+
+    private void OnCollide() {
+        Debug.Log("Collision Entered (" + other.ToString() + ")");
         Instantiate(collisionEffectPrefab);
         collisionSound.Play();
         Destroy(gameObject);
@@ -91,8 +134,14 @@ public class Projectile : MonoBehaviour, IEventListener {
         Dictionary<string, object> data = new Dictionary<string, object>();
         data.Add("damage", damage);
         data.Add("player.hit.id", -1);
-
-        Vector3 contactPoint = col.contacts[0].point;
+        
+        Vector3 contactPoint;
+        if (col != null) {
+            contactPoint = col.contacts[0].point;
+        } else {
+            contactPoint = colpoint;
+        }
+        
         data.Add("contact.point.x", contactPoint.x);
         data.Add("contact.point.y", contactPoint.y);
         data.Add("contact.point.z", contactPoint.z);
