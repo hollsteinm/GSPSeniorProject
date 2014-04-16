@@ -161,6 +161,7 @@ public class DummyClient : IClientController {
                 OnEvent("player.remote.hit", fdata);
             }
         }
+        Debug.Log("Fire message received and handled");
     }
 
     private void ForwardDeath(object data){
