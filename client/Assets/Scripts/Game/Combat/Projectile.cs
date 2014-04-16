@@ -8,7 +8,7 @@ using System.Collections.Generic;
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(AudioClip))]
-public class Projectile : MonoBehaviour {
+public class Projectile : MonoBehaviour, IEventListener {
     public GameObject collisionEffectPrefab;
     public AudioSource collisionSound;
 
@@ -19,8 +19,6 @@ public class Projectile : MonoBehaviour {
     private float damage = 50.0f;
     private float speed = 1000.0f;
     private Vector3 spawnLocation;
-
-    private int networkInstanceID;
 
     public float Speed {
         set {
@@ -55,7 +53,7 @@ public class Projectile : MonoBehaviour {
         gameObject.rigidbody.isKinematic = true;
         gameObject.rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         spawnLocation = gameObject.transform.position;
-        //GameManager.gameManager.ClientController.Register(this);
+        GameManager.gameManager.ClientController.Register(this);
 	}
 	
 	// Update is called once per frame
@@ -65,9 +63,12 @@ public class Projectile : MonoBehaviour {
         }	
 	}
 
+    void OnDestroy() {
+        GameManager.gameManager.ClientController.Unregister(this);
+    }
+
     void FixedUpdate() {
         transform.position += transform.forward * speed * Time.fixedDeltaTime;
-        //SendData();
     }
 
     void OnCollisionEnter(Collision collision) {
@@ -110,38 +111,24 @@ public class Projectile : MonoBehaviour {
         data.Add("contact.point.z", contactPoint.z);
         GameManager.gameManager.ClientController.Send(DataType.FIRE, data);
     }
-    /*
-    private float delay = 0.1f;
-    private float timepassed = 0.0f;
-    private void SendData ( ) {
-        timepassed += Time.deltaTime;
-        if (timepassed >= delay) {
-            GameManager.gameManager.ClientController.Send(DataType.TRANSFORM, transform);
-            timepassed = 0.0f;
-        }
-    }
 
     public void Notify(string eventType, object o) {
         switch (eventType) {
-            case "transform.projectile":
-                Dictionary<string, object> data = o as Dictionary<string, object>;
-               
-                if((int)data["instanceID"] == networkInstanceID){
-                    transform.position = new Vector3(
-                        (float)data["position.x"],
-                        (float)data["position.y"],
-                        (float)data["position.z"]);
-
-                    transform.rotation = new Quaternion(
-                        (float)data["rotation.x"],
-                        (float)data["rotation.y"],
-                        (float)data["rotation.y"],
-                        (float)data["rotation.w"]);
+            case "projectile.assign":
+                if (GetComponent<NetworkTransformer>().NetworkId != -1) {
+                    return;
                 }
+
+                Dictionary<string, object> data = o as Dictionary<string, object>;
+                range = (float)data["range"];
+                damage = (float)data["damage"];
+                speed = (float)data["speed"];
+                GetComponent<NetworkTransformer>().NetworkId = (int)data["networkId"];
+                
                 break;
 
             default:
                 break;
         }
-    }*/
+    }
 }

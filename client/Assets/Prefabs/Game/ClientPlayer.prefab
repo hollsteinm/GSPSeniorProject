@@ -459,7 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c65085c7b6b175f439aa657dd23ef033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ammunitionPrefab: {fileID: 100000, guid: b071b2f978aefbc4798d70cdb3536105, type: 2}
+  ammunitionPrefab: {fileID: 100000, guid: a44ec0d5277bf9d42ad958dd70f94bc2, type: 2}
   shootingSound: {fileID: 8200002}
   muzzlePoint: {fileID: 400010}
 --- !u!114 &11400008

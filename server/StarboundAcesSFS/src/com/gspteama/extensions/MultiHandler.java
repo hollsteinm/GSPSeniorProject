@@ -78,7 +78,8 @@ public class MultiHandler extends BaseClientRequestHandler{
         try{
             //TODO: get data from database;
             p.setDamage(50.0f);
-            p.setSpeed(100.0f);
+            p.setSpeed(1000.0f);
+            p.setRange(2000.0f);
             
             p.setPosition(new float[]{
                 params.getFloat("position.x"),
@@ -106,12 +107,14 @@ public class MultiHandler extends BaseClientRequestHandler{
                 id = r.nextInt();
             }
             
+            response.putInt("playerId", user.getId());
             response.putInt("networkId", id);
             
             paramsIntoResponseTransform(params, response);
             
             response.putFloat("damage", p.getDamage());
             response.putFloat("speed", p.getSpeed());
+            response.putFloat("range", p.getRange());
             
             send("shoot", response, user.getLastJoinedRoom().getUserList());
             trace("data sent");
@@ -142,14 +145,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             trace(e.getMessage());
         } finally {
         
-            ISFSObject response = SFSObject.newInstance();
-            response.putFloat("position.x", params.getFloat("position.x"));
-            response.putFloat("position.y", params.getFloat("position.y"));
-            response.putFloat("position.z", params.getFloat("position.z"));
-            response.putFloat("rotation.x", params.getFloat("rotation.x"));
-            response.putFloat("rotation.y", params.getFloat("rotation.y"));
-            response.putFloat("rotation.z", params.getFloat("rotation.z"));
-            response.putFloat("rotation.w", params.getFloat("rotation.w"));            
+            ISFSObject response = SFSObject.newInstance();            
             
             response.putInt("networkId", pid);
             response.putUtfString("type", "projectile");

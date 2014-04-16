@@ -20,7 +20,7 @@ public class NetworkTransformer : MonoBehaviour, IEventListener {
     public NetworkObjectType type;
     public CommunicationType commType;
 
-    private int networkId;
+    private int networkId = -1;
     private string stype;
     private IClientController server;
 
@@ -98,7 +98,7 @@ public class NetworkTransformer : MonoBehaviour, IEventListener {
     }
 
     public void Notify(string eventType, object o) {
-        if (commType == CommunicationType.RECEIVE_ONLY || commType == CommunicationType.RECEIVE_ONLY) {
+        if (commType == CommunicationType.RECEIVE_ONLY || commType == CommunicationType.SEND_AND_RECEIVE) {
             switch (eventType) {
 
                 case "transform":

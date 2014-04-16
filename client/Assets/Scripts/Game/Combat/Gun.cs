@@ -51,6 +51,7 @@ public class Gun : MonoBehaviour {
             shootingSound.Play();
             currentCooldown = cooldown;
             SendShootRequest();
+            Instantiate(ammunitionPrefab, muzzlePoint.transform.position, muzzlePoint.transform.rotation);
             currentAmmunition--;
         }
     }

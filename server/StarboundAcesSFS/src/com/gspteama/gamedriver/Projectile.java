@@ -13,10 +13,14 @@ public class Projectile {
     private float       damage          ;
     private float       speed           ;
     private float[]     position        = new float[4];
-    private int         networkID       ;
-    
-    public Projectile(){
-        this.networkID = this.hashCode();
+    private float       range           ;
+
+    public float getRange() {
+        return range;
+    }
+
+    public void setRange(float range) {
+        this.range = range;
     }
     
     public float[] getPosition() {

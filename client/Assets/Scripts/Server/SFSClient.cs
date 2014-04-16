@@ -427,24 +427,6 @@ public class SFSClient : IClientController {
         SFSInstance.Send ( new ExtensionRequest ( "server.spawn", new SFSObject () ) );
     }
 
-    private void SendProjectileTransform(object data) {
-        /*Dictionary<string, object> cdata = data as Dictionary<string, object>;
-        Transform t = cdata["transform"] as Transform;
-        int instanceID = (int)cdata["instanceID"];
-        SFSObject sfso = new SFSObject();
-
-        sfso.PutInt("instanceID", instanceID);
-        sfso.PutFloat("position.x", t.position.x);
-        sfso.PutFloat("position.y", t.position.y);
-        sfso.PutFloat("position.z", t.position.z);
-        sfso.PutFloat("rotation.x", t.rotation.x);
-        sfso.PutFloat("rotation.y", t.rotation.y);
-        sfso.PutFloat("rotation.z", t.rotation.z);
-        sfso.PutFloat("rotation.w", t.rotation.w);
-
-        SFSInstance.Send(new ExtensionRequest("server.transform.projectile", sfso));//, null, useUDP) );*/
-    }
-
     private void SendTransform ( object data ) {
         SFSObject sfso = new SFSObject ();
         Dictionary<string, object> cdata = data as Dictionary<string, object>;
@@ -603,7 +585,7 @@ public class SFSClient : IClientController {
         float rw = sfsdata.GetFloat("rotation.w");
 
         Dictionary<string, object> data = new Dictionary<string, object>();
-        data.Add("networkId", id);
+        data.Add("id", id);
         data.Add("type", sfsdata.GetUtfString("type"));
         data.Add("position.x", px);
         data.Add("position.y", py);
@@ -669,11 +651,16 @@ public class SFSClient : IClientController {
         data.Add("rotation.w", sfsdata.GetFloat("rotation.w"));
         data.Add("damage", sfsdata.GetFloat("damage"));
         data.Add("speed", sfsdata.GetFloat("speed"));
+        data.Add("range", sfsdata.GetFloat("range"));
         data.Add("networkId", sfsdata.GetInt("networkId"));
 
         //create instance of projectile
         //temporary
-        GameManager.gameManager.CreateProjectile(data);
+        if (sfsdata.GetInt("playerId") != SFSInstance.MySelf.Id) {
+            GameManager.gameManager.CreateProjectile(data);
+        } else {
+            OnEvent("projectile.assign", data);
+        }
     }
 
     private void ScoresResponse(SFSObject sfsdata) {
