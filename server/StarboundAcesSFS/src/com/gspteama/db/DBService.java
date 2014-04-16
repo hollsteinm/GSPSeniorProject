@@ -30,7 +30,7 @@ public class DBService {
         PreparedStatement ps = null;
         ResultSet rs = null;
         long id;
-        float score;
+        long score;
         
         String stmtselect = "select u.user_id, s.score_value from " +
                 "sa_user u join score s on s.score_user_id = u.user_id " +
@@ -46,23 +46,23 @@ public class DBService {
         ps.setString(1, player.getUsername());
 
         rs = ps.executeQuery();
+        rs.close();
 
         if(rs.next()){
             id = rs.getLong(UsernameTable.COL_USER_ID);
-            score = rs.getFloat(ScoreTable.COL_SCORE_VALUE);
+            score = rs.getLong(ScoreTable.COL_SCORE_VALUE);
 
             score += player.getScore();
-            player.setScore(0.0f);
+            player.setScore(0L);
 
             ps = con.prepareStatement(stmtupdate);
-            ps.setFloat(1, score);
+            ps.setLong(1, score);
             ps.setLong(2, id);
 
             ps.executeUpdate();
             con.commit();
         }
 
-        rs.close();
         ps.close();
         con.close();
     }

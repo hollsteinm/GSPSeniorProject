@@ -10,7 +10,7 @@ package com.gspteama.gamedriver;
  */
 public class Player {
     private String      username   = "";
-    private float       score      = 0.0f;
+    private long       score      = 0L;
     
     public Player(){
     }
@@ -27,11 +27,11 @@ public class Player {
         this.username = username;
     }
     
-    public void setScore(float score){
+    public void setScore(long score){
         this.score = score;
     }
     
-    public float getScore(){
+    public long getScore(){
         return score;
     }
 }

@@ -187,12 +187,14 @@ public class MultiHandler extends BaseClientRequestHandler{
             trace(results.toString());
             trace(Long.toString(userid));
             trace(Long.toString(playerScore));
+            
             //TODO: get out of having to do this loop oddly
-            int rank = 0;
             int size = results.size();
+            int rank = 0;
             for(int i = 0; i < size; i+=2){
-                response.putUtfString("player"+Integer.toString(rank), results.get(rank).toString());
-                response.putLong("score"+Integer.toString(rank), (long)results.get(rank+1));                
+                response.putUtfString("player"+Integer.toString(rank), results.get(i).toString());
+                response.putLong("score"+Integer.toString(rank), (long)results.get(i+1));
+                rank++;
             }
             
             size /= 2;
@@ -342,11 +344,11 @@ public class MultiHandler extends BaseClientRequestHandler{
             other.setHealth(other.getHealth() - params.getFloat("damage"));
             
             //TODO: remove magic numbers for scores
-            float score;
+            long score;
             if(game.getShip(params.getInt("player.hit.id")).getHealth() > 0.0f){
-                score= player.getScore() + 5.0f;
+                score = player.getScore() + 5L;
             } else {
-                score = player.getScore() + 25.0f;
+                score = player.getScore() + 25L;
             }
             player.setScore(score);
         } catch (Exception ex) {

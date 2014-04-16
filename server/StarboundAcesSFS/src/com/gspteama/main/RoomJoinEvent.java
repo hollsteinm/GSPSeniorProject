@@ -4,18 +4,14 @@
  */
 package com.gspteama.main;
 
-import com.gspteama.db.DBService;
 import com.gspteama.gamedriver.Game;
 import com.gspteama.gamedriver.Player;
-import com.gspteama.gamedriver.Ship;
-import com.gspteama.gamedriver.Weapon;
 import com.smartfoxserver.v2.core.ISFSEvent;
 import com.smartfoxserver.v2.core.SFSEventParam;
 import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.exceptions.SFSException;
 import com.smartfoxserver.v2.extensions.BaseServerEventHandler;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,7 +37,7 @@ public class RoomJoinEvent extends BaseServerEventHandler{
 
                 String username = (String)((User)isfse.getParameter(SFSEventParam.USER)).getName();
                 int playerid = (int)((User)isfse.getParameter(SFSEventParam.USER)).getId();
-
+                
                 game.AddPlayer(playerid, new Player(username));
                 trace("Game added and player added");
             } catch (Exception ex) {

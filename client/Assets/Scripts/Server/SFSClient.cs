@@ -86,10 +86,7 @@ public class SFSClient : IClientController {
 
     private SFSClient ( ) {
         SFSInstance = new SmartFox ( debug );
-
-        if ( Application.isWebPlayer || Application.isEditor ) {
-            Security.PrefetchSocketPolicy ( server, port, 500 );
-        }
+        Application.runInBackground = true;
 
         RegisterCallbacks ();
 
@@ -238,6 +235,7 @@ public class SFSClient : IClientController {
             currentMessage = "Connection successful.";
         } else {
             currentMessage = "Cannot connect to the server.";
+            currentMessage += evt.Params["errorMessage"];
         }
         Debug.Log ( currentMessage );
     }
@@ -274,6 +272,15 @@ public class SFSClient : IClientController {
     public void Connect ( string server, int port ) {
         this.server = server;
         this.port = port;
+
+        if (Application.isWebPlayer || Application.isEditor) {
+            string dnsIp = System.Net.Dns.GetHostAddresses(this.server)[0].ToString();
+            Debug.Log("IP for Prefetch: " + dnsIp);
+            if (!Security.PrefetchSocketPolicy(dnsIp, port, 500)) {
+                Debug.LogError("PrefetchSocketPolicy failure.");
+            }
+        }
+
         if ( !SFSInstance.IsConnected ) {
             SFSInstance.Connect ( server, port );
             while ( SFSInstance.IsConnecting ) {

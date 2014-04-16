@@ -23,10 +23,10 @@ public class ChatGUI : MonoBehaviour, IEventListener {
 	}
 
     void OnGUI() {
-        GUILayout.BeginArea(new Rect(0, Screen.height - 512.0f, 512.0f, 512.0f));
+        GUILayout.BeginArea(new Rect(0, Screen.height - 256.0f, 512.0f, 256.0f));
         GUILayout.Box("Chat", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
         GUILayout.BeginVertical();
-        GUILayout.BeginArea(new Rect(20, 25, 512.0f - 40.0f, 512.0f - 80.0f));
+        GUILayout.BeginArea(new Rect(20, 25, 256.0f - 40.0f, 512.0f - 80.0f));
 
         scrollPos = GUILayout.BeginScrollView(scrollPos);
         foreach (string s in messages) {
@@ -36,7 +36,7 @@ public class ChatGUI : MonoBehaviour, IEventListener {
         GUILayout.EndScrollView();
         GUILayout.EndArea();
 
-        GUILayout.BeginArea(new Rect(30, 512.0f - 40.0f, 512.0f - 60.0f, 40.0f));
+        GUILayout.BeginArea(new Rect(30, 256.0f - 40.0f, 512.0f - 60.0f, 40.0f));
         GUILayout.BeginHorizontal();
         sendmessage = GUILayout.TextField(sendmessage, 50, GUILayout.Width(512.0f - 120.0f));
 
