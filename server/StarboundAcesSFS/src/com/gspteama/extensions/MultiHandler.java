@@ -331,6 +331,8 @@ public class MultiHandler extends BaseClientRequestHandler{
         response.putFloat("contact.point.y", params.getFloat("contact.point.y"));
         response.putFloat("contact.point.z", params.getFloat("contact.point.z"));
         
+        trace(response.getDump());
+        
         send("player.hit", response, user.getLastJoinedRoom().getPlayersList());
         
         //Update scores
