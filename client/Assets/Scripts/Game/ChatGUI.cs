@@ -26,7 +26,7 @@ public class ChatGUI : MonoBehaviour, IEventListener {
         GUILayout.BeginArea(new Rect(0, Screen.height - 256.0f, 512.0f, 256.0f));
         GUILayout.Box("Chat", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
         GUILayout.BeginVertical();
-        GUILayout.BeginArea(new Rect(20, 25, 256.0f - 40.0f, 512.0f - 80.0f));
+        GUILayout.BeginArea(new Rect(20, 25, 512.0f - 40.0f, 256.0f - 80.0f));
 
         scrollPos = GUILayout.BeginScrollView(scrollPos);
         foreach (string s in messages) {
@@ -38,7 +38,7 @@ public class ChatGUI : MonoBehaviour, IEventListener {
 
         GUILayout.BeginArea(new Rect(30, 256.0f - 40.0f, 512.0f - 60.0f, 40.0f));
         GUILayout.BeginHorizontal();
-        sendmessage = GUILayout.TextField(sendmessage, 50, GUILayout.Width(512.0f - 120.0f));
+        sendmessage = GUILayout.TextField(sendmessage, 128, GUILayout.Width(512.0f - 120.0f));
 
         if (GUILayout.Button("Send") || (Event.current.type == EventType.keyDown && Event.current.character == '\n')) {
             GameManager.gameManager.ClientController.Send(DataType.CHARMESSAGE, (string)sendmessage);
