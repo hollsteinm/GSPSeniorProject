@@ -322,39 +322,52 @@ public class MultiHandler extends BaseClientRequestHandler{
     }
     
     private void handleFire(User user, ISFSObject params){
+        try{
+            //TODO: verify the damage, in fact - just pull it from the ship instance
+            //for the player in question
+            ISFSObject response = SFSObject.newInstance();
+            response.putFloat("damage", params.getFloat("damage"));
+            response.putInt("player.hit.id", params.getInt("player.hit.id"));
+            response.putFloat("contact.point.x", params.getFloat("contact.point.x"));
+            response.putFloat("contact.point.y", params.getFloat("contact.point.y"));
+            response.putFloat("contact.point.z", params.getFloat("contact.point.z"));
 
-        //TODO: verify the damage, in fact - just pull it from the ship instance
-        //for the player in question
-        ISFSObject response = SFSObject.newInstance();
-        response.putFloat("damage", params.getFloat("damage"));
-        response.putInt("player.hit.id", params.getInt("player.hit.id"));
-        response.putFloat("contact.point.x", params.getFloat("contact.point.x"));
-        response.putFloat("contact.point.y", params.getFloat("contact.point.y"));
-        response.putFloat("contact.point.z", params.getFloat("contact.point.z"));
-        
-        trace(response.getDump());
-        
-        send("player.hit", response, user.getLastJoinedRoom().getPlayersList());
-        
-        //Update scores
-        try {
+            trace(response.getDump());
+
             Game game = getGame(user);
-            Player player = game.getPlayer(user.getId());
-            Ship other = game.getShip(params.getInt("player.hit.id"));
-            other.setHealth(other.getHealth() - params.getFloat("damage"));
-            
+            //Ship other = game.getShip(params.getInt("player.hit.id"));
+            //other.setHealth(other.getHealth() - params.getFloat("damage"));
+
             //TODO: remove magic numbers for scores
-            long score;
-            if(game.getShip(params.getInt("player.hit.id")).getHealth() > 0.0f){
-                score = player.getScore() + 5L;
-            } else {
-                score = player.getScore() + 25L;
+            long score = 25;
+
+            long userid = DBService.userIdFromUsername(this.getParentExtension().getParentZone().getDBManager().getConnection()
+                    , user.getName());
+            long playerScore = DBService.selectUserScore(this.getParentExtension().getParentZone().getDBManager().getConnection()
+                        , userid);
+            
+            trace(Long.toString(userid));
+            trace(Long.toString(score));
+            playerScore += score;
+            trace(Long.toString(playerScore));
+
+            //Update scores
+            if(!user.getName().startsWith("AceGuest#")){
+                trace("updating score for: " + user.getName());
+                DBService.updatePlayerScore(this.getParentExtension().getParentZone().getDBManager().getConnection(),
+                        playerScore, userid);
+                trace(Long.toString(playerScore));
             }
-            player.setScore(score);
-        } catch (Exception ex) {
-            trace(ex.toString());
-            Logger.getLogger(MultiHandler.class.getName()).log(Level.SEVERE, null, ex);
+            
+            send("player.hit", response, user.getLastJoinedRoom().getPlayersList());
+            
+        }catch(Exception e){
+            trace(e.toString());
+            for(StackTraceElement st : e.getStackTrace()){
+                trace(st.toString());
+            }
         }
+
     }
     
     private void handleDeath(User user, ISFSObject params){

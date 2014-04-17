@@ -25,45 +25,20 @@ public class DBService {
     }
     
     
-    public static void updatePlayerScore(Connection connection, Player player) throws SQLException{
+    public static void updatePlayerScore(Connection connection, long scoreNew, long playerid) throws SQLException{
         Connection con = connection;
         PreparedStatement ps = null;
-        ResultSet rs = null;
-        long id;
-        long score;
-        
-        String stmtselect = "select u.user_id, s.score_value from " +
-                "sa_user u join score s on s.score_user_id = u.user_id " +
-                "where u.user_name = ?";
-                
-        String stmtupdate = "update sa_score set score_value = ? where " +
-                "score_user_id = ?";
-        
-        
         con.setAutoCommit(false);
+       
+        String stmt = "update sa_score set score_value = ? where score_user_id = ?";
+        ps = con.prepareStatement(stmt);
+        ps.setLong(1, scoreNew);
+        ps.setLong(2, playerid);
 
-        ps = con.prepareStatement(stmtselect);
-        ps.setString(1, player.getUsername());
-
-        rs = ps.executeQuery();
-        rs.close();
-
-        if(rs.next()){
-            id = rs.getLong(UsernameTable.COL_USER_ID);
-            score = rs.getLong(ScoreTable.COL_SCORE_VALUE);
-
-            score += player.getScore();
-            player.setScore(0L);
-
-            ps = con.prepareStatement(stmtupdate);
-            ps.setLong(1, score);
-            ps.setLong(2, id);
-
-            ps.executeUpdate();
-            con.commit();
-        }
-
+        ps.executeUpdate();
         ps.close();
+        con.commit();
+        
         con.close();
     }
     

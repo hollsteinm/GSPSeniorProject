@@ -27,18 +27,7 @@ public class RoomLeaveEvent extends BaseServerEventHandler{
         User user = (User)(isfse.getParameter(SFSEventParam.USER));
         
         if(room.isGame()){
-            try{
-                Game game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
-                Player player = game.getPlayer(user.getId());
-                DBService.updatePlayerScore(
-                        this.getParentExtension().getParentZone().getDBManager().getConnection(), 
-                        player);
 
-            } catch (Exception e){
-                trace(e.toString());
-                Logger.getLogger(DBService.class.getName()).log(Level.SEVERE, null, e);
-            }
         }
-    }
-    
+    }    
 }
