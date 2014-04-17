@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 [System.Serializable]
 [RequireComponent(typeof(LineRenderer))]
-public class Weapon : MonoBehaviour {
+public class __Weapon : MonoBehaviour {
     IClientController server;
     LineRenderer laser;
     public AudioSource fireAudio;
