@@ -6,7 +6,6 @@ package com.gspteama.extensions;
 
 import com.gspteama.db.DBService;
 import com.gspteama.gamedriver.Game;
-import com.gspteama.gamedriver.Player;
 import com.gspteama.gamedriver.Projectile;
 import com.gspteama.gamedriver.Ship;
 import com.gspteama.gamedriver.Weapon;
@@ -99,7 +98,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             
             trace("Properties set");
         } catch(Exception e){
-            trace(e.getMessage());
+            trace("Handle Shoot: " + e.getMessage());
         } finally{
             ISFSObject response = SFSObject.newInstance();
             
@@ -142,7 +141,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             });
 
         } catch (Exception e){
-            trace(e.getMessage());
+            trace("Handle Projectile Transform: " + e.getMessage());
         } finally {
         
             ISFSObject response = SFSObject.newInstance();            
@@ -167,7 +166,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             response.putFloat("rotation.z", params.getFloat("rotation.z"));  
             response.putFloat("rotation.w", params.getFloat("rotation.w"));
         }catch(Exception e){
-            trace(e.getMessage());
+            trace("Params Into Response Transform: " + e.getMessage());
         }
     }
     
@@ -204,7 +203,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             send("scores", response, user);
             
         }catch(SQLException e){
-            trace(e.toString());
+            trace("handleScores " + e.toString());
         }      
     }
     
@@ -212,10 +211,9 @@ public class MultiHandler extends BaseClientRequestHandler{
         Game game = null;
         try{
             game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
+            return game;
         }catch(Exception e){
-            e.printStackTrace();
-            trace(e.getMessage());
-            trace(e.getCause().toString());
+            trace("Getgame: " + e.getMessage());
         } finally{
             return game;
         }
@@ -262,7 +260,7 @@ public class MultiHandler extends BaseClientRequestHandler{
 
             send("spawn", response, user.getLastJoinedRoom().getPlayersList());
         } catch (Exception ex) {
-            trace(ex.toString());
+            trace("handleSpawn: " + ex.toString());
             Logger.getLogger(MultiHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -285,7 +283,7 @@ public class MultiHandler extends BaseClientRequestHandler{
                     break;
             }
         }catch(Exception e){
-            trace(e.toString());
+            trace("handleTransform: " + e.toString());
         }
     }
     
@@ -308,7 +306,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             });
 
         } catch (Exception e){
-            trace(e.toString());
+            trace("handlePlayerTransform: " + e.toString());
         } finally {
         
             ISFSObject response = SFSObject.newInstance();
@@ -362,7 +360,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             send("player.hit", response, user.getLastJoinedRoom().getPlayersList());
             
         }catch(Exception e){
-            trace(e.toString());
+            trace("handleFire: " + e.toString());
             for(StackTraceElement st : e.getStackTrace()){
                 trace(st.toString());
             }

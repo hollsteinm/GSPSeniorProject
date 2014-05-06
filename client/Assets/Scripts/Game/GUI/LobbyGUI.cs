@@ -23,7 +23,7 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
 	// Use this for initialization
 	void Start () {
         server = GameManager.gameManager.ClientController;
-        server.Send ( DataType.JOINGAME, "lobby" );
+        //server.Send ( DataType.JOINGAME, "lobby" );
         server.Register ( this );
 	}
 	

@@ -19,8 +19,6 @@ import com.smartfoxserver.v2.core.SFSEventType;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.extensions.*;
-import java.sql.Connection;
-import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +27,7 @@ import java.util.logging.Logger;
  *
  * @author Martin
  */
-@Instantiation(Instantiation.InstantiationMode.SINGLE_INSTANCE)
+//@Instantiation(Instantiation.InstantiationMode.SINGLE_INSTANCE)
 public class StarboundAcesExtension extends SFSExtension{
     //integer is the room id and game is a game instance
     private static ConcurrentHashMap<Integer, Game> gameList = null;
@@ -44,7 +42,6 @@ public class StarboundAcesExtension extends SFSExtension{
         addRequestHandler("server", MultiHandler.class);
         addEventHandler(SFSEventType.ROOM_ADDED, RoomAddEvent.class);
         addEventHandler(SFSEventType.USER_JOIN_ROOM, RoomJoinEvent.class);
-        addEventHandler(SFSEventType.USER_LEAVE_ROOM, RoomLeaveEvent.class);
     
         try{
             signUp();
@@ -135,8 +132,8 @@ public class StarboundAcesExtension extends SFSExtension{
     
     @Override
     public void destroy(){
-        login.destroy();
         super.destroy();
+        login.destroy();
     }
     
     public Game getGame(int roomid) throws Exception{

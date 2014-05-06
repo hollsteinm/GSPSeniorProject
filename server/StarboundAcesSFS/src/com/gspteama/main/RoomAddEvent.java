@@ -22,12 +22,11 @@ public class RoomAddEvent extends BaseServerEventHandler{
        Room room  = (Room)(isfse.getParameter(SFSEventParam.ROOM));
        if(room.isGame()){
             trace("Room created:  " + room.getName());
-            room.setAutoRemoveMode(SFSRoomRemoveMode.WHEN_EMPTY);
+            room.setAutoRemoveMode(SFSRoomRemoveMode.WHEN_EMPTY_AND_CREATOR_IS_GONE);
             try{
                 ((StarboundAcesExtension)this.getParentExtension()).createGame(room.getId());
             } catch (Exception e){
-                trace("exception");
-                e.printStackTrace();
+                trace("RoomAddEvent: " + e.getMessage());
             }
        }
     }    

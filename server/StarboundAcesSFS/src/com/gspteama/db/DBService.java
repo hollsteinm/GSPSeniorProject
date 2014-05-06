@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package com.gspteama.db;
-import com.gspteama.gamedriver.*;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
