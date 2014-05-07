@@ -260,7 +260,7 @@ public class MultiHandler extends BaseClientRequestHandler{
 
             send("spawn", response, user.getLastJoinedRoom().getPlayersList());
         } catch (Exception ex) {
-            trace("handleSpawn: " + ex.toString());
+            trace("handleSpawn: " + ex.getStackTrace().toString());
             Logger.getLogger(MultiHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
 

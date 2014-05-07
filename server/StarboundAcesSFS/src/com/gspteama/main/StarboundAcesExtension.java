@@ -129,13 +129,13 @@ public class StarboundAcesExtension extends SFSExtension{
         
         addRequestHandler(SignUpAssistantComponent.COMMAND_PREFIX, signup);
     }
-    
+    /*
     @Override
     public void destroy(){
         super.destroy();
         login.destroy();
     }
-    
+    */
     public Game getGame(int roomid) throws Exception{
         return gameList.get(roomid); 
     }

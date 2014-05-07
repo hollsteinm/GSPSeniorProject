@@ -470,8 +470,8 @@ public class SFSClient : IClientController {
         settings.Extension = new RoomExtension ( "StarboundAcesExtension", "com.gspteama.main.StarboundAcesExtension" );
         settings.MaxUsers = 8;
         settings.IsGame = true;
-        SFSInstance.Send ( new CreateRoomRequest ( settings, false ) );
-        SendRoomJoinRequest ( settings.Name );
+        SFSInstance.Send ( new CreateRoomRequest ( settings, true, SFSInstance.LastJoinedRoom ) );
+        //SendRoomJoinRequest ( settings.Name );
     }
 
     private void SendRoomJoinRequest ( object data ) {
