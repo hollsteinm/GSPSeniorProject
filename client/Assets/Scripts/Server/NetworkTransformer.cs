@@ -60,7 +60,7 @@ public class NetworkTransformer : MonoBehaviour, IEventListener {
 	
 	}
 
-    private float delay = 0.1f;
+    private float delay = 0.05f;
     private float timepassed = 0.0f;
     private void SendData() {
         timepassed += Time.deltaTime;

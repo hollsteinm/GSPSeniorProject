@@ -166,8 +166,8 @@ public class SFSClient : IClientController {
             List<User> users = SFSInstance.LastJoinedRoom.UserList;
             foreach ( User u in users ) {
                 if ( u.Id != SFSInstance.MySelf.Id ) {
-                    GameManager.gameManager.AddRemotePlayer ( u.Id, u.Name );
-                    Debug.Log ( "User " + u.Name + " is in room." );
+                    GameManager.gameManager.AddRemotePlayer(u.Id, u.Name);
+                    Debug.Log("User " + u.Name + " is in room.");
                 }
             }
         } else if ( room.Name == "lobby" ) {
@@ -566,7 +566,10 @@ public class SFSClient : IClientController {
 
         //hack, needs to be fixed
         if (!GameManager.gameManager.Players.ContainsKey(id) && id != SFSInstance.MySelf.Id) {
-            GameManager.gameManager.AddRemotePlayer(id, "AceGuest#" + id.ToString());
+            //GameManager.gameManager.AddRemotePlayer(id, "[!]ERROR[!]" + id.ToString());
+            //early out
+            Debug.LogWarning("Null Player sending messages: " + id.ToString());
+            return;
         }
 
         Dictionary<string, object> data = new Dictionary<string, object>();
