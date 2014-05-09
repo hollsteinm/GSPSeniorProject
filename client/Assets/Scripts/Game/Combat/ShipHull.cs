@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ShipHull : MonoBehaviour {
     private float hullHealth = 100.0f;
+    private bool isAlreadyDead = false;
 
     public Gun[] weapons;
     public GameObject deathPrefab;
@@ -32,10 +33,11 @@ public class ShipHull : MonoBehaviour {
 	}
 
     private bool IsDead() {
-        return hullHealth <= 0.0f;
+        return hullHealth <= 0.0f && !isAlreadyDead;
     }
 
     private void OnDeath() {
+        isAlreadyDead = true;
         Instantiate(deathPrefab);
         GameManager.gameManager.ClientController.Send(DataType.DEATH, new object());
         Destroy(transform.parent.gameObject);
