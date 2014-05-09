@@ -6,7 +6,6 @@ package com.gspteama.main;
 import com.gspteama.db.*;
 import com.gspteama.extensions.MultiHandler;
 import com.gspteama.gamedriver.Game;
-import com.smartfoxserver.v2.annotations.Instantiation;
 import com.smartfoxserver.v2.components.login.ILoginAssistantPlugin;
 import com.smartfoxserver.v2.components.login.LoginAssistantComponent;
 import com.smartfoxserver.v2.components.login.LoginData;
