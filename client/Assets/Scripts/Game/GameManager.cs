@@ -67,6 +67,7 @@ public class GameManager : MonoBehaviour {
             lock (mutex) {
                 foreach (KeyValuePair<int, string> entry in copy) {
                     GameObject other = (GameObject)Instantiate(Resources.Load("RemotePlayer"));
+                    other.transform.rotation = Quaternion.Euler(new Vector3(-90.0f, -1.5f, 0.0f));
                     other.GetComponent<RemotePlayerScript>().Id = entry.Key;
                     other.GetComponent<RemotePlayerScript>().Username = entry.Value;
 
@@ -130,14 +131,10 @@ public class GameManager : MonoBehaviour {
 
     public void AddRemotePlayer(int id, string name) {
         Debug.Log("Attempting to add remote player.");
-        //if (Application.loadedLevelName == "multiplayer" || Application.loadedLevelName == "singleplayer") {
-            //if (!queuedplayers.ContainsKey(id)) {
         lock (mutex) {
             queuedplayers.Add(id, name);
         }
         Debug.Log("Queueing Player: " + id.ToString() + "/" + name);
-            //}
-        //}
     }
 
     public void RemoveRemotePlayer(int id) {

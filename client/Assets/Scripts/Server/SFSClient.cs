@@ -457,10 +457,10 @@ public class SFSClient : IClientController {
     }
 
     private void SendCharMessage ( object data ) {
+        string message = SFSInstance.MySelf.Name + " said: " + data as string;
         if ( SFSInstance.LastJoinedRoom == null ) {
-            Debug.LogError ( "Cannot send CharMessage request as not in room" );
+            Debug.LogError("User not in room, cannot send message.");
         } else {
-            string message = SFSInstance.MySelf.Name + " said: " + data as string;
             SFSInstance.Send ( new PublicMessageRequest ( message, new SFSObject (), SFSInstance.LastJoinedRoom ) );
         }
     }
@@ -471,7 +471,6 @@ public class SFSClient : IClientController {
         settings.MaxUsers = 8;
         settings.IsGame = true;
         SFSInstance.Send ( new CreateRoomRequest ( settings, true, SFSInstance.LastJoinedRoom ) );
-        //SendRoomJoinRequest ( settings.Name );
     }
 
     private void SendRoomJoinRequest ( object data ) {
@@ -479,7 +478,7 @@ public class SFSClient : IClientController {
             //no private games/passwords supported as of yet.
             SFSInstance.Send ( new JoinRoomRequest ( data, "", SFSInstance.LastJoinedRoom.Id, false ) );
         } else {
-            SFSInstance.Send ( new JoinRoomRequest ( data ) );
+            SFSInstance.Send ( new JoinRoomRequest ( data ));
         }
     }
 
