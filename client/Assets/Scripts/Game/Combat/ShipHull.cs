@@ -27,20 +27,22 @@ public class ShipHull : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (IsDead()) {
+            
             OnDeath();
         }
 	
 	}
 
     private bool IsDead() {
-        return hullHealth <= 0.0f && !isAlreadyDead;
+        return hullHealth <= 0.0f;
     }
 
     private void OnDeath() {
         isAlreadyDead = true;
         Instantiate(deathPrefab);
         GameManager.gameManager.ClientController.Send(DataType.DEATH, new object());
-        Destroy(transform.parent.gameObject);
+        Destroy(gameObject);
+        Application.LoadLevel("lobby");
     }
 
     public void OnHit(float damage, Vector3 contactPoint) {

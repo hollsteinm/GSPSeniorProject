@@ -648,6 +648,7 @@ public class SFSClient : IClientController {
     }
 
     private void DeathResponse ( SFSObject sfsdata ) {
+        Debug.Log(sfsdata.GetInt("id"));
         OnEvent ( "player.remote.death", sfsdata.GetInt ( "id" ) );
     }
 
