@@ -60,6 +60,7 @@ public class SFSClient : IClientController {
         SFSInstance.AddEventListener ( SFSEvent.ROOM_CREATION_ERROR, OnRoomCreationError );
         SFSInstance.AddEventListener ( SFSEvent.ROOM_ADD, OnRoomAdd );
         SFSInstance.AddEventListener ( SFSEvent.ROOM_REMOVE, OnRoomRemove );
+
         SFSInstance.AddEventListener ( SFSEvent.USER_ENTER_ROOM, OnUserEnterRoom );
         SFSInstance.AddEventListener ( SFSEvent.USER_EXIT_ROOM, OnUserExitRoom );
     }
@@ -80,6 +81,7 @@ public class SFSClient : IClientController {
         SFSInstance.RemoveEventListener ( SFSEvent.ROOM_CREATION_ERROR, OnRoomCreationError );
         SFSInstance.RemoveEventListener ( SFSEvent.ROOM_ADD, OnRoomAdd );
         SFSInstance.RemoveEventListener ( SFSEvent.ROOM_REMOVE, OnRoomRemove );
+
         SFSInstance.RemoveEventListener ( SFSEvent.USER_ENTER_ROOM, OnUserEnterRoom );
         SFSInstance.RemoveEventListener ( SFSEvent.USER_EXIT_ROOM, OnUserExitRoom );
     }
@@ -99,6 +101,10 @@ public class SFSClient : IClientController {
         SFSObject sfsdata = ( SFSObject ) evt.Params[ "params" ];
 
         switch ( cmd ) {
+            case "gamelist":
+                GameListResponse(sfsdata);
+                break;
+
             case "transform":
                 TransformResponse ( sfsdata );
                 break;
@@ -189,6 +195,7 @@ public class SFSClient : IClientController {
 
     private void OnRoomRemove ( BaseEvent evt ) {
         Debug.Log ( "[Room Removed: " + ( ( Room ) evt.Params[ "room" ] ).Name + "]" );
+        OnEvent("roomremove", (string)((Room)evt.Params["room"]).Name);
     }
 
     private void OnUserEnterRoom ( BaseEvent evt ) {
@@ -550,6 +557,13 @@ public class SFSClient : IClientController {
         }        
 
         OnEvent ( "spawn", data );
+    }
+
+    private void GameListResponse(SFSObject sfsdata) {
+        string[] gamelist = sfsdata.GetUtfStringArray("games");
+        foreach (string s in gamelist) {
+            OnEvent("roomadd", s);
+        }
     }
 
     private void HandlePlayerTransformResponse(SFSObject sfsdata) {

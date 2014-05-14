@@ -4,14 +4,18 @@
  */
 package com.gspteama.main;
 
+import com.gspteama.db.DBService;
 import com.gspteama.gamedriver.Game;
 import com.gspteama.gamedriver.Player;
 import com.smartfoxserver.v2.core.ISFSEvent;
 import com.smartfoxserver.v2.core.SFSEventParam;
 import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.entities.User;
+import com.smartfoxserver.v2.entities.data.ISFSObject;
+import com.smartfoxserver.v2.entities.data.SFSObject;
 import com.smartfoxserver.v2.exceptions.SFSException;
 import com.smartfoxserver.v2.extensions.BaseServerEventHandler;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +31,27 @@ public class RoomJoinEvent extends BaseServerEventHandler{
         User user = (User)(isfse.getParameter(SFSEventParam.USER));
         
         trace("Player joining room: " + room.getId() + "/" + user.getLastJoinedRoom().getId());
+        
+        if(room.getName().trim().equals("lobby")){
+            
+            try{
+                ArrayList<String> games = DBService.getQueuedGames(
+                    this.getParentExtension().getParentZone().getDBManager().getConnection());
+                if(games.size() > 0){
+                    
+                    ISFSObject data = SFSObject.newInstance();                    
+                    data.putUtfStringArray("games", games);
+                    
+                    send("gamelist", data, user);
+                    trace("Sending gamelist: " + data.toString());
+                }         
+                
+            } catch(Exception e){
+                for(StackTraceElement ste : e.getStackTrace()){
+                    trace(ste.toString());
+                }
+            }
+        }
         
         if(room.isGame()){
             try {                

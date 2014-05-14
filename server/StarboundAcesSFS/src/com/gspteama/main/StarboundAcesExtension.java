@@ -26,10 +26,9 @@ import java.util.logging.Logger;
  *
  * @author Martin
  */
-//@Instantiation(Instantiation.InstantiationMode.SINGLE_INSTANCE)
 public class StarboundAcesExtension extends SFSExtension{
     //integer is the room id and game is a game instance
-    private static ConcurrentHashMap<Integer, Game> gameList = null;
+    private static final ConcurrentHashMap<Integer, Game> gameList =  new ConcurrentHashMap<>();
     
     private SignUpAssistantComponent signup;
     private LoginAssistantComponent login;
@@ -37,10 +36,10 @@ public class StarboundAcesExtension extends SFSExtension{
     @Override
     public void init(){
         trace("Inside of StarboundAcesExtension Method... let's roll!");
-        gameList = new ConcurrentHashMap<>();
         addRequestHandler("server", MultiHandler.class);
         addEventHandler(SFSEventType.ROOM_ADDED, RoomAddEvent.class);
         addEventHandler(SFSEventType.USER_JOIN_ROOM, RoomJoinEvent.class);
+        addEventHandler(SFSEventType.ROOM_REMOVED, RoomRemoveEvent.class);
     
         try{
             signUp();

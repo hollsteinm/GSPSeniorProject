@@ -16,14 +16,66 @@ import java.util.ArrayList;
  */
 public class DBService {
     
-    public static void insertNewGame(Connection connection, int instanceid){
+    public static void insertNewGame(Connection connection, String gameName, int creatingUserId) throws SQLException{
         Connection con = connection;
         PreparedStatement ps = null;
-        ResultSet rs = null;
         
-        String stmtinsert = "instert into sa_games (";
+        String stmtinsert = "insert into sa_game (game_name, game_state, game_user_list) values (?, 'Q', '{ 0,0 }');";
+        
+        con.setAutoCommit(false);
+        ps = con.prepareStatement(stmtinsert);
+        ps.setString(1, gameName);
+        ps.executeUpdate();
+        
+        ps.close();
+        con.commit();
+        
+        con.close();          
     }
     
+    public static ArrayList<String> getQueuedGames(Connection connection) throws SQLException{
+        ArrayList<String> results = new ArrayList<>();
+        Connection con = connection;
+        PreparedStatement ps;
+        ResultSet rs;
+        
+        String selectstmt = "select game_name from sa_game where game_state = 'Q';";
+        
+        ps = con.prepareStatement(selectstmt);
+        rs = ps.executeQuery();
+        
+        while(rs.next()){
+            results.add(rs.getString("game_name"));
+        }
+        
+        rs.close();
+        ps.close();
+        con.close();        
+        
+        return results;
+    }
+    
+    public static void updateGameStatus(Connection connection, String newState, String gameName) throws SQLException{
+        PreparedStatement ps;
+        Connection con = connection;
+        
+        String updatestmt = "update sa_game set game_state=? where game_name=?";
+        if(newState.equals("D")){
+            updatestmt = "update sa_game set game_state=?, game_end_time=now() where game_name=?;";
+        }
+        
+        con.setAutoCommit(false);
+        ps = con.prepareStatement(updatestmt);
+        ps.setString(1, newState);
+        ps.setString(2, gameName);
+        
+        ps.executeUpdate();
+        ps.close();
+        con.commit();
+        
+        con.close();
+        
+    }
     
     public static void updatePlayerScore(Connection connection, long scoreNew, long playerid) throws SQLException{
         Connection con = connection;

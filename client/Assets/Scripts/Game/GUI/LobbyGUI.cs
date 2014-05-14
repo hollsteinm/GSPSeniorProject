@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class LobbyGUI : MonoBehaviour, IEventListener {
     private IClientController server = null;
-    private List<string> createdGames = new List<string> ();
+    private List<string> createdGames;
 
     public GUIStyle lobbyStyle;
 
@@ -25,6 +25,7 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
         server = GameManager.gameManager.ClientController;
         server.Register ( this );
         server.Send(DataType.JOINGAME, "lobby");
+        createdGames = new List<string>();
 	}
 	
 	// Update is called once per frame
@@ -54,6 +55,10 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
         switch ( eventType ) {
             case "roomadd":
                 createdGames.Add ( ( string ) o );
+                break;
+
+            case "roomremove":
+                createdGames.Remove((string)o);
                 break;
 
             default:

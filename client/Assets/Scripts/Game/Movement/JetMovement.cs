@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AerialManeuvers))]
 public class JetMovement : MonoBehaviour {
 	
 	private float rotationX = 0.0f;
@@ -27,10 +28,11 @@ public class JetMovement : MonoBehaviour {
 	//Used for aerial maneuvers
 	private bool usingManeuver = false;
 	private AerialManeuvers.ManeuverType currentManeuver;
-	private AerialManeuvers maneuver = new AerialManeuvers();
+    private AerialManeuvers maneuver;
 	
 	// Use this for initialization
 	void Start () {
+        maneuver = GetComponent<AerialManeuvers>();
 		forwardVelocity = defaultForwardVelocity;
 		rigidbody.freezeRotation = true;
 	}
