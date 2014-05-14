@@ -177,9 +177,9 @@ public class SFSClient : IClientController {
                 }
             }
         } else if ( room.Name == "lobby" ) {
-            UnregisterCallbacks ();
+            //UnregisterCallbacks ();
             Application.LoadLevel ( "lobby" );
-            RegisterCallbacks ();
+            //RegisterCallbacks ();
         }
         this.room = room.Name;
     }
@@ -219,11 +219,12 @@ public class SFSClient : IClientController {
     }
 
     private void OnLogin ( BaseEvent evt ) {
+        
         if ( evt.Params.Contains ( "success" ) && !( bool ) evt.Params[ "success" ] ) {
             // Login failed
             currentMessage = ( string ) evt.Params[ "errorMessage" ];
             Debug.Log ( "Login error: " + currentMessage );
-            SFSInstance.InitUDP();
+            //SFSInstance.InitUDP();
         } else {
             // On to the lobby
             currentMessage = "Successful Login.";
@@ -299,6 +300,10 @@ public class SFSClient : IClientController {
 
     public void Send ( DataType type, object data ) {
         switch ( type ) {
+            case DataType.GAMES_GET:
+                SendGetGame(data);
+                break;
+
             case DataType.TRANSFORM:
                 SendTransform ( data );
                 break;
@@ -422,6 +427,10 @@ public class SFSClient : IClientController {
 
         SFSInstance.Send(new ExtensionRequest("server.shoot", sfsdata));
 
+    }
+
+    private void SendGetGame(object data){
+        SFSInstance.Send(new ExtensionRequest("server.gameslist", new SFSObject()));
     }
 
     private void SendRegistrationRequest(object data) {
@@ -562,6 +571,7 @@ public class SFSClient : IClientController {
     private void GameListResponse(SFSObject sfsdata) {
         string[] gamelist = sfsdata.GetUtfStringArray("games");
         foreach (string s in gamelist) {
+            Debug.Log(s);
             OnEvent("roomadd", s);
         }
     }

@@ -32,27 +32,6 @@ public class RoomJoinEvent extends BaseServerEventHandler{
         
         trace("Player joining room: " + room.getId() + "/" + user.getLastJoinedRoom().getId());
         
-        if(room.getName().trim().equals("lobby")){
-            
-            try{
-                ArrayList<String> games = DBService.getQueuedGames(
-                    this.getParentExtension().getParentZone().getDBManager().getConnection());
-                if(games.size() > 0){
-                    
-                    ISFSObject data = SFSObject.newInstance();                    
-                    data.putUtfStringArray("games", games);
-                    
-                    send("gamelist", data, user);
-                    trace("Sending gamelist: " + data.toString());
-                }         
-                
-            } catch(Exception e){
-                for(StackTraceElement ste : e.getStackTrace()){
-                    trace(ste.toString());
-                }
-            }
-        }
-        
         if(room.isGame()){
             try {                
                 if(((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId()) == null){

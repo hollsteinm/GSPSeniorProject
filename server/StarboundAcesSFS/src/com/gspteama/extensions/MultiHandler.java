@@ -37,6 +37,10 @@ public class MultiHandler extends BaseClientRequestHandler{
                 handleTransform(user, params);
                 break;
                 
+            case "gameslist":
+                handleGameList(user, params);
+                break;
+                
             case "spawn":
                 handleSpawn(user, params);
                 break;
@@ -64,6 +68,26 @@ public class MultiHandler extends BaseClientRequestHandler{
             default:
                 trace("Unrecognized request Id sent... ignoring");
                 break;
+        }
+    }
+    
+    private void handleGameList(User user, ISFSObject params){
+        try{
+            ArrayList<String> games = DBService.getQueuedGames(
+                this.getParentExtension().getParentZone().getDBManager().getConnection());
+            if(games.size() > 0){
+                    
+                ISFSObject data = SFSObject.newInstance();                    
+                data.putUtfStringArray("games", games);
+                    
+                send("gamelist", data, user);
+                trace("Sending gamelist: " + data.toString());
+            }         
+                
+        } catch(Exception e){
+            for(StackTraceElement ste : e.getStackTrace()){
+                trace(ste.toString());
+            }
         }
     }
     

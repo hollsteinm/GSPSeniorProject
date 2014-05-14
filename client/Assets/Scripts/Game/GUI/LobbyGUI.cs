@@ -20,18 +20,45 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
     public float gameListX;
     public float gameListY;
 
+    private static object mutex = new object();
+
 	// Use this for initialization
 	void Start () {
-        server = GameManager.gameManager.ClientController;
-        server.Register ( this );
-        server.Send(DataType.JOINGAME, "lobby");
-        createdGames = new List<string>();
+
 	}
+
+    void OnLevelWasLoaded(int id) {
+        if (id == 3) {
+            server = GameManager.gameManager.ClientController;
+            server.Register(this);
+            server.Send(DataType.JOINGAME, "lobby");
+            createdGames = new List<string>();
+            server.Send(DataType.GAMES_GET, null);
+            AddQueuedGames();
+        }
+    }
+
+    private void AddQueuedGames() {
+        lock (mutex) {
+            List<string> temp = new List<string>(queuedGamesList);
+            foreach (string s in temp) {
+                if (!createdGames.Contains(s)) {
+                    createdGames.Add(s);
+                }
+                queuedGamesList.Remove(s);
+                Debug.Log("Game added: " + s);
+            }
+            queuedGamesList.Clear();
+        }
+    }
 	
 	// Update is called once per frame
-	void Update () {
-
-	
+	void FixedUpdate () {
+        if (Application.loadedLevelName == "lobby") {
+            if (queuedGamesList.Count > 0) {
+                AddQueuedGames();
+            }
+        }	
 	}
 
     void OnGUI ( ) {
@@ -50,15 +77,22 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
         }
     }
 
+    private List<string> queuedGamesList = new List<string>();
     public void  Notify(string eventType, object o)
     {
         switch ( eventType ) {
             case "roomadd":
-                createdGames.Add ( ( string ) o );
+                lock (mutex) {
+                    if(!queuedGamesList.Contains((string)o)){
+                        queuedGamesList.Add((string)o);
+                    }
+                }
                 break;
 
             case "roomremove":
-                createdGames.Remove((string)o);
+                lock (mutex) {
+                    createdGames.Remove((string)o);
+                }
                 break;
 
             default:
