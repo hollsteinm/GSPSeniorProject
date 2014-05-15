@@ -14,7 +14,7 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
 	void Start () {
         guiTextref = gameObject.GetComponentInChildren<GUIText>();
         guiTextref.text = username;
-        guiTextref.color = new Color(1.0f, 0.0f, 0.0f);
+        guiTextref.color = new Color(0.0f, 1.0f, 0.0f);
         server = GameManager.gameManager.ClientController;
         server.Register(this);
 	}

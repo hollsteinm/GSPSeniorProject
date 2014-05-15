@@ -80,6 +80,7 @@ GameObject:
   - 82: {fileID: 8200002}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400002}
+  - 114: {fileID: 11400012}
   m_Layer: 0
   m_Name: ClientPlayer
   m_TagString: Player
@@ -201,7 +202,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 18.6506672}
+  m_LocalPosition: {x: 0, y: 0, z: 19.4340267}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400008}
@@ -860,6 +861,21 @@ MonoBehaviour:
   deathPrefab: {fileID: 100000, guid: bf0aa60bf2d0e374da3a1b360aee5272, type: 2}
   deathSound: {fileID: 8200002}
   onHit: {fileID: 8200002}
+--- !u!114 &11400012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2837b07e9ec0a93488ee20b0953655da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  farSight: {fileID: 0}
+  nearSight: {fileID: 0}
+  muzzlePoint: {fileID: 400006}
+  range: 500
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
