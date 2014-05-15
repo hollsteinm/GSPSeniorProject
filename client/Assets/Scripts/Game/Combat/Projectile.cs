@@ -81,7 +81,10 @@ public class Projectile : MonoBehaviour, IEventListener {
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.red);
         if (Physics.Raycast(new Ray(transform.position, transform.TransformDirection(Vector3.forward)), out hitInfo, speed)) {
             try {
-                other = hitInfo.collider.gameObject;
+                other = hitInfo.collider.gameObject.transform.parent.gameObject.transform.parent.gameObject;
+
+                colpoint = other.transform.position;
+
                 if (other.GetComponent<RemotePlayerScript>() != null) {
                     OnRemoteHit();
                 } else if (other.GetComponent<ClientPlayer>() != null) {
@@ -97,7 +100,7 @@ public class Projectile : MonoBehaviour, IEventListener {
 
     Vector3 colpoint = new Vector3();
     void OnTriggerEnter(Collider colother) {
-        other = colother.gameObject;
+        other = colother.gameObject.transform.parent.gameObject.transform.parent.gameObject;
         colpoint = transform.parent.position;
 
         if (other.GetComponent<ClientPlayer>() != null) {
@@ -110,7 +113,7 @@ public class Projectile : MonoBehaviour, IEventListener {
     }
 
     void OnCollisionEnter(Collision colother) {
-        other = colother.collider.gameObject;
+        other = colother.collider.gameObject.transform.parent.gameObject.transform.parent.gameObject;
         col = colother;
 
         if (other.GetComponent<ClientPlayer>() != null) {
@@ -123,7 +126,6 @@ public class Projectile : MonoBehaviour, IEventListener {
     }
 
     private void OnCollide() {
-        Debug.Log("Collision Entered (" + other.ToString() + "). Remote Component is: " + other.GetComponent<RemotePlayerScript>().ToString());
         Instantiate(collisionEffectPrefab, transform.position, transform.rotation);
         collisionSound.Play();
         Destroy(gameObject);

@@ -29,7 +29,7 @@ public class ChatGUI : MonoBehaviour, IEventListener {
         GUILayout.BeginArea(new Rect(0, Screen.height - deltaTop, Screen.width - deltaWidth, deltaTop));
         GUILayout.Box("Chat", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
         GUILayout.BeginVertical();
-        GUILayout.BeginArea(new Rect(20, 25, Screen.width - deltaWidth - 128, deltaTop));
+        GUILayout.BeginArea(new Rect(20, 25, Screen.width - deltaWidth - 64, deltaTop - 96));
 
         scrollPos = GUILayout.BeginScrollView(scrollPos);
         foreach (string s in messages) {

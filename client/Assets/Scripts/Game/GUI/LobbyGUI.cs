@@ -109,15 +109,10 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
         GUILayout.BeginArea(new Rect(Screen.width - gameListWidth, 0, gameListWidth, Screen.height));
         GUILayout.Box("Queuing Games", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
         GUILayout.BeginVertical();
-        GUILayout.BeginArea(new Rect(32, 20, gameListWidth - 60, Screen.height - 20));
+        GUILayout.BeginArea(new Rect(32, 20, gameListWidth - 64, Screen.height - 32));
 
         scrollPosition = GUILayout.BeginScrollView(scrollPosition);
 
-        
-        //foreach ( string s in createdGames ) {
-            /*if ( GUI.Button ( new Rect ( Screen.width - gameListX, 0, gameListX, gameListY ), s, lobbyStyle ) ) {
-                server.Send ( DataType.JOINGAME, s );
-            }*/
         string[] games = createdGames.ToArray();
         lobbyStyle.margin = new RectOffset(4, 4, 4, 4);
         selected = GUILayout.SelectionGrid(selected, games, 1, lobbyStyle);
@@ -125,9 +120,6 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
         if (selected >= 0 && !createdGames[selected].Equals("")) {
             server.Send(DataType.JOINGAME, createdGames[selected]);
         }
-
-            //GUILayout.FlexibleSpace();
-        //}
 
         GUILayout.EndScrollView();
         GUILayout.EndArea();
