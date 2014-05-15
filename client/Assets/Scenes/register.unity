@@ -175,19 +175,19 @@ MonoBehaviour:
   registerRect:
     serializedVersion: 2
     x: 0
-    y: 160
+    y: 256
     width: 512
     height: 32
   backRect:
     serializedVersion: 2
     x: 0
-    y: 192
+    y: 288
     width: 512
     height: 32
   messageRect:
     serializedVersion: 2
     x: 0
-    y: 224
+    y: 320
     width: 512
     height: 32
   registerContent:

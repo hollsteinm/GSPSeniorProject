@@ -54,6 +54,7 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
         }
 
         if (GUI.Button(backRect, backContent, registrationStyle)) {
+            server.Logout();
             Application.LoadLevel("login");
         }
 
@@ -62,15 +63,18 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
     }
 
     private void DrawUsername() {
-        username = GUI.TextField(usernameRect, username, 64);
+        GUI.Label(usernameRect, "Username");
+        username = GUI.TextField(new Rect(usernameRect.xMin, usernameRect.yMin + 32, usernameRect.width, usernameRect.height), username, 64);
     }
 
     private void DrawEmail() {
-        email = GUI.TextField(emailRect, email, 128);
+        GUI.Label(new Rect(emailRect.xMin, emailRect.yMin + 64, emailRect.width, emailRect.height), "Email");
+        email = GUI.TextField(new Rect(emailRect.xMin, emailRect.yMin + 96, emailRect.width, emailRect.height), email, 128);
     }
 
     private void DrawPassword() {
-        password = GUI.PasswordField(passwordRect, password, '*', 64);
+        GUI.Label(new Rect(passwordRect.xMin, passwordRect.yMin + 32, passwordRect.width, passwordRect.height), "Password");
+        password = GUI.PasswordField(new Rect(passwordRect.xMin, passwordRect.yMin + 64, passwordRect.width, passwordRect.height), password, '*', 64);
     }
 
     public void Notify(string eventType, object o) {
@@ -84,11 +88,7 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
                 data.Add("username", username);
                 data.Add("password", password);
                 data.Add("email", email);
-                print(username);
-                print(password);
-                print(email);
                 server.Send(DataType.REGISTER, data);
-                server.Logout();
                 break;
 
             default:

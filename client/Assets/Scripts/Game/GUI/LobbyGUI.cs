@@ -16,7 +16,7 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
     public Rect logoutRect;
 
     public float gameListHeight;
-    public float gameListWdith;
+    public float gameListWidth;
     public float gameListX;
     public float gameListY;
 
@@ -24,7 +24,8 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
 
 	// Use this for initialization
 	void Start () {
-
+        createdGames = new List<string>();
+        createdGames.Add("");
 	}
 
     void OnLevelWasLoaded(int id) {
@@ -33,6 +34,7 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
             server.Register(this);
             server.Send(DataType.JOINGAME, "lobby");
             createdGames = new List<string>();
+            createdGames.Add("");
             server.Send(DataType.GAMES_GET, null);
             AddQueuedGames();
         }
@@ -100,13 +102,37 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
         }
     }
 
+    private Vector2 scrollPosition;
+    int selected = 0;
     private void DrawGameList ( ) {
-        float top = gameListY;
-        foreach ( string s in createdGames ) {
-            if ( GUI.Button ( new Rect ( gameListX, top, gameListWdith, gameListHeight ), s, lobbyStyle ) ) {
+        
+        GUILayout.BeginArea(new Rect(Screen.width - gameListWidth, 0, gameListWidth, Screen.height));
+        GUILayout.Box("Queuing Games", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
+        GUILayout.BeginVertical();
+        GUILayout.BeginArea(new Rect(32, 20, gameListWidth - 60, Screen.height - 20));
+
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition);
+
+        
+        //foreach ( string s in createdGames ) {
+            /*if ( GUI.Button ( new Rect ( Screen.width - gameListX, 0, gameListX, gameListY ), s, lobbyStyle ) ) {
                 server.Send ( DataType.JOINGAME, s );
-            }
-            top += gameListHeight;
+            }*/
+        string[] games = createdGames.ToArray();
+        lobbyStyle.margin = new RectOffset(4, 4, 4, 4);
+        selected = GUILayout.SelectionGrid(selected, games, 1, lobbyStyle);
+        
+        if (selected >= 0 && !createdGames[selected].Equals("")) {
+            server.Send(DataType.JOINGAME, createdGames[selected]);
         }
+
+            //GUILayout.FlexibleSpace();
+        //}
+
+        GUILayout.EndScrollView();
+        GUILayout.EndArea();
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
+       
     }
 }
