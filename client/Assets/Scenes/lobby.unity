@@ -194,6 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deltaTop: 256
   deltaWidth: 512
+  toggleActive: 1
 --- !u!1001 &400660849
 Prefab:
   m_ObjectHideFlags: 0
@@ -272,6 +273,10 @@ Prefab:
     - target: {fileID: 11400000, guid: 7c0ec1b83d261ee4e89837182d2a49e8, type: 2}
       propertyPath: deltaWidth
       value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 7c0ec1b83d261ee4e89837182d2a49e8, type: 2}
+      propertyPath: toggleActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0ec1b83d261ee4e89837182d2a49e8, type: 2}

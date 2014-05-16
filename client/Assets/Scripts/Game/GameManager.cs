@@ -81,6 +81,10 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public int getQueuedCount() {
+        return queuedplayers.Count;
+    }
+
     public void OnDestroy() {
         applicationIsQuitting = true;
     }
