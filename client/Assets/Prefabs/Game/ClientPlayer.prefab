@@ -800,6 +800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614e64b804bc2a445b96eec492f6abe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -826,10 +828,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookSpeed: 3
-  maxForwardAcceleration: 50
+  maxForwardAcceleration: 200
   forwardAccelerationReaction: 7.5
-  defaultForwardVelocity: 50
-  forwardVelocityDeviation: 25
+  defaultForwardVelocity: 200
+  forwardVelocityDeviation: 100
   maxHorizontalAcceleration: 30
   horizontalAccelerationReaction: 15
   horizontalVelocityDeviation: 20
