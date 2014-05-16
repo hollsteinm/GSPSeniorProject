@@ -11,12 +11,12 @@ public class JetMovement : MonoBehaviour {
     public float lookSpeed = 1.0f;
 
     private float forwardAcceleration = 0.0f;
-    public float maxForwardAcceleration = 50.0f;
+    public float maxForwardAcceleration = 200.0f;
 	public float forwardAccelerationReaction = 7.5f;
 
     private float forwardVelocity;
-	public float defaultForwardVelocity = 50.0f;
-	public float forwardVelocityDeviation = 25.0f;
+	public float defaultForwardVelocity = 200.0f;
+	public float forwardVelocityDeviation = 100.0f;
 	
 	private float horizontalAcceleration = 0.0f;
 	public float maxHorizontalAcceleration = 30.0f;
@@ -28,11 +28,10 @@ public class JetMovement : MonoBehaviour {
 	//Used for aerial maneuvers
 	private bool usingManeuver = false;
 	private AerialManeuvers.ManeuverType currentManeuver;
-    private AerialManeuvers maneuver;
+    private AerialManeuvers maneuver = new AerialManeuvers();
 	
 	// Use this for initialization
 	void Start () {
-        maneuver = GetComponent<AerialManeuvers>();
 		forwardVelocity = defaultForwardVelocity;
 		rigidbody.freezeRotation = true;
 	}
@@ -40,15 +39,25 @@ public class JetMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetMouseButtonDown(1))
+		if (Input.GetMouseButton(1))
 		{
-			currentManeuver = maneuver.ChooseManeuver(transform);
-			if (currentManeuver != AerialManeuvers.ManeuverType.NONE)
-				usingManeuver = true;
+			if (!usingManeuver)
+			{
+				currentManeuver = maneuver.ChooseManeuver(transform);
+				if (currentManeuver != AerialManeuvers.ManeuverType.NONE)
+					usingManeuver = true;
+			}
 		}
 		if (usingManeuver)
 		{
 			usingManeuver = maneuver.UpdateManeuver(currentManeuver,transform);
+			if (!usingManeuver) 
+				if (currentManeuver == AerialManeuvers.ManeuverType.U_TURN1)
+				{
+					usingManeuver = true;
+					currentManeuver = AerialManeuvers.ManeuverType.U_TURN2;
+				}
+			transform.position += transform.forward * defaultForwardVelocity * Time.deltaTime;
 		}
 		else
 		{
