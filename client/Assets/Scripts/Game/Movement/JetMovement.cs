@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(AerialManeuvers))]
 public class JetMovement : MonoBehaviour {
 	
 	private float rotationX = 0.0f;
@@ -146,5 +145,15 @@ public class JetMovement : MonoBehaviour {
 	        transform.position += transform.forward * forwardVelocity * Time.deltaTime;
 	        transform.position += transform.right * horizontalVelocity * Time.deltaTime;
 		}
+	}
+	
+	public bool GetUsingManeuver()
+	{
+		return usingManeuver;
+	}
+	
+	public AerialManeuvers.ManeuverType GetManeuverType()
+	{
+		return currentManeuver;
 	}
 }

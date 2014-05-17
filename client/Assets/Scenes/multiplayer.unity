@@ -371,15 +371,16 @@ GameObject:
 --- !u!114 &318975553
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: 99c04d6537eb243448b314421d03ed7e,
+  m_PrefabParentObject: {fileID: 11400002, guid: 99c04d6537eb243448b314421d03ed7e,
     type: 2}
   m_PrefabInternal: {fileID: 1762549588}
   m_GameObject: {fileID: 318975552}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6458c87756add194d93f890d61edb304, type: 3}
+  m_Script: {fileID: 11500000, guid: f61352234c2aa6445a9b0b86b68beaa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovement: {fileID: 1437156308}
   target: {fileID: 1437156302}
   distance: 40
   height: 10
@@ -1401,6 +1402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EditorClassIdentifier: 
   m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1437156304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1519,10 +1521,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookSpeed: 3
-  maxForwardAcceleration: 50
+  maxForwardAcceleration: 200
   forwardAccelerationReaction: 7.5
-  defaultForwardVelocity: 50
-  forwardVelocityDeviation: 25
+  defaultForwardVelocity: 200
+  forwardVelocityDeviation: 100
   maxHorizontalAcceleration: 30
   horizontalAccelerationReaction: 15
   horizontalVelocityDeviation: 20
@@ -1671,6 +1673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deltaTop: 256
   deltaWidth: 256
+  toggleActive: 0
 --- !u!4 &1623650369
 Transform:
   m_ObjectHideFlags: 0
@@ -1870,6 +1873,14 @@ Prefab:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 99c04d6537eb243448b314421d03ed7e, type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1437156302}
+    - target: {fileID: 11400002, guid: 99c04d6537eb243448b314421d03ed7e, type: 2}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 1437156308}
+    - target: {fileID: 11400002, guid: 99c04d6537eb243448b314421d03ed7e, type: 2}
       propertyPath: target
       value: 
       objectReference: {fileID: 1437156302}
