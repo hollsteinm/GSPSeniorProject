@@ -979,6 +979,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EditorClassIdentifier: 
   m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: 
 --- !u!114 &850568216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1097,10 +1100,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookSpeed: 3
-  maxForwardAcceleration: 50
+  maxForwardAcceleration: 200
   forwardAccelerationReaction: 7.5
-  defaultForwardVelocity: 100
-  forwardVelocityDeviation: 25
+  defaultForwardVelocity: 200
+  forwardVelocityDeviation: 100
   maxHorizontalAcceleration: 30
   horizontalAccelerationReaction: 15
   horizontalVelocityDeviation: 20
@@ -1388,11 +1391,24 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 11400000, guid: 99c04d6537eb243448b314421d03ed7e, type: 2}
+    - target: {fileID: 0}
       propertyPath: target
       value: 
       objectReference: {fileID: 850568223}
-    m_RemovedComponents: []
+    - target: {fileID: 11400002, guid: 99c04d6537eb243448b314421d03ed7e, type: 2}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 850568220}
+    - target: {fileID: 2000000, guid: 99c04d6537eb243448b314421d03ed7e, type: 2}
+      propertyPath: m_HDR
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 99c04d6537eb243448b314421d03ed7e, type: 2}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 850568223}
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 99c04d6537eb243448b314421d03ed7e, type: 2}
   m_RootGameObject: {fileID: 1500748034}
   m_IsPrefabParent: 0
@@ -1815,7 +1831,7 @@ GameObject:
   - 92: {fileID: 1500748038}
   - 124: {fileID: 1500748037}
   - 81: {fileID: 1500748036}
-  - 114: {fileID: 1500748035}
+  - 114: {fileID: 1500748041}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1823,22 +1839,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1500748035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: 99c04d6537eb243448b314421d03ed7e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1159332265}
-  m_GameObject: {fileID: 1500748034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6458c87756add194d93f890d61edb304, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 850568223}
-  distance: 40
-  height: 10
-  dampRate: .100000001
 --- !u!81 &1500748036
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1891,7 +1891,7 @@ Camera:
     m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
-  m_HDR: 0
+  m_HDR: 1
 --- !u!4 &1500748040
 Transform:
   m_ObjectHideFlags: 0
@@ -1903,6 +1903,23 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1500748041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400002, guid: 99c04d6537eb243448b314421d03ed7e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1159332265}
+  m_GameObject: {fileID: 1500748034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f61352234c2aa6445a9b0b86b68beaa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovement: {fileID: 850568220}
+  target: {fileID: 850568223}
+  distance: 40
+  height: 10
+  dampRate: .100000001
 --- !u!1 &1501900247
 GameObject:
   m_ObjectHideFlags: 0
