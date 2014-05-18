@@ -79,7 +79,6 @@ GameObject:
   - 114: {fileID: 11400004}
   - 82: {fileID: 8200002}
   - 114: {fileID: 11400000}
-  - 114: {fileID: 11400002}
   - 114: {fileID: 11400012}
   m_Layer: 0
   m_Name: ClientPlayer
@@ -789,19 +788,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   commType: 0
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 614e64b804bc2a445b96eec492f6abe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_EditorClassIdentifier: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1

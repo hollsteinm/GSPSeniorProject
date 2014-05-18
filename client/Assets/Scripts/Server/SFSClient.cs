@@ -134,7 +134,7 @@ public class SFSClient : IClientController {
                 break;
 
             case "game.start":
-                GameListResponse(sfsdata);
+                GameStartResponse(sfsdata);
                 break;
 
             case "gamelist.remove":
