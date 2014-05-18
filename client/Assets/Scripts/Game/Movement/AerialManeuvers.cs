@@ -160,9 +160,9 @@ public class AerialManeuvers {
 			else
 				loopCount++;
 		}
-		Vector3 rotateSide = -Vector3.forward * 10.0f;
+		Vector3 rotateSide = Vector3.forward * 10.0f;
 		player.Rotate(rotateSide);
-		player.position += start.right * 5;
+		player.position -= start.right * 5;
 		return true;
 	}
 	
@@ -179,9 +179,9 @@ public class AerialManeuvers {
 			else
 				loopCount++;
 		}
-		Vector3 rotateSide = Vector3.forward * 10.0f;
+		Vector3 rotateSide = -Vector3.forward * 10.0f;
 		player.Rotate(rotateSide);
-		player.position -= start.right * 5;
+		player.position += start.right * 5;
 		return true;
 	}
 		
