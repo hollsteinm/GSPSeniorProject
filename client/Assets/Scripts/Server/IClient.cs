@@ -14,7 +14,8 @@ public enum DataType{
     REGISTER,
     SCORES_GET,
     SHOOT,
-    GAMES_GET
+    GAMES_GET,
+    PLAYER_GAME_READY
 };
 
 public interface IClient {

@@ -133,6 +133,14 @@ public class SFSClient : IClientController {
                 ShootResponse(sfsdata);
                 break;
 
+            case "game.start":
+                GameListResponse(sfsdata);
+                break;
+
+            case "gamelist.remove":
+                GameListRemoveResponse(sfsdata);
+                break;
+
             default:
                 break;
         }
@@ -166,7 +174,7 @@ public class SFSClient : IClientController {
         Debug.Log ( "[Room Joined: " + room.Name + "]" );
         if ( room.IsGame ) {
             UnregisterCallbacks ();
-            Application.LoadLevel ( "multiplayer" );
+            Application.LoadLevel ( "queue" );
             RegisterCallbacks ();
 
             List<User> users = SFSInstance.LastJoinedRoom.UserList;
@@ -344,6 +352,10 @@ public class SFSClient : IClientController {
                 SendShootRequest(data);
                 break;
 
+            case DataType.PLAYER_GAME_READY:
+                SendGameStartRequest(data);
+                break;
+
             default:
                 Debug.LogError ( "Should not reach this point in Send( SendType, object)" );
                 break;
@@ -516,6 +528,10 @@ public class SFSClient : IClientController {
         SFSObject sfsdata = new SFSObject ();
         SFSInstance.Send ( new ExtensionRequest ( "server.death", sfsdata, SFSInstance.LastJoinedRoom ) );
         Debug.Log("Death Request sent.");
+    }
+
+    private void SendGameStartRequest(object data){
+        SFSInstance.Send(new ExtensionRequest("server.gamestart", new SFSObject(), SFSInstance.LastJoinedRoom));
     }
 
     private void SendGetScoresRequest(object data){
@@ -716,6 +732,15 @@ public class SFSClient : IClientController {
         package.Add("my.score", myscore);
 
         OnEvent("scores", package);
+    }
+
+    private void GameStartResponse(SFSObject data) {
+        OnEvent("game.start", null);
+    }
+
+    private void GameListRemoveResponse(SFSObject data){
+        string game = data.GetUtfString("game");
+        OnEvent("roomremove", game);
     }
     //end methods for response
 }

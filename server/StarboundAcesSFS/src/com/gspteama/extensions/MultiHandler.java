@@ -64,11 +64,32 @@ public class MultiHandler extends BaseClientRequestHandler{
                 trace("Score event requested");
                 handleScores(user, params);
                 break;
+                
+            case "gamestart":
+                handleGameStart(user, params);
+                break;
 
             default:
                 trace("Unrecognized request Id sent... ignoring");
                 break;
         }
+    }
+    
+    private void handleGameStart(User user, ISFSObject params){
+        try{
+            DBService.updateGameStatus(this.getParentExtension().getParentZone().getDBManager().getConnection(),
+                    "A", user.getLastJoinedRoom().getName());
+                
+            ISFSObject data = SFSObject.newInstance();
+            data.putUtfString("game", user.getLastJoinedRoom().getName());
+            send("gamelist.remove", data, this.getParentExtension().getParentZone().getRoomByName("lobby").getUserList());
+                
+        } catch(SQLException e){
+            trace(e.getMessage());
+        } finally{
+            send("game.start", SFSObject.newInstance(), user.getLastJoinedRoom().getUserList());
+        }      
+        
     }
     
     private void handleGameList(User user, ISFSObject params){

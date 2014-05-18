@@ -21,3 +21,5 @@ EditorBuildSettings:
     path: Assets/Scenes/credits.unity
   - enabled: 1
     path: Assets/Scenes/register.unity
+  - enabled: 1
+    path: Assets/Scenes/queue.unity

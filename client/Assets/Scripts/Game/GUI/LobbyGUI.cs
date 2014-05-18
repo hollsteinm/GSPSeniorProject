@@ -93,7 +93,9 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
 
             case "roomremove":
                 lock (mutex) {
-                    createdGames.Remove((string)o);
+                    if(createdGames.Contains((string)o)){
+                        createdGames.Remove((string)o);
+                    }
                 }
                 break;
 

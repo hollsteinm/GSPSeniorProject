@@ -146,6 +146,8 @@ public class GameManager : MonoBehaviour {
             GameObject obj = players[id];
             Destroy(obj);
             players.Remove(id);
+        } else if (queuedplayers.ContainsKey(id)) {
+            queuedplayers.Remove(id);
         }
     }
 
