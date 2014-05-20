@@ -178,6 +178,9 @@ public class DummyClient : IClientController {
 
     private void ForwardRoomJoinRequest(object data) {
         CheckType(data, typeof(string));
+        if (data.Equals("lobby")) {
+            Application.LoadLevel("launch");
+        }
     }
 
     private void ForwardRoomRequest(object data) {

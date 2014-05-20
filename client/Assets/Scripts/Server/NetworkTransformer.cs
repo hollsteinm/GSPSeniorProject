@@ -111,10 +111,6 @@ public class NetworkTransformer : MonoBehaviour, IEventListener {
         }
     }
 
-    void OnDestroy() {
-        GameManager.gameManager.ClientController.Unregister(this);
-    }
-
     private void handleTransform(object o) {
         Dictionary<string, object> data = o as Dictionary<string, object>;
         int id = (int)data["id"];

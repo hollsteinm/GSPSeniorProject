@@ -15,6 +15,21 @@ public class GameManager : MonoBehaviour {
     private static object mutex = new object();
     private static bool applicationIsQuitting = false;
 
+    public string[] PlayerNames {
+        get{
+            string[] playerstrings = new string[players.Values.Count];
+            GameObject[] p = new GameObject[players.Values.Count];
+            players.Values.CopyTo(p, 0);
+
+            int index = 0;
+            foreach(GameObject go in p){
+                playerstrings[index] = go.GetComponent<RemotePlayerScript>().Username;
+                index++;
+            }
+            return playerstrings;
+        }
+    }
+
     private GameManager() {
     }
 
@@ -55,6 +70,7 @@ public class GameManager : MonoBehaviour {
     void OnLevelWasLoaded(int id) {
         if (id == 4 || id == 2) { //multiplayer or singleplayer
             AddQueuedPlayers();
+            Screen.lockCursor = true;
         }
     }
 
@@ -153,10 +169,6 @@ public class GameManager : MonoBehaviour {
 
     private int fkplayers = 10000;
     public void Update() {
-        if (Application.loadedLevelName == "multiplayer" || Application.loadedLevelName == "singleplayer") {
-            Screen.lockCursor = true;
-        }
-
         if (Input.GetKeyDown(KeyCode.R) && Application.isEditor) {
             AddRemotePlayer(fkplayers, "FakePlayer#" + fkplayers);
             fkplayers++;

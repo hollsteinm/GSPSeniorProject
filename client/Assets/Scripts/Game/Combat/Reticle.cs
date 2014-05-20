@@ -7,6 +7,8 @@ public class Reticle : MonoBehaviour {
     public Transform nearSight;
     public Transform muzzlePoint;
 
+    public GameObject distanceMessage;
+
     public float range;
 
 	// Use this for initialization
@@ -20,9 +22,11 @@ public class Reticle : MonoBehaviour {
         if (Physics.Raycast(muzzlePoint.position, muzzlePoint.parent.forward, out hitInfo, range)) {
             farSight.position = hitInfo.point;
             nearSight.position = hitInfo.point - hitInfo.normal * 0.5f;
+            distanceMessage.GetComponent<TextMesh>().text = Vector3.Distance(muzzlePoint.transform.position, hitInfo.point).ToString();
         } else {
             farSight.position = muzzlePoint.position + muzzlePoint.parent.forward * range;
             nearSight.position = muzzlePoint.position + muzzlePoint.parent.forward * (range * 0.5f);
+            distanceMessage.GetComponent<TextMesh>().text = "";
         }
 	
 	}
