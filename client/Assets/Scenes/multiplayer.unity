@@ -692,6 +692,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 7c0ec1b83d261ee4e89837182d2a49e8, type: 2}
+      propertyPath: deltaWidth
+      value: 768
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7c0ec1b83d261ee4e89837182d2a49e8, type: 2}
   m_RootGameObject: {fileID: 1623650367}
@@ -1718,7 +1722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deltaTop: 256
-  deltaWidth: 256
+  deltaWidth: 768
   toggleActive: 0
 --- !u!4 &1623650369
 Transform:

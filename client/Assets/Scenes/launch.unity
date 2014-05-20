@@ -476,7 +476,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 7d7c754aef9ba8b4f98769824fba131f, type: 2}
       propertyPath: quitRect.y
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 7d7c754aef9ba8b4f98769824fba131f, type: 2}
+      propertyPath: controlsRect.height
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 7d7c754aef9ba8b4f98769824fba131f, type: 2}
+      propertyPath: controlsRect.width
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 7d7c754aef9ba8b4f98769824fba131f, type: 2}
+      propertyPath: controlsRect.y
       value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 7d7c754aef9ba8b4f98769824fba131f, type: 2}
+      propertyPath: controlsContent.m_Text
+      value: Controls
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7d7c754aef9ba8b4f98769824fba131f, type: 2}
@@ -604,6 +620,12 @@ MonoBehaviour:
   quitRect:
     serializedVersion: 2
     x: 0
+    y: 192
+    width: 512
+    height: 32
+  controlsRect:
+    serializedVersion: 2
+    x: 0
     y: 160
     width: 512
     height: 32
@@ -680,6 +702,10 @@ MonoBehaviour:
     m_Tooltip: 
   quitContent:
     m_Text: Quit
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  controlsContent:
+    m_Text: Controls
     m_Image: {fileID: 0}
     m_Tooltip: 
   groupWidth: 512
