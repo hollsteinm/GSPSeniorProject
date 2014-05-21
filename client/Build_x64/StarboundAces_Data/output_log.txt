@@ -19,46 +19,100 @@ Platform assembly: F:\User Data Storage\Documents\School\DeVry\GSP494\code\clien
 Loading F:\User Data Storage\Documents\School\DeVry\GSP494\code\client\Build_x64\StarboundAces_Data\Managed\Assembly-UnityScript.dll into Unity Child Domain
 Platform assembly: F:\User Data Storage\Documents\School\DeVry\GSP494\code\client\Build_x64\StarboundAces_Data\Managed\SmartFox2X.dll (this message is harmless)
 Loading F:\User Data Storage\Documents\School\DeVry\GSP494\code\client\Build_x64\StarboundAces_Data\Managed\SmartFox2X.dll into Unity Child Domain
-- Completed reload, in  0.047 seconds
+- Completed reload, in  0.034 seconds
 desktop: 1920x1080 60Hz; virtual: 3840x1080 at -1920,0
 <RI> Initializing input.
 <RI> Input initialized.
 Platform assembly: F:\User Data Storage\Documents\School\DeVry\GSP494\code\client\Build_x64\StarboundAces_Data\Managed\System.dll (this message is harmless)
-UnloadTime: 0.224909 ms
+UnloadTime: 0.208488 ms
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
 Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 184.
-Total: 0.420788 ms (FindLiveObjects: 0.009090 ms CreateObjectMapping: 0.012022 ms MarkObjects: 0.114653 ms  DeleteObjects: 0.036947 ms)
+Total: 0.394692 ms (FindLiveObjects: 0.006744 ms CreateObjectMapping: 0.012022 ms MarkObjects: 0.104097 ms  DeleteObjects: 0.036360 ms)
 
 Connection successful.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-UnloadTime: 0.195879 ms
+User AceGuest#53 is already logged in Zone StarboundAces
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 0.198812 ms
 Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
 Unloading 14 unused Assets to reduce memory usage. Loaded Objects now: 170.
-Total: 5.965815 ms (FindLiveObjects: 0.005864 ms CreateObjectMapping: 0.005278 ms MarkObjects: 0.128729 ms  DeleteObjects: 5.584906 ms)
+Total: 1.945603 ms (FindLiveObjects: 0.005278 ms CreateObjectMapping: 0.005278 ms MarkObjects: 0.134007 ms  DeleteObjects: 1.567332 ms)
 
 [Room Joined: lobby]
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-UnloadTime: 0.184443 ms
+UnloadTime: 0.168902 ms
 Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
 Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 177.
-Total: 0.437796 ms (FindLiveObjects: 0.005864 ms CreateObjectMapping: 0.005571 ms MarkObjects: 0.160104 ms  DeleteObjects: 0.026684 ms)
+Total: 0.421669 ms (FindLiveObjects: 0.006157 ms CreateObjectMapping: 0.005278 ms MarkObjects: 0.153361 ms  DeleteObjects: 0.022285 ms)
 
-[Room Added: AceGuest#25's game.]
+[Room Added: AceGuest#52's game.]
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Game added: AceGuest#25's game.
+[Room Joined: AceGuest#52's game.]
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-[Room Joined: AceGuest#25's game.]
+[User Exit Room (lobby): AceGuest#52]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Game added: AceGuest#52's game.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 0.186496 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 175.
+Total: 0.433398 ms (FindLiveObjects: 0.005278 ms CreateObjectMapping: 0.005571 ms MarkObjects: 0.165383 ms  DeleteObjects: 0.021992 ms)
+
+UnloadTime: 0.174473 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 168.
+Total: 0.451872 ms (FindLiveObjects: 0.005571 ms CreateObjectMapping: 0.005278 ms MarkObjects: 0.181804 ms  DeleteObjects: 0.023165 ms)
+
+[Room Joined: lobby]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[User Exit Room (AceGuest#52's game.): AceGuest#52]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 0.171834 ms
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 177.
+Total: 0.450406 ms (FindLiveObjects: 0.005864 ms CreateObjectMapping: 0.005571 ms MarkObjects: 0.181511 ms  DeleteObjects: 0.021992 ms)
+
+AceGuest#52's game.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Game added: AceGuest#52's game.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+AceGuest#52's game.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+Game added: AceGuest#52's game.
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+[Room Joined: AceGuest#52's game.]
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
@@ -66,35 +120,55 @@ Attempting to add remote player.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Queueing Player: 25/AceGuest#25
+Queueing Player: 57/AceGuest#57
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-User AceGuest#25 is in room.
+User AceGuest#57 is in room.
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-UnloadTime: 0.190894 ms
+[User Exit Room (lobby): AceGuest#52]
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+UnloadTime: 0.180045 ms
 Unloading 2 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
 Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 175.
-Total: 0.455683 ms (FindLiveObjects: 0.006157 ms CreateObjectMapping: 0.005864 ms MarkObjects: 0.180924 ms  DeleteObjects: 0.024338 ms)
+Total: 0.468880 ms (FindLiveObjects: 0.005864 ms CreateObjectMapping: 0.005278 ms MarkObjects: 0.194413 ms  DeleteObjects: 0.028736 ms)
 
-[User Exit Room (lobby): AceGuest#24]
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-UnloadTime: 0.174180 ms
+UnloadTime: 0.174473 ms
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
 Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 410.
-Total: 0.511983 ms (FindLiveObjects: 0.012022 ms CreateObjectMapping: 0.009090 ms MarkObjects: 0.192067 ms  DeleteObjects: 0.036654 ms)
+Total: 0.536910 ms (FindLiveObjects: 0.011436 ms CreateObjectMapping: 0.011729 ms MarkObjects: 0.217872 ms  DeleteObjects: 0.038413 ms)
 
 Adding Queued Players
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player added <Id : Username> <25 : AceGuest#25>
+Player added <Id : Username> <57 : AceGuest#57>
+ 
+(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at NetworkTransformer.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at NetworkTransformer.OnDestroy () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+UnloadTime: 9.084663 ms
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
+
+Unloading 131 unused Assets to reduce memory usage. Loaded Objects now: 418.
+Total: 0.552158 ms (FindLiveObjects: 0.014368 ms CreateObjectMapping: 0.009383 ms MarkObjects: 0.212007 ms  DeleteObjects: 0.069789 ms)
+
+Adding Queued Players
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
@@ -122,469 +196,371 @@ Rethrow as Exception: Error dispatching event extensionResponse: The given key w
  
 (Filename:  Line: -1)
 
-Death Request sent.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Damage Taken by Client. Damage: 10 Remaining Health: 290
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 290> to remote player.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Damage Taken by Client. Damage: 10 Remaining Health: 280
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 280> to remote player.
+Damage Taken by Client. Damage: 10 Remaining Health: 270
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Damage Taken by Client. Damage: 10 Remaining Health: 260
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 270> to remote player.
+Damage Taken by Client. Damage: 10 Remaining Health: 250
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Damage Taken by Client. Damage: 10 Remaining Health: 240
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 260> to remote player.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Damage Taken by Client. Damage: 10 Remaining Health: 230
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Damage Taken by Client. Damage: 10 Remaining Health: 220
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 250> to remote player.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Damage Taken by Client. Damage: 10 Remaining Health: 210
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 240> to remote player.
+Damage Taken by Client. Damage: 10 Remaining Health: 200
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Damage Taken by Client. Damage: 10 Remaining Health: 190
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 230> to remote player.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Damage Taken by Client. Damage: 10 Remaining Health: 180
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 220> to remote player.
+Damage Taken by Client. Damage: 10 Remaining Health: 170
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Damage Taken by Client. Damage: 10 Remaining Health: 160
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 210> to remote player.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Damage Taken by Client. Damage: 10 Remaining Health: 150
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 200> to remote player.
+Damage Taken by Client. Damage: 10 Remaining Health: 140
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Damage Taken by Client. Damage: 10 Remaining Health: 130
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 190> to remote player.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Damage Taken by Client. Damage: 10 Remaining Health: 120
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 180> to remote player.
+Damage Taken by Client. Damage: 10 Remaining Health: 110
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Damage Taken by Client. Damage: 10 Remaining Health: 100
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 170> to remote player.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Damage Taken by Client. Damage: 10 Remaining Health: 90
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 160> to remote player.
+Damage Taken by Client. Damage: 10 Remaining Health: 80
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Damage Taken by Client. Damage: 10 Remaining Health: 70
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 150> to remote player.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Damage Taken by Client. Damage: 10 Remaining Health: 60
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 140> to remote player.
+Damage Taken by Client. Damage: 10 Remaining Health: 50
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Damage Taken by Client. Damage: 10 Remaining Health: 40
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 130> to remote player.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Damage Taken by Client. Damage: 10 Remaining Health: 30
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 120> to remote player.
+Damage Taken by Client. Damage: 10 Remaining Health: 20
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
+Damage Taken by Client. Damage: 10 Remaining Health: 10
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Damage taken <Damage : Health> <10 : 110> to remote player.
+Player hit: 52
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+Damage Taken by Client. Damage: 10 Remaining Health: 0
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Player hit: 25
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <10 : 100> to remote player.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 25
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <10 : 90> to remote player.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 25
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <10 : 80> to remote player.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 25
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <10 : 70> to remote player.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 25
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <10 : 60> to remote player.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 25
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <10 : 50> to remote player.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 25
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <10 : 40> to remote player.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 25
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <10 : 30> to remote player.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 25
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <10 : 20> to remote player.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 25
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <10 : 10> to remote player.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 25
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Damage taken <Damage : Health> <10 : 0> to remote player.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Death Request sent.
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-[User Exit Room (AceGuest#25's game.): AceGuest#25]
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-Player hit: 25
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
-
-NullReferenceException
-  at (wrapper managed-to-native) UnityEngine.Component:InternalGetTransform ()
-  at UnityEngine.Component.get_transform () [0x00000] in <filename unknown>:0 
-  at RemotePlayerScript.handlePlayerRemoteHit (System.Object o) [0x00000] in <filename unknown>:0 
-  at RemotePlayerScript.Notify (System.String eventType, System.Object o) [0x00000] in <filename unknown>:0 
-  at SFSClient.OnEvent (System.String eventType, System.Object o) [0x00000] in <filename unknown>:0 
-  at SFSClient.PlayerHitResponse (Sfs2X.Entities.Data.SFSObject sfsdata) [0x00000] in <filename unknown>:0 
-  at SFSClient.OnExtensionReponse (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
-  at Sfs2X.Core.EventDispatcher.DispatchEvent (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
-Rethrow as Exception: Error dispatching event extensionResponse:    at (wrapper managed-to-native) UnityEngine.Component:InternalGetTransform ()
-  at UnityEngine.Component.get_transform () [0x00000] in <filename unknown>:0 
-  at RemotePlayerScript.handlePlayerRemoteHit (System.Object o) [0x00000] in <filename unknown>:0 
-  at RemotePlayerScript.Notify (System.String eventType, System.Object o) [0x00000] in <filename unknown>:0 
-  at SFSClient.OnEvent (System.String eventType, System.Object o) [0x00000] in <filename unknown>:0 
-  at SFSClient.PlayerHitResponse (Sfs2X.Entities.Data.SFSObject sfsdata) [0x00000] in <filename unknown>:0 
-  at SFSClient.OnExtensionReponse (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
-  at Sfs2X.Core.EventDispatcher.DispatchEvent (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
-  at Sfs2X.Core.EventDispatcher.DispatchEvent (Sfs2X.Core.BaseEvent evt) [0x00000] in <filename unknown>:0 
-  at Sfs2X.SmartFox.ProcessEvents () [0x00000] in <filename unknown>:0 
-  at SFSClient.Update () [0x00000] in <filename unknown>:0 
-  at GameManager.FixedUpdate () [0x00000] in <filename unknown>:0 
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
  
 (Filename:  Line: -1)
 
-Death Request sent.
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
  
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+(Filename:  Line: -1)
 
-Death Request sent.
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
  
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
 
 [Room Joined: lobby]
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-[User Exit Room (AceGuest#25's game.): AceGuest#24]
+[User Exit Room (AceGuest#52's game.): AceGuest#52]
  
 (Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
 
-Death Request sent.
+NullReferenceException: Object reference not set to an instance of an object
+  at SFSClient.SendDeathRequest (System.Object data) [0x00000] in <filename unknown>:0 
+  at SFSClient.Send (DataType type, System.Object data) [0x00000] in <filename unknown>:0 
+  at ShipHull.OnDeath () [0x00000] in <filename unknown>:0 
+  at ShipHull.Update () [0x00000] in <filename unknown>:0 
  
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+(Filename:  Line: -1)
 
-UnloadTime: 0.931892 ms
+UnloadTime: 0.470346 ms
 Unloading 3 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
 
-Unloading 170 unused Assets to reduce memory usage. Loaded Objects now: 209.
-Total: 6.545242 ms (FindLiveObjects: 0.008796 ms CreateObjectMapping: 0.007037 ms MarkObjects: 0.195292 ms  DeleteObjects: 6.084574 ms)
-
-[Room Removed: AceGuest#25's game.]
- 
-(Filename: C:/BuildAgent/work/cac08d8a5e25d4cb/Runtime/ExportGenerated/StandalonePlayer/UnityEngineDebug.cpp Line: 54)
+Unloading 52 unused Assets to reduce memory usage. Loaded Objects now: 202.
+Total: 6.025359 ms (FindLiveObjects: 0.007037 ms CreateObjectMapping: 0.006451 ms MarkObjects: 0.225496 ms  DeleteObjects: 5.532727 ms)
 
 [SFS - ERROR] TCPSocketLayer: General error reading data from socket: Read failure   at System.Net.Sockets.NetworkStream.Read (System.Byte[] buffer, Int32 offset, Int32 size) [0x00000] in <filename unknown>:0 
   at Sfs2X.Core.Sockets.TCPSocketLayer.Read () [0x00000] in <filename unknown>:0 
-UnloadTime: 0.174180 ms
-Unloading 1 Unused Serialized files (Serialized files now loaded: 0 / Dirty serialized files: 0)
-
-Unloading 12 unused Assets to reduce memory usage. Loaded Objects now: 226.
-Total: 0.468292 ms (FindLiveObjects: 0.006451 ms CreateObjectMapping: 0.006157 ms MarkObjects: 0.190014 ms  DeleteObjects: 0.035774 ms)
-

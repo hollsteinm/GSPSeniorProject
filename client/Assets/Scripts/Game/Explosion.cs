@@ -9,10 +9,6 @@ public class Explosion : MonoBehaviour {
         Destroy(gameObject, effectLength);
 	
 	}
-
-    void OnDestroy ( ) {
-
-    }
 	
 	// Update is called once per frame
 	void Update () {

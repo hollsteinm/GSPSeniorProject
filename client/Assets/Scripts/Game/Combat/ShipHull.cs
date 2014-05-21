@@ -56,10 +56,11 @@ public class ShipHull : MonoBehaviour {
     }
 
     private void OnDeath() {
+        deathPrefab.GetComponent<PlayerDeath>().isClient = true;
         Instantiate(deathPrefab);
         GameManager.gameManager.ClientController.Send(DataType.DEATH, new object());
         Destroy(gameObject);
-        Application.LoadLevel("lobby");
+        //Application.LoadLevel("lobby");
     }
 
     public void OnHit(float damage, Vector3 contactPoint) {

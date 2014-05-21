@@ -72,7 +72,8 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
 
                 shipHull.Health = data["health"];
                 shipHull.MaxHealth = data["health"];
-                GetComponent<Reticle>().range = data["range"];
+                //TODO: once the database sends the right data, we will be able to set this for the reticle
+                //GetComponent<Reticle>().range = data["range"];
 
                 break;
 

@@ -2731,6 +2731,7 @@ MonoBehaviour:
   maxHorizontalAcceleration: 30
   horizontalAccelerationReaction: 15
   horizontalVelocityDeviation: 20
+  boundary: 8000
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2778,16 +2779,17 @@ MonoBehaviour:
     m_Text: Logout
     m_Image: {fileID: 0}
     m_Tooltip: 
+  menuBG: {fileID: 13100000, guid: 0730245aa58312948a3e796075293a1c, type: 2}
   leaveMatchRect:
     serializedVersion: 2
     x: 0
-    y: 512
+    y: 64
     width: 512
     height: 32
   logoutRect:
     serializedVersion: 2
     x: 0
-    y: 544
+    y: 96
     width: 512
     height: 32
   buttonStyle:
@@ -2909,11 +2911,13 @@ MonoBehaviour:
     m_StretchWidth: 1
     m_StretchHeight: 0
   infoX: 0
-  infoY: 0
+  infoY: 128
   infoWidth: 128
   infoHeight: 16
   infoXStride: 0
   infoYStride: 24
+  groupWidth: 512
+  groupHeight: 512
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -89,7 +89,7 @@ public class Projectile : MonoBehaviour, IEventListener {
             try {
                 other = hitInfo.collider.gameObject.transform.parent.gameObject.transform.parent.gameObject;
 
-                colpoint = other.transform.position;
+                colpoint = hitInfo.point;
 
                 if (other.GetComponent<RemotePlayerScript>() != null) {
                     OnRemoteHit();
@@ -132,7 +132,7 @@ public class Projectile : MonoBehaviour, IEventListener {
     }
 
     private void OnCollide() {
-        Instantiate(collisionEffectPrefab, transform.position, transform.rotation);
+        //Instantiate(collisionEffectPrefab, transform.position, transform.rotation);
         collisionSound.Play();
         Destroy(gameObject);
     }

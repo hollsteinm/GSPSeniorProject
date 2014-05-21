@@ -8,6 +8,8 @@ public class MatchGUI : MonoBehaviour {
     public GUIContent leaveMatchContent;
     public GUIContent logoutContent;
 
+    public GUITexture menuBG;
+
     public Rect leaveMatchRect;
     public Rect logoutRect;
 
@@ -22,6 +24,9 @@ public class MatchGUI : MonoBehaviour {
     public int infoXStride;
     public int infoYStride;
 
+    public int groupWidth;
+    public int groupHeight;
+
 	// Use this for initialization
 	void Start () {
         
@@ -29,17 +34,23 @@ public class MatchGUI : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+    bool showWinningScreen = false;
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             if (isActive) {
                 isActive = false;
+                menuBG.gameObject.SetActive(false);
             } else {
                 isActive = true;
+                menuBG.gameObject.SetActive(true);
                 Screen.lockCursor = false;
             }
         }
         if (!isActive) {
             Screen.lockCursor = true;
+        }
+        if (GameManager.gameManager.PlayerNames.Length <= 0) {
+            showWinningScreen = true;
         }
 	}
 
@@ -47,10 +58,19 @@ public class MatchGUI : MonoBehaviour {
         if (isActive) {
             DrawOverlay();
         }
+        if (showWinningScreen) {
+            GUILayout.BeginArea(new Rect(Screen.width / 2.0f - 128, Screen.height / 2.0f - 32, 256, 64));
+            GUILayout.BeginVertical();
+            GUILayout.Label("You are the Ace!", infoStyle);
+            GUILayout.EndVertical();
+            GUILayout.EndArea();
+        }
     }
 
     private void DrawOverlay() {
         int index = 0;
+        GUI.BeginGroup(new Rect(Screen.width / 2.0f - groupWidth / 2.0f, Screen.height / 2.0f - groupHeight / 2.0f, groupWidth, groupHeight));
+
         playerList = GameManager.gameManager.PlayerNames;
         foreach (string s in playerList) {
             GUI.Label(new Rect(infoX + (infoXStride * index), infoY + (infoYStride * index), infoWidth, infoHeight), s, infoStyle);
@@ -66,6 +86,8 @@ public class MatchGUI : MonoBehaviour {
             GameManager.gameManager.ClientController.Disconnect();
             Application.LoadLevel("launch");
         }
+
+        GUI.EndGroup();
         
     }
 }

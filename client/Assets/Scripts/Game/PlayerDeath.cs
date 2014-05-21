@@ -2,15 +2,16 @@
 using System.Collections;
 
 public class PlayerDeath : MonoBehaviour {
-    public float effectLength;
+    public float effectLength = 5.0f;
     public Camera dcamera;
     public bool isClient;
 
-    private float timePassed;
+    private float timePassed = 0.0f;
 
 	// Use this for initialization
 	void Start () {
         dcamera = Camera.main;
+        dcamera.GetComponent<ManeuverCamera>().target = transform;
 
 	}
 
@@ -19,12 +20,11 @@ public class PlayerDeath : MonoBehaviour {
     }
 
     private void IncrementLife() {
-        timePassed++;
+        timePassed += Time.deltaTime;
     }
 
     private void OnFinish ( ) {
         if (isClient) {
-            dcamera.GetComponent<ManeuverCamera>().target = transform;
             GameManager.gameManager.ClientController.Send(DataType.JOINGAME, "lobby");
         } 
     }

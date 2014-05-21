@@ -35,7 +35,7 @@ Renderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_LightmapIndex: 255
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectLength: 5
-  camera: {fileID: 2000000, guid: 8bafeb2bec391934caa259a023c9762b, type: 2}
+  dcamera: {fileID: 0}
   isClient: 1
 --- !u!1001 &100100000
 Prefab:

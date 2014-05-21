@@ -594,6 +594,7 @@ public class SFSClient : IClientController {
         data.Add("health", sfsdata.GetFloat("health"));
         data.Add("cooldown", sfsdata.GetFloat("cooldown"));
         data.Add("damage", sfsdata.GetFloat("damage"));
+        data.Add("range", sfsdata.GetFloat("range"));
 
         OnEvent ( "spawn", data );
     }

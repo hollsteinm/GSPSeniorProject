@@ -291,7 +291,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             
             Ship ship = game.getShip(playerid);
             
-            ship.setPosition( new float[]{ 100.0f * playerid, 100.0f * playerid, 0.0f } );
+            ship.setPosition( new float[]{ (100.0f * playerid) % 100.0f, (100.0f * playerid) % 100.0f, (100.0f * playerid) % 100.0f } );
             
             ISFSObject response = SFSObject.newInstance();
             response.putInt("player", playerid);
