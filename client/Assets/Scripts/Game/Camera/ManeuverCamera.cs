@@ -3,9 +3,11 @@ using System.Collections;
 
 public class ManeuverCamera : MonoBehaviour{
 	
+	//Grabs the information for the ship's movement
 	public JetMovement playerMovement;
-
-    private AerialManeuvers.TransformStruct camStart;
+	
+	//Keeps track of the camera's positions
+	private AerialManeuvers.TransformStruct camStart, previousFrame, currentFrame;
 	
 	// The target we are following
 	public Transform target;
@@ -33,14 +35,22 @@ public class ManeuverCamera : MonoBehaviour{
 		if (!target)
 			return;
 		
+		//If the player is using a maneuver
 		if (playerMovement.GetUsingManeuver())
 		{
+			//set the camera positions properly
+			previousFrame = currentFrame;
+			currentFrame = target;
 			
+			//If the maneuver has just begun, make the camera follow the maneuver
 			if (!followingManeuver)
 			{
 				camStart = transform;
 				followingManeuver = true;
 			}
+			
+			//If we are not in the second movement of the U-Turn, have the camera behave regularly
+			//for a maneuver
 			if (playerMovement.GetManeuverType() == AerialManeuvers.ManeuverType.LOOP ||
 				playerMovement.GetManeuverType() == AerialManeuvers.ManeuverType.L_DODGE ||
 				playerMovement.GetManeuverType() == AerialManeuvers.ManeuverType.R_DODGE ||
@@ -51,9 +61,11 @@ public class ManeuverCamera : MonoBehaviour{
 			else
 				UpdateUTurn();
 		}
+		//If we are not in a maneuver...
 		else
 		{			
 			followingManeuver = false;
+			currentFrame = target;
 			
 			// Calculate the position the camera should be in
 			Vector3 wantedHeight =  target.up * height;
@@ -64,6 +76,7 @@ public class ManeuverCamera : MonoBehaviour{
 			Vector3 wantedPosition = target.position + wantedHeight + wantedDistance;
 			Vector3 cameraMoveVec = wantedPosition - transform.position;
 			
+			//Move the camera
 			transform.position += cameraMoveVec * dampRate;
 			
 			// Always look at the target
@@ -71,6 +84,7 @@ public class ManeuverCamera : MonoBehaviour{
 		}
 	}
 	
+	//Update the camera position for a regular maneuver
 	void UpdateRegularManeuver()
 	{		
 		// Calculate the position the camera should be in
@@ -82,12 +96,14 @@ public class ManeuverCamera : MonoBehaviour{
 		Vector3 wantedPosition = target.position + wantedHeight + wantedDistance;
 		Vector3 cameraMoveVec = wantedPosition - transform.position;
 		
+		//Move the camera
 		transform.position += cameraMoveVec * dampRate * dampChange;
 			
 		// Always look at the target
-		transform.LookAt (target);
+		transform.LookAt (target, camStart.up);
 	}
 	
+	//Update the camera position for the second movement of the U-Turn
 	void UpdateUTurn()
 	{
 		// Calculate the position the camera should be in
@@ -99,9 +115,10 @@ public class ManeuverCamera : MonoBehaviour{
 		Vector3 wantedPosition = target.position + wantedHeight + wantedDistance;
 		Vector3 cameraMoveVec = wantedPosition - transform.position;
 		
+		//Move the camera
 		transform.position += cameraMoveVec * dampRate * dampChange;
 			
 		// Always look at the target
-		transform.LookAt (target);
+		transform.LookAt (target, camStart.up);
 	}
 }
