@@ -305,8 +305,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: 1
-  maxSize: 2.25
+  minSize: 20
+  maxSize: 25
   minEnergy: 10
   maxEnergy: 10
   minEmission: 40
@@ -478,7 +478,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 16e13746e2b357a4691922d229310ff2, type: 3}
 --- !u!23 &167310743
 Renderer:
@@ -606,8 +606,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 1
+  minSize: 10
+  maxSize: 15
   minEnergy: 3
   maxEnergy: 3
   minEmission: 40
@@ -723,8 +723,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 1
+  minSize: 10
+  maxSize: 15
   minEnergy: 3
   maxEnergy: 3
   minEmission: 40
@@ -909,8 +909,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 2
+  minSize: 10
+  maxSize: 15
   minEnergy: 7
   maxEnergy: 7
   minEmission: 40
@@ -1299,8 +1299,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 2
+  minSize: 10
+  maxSize: 15
   minEnergy: 7
   maxEnergy: 7
   minEmission: 40
@@ -1348,10 +1348,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!23 &601398578
 Renderer:
   m_ObjectHideFlags: 0
@@ -1382,7 +1382,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .5
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &601398580
 MeshFilter:
@@ -1399,8 +1399,8 @@ Transform:
   m_PrefabInternal: {fileID: 1172041977}
   m_GameObject: {fileID: 601398576}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22336.2031, y: 133.886597, z: 410.352661}
-  m_LocalScale: {x: 376.217896, y: 376.217896, z: 376.217896}
+  m_LocalPosition: {x: 2000, y: 133.886597, z: 410.352661}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!1 &604032309
@@ -1502,8 +1502,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 2
+  minSize: 10
+  maxSize: 15
   minEnergy: 7
   maxEnergy: 7
   minEmission: 40
@@ -1807,8 +1807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ddb7aa64d63d8440970ec9e3dcc14ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapons:
-  - {fileID: 850568215}
+  weapon: {fileID: 850568215}
   deathPrefab: {fileID: 100000, guid: bf0aa60bf2d0e374da3a1b360aee5272, type: 2}
   deathSound: {fileID: 850568225}
   onHit: {fileID: 850568225}
@@ -1830,7 +1829,7 @@ MonoBehaviour:
   nearSight: {fileID: 199223349}
   muzzlePoint: {fileID: 1868976036}
   distanceMessage: {fileID: 1591543570}
-  range: 1000
+  range: 500
 --- !u!114 &850568220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1843,7 +1842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35822e4adbb0b384a8a0df8d9cdde44c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookSpeed: 3
+  lookSpeed: .5
   maxForwardAcceleration: 200
   forwardAccelerationReaction: 7.5
   defaultForwardVelocity: 200
@@ -1851,6 +1850,7 @@ MonoBehaviour:
   maxHorizontalAcceleration: 30
   horizontalAccelerationReaction: 15
   horizontalVelocityDeviation: 20
+  boundary: 8000
 --- !u!54 &850568221
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1863,10 +1863,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!114 &850568222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2319,8 +2319,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: .300000012
-  maxSize: 1.5
+  minSize: 10
+  maxSize: 15
   minEnergy: 3
   maxEnergy: 5
   minEmission: 15
@@ -2493,8 +2493,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: 1
-  maxSize: 2.25
+  minSize: 20
+  maxSize: 25
   minEnergy: 10
   maxEnergy: 10
   minEmission: 40
@@ -2520,7 +2520,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 22336.2031
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
       propertyPath: m_LocalPosition.y
@@ -2545,6 +2545,18 @@ Prefab:
     - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
@@ -2709,8 +2721,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 1
+  minSize: 10
+  maxSize: 15
   minEnergy: 3
   maxEnergy: 3
   minEmission: 40
@@ -2736,15 +2748,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -7865.70703
+      value: -3000
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -21492.457
+      value: -2100
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -114300.539
+      value: -500
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2761,6 +2773,18 @@ Prefab:
     - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
@@ -2895,8 +2919,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 1
+  minSize: 10
+  maxSize: 15
   minEnergy: 3
   maxEnergy: 3
   minEmission: 40
@@ -3047,10 +3071,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!23 &1501900249
 Renderer:
   m_ObjectHideFlags: 0
@@ -3081,7 +3105,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .5
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1501900251
 MeshFilter:
@@ -3098,8 +3122,8 @@ Transform:
   m_PrefabInternal: {fileID: 1350915163}
   m_GameObject: {fileID: 1501900247}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7865.70703, y: -21492.457, z: -114300.539}
-  m_LocalScale: {x: 376.217896, y: 376.217896, z: 376.217896}
+  m_LocalPosition: {x: -3000, y: -2100, z: -500}
+  m_LocalScale: {x: 200, y: 200, z: 200}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!1 &1591543570
@@ -3442,15 +3466,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -28268.4238
+      value: -2000
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 10727.9609
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -9124.29199
+      value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3467,6 +3491,18 @@ Prefab:
     - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
+      propertyPath: m_LocalScale.z
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aa8157a25005bc24a84ab477215acec5, type: 2}
@@ -3599,8 +3635,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: .300000012
-  maxSize: 1.5
+  minSize: 10
+  maxSize: 15
   minEnergy: 3
   maxEnergy: 5
   minEmission: 15
@@ -3778,8 +3814,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: .300000012
-  maxSize: 1.5
+  minSize: 10
+  maxSize: 15
   minEnergy: 3
   maxEnergy: 5
   minEmission: 15
@@ -3895,8 +3931,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: .300000012
-  maxSize: 1.5
+  minSize: 10
+  maxSize: 15
   minEnergy: 3
   maxEnergy: 5
   minEmission: 15
@@ -4012,8 +4048,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 2
+  minSize: 10
+  maxSize: 15
   minEnergy: 7
   maxEnergy: 7
   minEmission: 40
@@ -4079,7 +4115,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .5
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &2104360563
 MeshFilter:
@@ -4096,8 +4132,8 @@ Transform:
   m_PrefabInternal: {fileID: 1860082198}
   m_GameObject: {fileID: 2104360560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -28268.4238, y: 10727.9609, z: -9124.29199}
-  m_LocalScale: {x: 376.217896, y: 376.217896, z: 376.217896}
+  m_LocalPosition: {x: -2000, y: 1000, z: 4000}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!54 &2104360565
@@ -4112,10 +4148,10 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: .0500000007
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &2137312313
 GameObject:
   m_ObjectHideFlags: 0

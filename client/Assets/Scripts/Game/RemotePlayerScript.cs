@@ -39,7 +39,20 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
         if ((localHealth / maxHealth) <= 0.15f) {
             smokeDamage.SetActive(true);
         }
+        noCollideCoolant -= Time.deltaTime;
+        if (noCollideCoolant <= 0.0f) {
+            noCollideCoolant = 0.0f;
+            collide = true;
+        }
 	}
+
+    float noCollideCoolant = 5.0f; //5 seconds to seperate players.
+    bool collide = false;
+    void OnCollisionEnter(Collision col) {
+        if (collide) {
+            localHealth = 0.0f;
+        }
+    }
 
     public float Health {
         get {
