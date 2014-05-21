@@ -11,11 +11,12 @@ using System.Collections.Generic;
 public class Projectile : MonoBehaviour, IEventListener {
     public GameObject collisionEffectPrefab;
     public AudioSource collisionSound;
+    public WeaponType weaponType;
 
     private GameObject other;
     private Collision col;
 
-    private float range = 1000.0f;
+    private float range = 2000.0f;
     private float damage = 50.0f;
     private float speed = 1000.0f;
     private Vector3 spawnLocation;
@@ -55,6 +56,8 @@ public class Projectile : MonoBehaviour, IEventListener {
         spawnLocation = gameObject.transform.position;
         GameManager.gameManager.ClientController.Register(this);
 	}
+
+    protected virtual void OnStart() { }
 	
 	// Update is called once per frame
 	void Update () {
@@ -72,13 +75,12 @@ public class Projectile : MonoBehaviour, IEventListener {
         Move();
     }
 
-    private void Move() {
+    protected void Move() {
         transform.position += transform.forward * speed * Time.fixedDeltaTime;
     }
 
-    private void SweepTest() {
+    protected void SweepTest() {
         RaycastHit hitInfo = new RaycastHit();
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward), Color.red);
         if (Physics.Raycast(new Ray(transform.position, transform.TransformDirection(Vector3.forward)), out hitInfo, speed)) {
             try {
                 other = hitInfo.collider.gameObject.transform.parent.gameObject.transform.parent.gameObject;
@@ -131,8 +133,22 @@ public class Projectile : MonoBehaviour, IEventListener {
         Destroy(gameObject);
     }
 
+    private string GetWeaponType() {
+        switch (weaponType) {
+            case WeaponType.BULLET:
+                return "Bullet";
+
+            case WeaponType.SEEKER:
+                return "Seeker";
+
+            default:
+                return "Bullet";
+        }
+    }
+
     private void OnClientHit() {
         Dictionary<string, object> data = new Dictionary<string, object>();
+        data.Add("type", GetWeaponType());
         data.Add("damage", damage);
         data.Add("player.hit.id", -1);
         
@@ -152,6 +168,7 @@ public class Projectile : MonoBehaviour, IEventListener {
     private void OnRemoteHit() {
         RemotePlayerScript rp = other.GetComponent<RemotePlayerScript>();
         Dictionary<string, object> data = new Dictionary<string, object>();
+        data.Add("type", GetWeaponType());
         data.Add("damage", damage);
         data.Add("player.hit.id", rp.Id);
 

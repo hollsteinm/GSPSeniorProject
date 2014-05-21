@@ -10,12 +10,32 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
 	void Start () {
 	    server = GameManager.gameManager.ClientController;
         server.Register ( this );
-        server.Send(DataType.SPAWNED, null);
+        
+        string weaponType = "";
+        switch(shipHull.weapon.gunType){
+            case GunType.CANNON:
+                weaponType = "Cannon";
+                break;
+
+            case GunType.SEEKERMISSILELAUNCHER:
+                weaponType = "Seeker Missile Launcher";
+                break;
+
+            default:
+                weaponType = "Cannon";
+                break;
+        }        
+        
+        server.Send(DataType.SPAWNED, weaponType);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	}
+
+    void OnCollisionEnter(Collision col) {
+        shipHull.Health = 0.0f;
+    }
 
     public void Notify ( string eventType, object o ) {
         if ( o == null || eventType == null ) {
@@ -41,9 +61,9 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
                 transform.position = new Vector3(px, py, pz);
                 transform.rotation = new Quaternion(rx, ry, rz, rw);
 
-                Gun[] weapons = GetComponents<Gun>();
-                int numWeapons = (int)data["numWeapons"];
-                Debug.Log("TODO: implement server setting projectile/gun data");
+                shipHull.Health = data["health"];
+                shipHull.MaxHealth = data["health"];
+                GetComponent<Reticle>().range = data["range"];
 
                 break;
 

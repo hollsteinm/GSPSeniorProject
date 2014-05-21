@@ -7,8 +7,12 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
     private string username = "";
     GUIText guiTextref;
     private int remoteId = -1;
-    private float localHealth = 100.0f;
+    private float localHealth = 300.0f;
+    private float maxHealth = 300.0f;
     IClientController server;
+
+    public GameObject fireDamage;
+    public GameObject smokeDamage;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +21,7 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
         guiTextref.color = new Color(0.0f, 1.0f, 0.0f);
         server = GameManager.gameManager.ClientController;
         server.Register(this);
+        maxHealth = localHealth;
 	}
 
 	// Update is called once per frame
@@ -25,6 +30,14 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
             if (localHealth <= 0.0f) {
                 Notify("player.remote.death", remoteId);
             }
+        }
+
+        if ((localHealth / maxHealth) <= 0.3f) {
+            fireDamage.SetActive(true);
+        }
+
+        if ((localHealth / maxHealth) <= 0.15f) {
+            smokeDamage.SetActive(true);
         }
 	}
 

@@ -1,10 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game\Movement\JetMovement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Game\Movement\AerialManeuvers.cs">
     <Files>
-      <File FileName="Assets\Scripts\Game\Movement\JetMovement.cs" Line="28" Column="25" />
-      <File FileName="Assets\Scripts\Game\Movement\AerialManeuvers.cs" Line="6" Column="68" />
-      <File FileName="Assets\Scripts\Game\Camera\ManeuverCamera.cs" Line="9" Column="41" />
+      <File FileName="Assets\Scripts\Server\SFSClient.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game\Movement\AerialManeuvers.cs" Line="182" Column="25" />
+      <File FileName="Assets\Scripts\Game\Camera\ManeuverCamera.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Game\Movement\JetMovement.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

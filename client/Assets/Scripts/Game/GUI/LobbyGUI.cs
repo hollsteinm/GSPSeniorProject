@@ -20,6 +20,9 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
     public float gameListX;
     public float gameListY;
 
+    public float configListWidth;
+    public float configListHeight;
+
     private static object mutex = new object();
 
 	// Use this for initialization
@@ -125,6 +128,19 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
 
         GUILayout.EndScrollView();
         GUILayout.EndArea();
+        GUILayout.EndVertical();
+        GUILayout.EndArea();
+
+        GUILayout.BeginArea(new Rect(0, 128, configListWidth, configListHeight));
+        GUILayout.BeginVertical();
+        GUILayout.Label("Choose Your Weapon");
+        if (GUILayout.Button("Cannon", lobbyStyle, GUILayout.MaxWidth(512))) {
+            GameManager.gameManager.CurrentWeaponChoice = GunType.CANNON;
+        }
+        if (GUILayout.Button("Seeker Missile Launcher", lobbyStyle, GUILayout.MaxWidth(512))) {
+            GameManager.gameManager.CurrentWeaponChoice = GunType.SEEKERMISSILELAUNCHER;
+        }
+        GUILayout.Label("Current Choice: " + GameManager.gameManager.CurrentWeaponChoice.ToString());
         GUILayout.EndVertical();
         GUILayout.EndArea();
        

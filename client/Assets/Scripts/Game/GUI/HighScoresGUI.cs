@@ -7,7 +7,8 @@ public class HighScoresGUI : MonoBehaviour, IEventListener {
     private List<long> topScores;
     private List<string> topNames;
 
-    public GUIStyle highScoreStyle;
+    public GUIStyle highScoreStyleText;
+    public GUIStyle highScoreStylePoints;
     public GUIStyle buttonStyle;
     public Rect backRect;
     public Rect myscoreRect;
@@ -58,7 +59,7 @@ public class HighScoresGUI : MonoBehaviour, IEventListener {
     }
 
     private void DrawMyScore() {
-        GUI.TextArea(myscoreRect, "My Current Score: " + myscore.ToString(), highScoreStyle);
+        GUI.TextArea(myscoreRect, "My Current Score: " + myscore.ToString(), highScoreStyleText);
     }
 
     public float height;
@@ -68,17 +69,17 @@ public class HighScoresGUI : MonoBehaviour, IEventListener {
         GUI.BeginGroup(new Rect(Screen.width  - groupWidth, 0, groupWidth, groupHeight));
         float top = scoresYMin;
         float xshift = scoresXMin + scoresWidth;
-        GUI.TextArea(new Rect(scoresXMin, 0, scoresWidth, scoresHeight), "Top Players:", highScoreStyle);
+        GUI.TextArea(new Rect(scoresXMin, 0, scoresWidth, scoresHeight), "Top Players:", highScoreStyleText);
         top += scoresHeight;
         foreach(long l in topScores){
-            GUI.TextArea(new Rect(xshift, top + scoresPadding, scoresWidth, scoresHeight), l.ToString(), highScoreStyle);
+            GUI.TextArea(new Rect(xshift, top + scoresPadding, scoresWidth, scoresHeight), l.ToString(), highScoreStylePoints);
             top += scoresHeight;
         }
 
         top = scoresYMin;
         top += scoresYMin;
         foreach (string s in topNames) {
-            GUI.TextArea(new Rect(scoresXMin, top + scoresPadding, scoresWidth, scoresHeight), s, highScoreStyle);
+            GUI.TextArea(new Rect(scoresXMin, top + scoresPadding, scoresWidth, scoresHeight), s, highScoreStyleText);
             top += scoresHeight;
         }
         GUI.EndGroup();

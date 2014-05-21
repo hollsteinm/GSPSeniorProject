@@ -21,6 +21,7 @@ public class LaunchGUI : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Screen.lockCursor = false;
 
 	}
 	
@@ -52,8 +53,10 @@ public class LaunchGUI : MonoBehaviour {
             Application.LoadLevel("controls");
         }
 
-        if (GUI.Button(quitRect, quitContent, launchStyle)) {
-            Application.Quit();
+        if (!Application.isWebPlayer){
+            if (GUI.Button(quitRect, quitContent, launchStyle)) {
+                Application.Quit();
+            }
         }
 
         GUI.EndGroup();

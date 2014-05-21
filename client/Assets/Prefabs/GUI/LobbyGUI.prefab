@@ -131,6 +131,8 @@ MonoBehaviour:
   gameListWidth: 512
   gameListX: 512
   gameListY: 32
+  configListWidth: 512
+  configListHeight: 512
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -16,6 +16,11 @@ public class Weapon {
         this.cooldown = cooldown;
         this.damage = damage;
     }
+    
+    public Weapon(){
+        cooldown = 0.25f;
+        
+    }
 
     public float getCooldown() {
         return cooldown;
