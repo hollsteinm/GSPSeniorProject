@@ -141,7 +141,6 @@ public class GameManager : MonoBehaviour {
 
     private Dictionary<int, GameObject> players = new Dictionary<int, GameObject>();
     private Dictionary<int, string> queuedplayers = new Dictionary<int, string>();
-    private GameObject clientPlayer = null;
 
     public Dictionary<int, GameObject> Players {
         get {

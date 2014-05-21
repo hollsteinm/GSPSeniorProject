@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerDeath : MonoBehaviour {
     public float effectLength;
-    public Camera camera;
+    public Camera dcamera;
     public bool isClient;
 
     private float timePassed;
@@ -24,7 +24,7 @@ public class PlayerDeath : MonoBehaviour {
     private void OnFinish ( ) {
         if (isClient) {
             //camera = (Camera)Instantiate(camera, transform.position, transform.rotation);
-            camera.GetComponent<SASmoothFollowLook>().target = transform;
+            dcamera.GetComponent<SASmoothFollowLook>().target = transform;
             GameManager.gameManager.ClientController.Send(DataType.JOINGAME, "lobby");
         } 
     }

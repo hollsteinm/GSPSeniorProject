@@ -3,10 +3,6 @@ using System.Collections;
 
 public class JetMovement : MonoBehaviour {
 	
-	private float rotationX = 0.0f;
-    private float rotationY = 0.0f;
-	private float rotationZ = 0.0f;
-
     public float lookSpeed = 1.0f;
 
     private float forwardAcceleration = 0.0f;

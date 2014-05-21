@@ -132,7 +132,6 @@ public class Projectile : MonoBehaviour, IEventListener {
     }
 
     private void OnClientHit() {
-        ClientPlayer cp = other.GetComponent<ClientPlayer>();
         Dictionary<string, object> data = new Dictionary<string, object>();
         data.Add("damage", damage);
         data.Add("player.hit.id", -1);

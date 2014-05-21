@@ -4,8 +4,8 @@ using System.Collections;
 public class ManeuverCamera : MonoBehaviour{
 	
 	public JetMovement playerMovement;
-	
-	private AerialManeuvers.TransformStruct camStart, previousFrame, currentFrame;
+
+    private AerialManeuvers.TransformStruct camStart;
 	
 	// The target we are following
 	public Transform target;
@@ -35,8 +35,6 @@ public class ManeuverCamera : MonoBehaviour{
 		
 		if (playerMovement.GetUsingManeuver())
 		{
-			previousFrame = currentFrame;
-			currentFrame = target;
 			
 			if (!followingManeuver)
 			{
@@ -56,7 +54,6 @@ public class ManeuverCamera : MonoBehaviour{
 		else
 		{			
 			followingManeuver = false;
-			currentFrame = target;
 			
 			// Calculate the position the camera should be in
 			Vector3 wantedHeight =  target.up * height;

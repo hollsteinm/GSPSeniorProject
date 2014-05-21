@@ -117,7 +117,6 @@ public class AerialManeuvers {
 	
 	public bool UpdateUTurn1(Transform player)
 	{
-		Vector3 currentRotation = player.eulerAngles;
 		if (CompareVec (player.eulerAngles, end.rotation))
 		{
 			player.eulerAngles = end.rotation;
@@ -136,7 +135,7 @@ public class AerialManeuvers {
 	}
 	public bool UpdateUTurn2(Transform player)
 	{
-		Vector3 currentRotation = player.eulerAngles;
+
 		if (CompareVec (player.eulerAngles, end.rotation))
 		{
 			player.eulerAngles = end.rotation;
@@ -149,7 +148,7 @@ public class AerialManeuvers {
 	
 	public bool UpdateLDodge(Transform player)
 	{
-		Vector3 currentRotation = player.eulerAngles;
+
 		if (CompareVec (player.eulerAngles, end.rotation))
 		{
 			if (loopCount > 0)
@@ -168,7 +167,7 @@ public class AerialManeuvers {
 	
 	public bool UpdateRDodge(Transform player)
 	{
-		Vector3 currentRotation = player.eulerAngles;
+
 		if (CompareVec (player.eulerAngles, end.rotation))
 		{
 			if (loopCount > 0)

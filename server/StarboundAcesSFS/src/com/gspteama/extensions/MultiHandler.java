@@ -279,7 +279,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             //trace(ship.toString());
             
             int size = user.getLastJoinedRoom().getUserList().size();
-            ship.setPosition( new float[]{ 2.0f * size, 2.0f * size, 0.0f } );
+            ship.setPosition( new float[]{ 1000.0f * size, 1000.0f * size, 0.0f } );
             ISFSObject response = SFSObject.newInstance();
             response.putInt("player", playerid);
             response.putFloat("position.x", ship.getPosition()[0]);

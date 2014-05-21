@@ -107,8 +107,8 @@ ParticleRenderer:
   m_PrefabInternal: {fileID: 1857500816}
   m_GameObject: {fileID: 167310740}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
@@ -173,8 +173,8 @@ EllipsoidParticleEmitter:
   maxSize: 1
   minEnergy: 2
   maxEnergy: 2
-  minEmission: 60
-  maxEmission: 60
+  minEmission: 100
+  maxEmission: 100
   worldVelocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   rndVelocity: {x: 0, y: 0, z: 0}
@@ -553,8 +553,8 @@ ParticleRenderer:
   m_PrefabInternal: {fileID: 1857500816}
   m_GameObject: {fileID: 1213449293}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
@@ -619,8 +619,8 @@ EllipsoidParticleEmitter:
   maxSize: 1
   minEnergy: 2
   maxEnergy: 2
-  minEmission: 60
-  maxEmission: 60
+  minEmission: 100
+  maxEmission: 100
   worldVelocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   rndVelocity: {x: 0, y: 0, z: 0}
@@ -1063,7 +1063,7 @@ Transform:
   m_PrefabInternal: {fileID: 1857500816}
   m_GameObject: {fileID: 850568214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.8665235, y: 3.6468935, z: -10.6860008}
   m_LocalScale: {x: .200000003, y: .200000003, z: .200000003}
   m_Children: []
   m_Father: {fileID: 35476850}
@@ -1316,8 +1316,8 @@ ParticleRenderer:
   m_PrefabInternal: {fileID: 1857500816}
   m_GameObject: {fileID: 850568214}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
@@ -1382,8 +1382,8 @@ EllipsoidParticleEmitter:
   maxSize: 1
   minEnergy: 2
   maxEnergy: 2
-  minEmission: 60
-  maxEmission: 60
+  minEmission: 100
+  maxEmission: 100
   worldVelocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   rndVelocity: {x: 0, y: 0, z: 0}
@@ -1518,7 +1518,7 @@ Transform:
   m_PrefabInternal: {fileID: 1857500816}
   m_GameObject: {fileID: 1213449293}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.46119392, y: 3.69650507, z: -10.895359}
+  m_LocalPosition: {x: 1.79390514, y: 3.69650507, z: -10.895359}
   m_LocalScale: {x: .200000003, y: .200000003, z: .200000003}
   m_Children: []
   m_Father: {fileID: 35476850}
@@ -1792,15 +1792,15 @@ TextMesh:
   m_CharacterSize: 4
   m_LineSpacing: 1
   m_Anchor: 0
-  m_Alignment: 0
+  m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 0
+  m_FontSize: 32
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4286611456
 --- !u!23 &1591543573
 Renderer:
   m_ObjectHideFlags: 0
@@ -1897,8 +1897,8 @@ ParticleRenderer:
   m_PrefabInternal: {fileID: 1857500816}
   m_GameObject: {fileID: 275846055}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
@@ -1963,8 +1963,8 @@ EllipsoidParticleEmitter:
   maxSize: 1
   minEnergy: 2
   maxEnergy: 2
-  minEmission: 60
-  maxEmission: 60
+  minEmission: 100
+  maxEmission: 100
   worldVelocity: {x: 0, y: 0, z: 0}
   localVelocity: {x: 0, y: 0, z: 0}
   rndVelocity: {x: 0, y: 0, z: 0}
@@ -1986,15 +1986,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400008, guid: 0ea20056cadfcc84bb13ad6ef1cd16c5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1.8665235
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 0ea20056cadfcc84bb13ad6ef1cd16c5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.6468935
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 0ea20056cadfcc84bb13ad6ef1cd16c5, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -10.6860008
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 0ea20056cadfcc84bb13ad6ef1cd16c5, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2032,6 +2032,10 @@ Prefab:
       propertyPath: distanceMessage
       value: 
       objectReference: {fileID: 1591543570}
+    - target: {fileID: 400000, guid: 0ea20056cadfcc84bb13ad6ef1cd16c5, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.79390514
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0ea20056cadfcc84bb13ad6ef1cd16c5, type: 2}
   m_RootGameObject: {fileID: 35476846}
