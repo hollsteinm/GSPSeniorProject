@@ -13,7 +13,6 @@ GameObject:
   - 64: {fileID: 6400000}
   - 23: {fileID: 2300000}
   - 54: {fileID: 5400000}
-  - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: RemoteProjectile
@@ -102,7 +101,7 @@ AudioSource:
   Mute: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 32
+  MinDistance: 1
   MaxDistance: 1000
   Pan2D: 0
   rolloffMode: 0
@@ -157,20 +156,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   commType: 1
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4649c23bbfbdfe43a60c3f31e3689d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionEffectPrefab: {fileID: 100000, guid: 28eedb9b9e1b01240bbde6902c6eb652,
-    type: 2}
-  collisionSound: {fileID: 8200000}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

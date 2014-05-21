@@ -57,11 +57,18 @@ public class NetworkTransformer : MonoBehaviour, IEventListener {
     }
 	
 	// Update is called once per frame
+    private float forceExpiration = 15.0f;//kill if alive more than 10 seconds if projectile
 	void Update () {
         if (commType == CommunicationType.SEND_ONLY || commType == CommunicationType.SEND_AND_RECEIVE) {
             SendData();
         }
-	
+        if(stype.Equals("projectile")){
+            if(forceExpiration <= 0.0f){
+                Destroy(gameObject);
+            } else {
+                forceExpiration -= Time.deltaTime;
+            }
+        }	
 	}
 
     private float delay = 0.05f;
@@ -107,6 +114,14 @@ public class NetworkTransformer : MonoBehaviour, IEventListener {
 
                 case "transform":
                     handleTransform(o);
+                    break;
+
+                case "projectile.expire":
+                    if (stype.Equals("projectile")) {
+                        if (networkId == (int)o) {
+                            Destroy(gameObject);
+                        }
+                    }
                     break;
 
                 default:

@@ -10,6 +10,7 @@ public class PlayerDeath : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        dcamera = Camera.main;
 
 	}
 
@@ -23,8 +24,7 @@ public class PlayerDeath : MonoBehaviour {
 
     private void OnFinish ( ) {
         if (isClient) {
-            //camera = (Camera)Instantiate(camera, transform.position, transform.rotation);
-            dcamera.GetComponent<SASmoothFollowLook>().target = transform;
+            dcamera.GetComponent<ManeuverCamera>().target = transform;
             GameManager.gameManager.ClientController.Send(DataType.JOINGAME, "lobby");
         } 
     }

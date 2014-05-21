@@ -426,9 +426,14 @@ public class MultiHandler extends BaseClientRequestHandler{
     
     private void handleDeath(User user, ISFSObject params){
         ISFSObject response = SFSObject.newInstance();
-        response.putInt("id", user.getId());
         
-        send("death", response, user.getLastJoinedRoom().getPlayersList());
+        if(!params.containsKey("networkId")){
+            response.putInt("id", user.getId());        
+            send("death", response, user.getLastJoinedRoom().getPlayersList());
+        } else {
+            response.putInt("networkId", params.getInt("networkId"));
+            send("projectile.expire", response, user.getLastJoinedRoom().getPlayersList());
+        }
     }
     
     private void onException(Exception e){

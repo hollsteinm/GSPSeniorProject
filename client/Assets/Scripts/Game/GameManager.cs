@@ -197,9 +197,6 @@ public class GameManager : MonoBehaviour {
         Quaternion rotation = new Quaternion(rx, ry, rz, rw);
 
         GameObject o = (GameObject)Instantiate(Resources.Load("RemoteProjectile"), position, rotation);
-        o.GetComponent<Projectile>().Range = (float)data["range"];
-        o.GetComponent<Projectile>().Damage = (float)data["damage"];
-        o.GetComponent<Projectile>().Speed = (float)data["speed"];
         o.GetComponent<NetworkTransformer>().NetworkId = (int)data["networkId"];
     }
 

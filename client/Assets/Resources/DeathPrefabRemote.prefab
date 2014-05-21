@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectLength: 5
-  camera: {fileID: 2000000, guid: 8bafeb2bec391934caa259a023c9762b, type: 2}
+  dcamera: {fileID: 2000000, guid: 99c04d6537eb243448b314421d03ed7e, type: 2}
   isClient: 0
 --- !u!1001 &100100000
 Prefab:

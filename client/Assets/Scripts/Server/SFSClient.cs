@@ -141,6 +141,11 @@ public class SFSClient : IClientController {
                 GameListRemoveResponse(sfsdata);
                 break;
 
+            case "projectile.expire":
+                int id = sfsdata.GetInt("networkId");
+                OnEvent("projectile.expire", id);
+                break;
+
             default:
                 break;
         }
@@ -535,6 +540,12 @@ public class SFSClient : IClientController {
 
     private void SendDeathRequest ( object data ) {
         SFSObject sfsdata = new SFSObject ();
+        if (data != null) {
+            Dictionary<string, int> d = data as Dictionary<string, int>;
+            if (d.ContainsKey("isProjectile")) {
+                sfsdata.PutInt("networkId", d["networkId"]);
+            }
+        }
         SFSInstance.Send ( new ExtensionRequest ( "server.death", sfsdata, SFSInstance.LastJoinedRoom ) );
         Debug.Log("Death Request sent.");
     }

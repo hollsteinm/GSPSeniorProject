@@ -74,11 +74,51 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
+--- !u!1001 &730524127
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+  m_RootGameObject: {fileID: 853423371}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &853423371
 GameObject:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 100000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+  m_PrefabInternal: {fileID: 730524127}
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 853423373}
@@ -93,8 +133,9 @@ GameObject:
 --- !u!114 &853423372
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8,
+    type: 2}
+  m_PrefabInternal: {fileID: 730524127}
   m_GameObject: {fileID: 853423371}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -247,11 +288,12 @@ MonoBehaviour:
   - 'Manuever Down: Right Mouse Button + S'
   - 'Toggle Chatbox: ''F1'''
   - 'Match Menu: Esc'
+  - 'Reload: Left Alt'
 --- !u!4 &853423373
 Transform:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabParentObject: {fileID: 400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+  m_PrefabInternal: {fileID: 730524127}
   m_GameObject: {fileID: 853423371}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}

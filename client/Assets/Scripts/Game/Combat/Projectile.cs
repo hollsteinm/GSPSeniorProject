@@ -67,6 +67,10 @@ public class Projectile : MonoBehaviour, IEventListener {
 	}
 
     void OnDestroy() {
+        Dictionary<string, int> data = new Dictionary<string,int>();
+        data.Add("networkId", GetComponent<NetworkTransformer>().NetworkId);
+        data.Add("isProjectile", 1);
+        GameManager.gameManager.ClientController.Send(DataType.DEATH, data);
         GameManager.gameManager.ClientController.Unregister(this);
     }
 
