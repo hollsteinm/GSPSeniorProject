@@ -51,6 +51,10 @@ public class NetworkTransformer : MonoBehaviour, IEventListener {
             networkId = value;
         }
     }
+
+    void OnDestroy() {
+        server.Unregister(this);
+    }
 	
 	// Update is called once per frame
 	void Update () {

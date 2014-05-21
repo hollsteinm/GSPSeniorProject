@@ -229,12 +229,12 @@ MonoBehaviour:
     y: 512
     width: 512
     height: 32
-  x: 0
+  x: 32
   y: 0
   width: 1024
   height: 16
   xstride: 0
-  ystride: 16
+  ystride: 24
   controlsList:
   - 'Shoot: Left Mouse Button'
   - 'Strafe Left: A'
@@ -246,6 +246,7 @@ MonoBehaviour:
   - 'Manuever Up: Right Mouse Button + W'
   - 'Manuever Down: Right Mouse Button + S'
   - 'Toggle Chatbox: ''F1'''
+  - 'Match Menu: Esc'
 --- !u!4 &853423373
 Transform:
   m_ObjectHideFlags: 0

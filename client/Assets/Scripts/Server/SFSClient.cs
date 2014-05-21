@@ -276,14 +276,14 @@ public class SFSClient : IClientController {
 
     public void Logout() {
         SFSInstance.Send(new LogoutRequest());
+        if (SFSInstance.IsConnected) {
+            SFSInstance.Disconnect();
+        }
+        UnregisterCallbacks();
     }
 
     public void Disconnect ( ) {
         Logout();
-        UnregisterCallbacks ();
-        if ( SFSInstance.IsConnected ) {
-            SFSInstance.Disconnect ();
-        }
     }
 
     public void Connect ( string server, int port ) {
@@ -426,16 +426,18 @@ public class SFSClient : IClientController {
 
     //methods for send()
     private void SendShootRequest(object data){
-        Dictionary<string, float> cdata = data as Dictionary<string, float>;
+        Dictionary<string, object> cdata = data as Dictionary<string, object>;
         SFSObject sfsdata = new SFSObject();
 
-        sfsdata.PutFloat("position.x", cdata["position.x"]);
-        sfsdata.PutFloat("position.y", cdata["position.y"]);
-        sfsdata.PutFloat("position.z", cdata["position.z"]);
-        sfsdata.PutFloat("rotation.x", cdata["rotation.x"]);
-        sfsdata.PutFloat("rotation.y", cdata["rotation.y"]);
-        sfsdata.PutFloat("rotation.z", cdata["rotation.z"]);
-        sfsdata.PutFloat("rotation.w", cdata["rotation.w"]);
+        sfsdata.PutFloat("position.x", (float)cdata["position.x"]);
+        sfsdata.PutFloat("position.y", (float)cdata["position.y"]);
+        sfsdata.PutFloat("position.z", (float)cdata["position.z"]);
+        sfsdata.PutFloat("rotation.x", (float)cdata["rotation.x"]);
+        sfsdata.PutFloat("rotation.y", (float)cdata["rotation.y"]);
+        sfsdata.PutFloat("rotation.z", (float)cdata["rotation.z"]);
+        sfsdata.PutFloat("rotation.w", (float)cdata["rotation.w"]);
+
+        sfsdata.PutUtfString("type", (string)cdata["type"]);
 
         SFSInstance.Send(new ExtensionRequest("server.shoot", sfsdata));
 
@@ -460,7 +462,10 @@ public class SFSClient : IClientController {
     }
 
     private void SendSpawnRequest ( object data ) {
-        SFSInstance.Send ( new ExtensionRequest ( "server.spawn", new SFSObject () ) );
+        SFSObject request = new SFSObject();
+        request.PutUtfString("weaponType", (string)data);
+        Debug.Log((string)data);
+        SFSInstance.Send ( new ExtensionRequest ( "server.spawn", request ) );
     }
 
     private void SendTransform ( object data ) {
@@ -515,6 +520,7 @@ public class SFSClient : IClientController {
         Dictionary<string, object> firedata = data as Dictionary<string, object>;
 
         sfsdata.PutFloat ( "damage", ( float ) firedata[ "damage" ] );
+        sfsdata.PutUtfString("type", (string)firedata["type"]);
         sfsdata.PutInt ( "player.hit.id", ( int ) firedata[ "player.hit.id" ] );
 
         sfsdata.PutFloat ( "contact.point.x", ( float ) firedata[ "contact.point.x" ] );
@@ -571,15 +577,9 @@ public class SFSClient : IClientController {
         data.Add ( "rotation.z", rz );
         data.Add ( "rotation.w", rw );
 
-        int numWeapons = sfsdata.GetInt("numWeapons");
-        float[] cooldowns = sfsdata.GetFloatArray("damages");
-        float[] damages = sfsdata.GetFloatArray("cooldowns");
-
-        data.Add("numWeapons", (float)sfsdata.GetInt("numWeapons"));
-        for (int i = 0; i < numWeapons; ++i) {
-            data.Add("cooldown" + i.ToString(), cooldowns[i]);
-            data.Add("damage" + i.ToString(), damages[i]);
-        }        
+        data.Add("health", sfsdata.GetFloat("health"));
+        data.Add("cooldown", sfsdata.GetFloat("cooldown"));
+        data.Add("damage", sfsdata.GetFloat("damage"));
 
         OnEvent ( "spawn", data );
     }

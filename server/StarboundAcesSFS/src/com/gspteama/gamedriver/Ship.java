@@ -15,11 +15,14 @@ public class Ship {
     private float       rotation[]  = new float[]{0.0f, 0.0f, 0.0f, 0.0f};
     
     protected float             health      = 0.0f;
-    protected ArrayList<Weapon> weapons     = new ArrayList<Weapon>();
+    protected Weapon            weapon      = new Weapon();    
     
-    public Ship(float health, ArrayList<Weapon> weapons){
+    public Ship(float health, Weapon weapon){
+        weapon = new Weapon();
+        position = new float[3];
+        rotation = new float[4];
         this.health = health;
-        this.weapons = weapons;
+        this.weapon = weapon;
     }
     
     public Ship(float health){
@@ -54,8 +57,8 @@ public class Ship {
         this.health = health;
     }
 
-    public ArrayList<Weapon> getWeapons() {
-        return weapons;
+    public Weapon getWeapon() {
+        return weapon;
     }
     
 }

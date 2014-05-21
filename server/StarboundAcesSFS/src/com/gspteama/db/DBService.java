@@ -9,12 +9,82 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  *
  * @author Martin
  */
 public class DBService {
+    
+    public static HashMap<String, Object> selectWeaponConfigurations(Connection connection, String weaponName) throws SQLException{
+        Connection con = connection;
+        PreparedStatement ps;
+        ResultSet rs;
+        HashMap<String, Object> results = new HashMap<String, Object>();
+        
+        String stmt = "select * from sa_weapon_config swc " +
+                " join sa_ammo_config sac " + 
+                " on sac.ammo_config_id = swc.weapon_config_ammo_id " +
+                " where swc.weapon_config_name = ? ";
+        
+        ps = con.prepareStatement(stmt);
+        ps.setString(1, weaponName);
+        
+        rs = ps.executeQuery();
+        
+        if(rs.next()){
+            
+            results.put("Weapon",
+                    new com.gspteama.gamedriver.Weapon(
+                            rs.getFloat("weapon_config_cooldown"), 
+                            rs.getInt("ammo_config_damage")
+                    ));
+
+            results.put("Ammo",
+                    new com.gspteama.gamedriver.Projectile(
+                            rs.getInt("sa_ammo_speed"),
+                            rs.getInt("ammo_config_range"),
+                            rs.getInt("ammo_config_damage")
+                    ));
+        } else {
+            results.put("Weapon", new com.gspteama.gamedriver.Weapon(0.5f, 10.0f));
+            results.put("Ammo", new com.gspteama.gamedriver.Projectile());
+        }
+        
+        rs.close();
+        ps.close();
+        con.close();
+        return results;       
+    }
+    
+    public static com.gspteama.gamedriver.Projectile selectProjectile(Connection connection, String projectileName) throws SQLException{
+        Connection con = connection;
+        PreparedStatement ps;
+        ResultSet rs;
+        
+        String stmt = "select * from sa_ammo_config where ammo_config_name = ?";
+        
+        ps = con.prepareStatement(stmt);
+        ps.setString(1, projectileName);
+        
+        rs = ps.executeQuery();
+        com.gspteama.gamedriver.Projectile p;
+        if(rs.next()){
+           p = new com.gspteama.gamedriver.Projectile(
+                   rs.getInt("sa_ammo_speed"), 
+                   rs.getInt("ammo_config_range"), 
+                   rs.getInt("ammo_config_damage")
+           );
+        } else {
+           p = new com.gspteama.gamedriver.Projectile();
+        }
+        
+        rs.close();
+        ps.close();
+        con.close();
+        return p;
+    }
     
     public static void insertNewGame(Connection connection, String gameName, int creatingUserId) throws SQLException{
         Connection con = connection;

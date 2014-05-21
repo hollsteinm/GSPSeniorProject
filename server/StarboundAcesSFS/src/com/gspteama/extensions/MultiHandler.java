@@ -17,8 +17,7 @@ import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
 import com.smartfoxserver.v2.extensions.SFSExtension;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.HashMap;
 
 
 /**
@@ -85,7 +84,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             send("gamelist.remove", data, this.getParentExtension().getParentZone().getRoomByName("lobby").getUserList());
                 
         } catch(SQLException e){
-            trace(e.getMessage());
+            onException(e);
         } finally{
             send("game.start", SFSObject.newInstance(), user.getLastJoinedRoom().getUserList());
         }      
@@ -106,24 +105,21 @@ public class MultiHandler extends BaseClientRequestHandler{
             }         
                 
         } catch(Exception e){
-            for(StackTraceElement ste : e.getStackTrace()){
-                trace(ste.toString());
-            }
+            onException(e);
         }
     }
     
     private void handleShoot(User user, ISFSObject params){
         int id = 0;
         Game game = getGame(user);
-        Projectile p = new Projectile();
+        Projectile p = null;
         java.util.Random r = new java.util.Random();
         
         trace("new projectile instantiated");
         try{
-            //TODO: get data from database;
-            p.setDamage(50.0f);
-            p.setSpeed(1000.0f);
-            p.setRange(2000.0f);
+            p = DBService.selectProjectile(
+                    this.getParentExtension().getParentZone().getDBManager().getConnection(),
+                    params.getUtfString("type"));
             
             p.setPosition(new float[]{
                 params.getFloat("position.x"),
@@ -143,12 +139,23 @@ public class MultiHandler extends BaseClientRequestHandler{
             
             trace("Properties set");
         } catch(Exception e){
-            trace("Handle Shoot: " + e.getMessage());
+            onException(e);
         } finally{
             ISFSObject response = SFSObject.newInstance();
             
             if(id == 0){
                 id = r.nextInt();
+            }
+            
+            try{
+                if(p == null){
+                    p = DBService.selectProjectile(
+                        this.getParentExtension().getParentZone().getDBManager().getConnection(),
+                        params.getUtfString("type"));
+                }
+            } catch(SQLException e){
+                    onException(e);
+                    p = new Projectile();
             }
             
             response.putInt("playerId", user.getId());
@@ -160,6 +167,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             response.putFloat("speed", p.getSpeed());
             response.putFloat("range", p.getRange());
             
+            game.addProjectile(id, p);
             send("shoot", response, user.getLastJoinedRoom().getUserList());
             trace("data sent");
         }
@@ -186,7 +194,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             });
 
         } catch (Exception e){
-            trace("Handle Projectile Transform: " + e.getMessage());
+            onException(e);
         } finally {
         
             ISFSObject response = SFSObject.newInstance();            
@@ -211,7 +219,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             response.putFloat("rotation.z", params.getFloat("rotation.z"));  
             response.putFloat("rotation.w", params.getFloat("rotation.w"));
         }catch(Exception e){
-            trace("Params Into Response Transform: " + e.getMessage());
+            onException(e);
         }
     }
     
@@ -248,7 +256,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             send("scores", response, user);
             
         }catch(SQLException e){
-            trace("handleScores " + e.toString());
+            onException(e);
         }      
     }
     
@@ -258,7 +266,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
             return game;
         }catch(Exception e){
-            trace("Getgame: " + e.getMessage());
+            onException(e);
         } finally{
             return game;
         }
@@ -269,17 +277,20 @@ public class MultiHandler extends BaseClientRequestHandler{
             trace("handling spawn");
             Game game = getGame(user);
             int playerid = user.getId();
+            trace(params.getUtfString("weaponType"));
             
-            //TODO: load ship data from database of ship configurations
-            ArrayList<Weapon> weapons = new ArrayList<Weapon>();
-            weapons.add(new Weapon(25.0f, 1.0f));
-            game.AddShip(playerid, new Ship(100.0f, weapons));
+            HashMap<String, Object> weaponConfig = 
+                    DBService.selectWeaponConfigurations(
+                            this.getParentExtension().getParentZone().getDBManager().getConnection(),
+                            params.getUtfString("weaponType"));
+            
+            Weapon w = (Weapon)weaponConfig.get("Weapon");
+            game.AddShip(playerid, new Ship(300.0f, w));
             
             Ship ship = game.getShip(playerid);
-            //trace(ship.toString());
             
-            int size = user.getLastJoinedRoom().getUserList().size();
-            ship.setPosition( new float[]{ 1000.0f * size, 1000.0f * size, 0.0f } );
+            ship.setPosition( new float[]{ 100.0f * playerid, 100.0f * playerid, 0.0f } );
+            
             ISFSObject response = SFSObject.newInstance();
             response.putInt("player", playerid);
             response.putFloat("position.x", ship.getPosition()[0]);
@@ -290,23 +301,14 @@ public class MultiHandler extends BaseClientRequestHandler{
             response.putFloat("rotation.z", ship.getRotation()[2]);  
             response.putFloat("rotation.w", ship.getRotation()[3]);
             response.putFloat("health", ship.getHealth());
-            
-            int numWeapons = ship.getWeapons().size();
-            ArrayList<Float> cooldowns = new ArrayList<Float>();
-            ArrayList<Float> damages = new ArrayList<Float>();
-            for(int i = 0; i < numWeapons; ++i){
-                cooldowns.add(ship.getWeapons().get(i).getCooldown());
-                damages.add(ship.getWeapons().get(i).getDamage());
-            }
-            
-            response.putInt("numWeapons", numWeapons);
-            response.putFloatArray("cooldowns", cooldowns);
-            response.putFloatArray("damages", damages);               
+            response.putFloat("cooldown", ship.getWeapon().getCooldown());
+            response.putFloat("damage", ship.getWeapon().getDamage());         
+                          
 
+            trace(response.getDump());
             send("spawn", response, user.getLastJoinedRoom().getPlayersList());
         } catch (Exception ex) {
-            trace("handleSpawn: " + ex.getStackTrace().toString());
-            Logger.getLogger(MultiHandler.class.getName()).log(Level.SEVERE, null, ex);
+            onException(ex);
         }
 
     }
@@ -328,7 +330,7 @@ public class MultiHandler extends BaseClientRequestHandler{
                     break;
             }
         }catch(Exception e){
-            trace("handleTransform: " + e.toString());
+            onException(e);
         }
     }
     
@@ -351,7 +353,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             });
 
         } catch (Exception e){
-            trace("handlePlayerTransform: " + e.toString());
+            onException(e);
         } finally {
         
             ISFSObject response = SFSObject.newInstance();
@@ -366,10 +368,20 @@ public class MultiHandler extends BaseClientRequestHandler{
     
     private void handleFire(User user, ISFSObject params){
         try{
-            //TODO: verify the damage, in fact - just pull it from the ship instance
-            //for the player in question
+            Projectile p = null;
+            try{
+                if(p == null){
+                    p = DBService.selectProjectile(
+                        this.getParentExtension().getParentZone().getDBManager().getConnection(),
+                        params.getUtfString("type"));
+                }
+            } catch(SQLException e){
+                    onException(e);
+                    p = new Projectile();
+            }            
+            
             ISFSObject response = SFSObject.newInstance();
-            response.putFloat("damage", params.getFloat("damage"));
+            response.putFloat("damage", p.getDamage());
             response.putInt("player.hit.id", params.getInt("player.hit.id"));
             response.putFloat("contact.point.x", params.getFloat("contact.point.x"));
             response.putFloat("contact.point.y", params.getFloat("contact.point.y"));
@@ -377,7 +389,7 @@ public class MultiHandler extends BaseClientRequestHandler{
 
             trace(response.getDump());
 
-            Game game = getGame(user);
+            //Game game = getGame(user);
             //Ship other = game.getShip(params.getInt("player.hit.id"));
             //other.setHealth(other.getHealth() - params.getFloat("damage"));
 
@@ -405,10 +417,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             send("player.hit", response, user.getLastJoinedRoom().getPlayersList());
             
         }catch(Exception e){
-            trace("handleFire: " + e.toString());
-            for(StackTraceElement st : e.getStackTrace()){
-                trace(st.toString());
-            }
+            onException(e);
         }
 
     }
@@ -418,5 +427,15 @@ public class MultiHandler extends BaseClientRequestHandler{
         response.putInt("id", user.getId());
         
         send("death", response, user.getLastJoinedRoom().getPlayersList());
+    }
+    
+    private void onException(Exception e){
+        String error = e.getMessage();
+        error += "\n";
+        for(StackTraceElement ee : e.getStackTrace()){
+            error+=ee.toString();
+            error+="\n";
+        }
+        trace(error);
     }
 }
