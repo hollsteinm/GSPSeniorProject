@@ -69,7 +69,7 @@ public class DBService {
         ps.setString(1, projectileName);
         
         rs = ps.executeQuery();
-        com.gspteama.gamedriver.Projectile p;
+        com.gspteama.gamedriver.Projectile p = null;
         if(rs.next()){
            p = new com.gspteama.gamedriver.Projectile(
                    rs.getInt("sa_ammo_speed"), 

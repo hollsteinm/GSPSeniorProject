@@ -43,6 +43,22 @@ public class Gun : MonoBehaviour, IEventListener {
 
 	// Use this for initialization
 	void Start () {
+        gunType = GameManager.gameManager.CurrentWeaponChoice;
+        switch (gunType) {
+            case GunType.CANNON:
+                ammunitionPrefab = (GameObject)Resources.Load("Bullet");
+                weaponType = WeaponType.BULLET;
+                break;
+
+            case GunType.SEEKERMISSILELAUNCHER:
+                ammunitionPrefab = (GameObject)Resources.Load("SeekerMissile");
+                weaponType = WeaponType.SEEKER;
+                break;
+
+            default:
+                break;
+        }
+
         GameManager.gameManager.ClientController.Register(this);
 	
 	}

@@ -33,6 +33,10 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
 	void Update () {
 	}
 
+    void OnCollisionEnter(Collision col) {
+        shipHull.Health = 0.0f;
+    }
+
     public void Notify ( string eventType, object o ) {
         if ( o == null || eventType == null ) {
             return;
@@ -59,6 +63,7 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
 
                 shipHull.Health = data["health"];
                 shipHull.MaxHealth = data["health"];
+                GetComponent<Reticle>().range = data["range"];
 
                 break;
 

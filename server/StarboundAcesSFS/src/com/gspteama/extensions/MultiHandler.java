@@ -168,6 +168,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             response.putFloat("range", p.getRange());
             
             game.addProjectile(id, p);
+            trace(response.getDump());
             send("shoot", response, user.getLastJoinedRoom().getUserList());
             trace("data sent");
         }
@@ -205,6 +206,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             paramsIntoResponseTransform(params, response);
             
             //this.send("transform", response, user.getLastJoinedRoom().getPlayersList(), true);
+            trace(response.getDump());
             send("transform", response, user.getLastJoinedRoom().getPlayersList());
         }
     }

@@ -14,6 +14,16 @@ public class GameManager : MonoBehaviour {
     private static GameManager _gameManager = null;
     private static object mutex = new object();
     private static bool applicationIsQuitting = false;
+    private GunType gunType;
+
+    public GunType CurrentWeaponChoice {
+        get {
+            return gunType;
+        }
+        set {
+            gunType = value;
+        }
+    }
 
     public string[] PlayerNames {
         get{

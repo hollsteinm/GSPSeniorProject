@@ -75,7 +75,7 @@ public class Projectile : MonoBehaviour, IEventListener {
         Move();
     }
 
-    private void Move() {
+    protected void Move() {
         transform.position += transform.forward * speed * Time.fixedDeltaTime;
     }
 

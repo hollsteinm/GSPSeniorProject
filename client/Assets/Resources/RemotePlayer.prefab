@@ -76,6 +76,7 @@ GameObject:
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
   - 82: {fileID: 8200000}
+  - 54: {fileID: 5400000}
   m_Layer: 0
   m_Name: RemotePlayer
   m_TagString: Untagged
@@ -1501,8 +1502,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 1
+  minSize: 10
+  maxSize: 20
   minEnergy: 3
   maxEnergy: 3
   minEmission: 40
@@ -1528,8 +1529,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: .300000012
-  maxSize: 1.5
+  minSize: 10
+  maxSize: 20
   minEnergy: 3
   maxEnergy: 5
   minEmission: 15
@@ -1555,8 +1556,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 2
+  minSize: 10
+  maxSize: 20
   minEnergy: 7
   maxEnergy: 7
   minEmission: 40
@@ -1582,8 +1583,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 2
+  minSize: 10
+  maxSize: 20
   minEnergy: 7
   maxEnergy: 7
   minEmission: 40
@@ -1609,8 +1610,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: .300000012
-  maxSize: 1.5
+  minSize: 10
+  maxSize: 20
   minEnergy: 3
   maxEnergy: 5
   minEmission: 15
@@ -1636,8 +1637,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 1
+  minSize: 10
+  maxSize: 20
   minEnergy: 3
   maxEnergy: 3
   minEmission: 40
@@ -1663,8 +1664,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 1
+  minSize: 10
+  maxSize: 20
   minEnergy: 3
   maxEnergy: 3
   minEmission: 40
@@ -1690,8 +1691,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: .300000012
-  maxSize: 1.5
+  minSize: 10
+  maxSize: 20
   minEnergy: 3
   maxEnergy: 5
   minEmission: 15
@@ -1717,8 +1718,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 2
+  minSize: 10
+  maxSize: 20
   minEnergy: 7
   maxEnergy: 7
   minEmission: 40
@@ -1744,8 +1745,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 2
+  minSize: 10
+  maxSize: 20
   minEnergy: 7
   maxEnergy: 7
   minEmission: 40
@@ -1771,8 +1772,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: .300000012
-  maxSize: 1.5
+  minSize: 10
+  maxSize: 20
   minEnergy: 3
   maxEnergy: 5
   minEmission: 15
@@ -1798,8 +1799,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 0
-  minSize: 1
-  maxSize: 1
+  minSize: 10
+  maxSize: 20
   minEnergy: 3
   maxEnergy: 3
   minEmission: 40
@@ -1825,8 +1826,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: 1
-  maxSize: 2.25
+  minSize: 20
+  maxSize: 25
   minEnergy: 10
   maxEnergy: 10
   minEmission: 40
@@ -1852,8 +1853,8 @@ EllipsoidParticleEmitter:
   serializedVersion: 2
   m_Enabled: 1
   m_Emit: 1
-  minSize: 1
-  maxSize: 2.25
+  minSize: 20
+  maxSize: 25
   minEnergy: 10
   maxEnergy: 10
   minEmission: 40
@@ -2399,6 +2400,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_Mesh: {fileID: 4300000, guid: 16e13746e2b357a4691922d229310ff2, type: 3}
+--- !u!54 &5400000
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100008}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2
 --- !u!64 &6400000
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -2410,7 +2426,7 @@ MeshCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
-  m_Convex: 0
+  m_Convex: 1
   m_Mesh: {fileID: 4300000, guid: 16e13746e2b357a4691922d229310ff2, type: 3}
 --- !u!82 &8200000
 AudioSource:

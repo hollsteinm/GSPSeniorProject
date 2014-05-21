@@ -283,7 +283,10 @@ public class SFSClient : IClientController {
     }
 
     public void Disconnect ( ) {
-        Logout();
+        if (SFSInstance.IsConnected) {
+            SFSInstance.Disconnect();
+        }
+        UnregisterCallbacks();
     }
 
     public void Connect ( string server, int port ) {

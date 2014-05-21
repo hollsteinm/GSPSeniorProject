@@ -130,25 +130,31 @@ MonoBehaviour:
     x: 0
     y: 64
     width: 512
-    height: 64
+    height: 32
   multiPlayerRect:
+    serializedVersion: 2
+    x: 0
+    y: 96
+    width: 512
+    height: 32
+  creditsRect:
     serializedVersion: 2
     x: 0
     y: 128
     width: 512
-    height: 64
-  creditsRect:
+    height: 32
+  quitRect:
     serializedVersion: 2
     x: 0
     y: 192
     width: 512
-    height: 64
-  quitRect:
+    height: 32
+  controlsRect:
     serializedVersion: 2
     x: 0
-    y: 256
+    y: 160
     width: 512
-    height: 64
+    height: 32
   launchStyle:
     m_Name: 
     m_Normal:
@@ -209,7 +215,7 @@ MonoBehaviour:
     m_StretchWidth: 1
     m_StretchHeight: 1
   singlePlayerContent:
-    m_Text: Single Player
+    m_Text: Instant Action
     m_Image: {fileID: 0}
     m_Tooltip: 
   multiPlayerContent:
@@ -222,6 +228,10 @@ MonoBehaviour:
     m_Tooltip: 
   quitContent:
     m_Text: Quit
+    m_Image: {fileID: 0}
+    m_Tooltip: 
+  controlsContent:
+    m_Text: Controls
     m_Image: {fileID: 0}
     m_Tooltip: 
   groupWidth: 512

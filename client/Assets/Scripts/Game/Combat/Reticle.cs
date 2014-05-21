@@ -26,7 +26,7 @@ public class Reticle : MonoBehaviour {
             targetTransform.position = hitInfo.point;
             farSight.position = hitInfo.point;
             nearSight.position = hitInfo.point - hitInfo.normal * 0.5f;
-            distanceMessage.GetComponent<TextMesh>().text = Vector3.Distance(muzzlePoint.transform.position, hitInfo.point).ToString();
+            distanceMessage.GetComponent<TextMesh>().text = Vector3.Distance(muzzlePoint.transform.position, hitInfo.point).ToString("F");
         } else {
             farSight.position = muzzlePoint.position + muzzlePoint.parent.forward * range;
             nearSight.position = muzzlePoint.position + muzzlePoint.parent.forward * (range * 0.5f);

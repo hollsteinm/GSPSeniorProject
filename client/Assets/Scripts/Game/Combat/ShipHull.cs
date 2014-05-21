@@ -30,6 +30,7 @@ public class ShipHull : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        
 	}
 
 
