@@ -18,3 +18,5 @@ client/client.sln
 /server/StarboundAcesSFS/dist/
 /server/StarboundAcesSFS/build/
 client/test01_Data/output_log.txt
+client/Build_x64/
+client/WebPlayer/
