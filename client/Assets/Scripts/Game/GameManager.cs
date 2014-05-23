@@ -15,6 +15,26 @@ public class GameManager : MonoBehaviour {
     private static object mutex = new object();
     private static bool applicationIsQuitting = false;
     private GunType gunType;
+    private GameObject shipModelPrefab;
+    private GameObject shipShieldPrefab;
+
+    public GameObject ShipModelPrefab {
+        get {
+            return shipModelPrefab;
+        }
+        set {
+            shipModelPrefab = value;
+        }
+    }
+
+    public GameObject ShipShieldPrefab {
+        get {
+            return shipShieldPrefab;
+        }
+        set {
+            shipShieldPrefab = value;
+        }
+    }
 
     public GunType CurrentWeaponChoice {
         get {
@@ -44,6 +64,9 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
+        shipModelPrefab = (GameObject)Resources.Load("StandardShip");
+        shipShieldPrefab = (GameObject)Resources.Load("ShieldEffectPrefab");
+
         Physics.gravity = new Vector3(0.0f, 0.0f, 0.0f);
     }
 

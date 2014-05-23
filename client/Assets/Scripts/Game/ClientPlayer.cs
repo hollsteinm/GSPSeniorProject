@@ -6,11 +6,14 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
     IClientController server;
     public ShipHull shipHull;
 
+    private GameObject model;
+    private GameObject shield;
+
 	// Use this for initialization
 	void Start () {
 	    server = GameManager.gameManager.ClientController;
         server.Register ( this );
-        
+
         string weaponType = "";
         switch(shipHull.weapon.gunType){
             case GunType.CANNON:
@@ -24,7 +27,14 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
             default:
                 weaponType = "Cannon";
                 break;
-        }        
+        }
+
+        model = (GameObject)Instantiate(GameManager.gameManager.ShipModelPrefab);
+        model.transform.parent = transform;
+
+        shield = (GameObject)Instantiate(GameManager.gameManager.ShipShieldPrefab);
+        shield.transform.parent = transform;
+        
         
         server.Send(DataType.SPAWNED, weaponType);
 	}

@@ -40,7 +40,7 @@ public class ConfigGUI : MonoBehaviour {
 
     public void DrawWeaponConfigs() {
         foreach (ConfigItem ci in weaponConfigs) {
-            if (GUILayout.Button(ci.display, configStyle, GUILayout.MaxWidth(512), GUILayout.MaxHeight(32))) {
+            if (GUILayout.Button(ci.display, configStyle, GUILayout.MaxWidth(128), GUILayout.MaxHeight(128))) {
                 GameManager.gameManager.CurrentWeaponChoice = ci.relatedGunChoice;
             }
         }
@@ -48,7 +48,7 @@ public class ConfigGUI : MonoBehaviour {
 
     public void DrawShipConfigs() {
         foreach (ConfigItem ci in shipConfigs) {
-            if (GUILayout.Button(ci.display, configStyle, GUILayout.MaxWidth(512), GUILayout.MaxHeight(32))) {
+            if (GUILayout.Button(ci.display, configStyle, GUILayout.MaxWidth(128), GUILayout.MaxHeight(128))) {
                 //TODO: implement choosing of new ship prefab models;
             }
         }
