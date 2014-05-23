@@ -113,6 +113,7 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
                 ( float ) data[ "contact.point.y" ],
                 ( float ) data[ "contact.point.z" ] );
             Instantiate ( Resources.Load ( "HitPrefab" ), contactPoint, transform.rotation );
+            transform.FindChild("ShieldEffectPrefab").gameObject.SetActive(true);
 
             Debug.Log ( "Damage taken <Damage : Health> <" + ( ( float ) data[ "damage" ] ).ToString () + " : "
                 + localHealth.ToString () + "> to remote player." );

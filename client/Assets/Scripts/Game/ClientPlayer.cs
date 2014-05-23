@@ -90,7 +90,7 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
                     (float)hitdata["contact.point.z"]);
 
                 shipHull.OnHit(dmg, contactPoint);
-
+                transform.FindChild("ShieldEffectPrefab").gameObject.SetActive(true);
                 Debug.Log("Damage Taken by Client. Damage: " + dmg + " Remaining Health: " + shipHull.Health);
 
                 break;

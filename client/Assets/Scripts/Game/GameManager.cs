@@ -82,9 +82,16 @@ public class GameManager : MonoBehaviour {
             AddQueuedPlayers();
             Screen.lockCursor = true;
         }
+
+        //clear the player queue
+        if(id == 3 || id == 0){
+            players.Clear();
+            queuedplayers.Clear();
+        }
     }
 
     private void AddQueuedPlayers() {
+
         if (Application.loadedLevelName == "multiplayer" || Application.loadedLevelName == "singleplayer") {
 
             Debug.Log("Adding Queued Players");

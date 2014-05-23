@@ -41,7 +41,7 @@ public class PlayerDeath : MonoBehaviour {
         if (LifeOver()) {
             OnFinish();
         } else {
-            Grow();
+            //Grow();
         }
         IncrementLife();
 
