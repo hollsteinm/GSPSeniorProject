@@ -285,6 +285,26 @@ Prefab:
       propertyPath: loginStyle.m_Alignment
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b52bed3b7f92bed4a8cc4ec34019926e, type: 2}
+      propertyPath: loginStyle.m_Hover.m_Background
+      value: 
+      objectReference: {fileID: 2800000, guid: 84138e4a8b68c9643bc4eed9f8b15f12, type: 3}
+    - target: {fileID: 11400000, guid: b52bed3b7f92bed4a8cc4ec34019926e, type: 2}
+      propertyPath: loginStyle.m_Hover.m_TextColor.r
+      value: .758448303
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b52bed3b7f92bed4a8cc4ec34019926e, type: 2}
+      propertyPath: loginStyle.m_Hover.m_TextColor.g
+      value: .71275866
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b52bed3b7f92bed4a8cc4ec34019926e, type: 2}
+      propertyPath: loginStyle.m_Hover.m_TextColor.b
+      value: .913793147
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: b52bed3b7f92bed4a8cc4ec34019926e, type: 2}
+      propertyPath: loginStyle.m_Hover.m_TextColor.a
+      value: .921568632
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b52bed3b7f92bed4a8cc4ec34019926e, type: 2}
   m_RootGameObject: {fileID: 741579135}
@@ -337,8 +357,8 @@ MonoBehaviour:
       m_Background: {fileID: 2800000, guid: 002a0b9eb3470794bbc3321c8ecf24ed, type: 3}
       m_TextColor: {r: .758448303, g: .71275866, b: .913793147, a: .921568632}
     m_Hover:
-      m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+      m_Background: {fileID: 2800000, guid: 84138e4a8b68c9643bc4eed9f8b15f12, type: 3}
+      m_TextColor: {r: .758448303, g: .71275866, b: .913793147, a: .921568632}
     m_Active:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}

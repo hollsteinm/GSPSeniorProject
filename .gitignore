@@ -20,3 +20,4 @@ client/client.sln
 client/test01_Data/output_log.txt
 client/Build_x64/
 client/WebPlayer/
+/server/superlite/nbproject/private/

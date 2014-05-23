@@ -11,6 +11,8 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
     public GUIContent playContent;
     public GUIContent highScoreContent;
     public GUIContent logoutContent;
+    public GUIContent configContent;
+    public Rect configRect;
     public Rect playRect;
     public Rect highScoreRect;
     public Rect logoutRect;
@@ -77,9 +79,14 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
 
         DrawGameList ();
 
+        if (GUI.Button(configRect, configContent, lobbyStyle)) {
+            Application.LoadLevel("shipconfig");
+        }
+
         if (GUI.Button(highScoreRect, highScoreContent, lobbyStyle)) {
             Application.LoadLevel("highscores");
         }
+
     }
 
     private List<string> queuedGamesList = new List<string>();
@@ -129,20 +136,6 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
         GUILayout.EndScrollView();
         GUILayout.EndArea();
         GUILayout.EndVertical();
-        GUILayout.EndArea();
-
-        GUILayout.BeginArea(new Rect(0, 128, configListWidth, configListHeight));
-        GUILayout.BeginVertical();
-        GUILayout.Label("Choose Your Weapon");
-        if (GUILayout.Button("Cannon", lobbyStyle, GUILayout.MaxWidth(512))) {
-            GameManager.gameManager.CurrentWeaponChoice = GunType.CANNON;
-        }
-        if (GUILayout.Button("Seeker Missile Launcher", lobbyStyle, GUILayout.MaxWidth(512))) {
-            GameManager.gameManager.CurrentWeaponChoice = GunType.SEEKERMISSILELAUNCHER;
-        }
-        GUILayout.Label("Current Choice: " + GameManager.gameManager.CurrentWeaponChoice.ToString());
-        GUILayout.EndVertical();
-        GUILayout.EndArea();
-       
+        GUILayout.EndArea();       
     }
 }
