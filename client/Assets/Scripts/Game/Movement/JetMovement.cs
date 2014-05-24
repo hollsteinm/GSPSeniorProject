@@ -33,11 +33,22 @@ public class JetMovement : MonoBehaviour {
 	private AerialManeuvers.ManeuverType currentManeuver;
     private AerialManeuvers maneuver = new AerialManeuvers();
 	
+	//Energy is used up during boost, brake, and maneuvers
+	public float maxEnergy = 100;
+	public float currentEnergy = 100;
+	public GUIStyle EnergyHUDStyle;
+	private bool setEnergyTimer = false;
+	private float energyTimer = 0;
+	
 	// Use this for initialization
 	void Start () {
 		forwardVelocity = defaultForwardVelocity;
 		rigidbody.freezeRotation = true;
 	}
+	
+	void OnGUI() {
+        GUI.Label(new Rect(196, Screen.height - 96, 128, 32), currentEnergy.ToString() + " / " + maxEnergy.ToString(), EnergyHUDStyle);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -67,9 +78,16 @@ public class JetMovement : MonoBehaviour {
 					if (!usingManeuver)
 					{
 						//Otherwise, check to see if we need to make a maneuver
+						//(and if we CAN)
 						currentManeuver = maneuver.ChooseManeuver(transform);
-						if (currentManeuver != AerialManeuvers.ManeuverType.NONE)
+						if (currentManeuver != AerialManeuvers.ManeuverType.NONE &&
+							currentEnergy >= 30)
+						{
+							//Subtract the energy and use the maneuver
+							currentEnergy -= 30;
+							setEnergyTimer = false;
 							usingManeuver = true;
+						}
 					}
 				}
 				//If we are using a maneuver, the player should have no control of the ship
@@ -100,11 +118,12 @@ public class JetMovement : MonoBehaviour {
 					
 					//FORWARD THRUSTERS
 					
-					//If we are not boosting or braking, we should return to the
-					//standard velocity by flipping the acceleration
+					//If we are not boosting or braking (or if we run out of energy), we should
+					//return to the standard velocity by flipping the acceleration
 					float thrust = Input.GetAxis("Vertical") * forwardAccelerationReaction;
-					if (thrust == 0 && forwardAcceleration != 0)
+					if ((thrust == 0 || currentEnergy == 0 || Input.GetMouseButton(1)) && forwardAcceleration != 0)
 					{
+						thrust = 0;
 						if (forwardVelocity > defaultForwardVelocity)
 							forwardAcceleration = -maxForwardAcceleration;
 						else if (forwardVelocity < defaultForwardVelocity)
@@ -113,14 +132,18 @@ public class JetMovement : MonoBehaviour {
 							forwardAcceleration = 0;
 					}
 					//Otherwise we should increase the acceleration by the thrust amount
-			        forwardAcceleration += thrust;
-			        forwardAcceleration = Mathf.Clamp(forwardAcceleration, -maxForwardAcceleration, maxForwardAcceleration);
-					
-					//If we are not boosting or braking, we should check to see if the
-					//velocity is going to reach the default velocity
-					float deltaVelocity = forwardAcceleration * Time.deltaTime;
-					if(thrust == 0)
+					if (currentEnergy != 0)
 					{
+				        forwardAcceleration += thrust;
+				        forwardAcceleration = Mathf.Clamp(forwardAcceleration, -maxForwardAcceleration, maxForwardAcceleration);
+					}
+						
+					//If we are not boosting or braking, we should reload the energy and check
+					//to see if the velocity is going to reach the default velocity
+					float deltaVelocity = forwardAcceleration * Time.deltaTime;
+					if(thrust == 0 || currentEnergy == 0 || Input.GetMouseButton(1))
+					{
+						ReloadEnergy();
 						if((forwardVelocity > defaultForwardVelocity && forwardVelocity + deltaVelocity < defaultForwardVelocity) ||
 						   (forwardVelocity < defaultForwardVelocity && forwardVelocity + deltaVelocity > defaultForwardVelocity))
 						{
@@ -128,6 +151,15 @@ public class JetMovement : MonoBehaviour {
 							forwardVelocity = defaultForwardVelocity;
 							deltaVelocity = 0;
 						}				
+					}
+					//If we are boosting or braking, subtract from the energy
+					else
+					{
+						//Subtract the energy
+						currentEnergy -= Time.deltaTime * 10;
+						setEnergyTimer = false;
+						if (currentEnergy < 0)
+							currentEnergy = 0;
 					}
 			        forwardVelocity += deltaVelocity;
 					
@@ -141,7 +173,7 @@ public class JetMovement : MonoBehaviour {
 					//If we are not using the side thrusters, we should return to zero
 					//horizontal velocity by flipping the acceleration
 					thrust = Input.GetAxis("Horizontal") * horizontalAccelerationReaction;
-					if (thrust == 0 && horizontalAcceleration != 0)
+					if ((thrust == 0 || Input.GetMouseButton(1)) && horizontalAcceleration != 0)
 					{
 						if (horizontalVelocity > 0)
 							horizontalAcceleration = -maxHorizontalAcceleration;
@@ -150,6 +182,7 @@ public class JetMovement : MonoBehaviour {
 						else
 							horizontalAcceleration = 0;
 					}
+					
 					//Otherwise we should increase the acceleration by the thrust amount
 			        horizontalAcceleration += thrust;
 			        horizontalAcceleration = Mathf.Clamp(horizontalAcceleration, -maxHorizontalAcceleration, maxHorizontalAcceleration);
@@ -157,7 +190,7 @@ public class JetMovement : MonoBehaviour {
 					//If we are not using the side thrusters, we should check to see if the
 					//velocity is going to reach zero
 					deltaVelocity = horizontalAcceleration * Time.deltaTime;
-					if(thrust == 0)
+					if(thrust == 0 || Input.GetMouseButton(1))
 					{
 						if((horizontalVelocity > 0 && horizontalVelocity + deltaVelocity < 0) ||
 						   (horizontalVelocity < 0 && horizontalVelocity + deltaVelocity > 0))
@@ -209,5 +242,31 @@ public class JetMovement : MonoBehaviour {
 	public AerialManeuvers.ManeuverType GetManeuverType()
 	{
 		return currentManeuver;
+	}
+	
+	//This will be called whenever energy should be reloading
+	public void ReloadEnergy()
+	{
+		//If we have set the energy timer...
+		if (setEnergyTimer)
+		{
+			//If the energy timer is finished...
+			if (energyTimer < 0)
+			{
+				//Add to the current energy
+				currentEnergy += Time.deltaTime * 20;
+				if (currentEnergy > maxEnergy)
+					currentEnergy = maxEnergy;
+			}
+			//Otherwise, continue wasting the timer
+			else
+				energyTimer -= Time.deltaTime;
+		}
+		//Otherwise, set the energy timer
+		else
+		{
+			setEnergyTimer = true;
+			energyTimer = 3;
+		}
 	}
 }
