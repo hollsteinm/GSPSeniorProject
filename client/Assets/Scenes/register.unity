@@ -163,7 +163,7 @@ MonoBehaviour:
   passwordRect:
     serializedVersion: 2
     x: 0
-    y: 96
+    y: 192
     width: 512
     height: 32
   emailRect:

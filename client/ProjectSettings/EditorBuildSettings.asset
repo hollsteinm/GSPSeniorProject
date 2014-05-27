@@ -25,3 +25,5 @@ EditorBuildSettings:
     path: Assets/Scenes/queue.unity
   - enabled: 1
     path: Assets/Scenes/controls.unity
+  - enabled: 1
+    path: Assets/Scenes/shipconfig.unity

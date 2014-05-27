@@ -55,6 +55,7 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
 
         if (GUI.Button(backRect, backContent, registrationStyle)) {
             server.Logout();
+            server.Disconnect();
             Application.LoadLevel("login");
         }
 
@@ -68,13 +69,13 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
     }
 
     private void DrawEmail() {
-        GUI.Label(new Rect(emailRect.xMin, emailRect.yMin + 64, emailRect.width, emailRect.height), "Email");
-        email = GUI.TextField(new Rect(emailRect.xMin, emailRect.yMin + 96, emailRect.width, emailRect.height), email, 128);
+        GUI.Label(new Rect(emailRect.xMin, emailRect.yMin, emailRect.width, emailRect.height), "Email");
+        email = GUI.TextField(new Rect(emailRect.xMin, emailRect.yMin + 32, emailRect.width, emailRect.height), email, 128);
     }
 
     private void DrawPassword() {
-        GUI.Label(new Rect(passwordRect.xMin, passwordRect.yMin + 32, passwordRect.width, passwordRect.height), "Password");
-        password = GUI.PasswordField(new Rect(passwordRect.xMin, passwordRect.yMin + 64, passwordRect.width, passwordRect.height), password, '*', 64);
+        GUI.Label(new Rect(passwordRect.xMin, passwordRect.yMin, passwordRect.width, passwordRect.height), "Password");
+        password = GUI.PasswordField(new Rect(passwordRect.xMin, passwordRect.yMin + 32, passwordRect.width, passwordRect.height), password, '*', 64);
     }
 
     public void Notify(string eventType, object o) {

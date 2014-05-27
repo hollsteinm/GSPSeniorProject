@@ -6,7 +6,7 @@ public class SeekerMissile : Projectile {
 
     protected void OnStart() {
         Range = 5000.0f;
-        Speed = 100.0f;
+        Speed = 50.0f;
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Reticle>().TargetTransform;
         if (target == null) {
             target = GameObject.FindGameObjectWithTag("Player").GetComponent<Reticle>().farSight.transform;
@@ -17,8 +17,7 @@ public class SeekerMissile : Projectile {
 	void FixedUpdate () {
         SweepTest();
         if (target != null) {
-            iTween.RotateTo(this.gameObject, target.eulerAngles, 0.5f);
-            iTween.MoveTo(this.gameObject, target.position, 2.0f);
+            transform.LookAt(target);            
         } else {
             Move();
         }
