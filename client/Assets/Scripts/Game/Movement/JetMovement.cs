@@ -47,7 +47,7 @@ public class JetMovement : MonoBehaviour {
 	}
 	
 	void OnGUI() {
-        GUI.Label(new Rect(196, Screen.height - 96, 128, 32), currentEnergy.ToString() + " / " + maxEnergy.ToString(), EnergyHUDStyle);
+        GUI.Label(new Rect(Screen.width - 196, Screen.height - 64, 128, 32), currentEnergy.ToString("F") + " / " + maxEnergy.ToString("F"), EnergyHUDStyle);
     }
 	
 	// Update is called once per frame
