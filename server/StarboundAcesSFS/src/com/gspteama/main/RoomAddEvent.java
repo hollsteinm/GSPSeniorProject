@@ -28,7 +28,7 @@ public class RoomAddEvent extends BaseServerEventHandler{
        
        if(room.isGame()){
             trace("Room created:  " + room.getName() + " by " + user.getName());
-            room.setAutoRemoveMode(SFSRoomRemoveMode.WHEN_EMPTY_AND_CREATOR_IS_GONE);
+            room.setAutoRemoveMode(SFSRoomRemoveMode.WHEN_EMPTY);
             
             //add game to database
             try{

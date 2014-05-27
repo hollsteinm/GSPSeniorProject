@@ -2,11 +2,11 @@
 using System.Collections;
 
 public class SeekerMissile : Projectile {
-    private Transform target;
+    public Transform target;
 
-    protected void OnStart() {
-        Range = 5000.0f;
-        Speed = 50.0f;
+    protected override void OnStart() {
+        range = 10000.0f;
+        speed = 1000.0f;
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Reticle>().TargetTransform;
         if (target == null) {
             target = GameObject.FindGameObjectWithTag("Player").GetComponent<Reticle>().farSight.transform;
@@ -17,9 +17,8 @@ public class SeekerMissile : Projectile {
 	void FixedUpdate () {
         SweepTest();
         if (target != null) {
-            transform.LookAt(target);            
-        } else {
+            transform.LookAt(target);
             Move();
-        }
+        } 
 	}
 }

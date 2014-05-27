@@ -172,6 +172,7 @@ MonoBehaviour:
     type: 2}
   collisionSound: {fileID: 8200000}
   weaponType: 1
+  target: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -16,9 +16,9 @@ public class Projectile : MonoBehaviour, IEventListener {
     private GameObject other;
     private Collision col;
 
-    private float range = 2000.0f;
-    private float damage = 50.0f;
-    private float speed = 1000.0f;
+    protected float range = 2000.0f;
+    protected float damage = 50.0f;
+    protected float speed = 1000.0f;
     private Vector3 spawnLocation;
 
     public float Speed {
@@ -55,6 +55,7 @@ public class Projectile : MonoBehaviour, IEventListener {
         gameObject.rigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         spawnLocation = gameObject.transform.position;
         GameManager.gameManager.ClientController.Register(this);
+        OnStart();
 	}
 
     protected virtual void OnStart() { }
@@ -80,7 +81,7 @@ public class Projectile : MonoBehaviour, IEventListener {
     }
 
     protected void Move() {
-        transform.position += transform.forward * speed * Time.fixedDeltaTime;
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
 
     protected void SweepTest() {
@@ -88,7 +89,7 @@ public class Projectile : MonoBehaviour, IEventListener {
         if (Physics.Raycast(new Ray(transform.position, transform.TransformDirection(Vector3.forward)), out hitInfo, speed)) {
             try {
                 other = hitInfo.collider.gameObject.transform.parent.gameObject.transform.parent.gameObject;
-
+                //other = rGetParent(hitInfo.collider.gameObject);
                 colpoint = hitInfo.point;
 
                 if (other.GetComponent<RemotePlayerScript>() != null) {
@@ -107,6 +108,7 @@ public class Projectile : MonoBehaviour, IEventListener {
     Vector3 colpoint = new Vector3();
     void OnTriggerEnter(Collider colother) {
         other = colother.gameObject.transform.parent.gameObject.transform.parent.gameObject;
+        //other = rGetParent(colother.gameObject);
         colpoint = transform.parent.position;
 
         if (other.GetComponent<ClientPlayer>() != null) {
@@ -118,8 +120,18 @@ public class Projectile : MonoBehaviour, IEventListener {
         OnCollide();
     }
 
+    private GameObject rGetParent(GameObject child){
+        if (child.transform.parent.gameObject == null) {
+            return child;
+        } else {
+            child = child.transform.parent.gameObject;
+            return rGetParent(child);
+        }
+    }
+
     void OnCollisionEnter(Collision colother) {
         other = colother.collider.gameObject.transform.parent.gameObject.transform.parent.gameObject;
+        //other = rGetParent(colother.collider.gameObject);
         col = colother;
 
         if (other.GetComponent<ClientPlayer>() != null) {
