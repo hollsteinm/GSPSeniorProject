@@ -4,6 +4,9 @@ using System.Collections;
 public class ShipHull : MonoBehaviour {
     private float hullHealth = 100.0f;
     private float maxHealth = 100.0f;
+	
+	private bool shielded = false;
+	private float shieldTimer;
 
     public Gun weapon;
     public GameObject deathPrefab;
@@ -49,6 +52,12 @@ public class ShipHull : MonoBehaviour {
             smokeDamage.SetActive(true);
         }
 	
+		if (shielded)
+		{
+			shieldTimer -= Time.deltaTime;
+			if (shieldTimer < 0)
+				shielded = false;
+		}
 	}
 
     private bool IsDead() {
@@ -65,7 +74,15 @@ public class ShipHull : MonoBehaviour {
 
     public void OnHit(float damage, Vector3 contactPoint) {
         Instantiate(Resources.Load("HitPrefab"), contactPoint, transform.rotation);
+		if (shielded)
+			damage = 0;
         hullHealth -= damage;
         onHit.Play();
     }
+	
+	public void ActivateShield()
+	{
+		shielded = true;
+		shieldTimer = 30;
+	}
 }
