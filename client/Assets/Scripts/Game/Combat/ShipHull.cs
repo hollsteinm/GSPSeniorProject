@@ -7,6 +7,8 @@ public class ShipHull : MonoBehaviour {
 	
 	private bool shielded = false;
 	private float shieldTimer;
+	
+	private Texture2D shieldTex;
 
     public Gun weapon;
     public GameObject deathPrefab;
@@ -33,9 +35,20 @@ public class ShipHull : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
+        shieldTex = Resources.Load("Textures/Shield") as Texture2D;
 	}
-
+	
+	void OnGUI() {
+        if (shielded)
+		{
+			if(!shieldTex)
+			{
+				Debug.LogError("Assign a Texture in the inspector.");
+				return;
+			}
+			GUI.DrawTexture(new Rect(60,10,80,30), shieldTex, ScaleMode.ScaleToFit, true, 0);
+		}
+    }
 
 	// Update is called once per frame
 	void Update () {

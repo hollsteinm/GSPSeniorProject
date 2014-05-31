@@ -28,7 +28,12 @@ public class Gun : MonoBehaviour, IEventListener {
     private int clipSize = 100;
     private int currentAmmunition = 100;
     private int totalAmmunition = 100;
-
+	
+	private bool rapid = false;
+	private float rapidTimer;
+	
+	private Texture2D rapidTex;
+	
     //reserved for future use
     private string networkProjectileType;
 
@@ -60,12 +65,24 @@ public class Gun : MonoBehaviour, IEventListener {
         }
 
         GameManager.gameManager.ClientController.Register(this);
+		
+		rapidTex = Resources.Load("Textures/Rapidfire") as Texture2D;
 	
 	}
 
     void OnGUI() {
         GUI.Label(new Rect(Screen.width - 196, Screen.height - 128, 128, 32), currentCooldown.ToString("F"), gunHUDStyle);
         GUI.Label(new Rect(Screen.width - 196, Screen.height - 96, 128, 32), currentAmmunition.ToString() + " / " + clipSize.ToString(), gunHUDStyle);
+		
+		if (rapid)
+		{
+			if(!rapidTex)
+			{
+				Debug.LogError("Assign a Texture in the inspector.");
+				return;
+			}
+			GUI.DrawTexture(new Rect(35,10,55,30), rapidTex, ScaleMode.ScaleToFit, true, 0);
+		}
     }
 	
 	// Update is called once per frame
@@ -77,6 +94,13 @@ public class Gun : MonoBehaviour, IEventListener {
             OnReload();
         }
         CoolOff();
+		
+		if (rapid)
+		{
+			rapidTimer -= Time.deltaTime;
+			if (rapidTimer < 0)
+				rapid = false;
+		}
 	}
 
     private void CoolOff() {
@@ -89,7 +113,10 @@ public class Gun : MonoBehaviour, IEventListener {
     private void OnFire() {
         if (CanFire()) {
             shootingSound.Play();
-            currentCooldown = cooldown;
+			if (rapid)
+				currentCooldown = cooldown/2.0f;
+			else
+            	currentCooldown = cooldown;
             SendShootRequest();
             Instantiate(ammunitionPrefab, muzzlePoint.transform.position, muzzlePoint.transform.rotation);
 
@@ -153,4 +180,10 @@ public class Gun : MonoBehaviour, IEventListener {
                 break;
         }     
     }
+	
+	public void ActivateRapid()
+	{
+		rapid = true;
+		rapidTimer = 30;
+	}
 }
