@@ -40,14 +40,29 @@ public class JetMovement : MonoBehaviour {
 	private bool setEnergyTimer = false;
 	private float energyTimer = 0;
 	
+	private bool infEnergy = false;
+	private float infEnTimer;
+	
+	private Texture2D infEnTex;
+	
 	// Use this for initialization
 	void Start () {
 		forwardVelocity = defaultForwardVelocity;
 		rigidbody.freezeRotation = true;
+		infEnTex = Resources.Load("Textures/Energy") as Texture2D;
 	}
 	
 	void OnGUI() {
         GUI.Label(new Rect(Screen.width - 196, Screen.height - 64, 128, 32), currentEnergy.ToString("F") + " / " + maxEnergy.ToString("F"), EnergyHUDStyle);
+		if (infEnergy)
+		{
+			if(!infEnTex)
+			{
+				Debug.LogError("Assign a Texture in the inspector.");
+				return;
+			}
+			GUI.DrawTexture(new Rect(10,10,30,30), infEnTex, ScaleMode.ScaleToFit, true, 0);
+		}
     }
 	
 	// Update is called once per frame
@@ -84,8 +99,11 @@ public class JetMovement : MonoBehaviour {
 							currentEnergy >= 30)
 						{
 							//Subtract the energy and use the maneuver
-							currentEnergy -= 30;
-							setEnergyTimer = false;
+							if (!infEnergy)
+							{
+								currentEnergy -= 30;
+								setEnergyTimer = false;
+							}
 							usingManeuver = true;
 						}
 					}
@@ -156,10 +174,13 @@ public class JetMovement : MonoBehaviour {
 					else
 					{
 						//Subtract the energy
-						currentEnergy -= Time.deltaTime * 10;
-						setEnergyTimer = false;
-						if (currentEnergy < 0)
-							currentEnergy = 0;
+						if (!infEnergy)
+						{
+							currentEnergy -= Time.deltaTime * 10;
+							setEnergyTimer = false;
+							if (currentEnergy < 0)
+								currentEnergy = 0;
+						}
 					}
 			        forwardVelocity += deltaVelocity;
 					
@@ -208,6 +229,12 @@ public class JetMovement : MonoBehaviour {
 			        transform.position += transform.forward * forwardVelocity * Time.deltaTime;
 			        transform.position += transform.right * horizontalVelocity * Time.deltaTime;
 				}
+			}
+			if (infEnergy)
+			{
+				infEnTimer -= Time.deltaTime;
+				if (infEnTimer < 0)
+					infEnergy = false;
 			}
 		}
 		//If we are in the middle of the U-Turn to return to the battlefield
@@ -268,5 +295,12 @@ public class JetMovement : MonoBehaviour {
 			setEnergyTimer = true;
 			energyTimer = 3;
 		}
+	}
+	
+	public void ActivateInfiniteEnergy()
+	{
+		infEnergy = true;
+		infEnTimer = 15;
+		currentEnergy = maxEnergy;
 	}
 }

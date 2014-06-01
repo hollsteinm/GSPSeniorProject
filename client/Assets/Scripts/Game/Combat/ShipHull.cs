@@ -4,6 +4,11 @@ using System.Collections;
 public class ShipHull : MonoBehaviour {
     private float hullHealth = 100.0f;
     private float maxHealth = 100.0f;
+	
+	private bool shielded = false;
+	private float shieldTimer;
+	
+	private Texture2D shieldTex;
 
     public Gun weapon;
     public GameObject deathPrefab;
@@ -30,9 +35,20 @@ public class ShipHull : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
+        shieldTex = Resources.Load("Textures/Shield") as Texture2D;
 	}
-
+	
+	void OnGUI() {
+        if (shielded)
+		{
+			if(!shieldTex)
+			{
+				Debug.LogError("Assign a Texture in the inspector.");
+				return;
+			}
+			GUI.DrawTexture(new Rect(60,10,80,30), shieldTex, ScaleMode.ScaleToFit, true, 0);
+		}
+    }
 
 	// Update is called once per frame
 	void Update () {
@@ -49,6 +65,12 @@ public class ShipHull : MonoBehaviour {
             smokeDamage.SetActive(true);
         }
 	
+		if (shielded)
+		{
+			shieldTimer -= Time.deltaTime;
+			if (shieldTimer < 0)
+				shielded = false;
+		}
 	}
 
     private bool IsDead() {
@@ -65,7 +87,15 @@ public class ShipHull : MonoBehaviour {
 
     public void OnHit(float damage, Vector3 contactPoint) {
         Instantiate(Resources.Load("HitPrefab"), contactPoint, transform.rotation);
+		if (shielded)
+			damage = 0;
         hullHealth -= damage;
         onHit.Play();
     }
+	
+	public void ActivateShield()
+	{
+		shielded = true;
+		shieldTimer = 30;
+	}
 }
