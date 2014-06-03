@@ -165,6 +165,8 @@ public class SFSClient : IClientController {
     }
 
     private void OnLogout ( BaseEvent evt ) {
+        SFSInstance.Disconnect();
+        UnregisterCallbacks();
         Debug.Log ( "User Logged Out" );
     }
 
@@ -247,7 +249,6 @@ public class SFSClient : IClientController {
             currentMessage = "Successful Login.";
 
             if (Application.loadedLevelName != "register") {
-                Application.LoadLevel("lobby");
                 SendRoomJoinRequest("lobby");
             } else {
                 OnEvent("login.success", null);
@@ -290,9 +291,8 @@ public class SFSClient : IClientController {
 
     public void Disconnect ( ) {
         if (SFSInstance.IsConnected) {
-            SFSInstance.Disconnect();
+            Logout();
         }
-        UnregisterCallbacks();
     }
 
     public void Connect ( string server, int port ) {

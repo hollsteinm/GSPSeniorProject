@@ -45,18 +45,23 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    private string[] playerStrings;
     public string[] PlayerNames {
         get{
-            string[] playerstrings = new string[players.Values.Count];
+            playerStrings = new string[players.Values.Count];
             GameObject[] p = new GameObject[players.Values.Count];
             players.Values.CopyTo(p, 0);
 
             int index = 0;
             foreach(GameObject go in p){
-                playerstrings[index] = go.GetComponent<RemotePlayerScript>().Username;
-                index++;
+                if (go != null) {
+                    if (go.GetComponent<RemotePlayerScript>() != null) {
+                        playerStrings[index] = go.GetComponent<RemotePlayerScript>().Username;
+                        index++;
+                    }
+                }
             }
-            return playerstrings;
+            return playerStrings;
         }
     }
 
@@ -101,6 +106,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void OnLevelWasLoaded(int id) {
+
         if (id == 4 || id == 2) { //multiplayer or singleplayer
             AddQueuedPlayers();
             Screen.lockCursor = true;
@@ -112,6 +118,10 @@ public class GameManager : MonoBehaviour {
             players = new Dictionary<int, GameObject>();
             queuedplayers.Clear();
             queuedplayers = new Dictionary<int, string>();
+            if (playerStrings != null) {
+                playerStrings = null;
+            }
+            
             Screen.lockCursor = false;
         }
     }
