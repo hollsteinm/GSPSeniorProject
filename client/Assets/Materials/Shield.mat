@@ -27,7 +27,7 @@ Material:
       data:
         first:
           name: _RadialFactor
-        second: .519230783
+        second: 1
     m_Colors:
       data:
         first:

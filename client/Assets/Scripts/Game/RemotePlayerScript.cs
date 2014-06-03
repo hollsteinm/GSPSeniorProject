@@ -99,9 +99,35 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
                 handlePlayerRemoteDeath ( o );
                 break;
 
+            case "powerup":
+                handlePlayerRemotePowerUp(o);
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void handlePlayerRemotePowerUp(object o){
+        Dictionary<string, object> data = o as Dictionary<string, object>;
+        string type = (string)data["powerup"];
+        int id = (int)data["playerid"];
+
+        if (id == remoteId) {
+            switch (type) {
+                case "shield":
+                    GameObject shield = transform.FindChild("ShieldEffectPrefab").gameObject;
+                    shield.SetActive(true);
+                    ShieldEffect se = shield.GetComponent<ShieldEffect>();
+                    se.effectTime = 30;                    
+
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
     }
 
     private void handlePlayerRemoteHit(object o){

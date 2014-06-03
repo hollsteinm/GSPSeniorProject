@@ -33,7 +33,7 @@ public class QueueGUI : MonoBehaviour, IEventListener {
 
         if (GUILayout.Button(backContent, queueStyle, GUILayout.MaxWidth(512))) {
             GameManager.gameManager.ClientController.Send(DataType.JOINGAME, "lobby");
-            Application.LoadLevel("lobby");
+            //Application.LoadLevel("lobby");
         }
         GUILayout.EndHorizontal();
         GUILayout.EndArea();

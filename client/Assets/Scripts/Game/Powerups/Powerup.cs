@@ -20,6 +20,10 @@ public class Powerup : MonoBehaviour {
 	void Update () {
 		transform.Rotate(0,1,0);
 	}
+
+    void SendPowerUpRequest(string typeAsString) {
+        GameManager.gameManager.ClientController.Send(DataType.POWERUP, typeAsString);
+    }
 	
 	void OnTriggerEnter(Collider other)
 	{
@@ -44,6 +48,8 @@ public class Powerup : MonoBehaviour {
 			{
 				move.ActivateInfiniteEnergy();
 			}
+            Debug.Log(type.ToString().ToLower());
+            SendPowerUpRequest(type.ToString().ToLower());
 		}
 	}
 	

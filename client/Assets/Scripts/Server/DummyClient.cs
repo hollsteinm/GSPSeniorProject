@@ -81,6 +81,10 @@ public class DummyClient : IClientController {
             case DataType.SHOOT:
                 break;
 
+            case DataType.POWERUP:
+                Debug.Log("Current Powerup in Play: " + (string)data);
+                break;
+
             default:
                 Debug.LogError("Unhandled DataType: " + type.ToString());
                 break;

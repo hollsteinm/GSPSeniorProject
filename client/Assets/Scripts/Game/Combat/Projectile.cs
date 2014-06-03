@@ -86,7 +86,7 @@ public class Projectile : MonoBehaviour, IEventListener {
 
     protected void SweepTest() {
         RaycastHit hitInfo = new RaycastHit();
-        if (Physics.Raycast(new Ray(transform.position, transform.TransformDirection(Vector3.forward)), out hitInfo, speed)) {
+        if (Physics.Raycast(new Ray(transform.position, transform.TransformDirection(Vector3.forward)), out hitInfo, speed*Time.deltaTime)) {
             try {
                 other = hitInfo.collider.gameObject.transform.parent.gameObject.transform.parent.gameObject;
                 //other = rGetParent(hitInfo.collider.gameObject);

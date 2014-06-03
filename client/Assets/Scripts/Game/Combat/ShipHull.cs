@@ -95,6 +95,12 @@ public class ShipHull : MonoBehaviour {
 	
 	public void ActivateShield()
 	{
+        GameObject shieldPrefab = transform.FindChild("ShieldEffectPrefab(Clone)").gameObject;
+        shieldPrefab.SetActive(true);
+        ShieldEffect se = shieldPrefab.GetComponent<ShieldEffect>();
+
+        se.effectTime = 30.0f;
+
 		shielded = true;
 		shieldTimer = 30;
 	}

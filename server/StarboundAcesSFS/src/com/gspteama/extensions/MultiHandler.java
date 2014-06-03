@@ -67,11 +67,21 @@ public class MultiHandler extends BaseClientRequestHandler{
             case "gamestart":
                 handleGameStart(user, params);
                 break;
+                
+            case "powerup":
+                handlePowerUp(user, params);
 
             default:
                 trace("Unrecognized request Id sent... ignoring");
                 break;
         }
+    }
+    
+    private void handlePowerUp(User user, ISFSObject params){
+        ISFSObject response = SFSObject.newInstance();
+        response.putUtfString("powerup", params.getUtfString("powerup"));
+        response.putInt("playerid", user.getId());
+        send("powerup", response, user.getLastJoinedRoom().getUserList());
     }
     
     private void handleGameStart(User user, ISFSObject params){

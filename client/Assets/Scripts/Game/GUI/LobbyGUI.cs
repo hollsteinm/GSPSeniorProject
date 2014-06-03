@@ -37,7 +37,7 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
         if (id == 3) {
             server = GameManager.gameManager.ClientController;
             server.Register(this);
-            server.Send(DataType.JOINGAME, "lobby");
+            //server.Send(DataType.JOINGAME, "lobby");
             createdGames = new List<string>();
             createdGames.Add("");
             server.Send(DataType.GAMES_GET, null);

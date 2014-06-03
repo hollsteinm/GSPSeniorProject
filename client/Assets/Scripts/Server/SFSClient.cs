@@ -146,6 +146,10 @@ public class SFSClient : IClientController {
                 OnEvent("projectile.expire", id);
                 break;
 
+            case "powerup":
+                PowerUpResponse(sfsdata);
+                break;
+
             default:
                 break;
         }
@@ -190,9 +194,9 @@ public class SFSClient : IClientController {
                 }
             }
         } else if ( room.Name == "lobby" ) {
-            //UnregisterCallbacks ();
+            UnregisterCallbacks ();
             Application.LoadLevel ( "lobby" );
-            //RegisterCallbacks ();
+            RegisterCallbacks ();
         }
         this.room = room.Name;
     }
@@ -281,10 +285,6 @@ public class SFSClient : IClientController {
 
     public void Logout() {
         SFSInstance.Send(new LogoutRequest());
-        if (SFSInstance.IsConnected) {
-            SFSInstance.Disconnect();
-        }
-        UnregisterCallbacks();
     }
 
     public void Disconnect ( ) {
@@ -362,6 +362,10 @@ public class SFSClient : IClientController {
 
             case DataType.PLAYER_GAME_READY:
                 SendGameStartRequest(data);
+                break;
+
+            case DataType.POWERUP:
+                SendPowerUpRequest(data);
                 break;
 
             default:
@@ -469,6 +473,13 @@ public class SFSClient : IClientController {
         SFSInstance.Send(new ExtensionRequest("$SignUp.Submit", sfsdata));
     }
 
+    private void SendPowerUpRequest(object data) {
+        CheckType(data, typeof(string));
+        SFSObject sfsdata = new SFSObject();
+        sfsdata.PutUtfString("powerup", (string)data);
+        SFSInstance.Send(new ExtensionRequest("server.powerup", sfsdata, SFSInstance.LastJoinedRoom));
+    }
+
     private void SendSpawnRequest ( object data ) {
         SFSObject request = new SFSObject();
         request.PutUtfString("weaponType", (string)data);
@@ -519,7 +530,7 @@ public class SFSClient : IClientController {
             //no private games/passwords supported as of yet.
             SFSInstance.Send ( new JoinRoomRequest ( data, "", SFSInstance.LastJoinedRoom.Id, false ) );
         } else {
-            SFSInstance.Send ( new JoinRoomRequest ( data ));
+            SFSInstance.Send ( new JoinRoomRequest ( data));
         }
     }
 
@@ -756,6 +767,16 @@ public class SFSClient : IClientController {
     private void GameListRemoveResponse(SFSObject data){
         string game = data.GetUtfString("game");
         OnEvent("roomremove", game);
+    }
+
+    private void PowerUpResponse(SFSObject data) {
+        string type = data.GetUtfString("powerup");
+        int id = data.GetInt("playerid");
+        Debug.Log("Powerup Response. (ID: " + id.ToString() + "Type: " + type);
+        Dictionary<string, object> cdata = new Dictionary<string, object>();
+        cdata.Add("powerup", type);
+        cdata.Add("playerid", id);
+        OnEvent("powerup", cdata);
     }
     //end methods for response
 }

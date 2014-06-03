@@ -109,7 +109,10 @@ public class GameManager : MonoBehaviour {
         //clear the player queue
         if(id == 3 || id == 0){
             players.Clear();
+            players = new Dictionary<int, GameObject>();
             queuedplayers.Clear();
+            queuedplayers = new Dictionary<int, string>();
+            Screen.lockCursor = false;
         }
     }
 
@@ -228,6 +231,7 @@ public class GameManager : MonoBehaviour {
 
         GameObject o = (GameObject)Instantiate(Resources.Load("RemoteProjectile"), position, rotation);
         o.GetComponent<NetworkTransformer>().NetworkId = (int)data["networkId"];
+        //TODO: Get Projectile type and load mesh with same name
     }
 
 }
