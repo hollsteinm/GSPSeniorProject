@@ -248,6 +248,7 @@ public class SFSClient : IClientController {
 
             if (Application.loadedLevelName != "register") {
                 Application.LoadLevel("lobby");
+                SendRoomJoinRequest("lobby");
             } else {
                 OnEvent("login.success", null);
             }
