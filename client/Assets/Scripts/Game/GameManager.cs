@@ -113,13 +113,22 @@ public class GameManager : MonoBehaviour {
         }
 
         //clear the player queue
-        if(id == 3 || id == 0){
-            players.Clear();
-            players = new Dictionary<int, GameObject>();
-            queuedplayers.Clear();
-            queuedplayers = new Dictionary<int, string>();
-            if (playerStrings != null) {
-                playerStrings = null;
+        if(id != 4 && id != 2 && id != 8){
+            //need to cleanup in a special way
+            lock (mutex) {
+                foreach (KeyValuePair<int, GameObject> entry in players) {
+                    Destroy(entry.Value);
+                }
+
+                players.Clear();
+                queuedplayers.Clear();
+
+                if (playerStrings != null) {
+                    playerStrings = null;
+                }
+
+                players = new Dictionary<int, GameObject>();
+                queuedplayers = new Dictionary<int, string>();
             }
             
             Screen.lockCursor = false;
@@ -159,6 +168,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void OnApplicationQuit() {
+        client.Logout();
         client.Disconnect();
     }
 

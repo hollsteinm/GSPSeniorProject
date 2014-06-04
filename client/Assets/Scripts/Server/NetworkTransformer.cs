@@ -51,10 +51,6 @@ public class NetworkTransformer : MonoBehaviour, IEventListener {
             networkId = value;
         }
     }
-
-    void OnDestroy() {
-        server.Unregister(this);
-    }
 	
 	// Update is called once per frame
     private float forceExpiration = 15.0f;//kill if alive more than 10 seconds if projectile
@@ -91,6 +87,10 @@ public class NetworkTransformer : MonoBehaviour, IEventListener {
             
             timepassed = 0.0f;
         }
+    }
+
+    void OnDestroy() {
+        server.Unregister(this);
     }
 
     private void SendPlayerData() {
