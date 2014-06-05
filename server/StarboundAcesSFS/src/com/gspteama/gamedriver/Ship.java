@@ -23,7 +23,7 @@ public class Ship {
     
     private long                owningPlayerID;
     
-    public Ship(long owningPlayerID, long playerId, long shipTypeID, String shipTypeString, Weapon weapon, Hull hull, float maxVelocity){
+    public Ship(long owningPlayerID, long shipTypeID, String shipTypeString, Weapon weapon, Hull hull, float maxVelocity){
         movement = new Movement(maxVelocity);
         this.hull = hull;
         this.weapon = weapon;
