@@ -14,10 +14,41 @@ import java.util.HashMap;
 /**
  *
  * @author Martin
+ * 
+ * //Add to database
+ * table sa_powerup
+ * * sequence sa_powerup_id_seq references powerup_id
+ * * powerup_id : bigint unique not null default::sequence next val
+ * * powerup_effect_class_name : charvar(128) unique not null
+ * * powerup_effect_short_name : charvar(32) unique not null
  */
 public class DBService {
     
-    public static com.gspteam.gamedriver.Weapon selectWeaponConfigurations(Connection connection, String weaponName, long owningPlayerId) throws SQLException{
+    public static com.gspteama.gamedriver.Powerup selectPowerup(Connection connection, String powerupShortName) throws SQLException{
+        Connection con = connection;
+        PreparedStatement ps;
+        ResultSet rs;
+        
+        com.gspteama.gamedriver.Powerup powerup;
+        
+        String stmt = "select powerup_effect_class_name from sa_powerup where powerup_effect_short_name = ?";
+        
+        ps = com.prepareStatement(stmt);
+        ps.setString(powerupShortName);
+        
+        rs = ps.executeQuery();
+        
+        if(rs.next()){
+            powerup = com.gspteama.gamedriver.factory.PowerupFactory.getPowerup(
+                    rs.getString("powerup_effect_class_name")
+                );
+        }
+        
+        return powerup;
+        
+    }
+    
+    public static com.gspteama.gamedriver.Weapon selectWeaponConfigurations(Connection connection, String weaponName, long owningPlayerId) throws SQLException{
         Connection con = connection;
         PreparedStatement ps;
         ResultSet rs;
