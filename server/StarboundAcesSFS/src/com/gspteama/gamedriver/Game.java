@@ -37,12 +37,13 @@ public class Game {
         
     }
     
-    public void registerInputEvent(Player request, String command){
+    public void registerInputEvent(Player requester, String command){
         
     }
     
-    
-    
+    public void registerShootEvent(Player requester){
+        
+    }
     
     public Player getPlayer(int playerId){
         return players.get(playerId);
