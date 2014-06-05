@@ -12,21 +12,15 @@ import java.util.HashMap;
  * @author Martin
  */
 public class Game {
-    private HashMap<Integer, Ship>      ships       = new HashMap<>();
     private HashMap<Integer, Player>    players     = new HashMap<>();
-    private HashMap<Integer,Projectile> projectiles = new HashMap<>();
-    
-    public void AddPlayer(int playerId, Player player){
-        if(!players.containsKey(playerId)){
-            players.put(playerId, player);
-        }        
-    }
-    
-    public void AddShip(int playerId, Ship ship){
-        if(!ships.containsKey(playerId)){
-            ships.put(playerId, ship);
+    private HashMap<Integer, Projectile> firedProjectiles = new HashMap<>();
+
+    public void AddPlayer(Player player){
+        if(!players.containsKey(player.getPlayerID()){
+            players.put(player.getPlayerID, player);
         }
     }
+    
     
     public Player getPlayer(int playerId){
         return players.get(playerId);
