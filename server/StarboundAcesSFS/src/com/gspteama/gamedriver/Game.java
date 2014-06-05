@@ -26,16 +26,12 @@ public class Game {
         return players.get(playerId);
     }
     
-    public Ship getShip(int playerId){
-        return ships.get(playerId);
-    }
-    
     //adds projecitle to game, returns its key in hashmap
     public void addProjectile(int id, Projectile p){
-        projectiles.put(id, p);
+        firedProjectiles.put(id, p);
     }
     
     public Projectile getProjectile(int id){
-        return projectiles.get(id);
+        return firedProjectiles.get(id);
     }
 }
