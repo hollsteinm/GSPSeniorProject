@@ -24,12 +24,12 @@ import java.util.HashMap;
  */
 public class DBService {
     
-    public static com.gspteama.gamedriver.Powerup selectPowerup(Connection connection, String powerupShortName) throws SQLException{
+    public static com.gspteama.gamedriver.IPowerup selectPowerup(Connection connection, String powerupShortName) throws SQLException{
         Connection con = connection;
         PreparedStatement ps;
         ResultSet rs;
         
-        com.gspteama.gamedriver.Powerup powerup;
+        com.gspteama.gamedriver.IPowerup powerup;
         
         String stmt = "select powerup_effect_class_name from sa_powerup where powerup_effect_short_name = ?";
         
