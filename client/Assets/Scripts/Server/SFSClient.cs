@@ -780,4 +780,8 @@ public class SFSClient : IClientController {
         OnEvent("powerup", cdata);
     }
     //end methods for response
+
+    public void EvacuateTheDanceFloor() {
+        listeners.Clear();
+    }
 }
