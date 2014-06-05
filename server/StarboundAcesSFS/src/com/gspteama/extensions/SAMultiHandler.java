@@ -79,6 +79,22 @@ public class MultiHandler extends BaseClientRequestHandler{
     }
     //End Helpers
     
+    private void handleGameStartRequest(User user, ISFSObject params){
+        try{
+            DBService.updateGameStatus(getConnection(),
+                    "A", user.getLastJoinedRoom().getName());
+                
+            ISFSObject data = SFSObject.newInstance();
+            data.putUtfString("game", user.getLastJoinedRoom().getName());
+            send("gamelist.remove", data, this.getParentExtension().getParentZone().getRoomByName("lobby").getUserList());
+                
+        } catch(SQLException e){
+            onException(e);
+        } finally{
+            sendToAllInGame("game.start", SFSObject.newInstance(), user, false);
+        } 
+    }
+    
     private void handleScoresRequest(User user, ISFSObject params){
         ArrayList results;
         long playerScore = 0L;
