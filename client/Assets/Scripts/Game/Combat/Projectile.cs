@@ -3,10 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(AudioSource))]
-[RequireComponent(typeof(MeshFilter))]
-[RequireComponent(typeof(MeshCollider))]
-[RequireComponent(typeof(MeshRenderer))]
-[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(AudioClip))]
 public class Projectile : MonoBehaviour, IEventListener {
     public GameObject collisionEffectPrefab;
