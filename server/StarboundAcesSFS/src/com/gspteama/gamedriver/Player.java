@@ -22,6 +22,9 @@ public class Player {
         this.ship = ship;
     }
     
+    public long getPlayerId(){
+        return id;
+    }
 
     public String getUsername() {
         return username;
