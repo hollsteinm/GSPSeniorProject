@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  */
 public class StarboundAcesExtension extends SFSExtension{
     //integer is the room id and game is a game instance
-    private static final ConcurrentHashMap<Integer, Game> gameList =  new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Integer, Game> gameList =  new ConcurrentHashMap<>();
     
     private SignUpAssistantComponent signup;
     private LoginAssistantComponent login;
@@ -144,11 +144,5 @@ public class StarboundAcesExtension extends SFSExtension{
         }
         gameList.put(roomid, new Game());
         trace("New game added: " + roomid);
-        
-        try{
-            //TODO: put game in database
-        }catch(Exception e){
-            trace(e.toString());
-        }
     }
 }
