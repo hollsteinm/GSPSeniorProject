@@ -2304,7 +2304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400010}
-  deathPrefab: {fileID: 100000, guid: bf0aa60bf2d0e374da3a1b360aee5272, type: 2}
+  deathPrefab: {fileID: 100006, guid: bf0aa60bf2d0e374da3a1b360aee5272, type: 2}
   deathSound: {fileID: 8200000}
   onHit: {fileID: 8200000}
   fireDamage: {fileID: 100018}

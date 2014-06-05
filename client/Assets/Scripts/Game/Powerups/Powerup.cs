@@ -50,6 +50,7 @@ public class Powerup : MonoBehaviour {
 			}
             Debug.Log(type.ToString().ToLower());
             SendPowerUpRequest(type.ToString().ToLower());
+            gameObject.audio.Play();
 		}
 	}
 	

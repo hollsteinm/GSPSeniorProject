@@ -85,13 +85,11 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager gameManager {
         get {
-            Debug.Log("Getting Gamemanager");
             if (applicationIsQuitting) {
                 return null;
             }
             lock (mutex) {
                 if (_gameManager == null) {
-                    Debug.Log("Creating ShipModelPrefab");
                     GameObject singleton = new GameObject();
                     _gameManager = singleton.AddComponent<GameManager>();
                     singleton.name = "GameManager";
@@ -109,7 +107,6 @@ public class GameManager : MonoBehaviour {
     void FixedUpdate() {
 
         if (queuedplayers.Count > 0) {
-            Debug.Log("Queued Player Count greater than 0");
             AddQueuedPlayers();
         }
     }
@@ -222,7 +219,6 @@ public class GameManager : MonoBehaviour {
 
     public IClientController ClientController {
         get {
-            Debug.Log("Getting ClientController");
             return client;
         }
     }

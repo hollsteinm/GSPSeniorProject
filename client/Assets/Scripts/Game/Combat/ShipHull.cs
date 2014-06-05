@@ -79,8 +79,9 @@ public class ShipHull : MonoBehaviour {
 
     private void OnDeath() {
         deathPrefab.GetComponent<PlayerDeath>().isClient = true;
-        Instantiate(deathPrefab);
+        Instantiate(deathPrefab, transform.position, transform.rotation);
         GameManager.gameManager.ClientController.Send(DataType.DEATH, new object());
+        deathSound.Play();
         Destroy(gameObject);
         //Application.LoadLevel("lobby");
     }
