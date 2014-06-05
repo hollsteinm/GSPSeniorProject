@@ -126,6 +126,7 @@ public class GameManager : MonoBehaviour {
         //clear the player queue
         if(id != 4 && id != 2 && id != 8){
             Debug.Log("Attempting Cleanup for level load");
+            client.EvacuateTheDanceFloor();
             //need to cleanup in a special way
             lock (mutex) {
                 foreach (KeyValuePair<int, GameObject> entry in players) {
