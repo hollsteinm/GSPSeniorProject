@@ -17,11 +17,11 @@ import java.util.HashMap;
  */
 public class DBService {
     
-    public static HashMap<String, Object> selectWeaponConfigurations(Connection connection, String weaponName) throws SQLException{
+    public static com.gspteam.gamedriver.Weapon selectWeaponConfigurations(Connection connection, String weaponName, long owningPlayerId) throws SQLException{
         Connection con = connection;
         PreparedStatement ps;
         ResultSet rs;
-        HashMap<String, Object> results = new HashMap<String, Object>();
+        com.gspteama.gamedriver.Weapon result;
         
         String stmt = "select * from sa_weapon_config swc " +
                 " join sa_ammo_config sac " + 
@@ -35,30 +35,28 @@ public class DBService {
         
         if(rs.next()){
             
-            results.put("Weapon",
-                    new com.gspteama.gamedriver.Weapon(
-                            rs.getFloat("weapon_config_cooldown"), 
-                            rs.getInt("ammo_config_damage")
-                    ));
-
-            results.put("Ammo",
-                    new com.gspteama.gamedriver.Projectile(
-                            rs.getInt("sa_ammo_speed"),
-                            rs.getInt("ammo_config_range"),
-                            rs.getInt("ammo_config_damage")
-                    ));
-        } else {
-            results.put("Weapon", new com.gspteama.gamedriver.Weapon(0.5f, 10.0f));
-            results.put("Ammo", new com.gspteama.gamedriver.Projectile());
-        }
+            result = new com.gspteama.gamedriver.Weapon(
+                            rs.getFloat("weapon_config_cooldown"),
+                            new com.gspteama.gmedriver.Projectile(
+                                    owningPlayerId,
+                                    rs.getLong("ammo_config_id"),
+                                    rs.getString("ammo_config_name"),
+                                    rs.getFloat("ammo_config_damage"),
+                                    rs.getFloat("sa_ammo_speed"),
+                                    rs.getFloat("ammo_config_range")
+                                )
+                        )
+            );
+            
+        } 
         
         rs.close();
         ps.close();
         con.close();
-        return results;       
+        return result;       
     }
     
-    public static com.gspteama.gamedriver.Projectile selectProjectile(Connection connection, String projectileName) throws SQLException{
+    public static com.gspteama.gamedriver.Projectile selectProjectile(Connection connection, String projectileName, long ownginPlayerId) throws SQLException{
         Connection con = connection;
         PreparedStatement ps;
         ResultSet rs;
@@ -70,14 +68,16 @@ public class DBService {
         
         rs = ps.executeQuery();
         com.gspteama.gamedriver.Projectile p = null;
+        
         if(rs.next()){
            p = new com.gspteama.gamedriver.Projectile(
-                   rs.getInt("sa_ammo_speed"), 
-                   rs.getInt("ammo_config_range"), 
-                   rs.getInt("ammo_config_damage")
+                   owningPlayerId,
+                   rs.getLong("ammo_config_id"),
+                   rs.getString("ammo_config_name"),
+                   rs.getFloat("ammo_config_damage"),
+                   rs.getFloat("sa_ammo_speed"),
+                   rs.getFloat("ammo_config_range")
            );
-        } else {
-           p = new com.gspteama.gamedriver.Projectile();
         }
         
         rs.close();
