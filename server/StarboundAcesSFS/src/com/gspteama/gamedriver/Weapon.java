@@ -57,7 +57,7 @@ public class Weapon {
     public Projectile onFire(){
         currentCooldown = cooldown;
         currentAmmo--;
-        return new Projectile(projectile);
+        return projectile.clone();
     }
     
 }
