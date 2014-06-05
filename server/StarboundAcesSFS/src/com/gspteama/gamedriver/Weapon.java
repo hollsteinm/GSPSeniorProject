@@ -10,32 +10,30 @@ package com.gspteama.gamedriver;
  */
 public class Weapon {
     protected float       cooldown    = 0.0f;
-    protected float       damage      = 0.0f;
+    protected Projectile  projectile;
     
-    public Weapon(float cooldown, float damage){
+    private float         currentCooldown = 0.0f;
+    
+    public Weapon(float cooldown, Projectile projectile){
         this.cooldown = cooldown;
-        this.damage = damage;
-    }
-    
-    public Weapon(){
-        cooldown = 0.25f;
-        
+        this.projectile = projectile;
     }
 
     public float getCooldown() {
         return cooldown;
     }
-
-    public void setCooldown(float cooldown) {
-        this.cooldown = cooldown;
+    
+    public void decrementCooldown(float value){
+        currentCooldown -= value;
     }
-
-    public float getDamage() {
-        return damage;
+    
+    public bool canFire(){
+        return currentCooldown <= 0.0f;
     }
-
-    public void setDamage(float damage) {
-        this.damage = damage;
+    
+    public Projectile onFire(){
+        currentCooldown = cooldown;
+        return projectile;
     }
     
 }
