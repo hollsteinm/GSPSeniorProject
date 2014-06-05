@@ -11,14 +11,18 @@ package com.gspteama.gamedriver;
 public class Projectile {
     private float       damage          ;
     private float       range           ;
+    private long        projectileID    ;
+    private String      projectileIDString;
     
     public Movement     movement        ;
     
-    public Projectile(float damage, float maxVelocity, float range){
-        movement = new Movement;
+    public Projectile(long projectileID, String projectileIDString, float damage, float maxVelocity, float range){
+        movement = new Movement(maxVelocity);
         this.range = range;
         this.damage = damage;
         this.maxVelocity = maxVelocity;
+        this.projectileID = projectileID;
+        this.projectileIDString = projectileIDString;
     }
 
     public float getRange() {
