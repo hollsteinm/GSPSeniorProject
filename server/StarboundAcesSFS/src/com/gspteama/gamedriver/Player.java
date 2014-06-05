@@ -10,27 +10,27 @@ package com.gspteama.gamedriver;
  */
 public class Player {
     private String      username   = "";
-    private long       score      = 0L;
+    private long        score      = 0L;
+    private long        id         = -1L;
     
-    public Player(){
-    }
+    private Ship        ship        ;
     
-    public Player(String username){
+    
+    public Player(long id, string username, Ship ship){
+        this.id = id;
         this.username = username;
+        this.ship = ship;
     }
+    
 
     public String getUsername() {
         return username;
     }
+    
+    public void updateScore(long score){
+        this.score += score;
+    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    
-    public void setScore(long score){
-        this.score = score;
-    }
-    
     public long getScore(){
         return score;
     }
