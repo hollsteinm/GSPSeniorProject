@@ -21,6 +21,28 @@ public class Game {
         }
     }
     
+    public void registerCollisionEvent(Player requester, Player other){
+        
+    }
+    
+    public void registerCollisionEvent(Player requester, Projectile other){
+        
+    }
+    
+    public void registerCollisionEvent(Player requester, IPowerup other){
+        
+    }
+    
+    public void registerCollisionEvent(Player requester, Obstacle Other){
+        
+    }
+    
+    public void registerInputEvent(Player request, String command){
+        
+    }
+    
+    
+    
     
     public Player getPlayer(int playerId){
         return players.get(playerId);
