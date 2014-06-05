@@ -48,6 +48,10 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         }
 	}
 
+    void OnDestroy() {
+        server.Unregister(this);
+    }
+
     float noCollideCoolant = 5.0f; //5 seconds to seperate players.
     bool collide = false;
     void OnCollisionEnter(Collision col) {

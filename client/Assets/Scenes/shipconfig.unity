@@ -134,7 +134,16 @@ MonoBehaviour:
       m_Image: {fileID: 2800000, guid: 9e3afc3def5155443aaceb27dc723b82, type: 3}
       m_Tooltip: 
     relatedGunChoice: 1
-    shipModelPrefab: {fileID: 100010, guid: 0ea20056cadfcc84bb13ad6ef1cd16c5, type: 2}
+    shipModelPrefab: {fileID: 100006, guid: 5363d030faa04424fa28efb198725958, type: 2}
+    shipShieldEffectPrefab: {fileID: 100058, guid: 0ea20056cadfcc84bb13ad6ef1cd16c5,
+      type: 2}
+    isWeaponConfig: 0
+  - display:
+      m_Text: Viper
+      m_Image: {fileID: 2800000, guid: 9e3afc3def5155443aaceb27dc723b82, type: 3}
+      m_Tooltip: 
+    relatedGunChoice: 1
+    shipModelPrefab: {fileID: 100038, guid: 29da5bb0df561484d9caa3c144953b7d, type: 2}
     shipShieldEffectPrefab: {fileID: 100058, guid: 0ea20056cadfcc84bb13ad6ef1cd16c5,
       type: 2}
     isWeaponConfig: 0

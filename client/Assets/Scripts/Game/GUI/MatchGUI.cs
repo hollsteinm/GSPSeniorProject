@@ -82,8 +82,6 @@ public class MatchGUI : MonoBehaviour {
         }
 
         if (GUI.Button(logoutRect, logoutContent, buttonStyle)) {
-            GameManager.gameManager.ClientController.Send(DataType.JOINGAME, "lobby");
-            GameManager.gameManager.ClientController.Logout();
             GameManager.gameManager.ClientController.Disconnect();
             Application.LoadLevel("launch");
         }

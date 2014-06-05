@@ -191,4 +191,7 @@ public class DummyClient : IClientController {
         //will need to check for strings at a later date when we allow users to create rooms with thier own names
     }
     //end dummy client forwards
+    public void EvacuateTheDanceFloor() {
+        Debug.Log("CASCADA!");
+    }
 }

@@ -20,43 +20,55 @@ public class GameManager : MonoBehaviour {
 
     public GameObject ShipModelPrefab {
         get {
+            Debug.Log("Getting ShipModelPrefab");
             return shipModelPrefab;
         }
         set {
+            Debug.Log("Setting ShipModelPrefab");
             shipModelPrefab = value;
         }
     }
 
     public GameObject ShipShieldPrefab {
         get {
+            Debug.Log("Getting ShipSheildPrefab");
             return shipShieldPrefab;
         }
         set {
+            Debug.Log("Setting ShipSheildPrefab");
             shipShieldPrefab = value;
         }
     }
 
     public GunType CurrentWeaponChoice {
         get {
+            Debug.Log("Getting GunType");
             return gunType;
         }
         set {
+            Debug.Log("Setting ShipModelPrefab");
             gunType = value;
         }
     }
 
+    private string[] playerStrings;
     public string[] PlayerNames {
         get{
-            string[] playerstrings = new string[players.Values.Count];
+            playerStrings = new string[players.Values.Count];
             GameObject[] p = new GameObject[players.Values.Count];
             players.Values.CopyTo(p, 0);
 
             int index = 0;
             foreach(GameObject go in p){
-                playerstrings[index] = go.GetComponent<RemotePlayerScript>().Username;
-                index++;
+                if (go != null) {
+                    if (go.GetComponent<RemotePlayerScript>() != null) {
+                        playerStrings[index] = go.GetComponent<RemotePlayerScript>() != null ?
+                            go.GetComponent<RemotePlayerScript>().Username : "[!]ERROR[!]";
+                        index++;
+                    }
+                }
             }
-            return playerstrings;
+            return playerStrings;
         }
     }
 
@@ -64,6 +76,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void Start() {
+        Debug.Log("Start");
         shipModelPrefab = (GameObject)Resources.Load("StandardShip");
         shipShieldPrefab = (GameObject)Resources.Load("ShieldEffectPrefab");
 
@@ -72,11 +85,13 @@ public class GameManager : MonoBehaviour {
 
     public static GameManager gameManager {
         get {
+            Debug.Log("Getting Gamemanager");
             if (applicationIsQuitting) {
                 return null;
             }
             lock (mutex) {
                 if (_gameManager == null) {
+                    Debug.Log("Creating ShipModelPrefab");
                     GameObject singleton = new GameObject();
                     _gameManager = singleton.AddComponent<GameManager>();
                     singleton.name = "GameManager";
@@ -92,26 +107,45 @@ public class GameManager : MonoBehaviour {
     private GameType type;
 
     void FixedUpdate() {
-        if (client != null) {
-            client.Update();
-        }
+
         if (queuedplayers.Count > 0) {
+            Debug.Log("Queued Player Count greater than 0");
             AddQueuedPlayers();
         }
     }
 
     void OnLevelWasLoaded(int id) {
+        Debug.Log("Level Loaded");
+
         if (id == 4 || id == 2) { //multiplayer or singleplayer
+            Debug.Log("Adding Queued Players and locking cursor");
             AddQueuedPlayers();
             Screen.lockCursor = true;
         }
 
         //clear the player queue
-        if(id == 3 || id == 0){
-            players.Clear();
-            players = new Dictionary<int, GameObject>();
-            queuedplayers.Clear();
-            queuedplayers = new Dictionary<int, string>();
+        if(id != 4 && id != 2 && id != 8){
+            Debug.Log("Attempting Cleanup for level load");
+            client.EvacuateTheDanceFloor();
+            //need to cleanup in a special way
+            lock (mutex) {
+                foreach (KeyValuePair<int, GameObject> entry in players) {
+                    Debug.Log("Destroying... <" + entry.Key.ToString() + " / " + entry.Value.ToString() + ">");
+                    Destroy(entry.Value);
+                }
+
+                players.Clear();
+                queuedplayers.Clear();
+
+                if (playerStrings != null) {
+                    Debug.Log("Nulling playerStrings");
+                    playerStrings = null;
+                }
+
+                players = new Dictionary<int, GameObject>();
+                queuedplayers = new Dictionary<int, string>();
+            }
+            
             Screen.lockCursor = false;
         }
     }
@@ -136,38 +170,48 @@ public class GameManager : MonoBehaviour {
                     Debug.Log("Player added <Id : Username> <" + other.GetComponent<RemotePlayerScript>().Id + " : "
                                 + other.GetComponent<RemotePlayerScript>().Username + ">");
                 }
+                queuedplayers.Clear();
             }
         }
     }
 
     public int getQueuedCount() {
+        Debug.Log("Getting Queued Count");
         return queuedplayers.Count;
     }
 
     public void OnDestroy() {
+        Debug.Log("OnDestroy");
         applicationIsQuitting = true;
     }
 
     void OnApplicationQuit() {
+        Debug.Log("Quitting App...");
+        client.Logout();
         client.Disconnect();
     }
 
     public GameType gameType {
         get {
+            Debug.Log("Getting GameType");
             return type;
         }
         set {
+            Debug.Log("Setting GameType");
             type = value;
             NotifyGameTypeChange();
         }
     }
 
     private void NotifyGameTypeChange() {
+        Debug.Log("NotifyGameTypeChange");
         switch (type) {
             case GameType.MULTIPLAYER:
+                Debug.Log("Multiplayer");
                 client = SFSClient.Singleton;
                 break;
             case GameType.SINGLEPLAYER:
+                Debug.Log("Singleplayer");
                 client = DummyClient.Singleton;
                 break;
             default:
@@ -178,6 +222,7 @@ public class GameManager : MonoBehaviour {
 
     public IClientController ClientController {
         get {
+            Debug.Log("Getting ClientController");
             return client;
         }
     }
@@ -201,16 +246,22 @@ public class GameManager : MonoBehaviour {
 
     public void RemoveRemotePlayer(int id) {
         if (players.ContainsKey(id)) {
+            Debug.Log("removing player: " + id.ToString());
             GameObject obj = players[id];
             Destroy(obj);
             players.Remove(id);
         } else if (queuedplayers.ContainsKey(id)) {
+            Debug.Log("Removing queued player: " + id.ToString());
             queuedplayers.Remove(id);
         }
     }
 
     private int fkplayers = 10000;
     public void Update() {
+        if (client != null) {
+            client.Update();
+        }
+
         if (Input.GetKeyDown(KeyCode.R) && Application.isEditor) {
             AddRemotePlayer(fkplayers, "FakePlayer#" + fkplayers);
             fkplayers++;
@@ -218,6 +269,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void CreateProjectile(Dictionary<string, object> data) {
+        Debug.Log("Creating Projectile");
         float px = (float)data["position.x"];
         float py = (float)data["position.y"];
         float pz = (float)data["position.z"];

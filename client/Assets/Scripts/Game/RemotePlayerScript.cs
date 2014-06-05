@@ -62,7 +62,7 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
 
     void OnDestroy() {
         //TODO: instantiate explosion prefab
-        Instantiate(Resources.Load("DeathPrefabRemote"));
+        //Instantiate(Resources.Load("DeathPrefabRemote"));
     }
 
     public string Username {
