@@ -13,16 +13,18 @@ public class Projectile {
     private float       range           ;
     private long        projectileID    ;
     private String      projectileIDString;
+    private long        owningPlayerID  ;
     
     public Movement     movement        ;
     
-    public Projectile(long projectileID, String projectileIDString, float damage, float maxVelocity, float range){
+    public Projectile(long owningPlayerID, long projectileID, String projectileIDString, float damage, float maxVelocity, float range){
         movement = new Movement(maxVelocity);
         this.range = range;
         this.damage = damage;
         this.maxVelocity = maxVelocity;
         this.projectileID = projectileID;
         this.projectileIDString = projectileIDString;
+        this.owningPlayerID = owningPlayerID;
     }
     
     public long getProjectileID(){
