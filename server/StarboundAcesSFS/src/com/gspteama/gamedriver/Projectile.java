@@ -24,6 +24,14 @@ public class Projectile {
         this.projectileID = projectileID;
         this.projectileIDString = projectileIDString;
     }
+    
+    public long getProjectileID(){
+        return projectileID;
+    }
+    
+    public String getProjectileStringID(){
+        return projectileIDSTring;
+    }
 
     public float getRange() {
         return range;
