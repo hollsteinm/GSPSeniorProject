@@ -131,8 +131,8 @@ public class JetMovement : MonoBehaviour {
 					float rotX = Input.GetAxis("Mouse X") * lookSpeed;
 			        float rotY = Input.GetAxis("Mouse Y") * lookSpeed;
 					
-					transform.Rotate (Vector3.up * rotX);
-					transform.Rotate (Vector3.left * rotY);
+					transform.Rotate (Vector3.forward * rotX);
+					transform.Rotate (Vector3.left * rotY * 2.0f);
 					
 					//FORWARD THRUSTERS
 					
@@ -193,7 +193,7 @@ public class JetMovement : MonoBehaviour {
 					
 					//If we are not using the side thrusters, we should return to zero
 					//horizontal velocity by flipping the acceleration
-					thrust = Input.GetAxis("Horizontal") * horizontalAccelerationReaction;
+					/*thrust = Input.GetAxis("Horizontal") * horizontalAccelerationReaction;
 					if ((thrust == 0 || Input.GetMouseButton(1)) && horizontalAcceleration != 0)
 					{
 						if (horizontalVelocity > 0)
@@ -224,10 +224,13 @@ public class JetMovement : MonoBehaviour {
 			        horizontalVelocity += deltaVelocity;
 					
 					//Make sure the velocity does not exceed the max or min values
-					horizontalVelocity = Mathf.Clamp(horizontalVelocity, -horizontalVelocityDeviation, horizontalVelocityDeviation);
+					horizontalVelocity = Mathf.Clamp(horizontalVelocity, -horizontalVelocityDeviation, horizontalVelocityDeviation);*/
 			
+					thrust = Input.GetAxis("Horizontal") * lookSpeed;
+					transform.Rotate (Vector3.up * thrust * 2.0f);
+					
 			        transform.position += transform.forward * forwardVelocity * Time.deltaTime;
-			        transform.position += transform.right * horizontalVelocity * Time.deltaTime;
+			        //transform.position += transform.right * horizontalVelocity * Time.deltaTime;
 				}
 			}
 			if (infEnergy)

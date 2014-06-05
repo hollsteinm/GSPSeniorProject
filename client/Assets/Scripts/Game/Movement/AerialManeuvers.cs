@@ -160,7 +160,7 @@ public class AerialManeuvers {
 		}
 		
 		//Rotate the ship upwards
-		Vector3 rotateUp = Vector3.left * 1.5f;
+		Vector3 rotateUp = Vector3.left * 2.0f;
 		player.Rotate(rotateUp);
 		return true;
 	}
@@ -185,7 +185,7 @@ public class AerialManeuvers {
 		}
 		
 		//Rotate the ship upwards
-		Vector3 rotateUp = Vector3.left * 1.5f;
+		Vector3 rotateUp = Vector3.left * 2.0f;
 		player.Rotate(rotateUp);
 		return true;
 	}
