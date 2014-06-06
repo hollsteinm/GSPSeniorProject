@@ -205,7 +205,8 @@ public class GameManager : MonoBehaviour {
         switch (type) {
             case GameType.MULTIPLAYER:
                 Debug.Log("Multiplayer");
-                client = SFSClient.Singleton;
+                //client = SFSClient.Singleton;
+                client = SASFSClient.Singleton;
                 break;
             case GameType.SINGLEPLAYER:
                 Debug.Log("Singleplayer");

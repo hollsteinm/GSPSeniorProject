@@ -36,8 +36,8 @@ public class Weapon {
     
     public void onReload(){
         if(canReload()){
-            if(totalAmmo > (maxClipSize - currentAmmo){
-                totalAmmo -= (maxClipSize - currentAmmo)
+            if(totalAmmo > (maxClipSize - currentAmmo)){
+                totalAmmo -= (maxClipSize - currentAmmo);
                 currentAmmo = maxClipSize;
             } else {
                 currentAmmo += totalAmmo;
@@ -46,18 +46,18 @@ public class Weapon {
         }
     }
     
-    private bool canReload(){
+    private boolean canReload(){
         return currentAmmo < maxClipSize && totalAmmo > 0;
     }
     
-    public bool canFire(){
+    public boolean canFire(){
         return currentCooldown <= 0.0f && currentAmmo > 0;
     }
     
-    public Projectile onFire(){
+    public Projectile onFire() throws Exception{
         currentCooldown = cooldown;
         currentAmmo--;
-        return projectile.clone();
+        return (Projectile)projectile.getClass().newInstance();
     }
     
 }

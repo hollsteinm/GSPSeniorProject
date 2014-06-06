@@ -12,12 +12,28 @@ import java.util.HashMap;
  * @author Martin
  */
 public class Game {
-    private HashMap<Integer, Player>    players     = new HashMap<>();
-    private HashMap<Integer, Projectile> firedProjectiles = new HashMap<>();
+    private HashMap<Integer, Player>        players             = new HashMap<>();
+    private HashMap<Integer, Projectile>    firedProjectiles    = new HashMap<>();
+    
+    private static final ArrayList<String> allowedCommands = new ArrayList<>();
+    
+    public Game(){
+        allowedCommands.add("left");
+        allowedCommands.add("right");
+        allowedCommands.add("up");
+        allowedCommands.add("down");
+        allowedCommands.add("fire1");
+        allowedCommands.add("fire2");
+        allowedCommands.add("reload");
+        allowedCommands.add("vertical");
+        allowedCommands.add("horizontal");
+        allowedCommands.add("manuever_vertical");
+        allowedCommands.add("manuever_horizontal");
+    }
 
     public void AddPlayer(Player player){
-        if(!players.containsKey(player.getPlayerID()){
-            players.put(player.getPlayerID, player);
+        if(!players.containsKey((int)player.getPlayerId())){
+            players.put((int)player.getPlayerId(), player);
         }
     }
     
@@ -33,15 +49,68 @@ public class Game {
         
     }
     
-    public void registerCollisionEvent(Player requester, Obstacle Other){
+    public void registerCollisionEvent(Player requester, Obstacle Other){        
+        
         
     }
     
-    public void registerInputEvent(Player requester, String command){
-        
+    public void registerInputEvent(Player requester, String command, float value) throws Exception{
+        if(allowedCommands.contains(command)){
+            switch(command){
+                case "left":
+                    requester.getShip().movement.onLeft(value);
+                    break;
+                    
+                case "right":
+                    requester.getShip().movement.onRight(value);
+                    break;
+                    
+                case "up":
+                    requester.getShip().movement.onUp(value);
+                    break;
+                    
+                case "down":
+                    requester.getShip().movement.onDown(value);
+                    break;
+                    
+                case "horizontal":
+                    requester.getShip().movement.onHorizontal(value);
+                    break;
+                    
+                case "vertical":
+                    requester.getShip().movement.onVertical(value);
+                    break;
+                    
+                case "fire1":
+                    break;
+                    
+                case "fire2":
+                    break;
+                    
+                case "reload":
+                    requester.getShip().getWeapon().onReload();
+                    break;
+                    
+                case "manuever_vertical":
+                    requester.getShip().movement.onManueverVertical(value);
+                    break;
+                    
+                case "manuever_horizontal":
+                    requester.getShip().movement.onManueverHorizontal(value);
+                    break;
+                    
+                default:
+                    throw new Exception("Invalid command snuck through: " + command);
+            }
+            
+        } else {
+            throw new Exception("Invalid command: " + command);
+        }
     }
-    
     public void registerShootEvent(Player requester){
+        if(requester.getShip().getWeapon().canFire()){
+            
+        }
         
     }
     

@@ -16,7 +16,7 @@ public class Player {
     private Ship        ship        ;
     
     
-    public Player(long id, string username, Ship ship){
+    public Player(long id, String username, Ship ship){
         this.id = id;
         this.username = username;
         this.ship = ship;
@@ -36,5 +36,9 @@ public class Player {
 
     public long getScore(){
         return score;
+    }
+    
+    public Ship getShip(){
+        return ship;
     }
 }

@@ -24,22 +24,22 @@ import java.util.HashMap;
  */
 public class DBService {
     
-    public static com.gspteama.gamedriver.IPowerup selectPowerup(Connection connection, String powerupShortName) throws SQLException{
+    public static com.gspteama.gamedriver.IPowerup selectPowerup(Connection connection, String powerupShortName) throws Exception{
         Connection con = connection;
         PreparedStatement ps;
         ResultSet rs;
         
-        com.gspteama.gamedriver.IPowerup powerup;
+        com.gspteama.gamedriver.IPowerup powerup = null;
         
         String stmt = "select powerup_effect_class_name from sa_powerup where powerup_effect_short_name = ?";
         
-        ps = com.prepareStatement(stmt);
-        ps.setString(powerupShortName);
+        ps = con.prepareStatement(stmt);
+        ps.setString(1, powerupShortName);
         
         rs = ps.executeQuery();
         
         if(rs.next()){
-            powerup = com.gspteama.gamedriver.factory.PowerupFactory.getPowerup(
+            powerup = com.gspteama.gamedriver.PowerupFactory.getPowerup(
                     rs.getString("powerup_effect_class_name")
                 );
         }
@@ -52,7 +52,7 @@ public class DBService {
         Connection con = connection;
         PreparedStatement ps;
         ResultSet rs;
-        com.gspteama.gamedriver.Weapon result;
+        com.gspteama.gamedriver.Weapon result = null;
         
         String stmt = "select * from sa_weapon_config swc " +
                 " join sa_ammo_config sac " + 
@@ -68,17 +68,17 @@ public class DBService {
             
             result = new com.gspteama.gamedriver.Weapon(
                             rs.getFloat("weapon_config_cooldown"),
-                            new com.gspteama.gmedriver.Projectile(
+                            new com.gspteama.gamedriver.Projectile(
                                     owningPlayerId,
                                     rs.getLong("ammo_config_id"),
                                     rs.getString("ammo_config_name"),
                                     rs.getFloat("ammo_config_damage"),
                                     rs.getFloat("sa_ammo_speed"),
-                                    rs.getFloat("ammo_config_range")
-                                )
-                        )
-            );
-            
+                                    rs.getFloat("ammo_config_range")),
+                                rs.getInt("weapon_config_max_clip_size"),
+                                rs.getInt("weapon_config_total_ammo")
+                                
+                        );            
         } 
         
         rs.close();
@@ -87,7 +87,7 @@ public class DBService {
         return result;       
     }
     
-    public static com.gspteama.gamedriver.Projectile selectProjectile(Connection connection, String projectileName, long ownginPlayerId) throws SQLException{
+    public static com.gspteama.gamedriver.Projectile selectProjectile(Connection connection, String projectileName, long owningPlayerId) throws SQLException{
         Connection con = connection;
         PreparedStatement ps;
         ResultSet rs;

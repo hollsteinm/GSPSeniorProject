@@ -4,7 +4,7 @@
  */
 package com.gspteama.main;
 import com.gspteama.db.*;
-import com.gspteama.extensions.MultiHandler;
+import com.gspteama.extensions.SAMultiHandler;
 import com.gspteama.gamedriver.Game;
 import com.smartfoxserver.v2.components.login.ILoginAssistantPlugin;
 import com.smartfoxserver.v2.components.login.LoginAssistantComponent;
@@ -36,7 +36,7 @@ public class StarboundAcesExtension extends SFSExtension{
     @Override
     public void init(){
         trace("Inside of StarboundAcesExtension Method... let's roll!");
-        addRequestHandler("server", MultiHandler.class);
+        addRequestHandler("server", SAMultiHandler.class);
         addEventHandler(SFSEventType.ROOM_ADDED, RoomAddEvent.class);
         addEventHandler(SFSEventType.USER_JOIN_ROOM, RoomJoinEvent.class);
         addEventHandler(SFSEventType.ROOM_REMOVED, RoomRemoveEvent.class);

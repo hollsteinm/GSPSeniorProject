@@ -30,6 +30,14 @@ public class SFSClient : IClientController {
     public string login;
     public string game;
 
+    public SmartFox SmartFoxInstance
+    {
+        get
+        {
+            return SFSInstance;
+        }
+    }
+
     //singleton caller
     public static SFSClient Singleton {
         get {

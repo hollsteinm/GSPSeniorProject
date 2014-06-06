@@ -16,7 +16,11 @@ public enum DataType{
     SHOOT,
     GAMES_GET,
     PLAYER_GAME_READY,
-    POWERUP
+    POWERUP,
+    //New Age Systems - keep deprecated for who knows what reason.
+    SA_INPUT, //a user submitted command from input - translated to a single pair of string and float
+    SA_COLLISION,
+    SA_SHOOT,
 };
 
 public interface IClient {

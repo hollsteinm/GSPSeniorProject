@@ -11,6 +11,7 @@ import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
 import com.smartfoxserver.v2.extensions.BaseClientRequestHandler;
 import com.smartfoxserver.v2.extensions.SFSExtension;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ import java.util.HashMap;
 * @author Martin
 */
 @com.smartfoxserver.v2.annotations.MultiHandler
-public class MultiHandler extends BaseClientRequestHandler{
+public class SAMultiHandler extends BaseClientRequestHandler{
     
     @Override
     public void handleClientRequest(User user, ISFSObject params){
@@ -29,16 +30,16 @@ public class MultiHandler extends BaseClientRequestHandler{
         
         switch(reqId){
           
-          case "input":
+          case "sa_input":
             handleInputRequest(user, params);
             break;
             
-          case "collision":
+          case "sa_collision":
             handleCollisionRequest(user, params);
             break;
           
-          case "shoot":
-            handleeShootRequest(user, params);
+          case "sa_shoot":
+            handleShootRequest(user, params);
             break;
             
           case "scores":
@@ -46,7 +47,7 @@ public class MultiHandler extends BaseClientRequestHandler{
             break;
             
           case "gameslist":
-            handleGamesListRequest(user, params);
+            handleGameListRequest(user, params);
             break;
             
           case "gamestart":
@@ -54,14 +55,14 @@ public class MultiHandler extends BaseClientRequestHandler{
             break;
           
           default:
-              trace("Unhandled RequestID: " + regId);
+              trace("Unhandled RequestID: " + reqId);
               break;
         }
     }
     
     //Helpers
-    private Connection getConnection(){
-        this.getParentExtension().getParentZone().getDBManager().getConnection();
+    private Connection getConnection() throws SQLException{
+        return this.getParentExtension().getParentZone().getDBManager().getConnection();
     }
     
     private void sendToAllInGame(String event, ISFSObject response, User user, boolean udp){
@@ -76,6 +77,10 @@ public class MultiHandler extends BaseClientRequestHandler{
             error+="\n";
         }
         trace(error);
+    }
+    
+    private Game getGame(User user) throws Exception{
+        return ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
     }
     //End Helpers
     
@@ -147,12 +152,14 @@ public class MultiHandler extends BaseClientRequestHandler{
     }
     
     private void handleInputRequest(User user, ISFSObject params){
-        try{
-            
+        try{            
+            getGame(user).registerInputEvent(
+                    getGame(user).getPlayer(user.getId()),
+                    params.getUtfString("command"),
+                    params.getFloat("value"));
         }catch(Exception e){
             onException(e);
-        }
-        
+        }        
     }
     
     private void handleShootRequest(User user, ISFSObject params){

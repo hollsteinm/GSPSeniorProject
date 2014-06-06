@@ -1,8 +1,9 @@
-package com.gspteama.gamedriver
+package com.gspteama.gamedriver;
 
 public class Movement{
     public float Velocity;
     public float Acceleration;
+    
     private float maxVelocity;
     
     private float position[];
@@ -42,15 +43,47 @@ public class Movement{
         this.eulerRotation = eulerRotation;
     }
     
-    public float setPosition(float x, float y, float z){
+    public void setPosition(float x, float y, float z){
         this.position = new float[]{x, y, z};
     }
     
-    public float setRotation(float x, float y, float z, float w){
+    public void setRotation(float x, float y, float z, float w){
         this.rotation = new float[]{x, y, z, w};
     }
     
-    public float setEulerRotation(float x, float y, float z){
+    public void setEulerRotation(float x, float y, float z){
         this.eulerRotation = new float[]{x, y, z};
+    }
+    
+    public void onLeft(float value){
+        
+    }
+    
+    public void onRight(float value){
+        
+    }
+    
+    public void onUp(float value){
+        
+    }
+    
+    public void onDown(float value){
+        
+    }
+    
+    public void onHorizontal(float value){
+        
+    }
+    
+    public void onVertical(float value){
+        
+    }
+    
+    public void onManueverHorizontal(float value){
+        
+    }
+    
+    public void onManueverVertical(float value){
+        
     }
 }

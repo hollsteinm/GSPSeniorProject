@@ -21,7 +21,6 @@ public class Projectile {
         movement = new Movement(maxVelocity);
         this.range = range;
         this.damage = damage;
-        this.maxVelocity = maxVelocity;
         this.projectileID = projectileID;
         this.projectileIDString = projectileIDString;
         this.owningPlayerID = owningPlayerID;
@@ -32,7 +31,7 @@ public class Projectile {
     }
     
     public String getProjectileStringID(){
-        return projectileIDSTring;
+        return projectileIDString;
     }
 
     public float getRange() {

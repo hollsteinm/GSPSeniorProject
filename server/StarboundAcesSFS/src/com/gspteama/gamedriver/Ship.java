@@ -11,10 +11,10 @@ import java.util.ArrayList;
  * @author Martin
  */
 public class Ship {
-    public Movement     movement;
-    public float        velocity = 0.0f;
-    public float        acceleration = 0.0f;
-    
+    public Movement             movement;
+
+    private float               maxEnergy;
+    private float               currentEnergy;
     private long                shipTypeID = 0;
     private String              shipTypeString = "";
     
@@ -23,13 +23,17 @@ public class Ship {
     
     private long                owningPlayerID;
     
-    public Ship(long owningPlayerID, long shipTypeID, String shipTypeString, Weapon weapon, Hull hull, float maxVelocity){
+    public Ship(long owningPlayerID, long shipTypeID, String shipTypeString, 
+            Weapon weapon, Hull hull, float maxVelocity, float maxEnergy){
+        
         movement = new Movement(maxVelocity);
         this.hull = hull;
         this.weapon = weapon;
         this.shipTypeID = shipTypeID;
         this.shipTypeString = shipTypeString;
         this.owningPlayerID = owningPlayerID;
+        this.maxEnergy = maxEnergy;
+        this.currentEnergy = maxEnergy;
     }
     
     public long getOwningPlayerID(){
@@ -50,6 +54,21 @@ public class Ship {
 
     public Weapon getWeapon() {
         return weapon;
+    }
+    
+    public void useEnergy(float value){
+        currentEnergy -= value;
+    }
+    
+    public void restoreEnergy(float value){
+        currentEnergy += value;
+        if(currentEnergy >= maxEnergy){
+            currentEnergy = maxEnergy;
+        }
+    }
+    
+    public boolean canHasEnoughEnergy(float amountToConsume){
+        return amountToConsume <= currentEnergy;
     }
     
 }
