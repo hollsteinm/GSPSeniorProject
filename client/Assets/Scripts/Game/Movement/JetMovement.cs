@@ -78,7 +78,9 @@ public class JetMovement : MonoBehaviour {
 			if (distance >= boundary)
 			{
 				//Automatically rotate the ship in the correct direction
-				transform.eulerAngles = transform.position.normalized;
+				transform.LookAt(Vector3.zero);
+				transform.Rotate(Vector3.left * 180);
+				transform.Rotate(Vector3.forward * 180);
 				//Switch the U-Turn maneuver on
 				currentManeuver = maneuver.ManualManeuver(transform,AerialManeuvers.ManeuverType.U_TURN1);
 				usingManeuver = true;
