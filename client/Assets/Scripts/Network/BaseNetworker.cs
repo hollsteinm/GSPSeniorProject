@@ -24,6 +24,8 @@ public abstract class BaseNetworker : MonoBehaviour, IEventListener {
     public float SendDelay;
     public float InitialSendDelay;
 
+    public int NetworkID;
+
     void Start()
     {
         if (Receive())

@@ -182,13 +182,17 @@ public class SASFSClient : IClientController {
 
         Dictionary<string, object> cdata = data as Dictionary<string, object>;
 
-        int networkId = (int)cdata["networkId"];
-        string type = ((ENetworkColliderType)cdata["type"]).ToString().ToLower().Trim();
+        int otherNetworkId = (int)cdata["other.networkId"];
+        int selfNetworkId = (int)cdata["self.networkId"];
+        string selftype = ((ENetworkColliderType)cdata["self.type"]).ToString().ToLower().Trim();
+        string othertype = ((ENetworkColliderType)cdata["other.type"]).ToString().ToLower().Trim();
         float distance = (float)cdata["distance"];
         ContactPoint contacts = (ContactPoint)cdata["contacts"];
         
-        sfs.PutInt("networkId", networkId);
-        sfs.PutUtfString("type", type);
+        sfs.PutInt("other.networkId", otherNetworkId);
+        sfs.PutInt("self.networkId", selfNetworkId);
+        sfs.PutUtfString("self.type", selftype);
+        sfs.PutUtfString("other.type", othertype);
         sfs.PutFloat("distance", distance);
         sfs.PutFloat("contact.x", contacts.point.x);
         sfs.PutFloat("contact.y", contacts.point.y);
