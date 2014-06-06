@@ -94,8 +94,4 @@ public class Movement{
         result[2] = (Ax*By) - (Ay*Bx);
         return result;
     }
-    
-    private float[] up(float[3] a, float[3] b){
-        
-    }
 }
