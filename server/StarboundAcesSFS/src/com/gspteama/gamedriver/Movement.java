@@ -86,4 +86,16 @@ public class Movement{
     public void onManueverVertical(float value){
         
     }
+    
+    private float[] cross(float Ax, float Ay, float Az, float Bx, float By, float Bz){
+        float result[] = new float[3];
+        result[0] = (Ay*Bz) - (Az*By);
+        result[1] = (Az*Bx) - (Ax*Bz);
+        result[2] = (Ax*By) - (Ay*Bx);
+        return result;
+    }
+    
+    private float[] up(float[3] a, float[3] b){
+        
+    }
 }
