@@ -130,7 +130,7 @@ public class JetMovement : MonoBehaviour {
 					
 					float rotX = Input.GetAxis("Mouse X") * lookSpeed;
 			        float rotY = Input.GetAxis("Mouse Y") * lookSpeed;
-					
+			
 					transform.Rotate (Vector3.forward * rotX);
 					transform.Rotate (Vector3.left * rotY * 2.0f);
 					

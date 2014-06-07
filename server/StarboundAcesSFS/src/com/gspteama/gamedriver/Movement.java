@@ -1,6 +1,5 @@
 package com.gspteama.gamedriver;
 
-import org.apache.commons.math3.geometry.euclidean.threed.*;
 
 public class Movement{
     public float Velocity;
@@ -79,6 +78,7 @@ public class Movement{
     
     public void onVertical(float value){
         
+        
     }
     
     public void onManueverHorizontal(float value){
@@ -95,5 +95,37 @@ public class Movement{
         result[1] = (Az*Bx) - (Ax*Bz);
         result[2] = (Ax*By) - (Ay*Bx);
         return result;
+    }
+    
+    private float[] up(){
+        return new float[]{0.0f, 1.0f, 0.0f};
+    }
+    
+    private float[] left(){
+        return new float[]{-1.0f, 0.0f, 0.0f};
+    }
+    
+    private float[] forward(){
+        return new float[]{0.0f, 0.0f, 1.0f};
+    }
+    
+    private float[] down(){
+        return new float[]{0.0f, -1.0f, 0.0f};
+    }
+    
+    private float[] right(){
+        return new float[]{1.0f, 0.0f, 0.0f};
+    }
+    
+    private float[] back(){
+        return new float[]{0.0f, 0.0f, -1.0f};
+    }
+    
+    private void rotate(float axis[], float value){
+        float[] rot = new float[]{
+            axis[0] * value,
+            axis[1] * value,
+            axis[2] * value
+        };
     }
 }
