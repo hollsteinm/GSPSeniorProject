@@ -1,5 +1,7 @@
 package com.gspteama.gamedriver;
 
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.apache.commons.math3.geometry.euclidean.threed.Rotation;
 
 public class Movement{
     public float Velocity;
@@ -7,125 +9,66 @@ public class Movement{
     
     private float maxVelocity;
     
-    private float position[];
-    private float rotation[];
-    private float eulerRotation[];
+    protected Vector3D position = Vector3D.ZERO;
+    protected Vector3D rotation = Vector3D.ZERO;
+    private Rotation rotator = Rotation.IDENTITY;
+    
+    private static final Vector3D UP = Vector3D.PLUS_J;
+    private static final Vector3D LEFT = Vector3D.MINUS_I;
+    private static final Vector3D FORWARD = Vector3D.PLUS_K;
+    
+    public void onUpdate(float deltaTime){
+        Velocity = Velocity + Acceleration * deltaTime;
+        position = position.add(rotation.normalize()).scalarMultiply(Velocity);
+    }
 
     public Movement(float maxVelocity){
-      this.maxVelocity = maxVelocity;
-      position = new float[3];
-      rotation = new float[4];
-      eulerRotation = new float[3];
-      Velocity = 0.0f;
-      Acceleration = 0.0f;
-    }
-
-    public float[] getPosition() {
-        return position;
-    }
-
-    public void setPosition(float[] position) {
-        this.position = position;
-    }
-
-    public float[] getRotation() {
-        return rotation;
+        this.maxVelocity = maxVelocity;
+        Velocity = 0.0f;
+        Acceleration = 0.0f;
     }
     
-    public float[] getEulerRotation(){
-        return eulerRotation;
-    }
-
-    public void setRotation(float[] rotation) {
-        this.rotation = rotation;
+    public void onLeft(float value){//A
+        rotation = rotation.add(UP.scalarMultiply(value));
     }
     
-    public void setEulerRotation(float[] eulerRotation){
-        this.eulerRotation = eulerRotation;
+    public void onRight(float value){//D
+        rotation = rotation.add(UP.scalarMultiply(value));
     }
     
-    public void setPosition(float x, float y, float z){
-        this.position = new float[]{x, y, z};
+    public void onUp(float value){//W
+        Acceleration += value;
     }
     
-    public void setRotation(float x, float y, float z, float w){
-        this.rotation = new float[]{x, y, z, w};
+    public void onDown(float value){//S
+        Acceleration -= value;
     }
     
-    public void setEulerRotation(float x, float y, float z){
-        this.eulerRotation = new float[]{x, y, z};
+    public void onHorizontal(float value){//MouseX
+        rotation = rotation.add(FORWARD.scalarMultiply(value));
     }
     
-    public void onLeft(float value){
-        
+    public void onVertical(float value){//MouseY
+        rotation = rotation.add(LEFT.scalarMultiply(value));
     }
     
-    public void onRight(float value){
-        
+    //I am torn here, the manuevers will take alot to replicate from the C# code
+    //lacking any meaningful game style Transfrom libraries akin to that of Unity
+    //Kinematics were easy. But this may take some time to implement as it is involved
+    //would require setting a player state and blocking input then allowing input after
+    //the player is done manuvers.
+    //Complexities:
+    //BarrelRoll = easy
+    //LoopFull = easy
+    //LoopWithFlip = medium
+    //The issue is how involved the sync will be with movement and player state.
+    public void onManueverHorizontal(float value){//B(1)+W || S
+        //just propojate to clients?
+        //then update position..?
     }
     
-    public void onUp(float value){
-        
-    }
-    
-    public void onDown(float value){
-        
-    }
-    
-    public void onHorizontal(float value){
-        
-    }
-    
-    public void onVertical(float value){
-        
-        
-    }
-    
-    public void onManueverHorizontal(float value){
-        
-    }
-    
-    public void onManueverVertical(float value){
-        
-    }
-    
-    private float[] cross(float Ax, float Ay, float Az, float Bx, float By, float Bz){
-        float result[] = new float[3];
-        result[0] = (Ay*Bz) - (Az*By);
-        result[1] = (Az*Bx) - (Ax*Bz);
-        result[2] = (Ax*By) - (Ay*Bx);
-        return result;
-    }
-    
-    private float[] up(){
-        return new float[]{0.0f, 1.0f, 0.0f};
-    }
-    
-    private float[] left(){
-        return new float[]{-1.0f, 0.0f, 0.0f};
-    }
-    
-    private float[] forward(){
-        return new float[]{0.0f, 0.0f, 1.0f};
-    }
-    
-    private float[] down(){
-        return new float[]{0.0f, -1.0f, 0.0f};
-    }
-    
-    private float[] right(){
-        return new float[]{1.0f, 0.0f, 0.0f};
-    }
-    
-    private float[] back(){
-        return new float[]{0.0f, 0.0f, -1.0f};
-    }
-    
-    private void rotate(float axis[], float value){
-        float[] rot = new float[]{
-            axis[0] * value,
-            axis[1] * value,
-            axis[2] * value
-        };
+    public void onManueverVertical(float value){//B(1)+A || D
+        //just propojate to clients?
+        //then update position..?
     }
 }

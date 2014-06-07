@@ -11,11 +11,20 @@ import java.util.HashMap;
  *
  * @author Martin
  */
-public class Game {
+public class Game implements IEventMessenger, Runnable{
     private HashMap<Integer, Player>        players             = new HashMap<>();
     private HashMap<Integer, Projectile>    firedProjectiles    = new HashMap<>();
     
     private static final ArrayList<String> allowedCommands = new ArrayList<>();
+    
+    private long lastTime;
+    
+    private long deltaTime(){
+        long time = System.nanoTime();
+        long delta = time - lastTime;
+        lastTime = time;
+        return delta;
+    }
     
     public Game(){
         allowedCommands.add("left");
@@ -29,6 +38,10 @@ public class Game {
         allowedCommands.add("horizontal");
         allowedCommands.add("manuever_vertical");
         allowedCommands.add("manuever_horizontal");
+    }
+    
+    public void inititialize(){
+        lastTime = System.nanoTime();
     }
 
     public void AddPlayer(Player player){
@@ -107,11 +120,12 @@ public class Game {
             throw new Exception("Invalid command: " + command);
         }
     }
-    public void registerShootEvent(Player requester){
+    public void registerShootEvent(Player requester) throws Exception{
         if(requester.getShip().getWeapon().canFire()){
-            
-        }
-        
+            Projectile p = requester.getShip().getWeapon().onFire();
+            OnEvent("projectile.spawn", p);
+            this.addProjectile(p.hashCode(), p);
+        }        
     }
     
     public Player getPlayer(int playerId){
@@ -125,5 +139,44 @@ public class Game {
     
     public Projectile getProjectile(int id){
         return firedProjectiles.get(id);
+    }
+
+    private ArrayList<IEventListener> listeners = new ArrayList<IEventListener>();
+    
+    @Override
+    public void Register(IEventListener listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public void Unregister(IEventListener listener) {
+        listeners.remove(listener);
+    }
+
+    @Override
+    public void OnEvent(String event, Object data) {
+        for(IEventListener l : listeners){
+            l.Notify(event, data);
+        }
+    }
+    
+    private void update(float deltaTime){
+        for(Player p : players.values()){
+            p.update(deltaTime);
+        }
+        
+        for(Projectile p : firedProjectiles.values()){
+            p.movement.onUpdate(deltaTime);
+        }
+        
+        //send new transforms and collision confirmations;
+        
+        
+        //clear collision handshakes
+    }
+
+    @Override
+    public void run() {
+        update(deltaTime());
     }
 }

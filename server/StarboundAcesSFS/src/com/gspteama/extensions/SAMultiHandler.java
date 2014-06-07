@@ -2,9 +2,6 @@ package com.gspteama.extensions;
 
 import com.gspteama.db.DBService;
 import com.gspteama.gamedriver.Game;
-import com.gspteama.gamedriver.Projectile;
-import com.gspteama.gamedriver.Ship;
-import com.gspteama.gamedriver.Weapon;
 import com.gspteama.main.StarboundAcesExtension;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
@@ -14,7 +11,7 @@ import com.smartfoxserver.v2.extensions.SFSExtension;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import com.gspteama.gamedriver.IEventListener;
 
 
 /**
@@ -22,7 +19,7 @@ import java.util.HashMap;
 * @author Martin
 */
 @com.smartfoxserver.v2.annotations.MultiHandler
-public class SAMultiHandler extends BaseClientRequestHandler{
+public class SAMultiHandler extends BaseClientRequestHandler implements IEventListener{
     
     @Override
     public void handleClientRequest(User user, ISFSObject params){
@@ -91,9 +88,10 @@ public class SAMultiHandler extends BaseClientRequestHandler{
                 
             ISFSObject data = SFSObject.newInstance();
             data.putUtfString("game", user.getLastJoinedRoom().getName());
+            getGame(user).Register(this);
             send("gamelist.remove", data, this.getParentExtension().getParentZone().getRoomByName("lobby").getUserList());
-                
-        } catch(SQLException e){
+            
+        } catch(Exception e){
             onException(e);
         } finally{
             sendToAllInGame("game.start", SFSObject.newInstance(), user, false);
@@ -176,6 +174,15 @@ public class SAMultiHandler extends BaseClientRequestHandler{
             
         }catch(Exception e){
             onException(e);
+        }
+    }
+
+    @Override
+    public void Notify(String event, Object data) {
+        switch(event){
+            default:
+                trace("Unrecognized Event [ event: " + event + " data: " + data.toString());
+                break;
         }
     }
 }

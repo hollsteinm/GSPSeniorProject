@@ -15,6 +15,9 @@ public class Player {
     
     private Ship        ship        ;
     
+    public void update(float deltaTime){
+        ship.movement.onUpdate(deltaTime);
+    }
     
     public Player(long id, String username, Ship ship){
         this.id = id;
