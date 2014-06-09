@@ -11,8 +11,14 @@ public enum ENetworkColliderType{
 
 public class ColliderNetworker : BaseNetworker {
     private bool bHasCollided = false;
-    private Dictionary<string, object> data = new Dictionary<string, object>();
+    private Dictionary<string, object> data = null;
     public ENetworkColliderType type;
+    
+    protected override void _Start(){
+        MessageType = ECommunicationType.SEND_AND_RECEIVE;
+        SendDataType = DataType.SA_COLLISION;
+    }
+    
 
     protected override bool TriggerSendData()
     {
@@ -33,7 +39,7 @@ public class ColliderNetworker : BaseNetworker {
             bHasCollided = true;
 
             //refresh the data
-            data.Clear();
+            data = new Dictionary<string, object>();
 
             //fill the data
             data.Add("other.networkId", other.NetworkID);
@@ -48,5 +54,10 @@ public class ColliderNetworker : BaseNetworker {
     void OnCollisionStay(Collision collision)
     {
         OnCollisionEnter(collision);
+    }
+    
+    void OnCollisionExit(Collision collision){
+        data = null;
+        bHasCollided = false;
     }
 }
