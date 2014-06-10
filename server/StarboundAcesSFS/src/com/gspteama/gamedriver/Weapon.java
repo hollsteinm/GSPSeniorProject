@@ -34,7 +34,7 @@ public class Weapon {
         currentCooldown -= value;
     }
     
-    public void OnUpdate(float deltaTime){
+    public void onUpdate(float deltaTime){
         decrementCooldown(deltaTime);
     }
     
