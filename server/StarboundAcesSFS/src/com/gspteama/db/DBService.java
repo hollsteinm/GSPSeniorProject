@@ -21,6 +21,18 @@ import java.util.HashMap;
  * * powerup_id : bigint unique not null default::sequence next val
  * * powerup_effect_class_name : charvar(128) unique not null
  * * powerup_effect_short_name : charvar(32) unique not null
+ * 
+ * table sa_hull
+ * * sequence sa_hull_id references hull_id
+ * * hull_id : bigint unique not null default::sequence next val
+ * * hull_max_health : bigint not null
+ * 
+ * table sa_ship
+ * * sequence sa_ship_id references ship_id
+ * * ship_id : bigint unqiue not null default::sequence next val
+ * * ship_hull_id : bigint not null (references hull_id)
+ * * ship_energy : bigint not null
+ * * ship_velocity : bigint not null
  */
 public class DBService {
     
