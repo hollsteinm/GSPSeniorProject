@@ -231,6 +231,11 @@ public class JetMovement : MonoBehaviour {
 					
 			        transform.position += transform.forward * forwardVelocity * Time.deltaTime;
 			        //transform.position += transform.right * horizontalVelocity * Time.deltaTime;
+
+                    print("Forward: " + transform.forward.ToString());
+                    print("MyForward: " + new Vector3(transform.worldToLocalMatrix.m20, transform.worldToLocalMatrix.m21, transform.worldToLocalMatrix.m22).normalized.ToString());
+                    print("Quat: " + transform.rotation);
+                    print("Rotation: " + transform.rotation.eulerAngles.normalized.ToString());
 				}
 			}
 			if (infEnergy)

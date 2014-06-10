@@ -34,6 +34,10 @@ public class Weapon {
         currentCooldown -= value;
     }
     
+    public void OnUpdate(float deltaTime){
+        decrementCooldown(deltaTime);
+    }
+    
     public void onReload(){
         if(canReload()){
             if(totalAmmo > (maxClipSize - currentAmmo)){

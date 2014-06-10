@@ -41,4 +41,8 @@ public class Projectile {
     public float getDamage() {
         return damage;
     }
+    
+    public void update(float deltaTime){
+        movement.onUpdate(deltaTime);
+    }
 }

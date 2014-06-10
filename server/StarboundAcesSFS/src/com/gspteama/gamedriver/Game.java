@@ -12,8 +12,16 @@ import java.util.HashMap;
  * @author Martin
  */
 public class Game implements IEventMessenger, Runnable{
+    private enum EGameState{
+        QUEUING,
+        ACTIVE,
+        ENDED,
+    }
+    
+    
     private HashMap<Integer, Player>        players             = new HashMap<>();
     private HashMap<Integer, Projectile>    firedProjectiles    = new HashMap<>();
+    private EGameState                      state               = EGameState.QUEUING;
     
     private static final ArrayList<String> allowedCommands = new ArrayList<>();
     
@@ -163,12 +171,25 @@ public class Game implements IEventMessenger, Runnable{
     private void update(float deltaTime){
         for(Player p : players.values()){
             p.update(deltaTime);
+            HashMap<String, Object> data = new HashMap<String, Object>();
+            
+            Movement shipMovement = p.getShip().movement;
+            data.put("player.position", shipMovement.getPosition());            
+            data.put("player.rotation", shipMovement.getQuaternion());            
+            data.put("player.id", new Long(p.getPlayerId()));            
+            OnEvent("player.update", data);
         }
         
         for(Projectile p : firedProjectiles.values()){
-            p.movement.onUpdate(deltaTime);
+            p.update(deltaTime);
+            HashMap<String, Object> data = new HashMap<String, Object>();
+            
+            Movement pMovement = p.movement;
+            data.put("projectile.position", pMovement.getPosition());
+            data.put("projectile.rotation", pMovement.getQuaternion());
+            data.put("projectile.id", new Long(p.getProjectileID()));
+            OnEvent("projectile.update", new HashMap<Integer, Float>());
         }
-        
         //send new transforms and collision confirmations;
         
         
@@ -178,5 +199,17 @@ public class Game implements IEventMessenger, Runnable{
     @Override
     public void run() {
         update(deltaTime());
+    }
+    
+    public boolean isPlaying(){
+        return state == EGameState.ACTIVE;
+    }
+    
+    public boolean isQueuing(){
+        return state == EGameState.QUEUING;
+    }
+    
+    public boolean isOver(){
+        return state == EGameState.ENDED;
     }
 }
