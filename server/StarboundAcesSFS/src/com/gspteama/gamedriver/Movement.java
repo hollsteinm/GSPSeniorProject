@@ -30,6 +30,9 @@ public class Movement{
     
     public void onUpdate(float deltaTime){
         Velocity = Velocity + Acceleration * deltaTime;
+        if(Velocity >= maxVelocity){
+            Velocity = maxVelocity;
+        }
         
         Rotation rotator = new Rotation(RotationOrder.XYZ, rotation.getX(),
                 rotation.getY(),
