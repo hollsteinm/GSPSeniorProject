@@ -24,6 +24,7 @@ import java.util.HashMap;
  */
 public class DBService {
     
+    
     public static com.gspteama.gamedriver.IPowerup selectPowerup(Connection connection, String powerupShortName) throws Exception{
         Connection con = connection;
         PreparedStatement ps;
@@ -42,13 +43,21 @@ public class DBService {
             powerup = com.gspteama.gamedriver.PowerupFactory.getPowerup(
                     rs.getString("powerup_effect_class_name")
                 );
+                
+            ps.close();
+            rs.close();
+            con.close();
+            return powerup;
+        } else {
+            ps.close();
+            rs.close();
+            con.close();
+            throw new Exception("Powerup not found.");
         }
-        
-        return powerup;
         
     }
     
-    public static com.gspteama.gamedriver.Weapon selectWeaponConfigurations(Connection connection, String weaponName, long owningPlayerId) throws SQLException{
+    public static com.gspteama.gamedriver.Weapon selectWeaponConfigurations(Connection connection, String weaponName, long owningPlayerId) throws Exception{
         Connection con = connection;
         PreparedStatement ps;
         ResultSet rs;
@@ -78,16 +87,23 @@ public class DBService {
                                 rs.getInt("weapon_config_max_clip_size"),
                                 rs.getInt("weapon_config_total_ammo")
                                 
-                        );            
-        } 
-        
-        rs.close();
-        ps.close();
-        con.close();
-        return result;       
+                        ); 
+                        
+            rs.close();
+            ps.close();
+            con.close();
+            return result;
+                        
+        } else {
+            rs.close();
+            ps.close();
+            con.close();
+            throw new Exception("Weapon Configuration not found");
+            
+        }     
     }
     
-    public static com.gspteama.gamedriver.Projectile selectProjectile(Connection connection, String projectileName, long owningPlayerId) throws SQLException{
+    public static com.gspteama.gamedriver.Projectile selectProjectile(Connection connection, String projectileName, long owningPlayerId) throws Exception{
         Connection con = connection;
         PreparedStatement ps;
         ResultSet rs;
@@ -109,12 +125,19 @@ public class DBService {
                    rs.getFloat("sa_ammo_speed"),
                    rs.getFloat("ammo_config_range")
            );
+           
+            rs.close();
+            ps.close();
+            con.close();
+            return p;
+        } else {
+            rs.close();
+            ps.close();
+            con.close();
+            throw new Exception("Projectile not found.");
         }
         
-        rs.close();
-        ps.close();
-        con.close();
-        return p;
+        
     }
     
     public static void insertNewGame(Connection connection, String gameName, int creatingUserId) throws SQLException{
