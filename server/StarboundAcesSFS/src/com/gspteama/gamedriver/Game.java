@@ -109,6 +109,7 @@ public class Game implements IEventMessenger, Runnable{
                     break;
                     
                 case "fire1":
+                    registerShootEvent(requester);
                     break;
                     
                 case "fire2":
@@ -134,7 +135,8 @@ public class Game implements IEventMessenger, Runnable{
             throw new Exception("Invalid command: " + command);
         }
     }
-    public void registerShootEvent(Player requester) throws Exception{
+    
+    private void registerShootEvent(Player requester) throws Exception{
         if(requester.getShip().getWeapon().canFire()){
             Projectile p = requester.getShip().getWeapon().onFire();
             OnEvent("projectile.spawn", p);
