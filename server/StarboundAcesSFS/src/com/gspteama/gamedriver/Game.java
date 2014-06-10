@@ -46,10 +46,16 @@ public class Game implements IEventMessenger, Runnable{
         allowedCommands.add("horizontal");
         allowedCommands.add("manuever_vertical");
         allowedCommands.add("manuever_horizontal");
+        state = EGameState.QUEUING;
     }
     
     public void inititialize(){
         lastTime = System.nanoTime();
+        state = EGameState.ACTIVE;
+    }
+    
+    public void onEnd(){
+        state = EGameState.ENDED;
     }
 
     public void AddPlayer(Player player){
