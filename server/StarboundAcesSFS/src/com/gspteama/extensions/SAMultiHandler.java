@@ -34,10 +34,6 @@ public class SAMultiHandler extends BaseClientRequestHandler implements IEventLi
           case "sa_collision":
             handleCollisionRequest(user, params);
             break;
-          
-          case "sa_shoot":
-            handleShootRequest(user, params);
-            break;
             
           case "scores":
             handleScoresRequest(user, params);
@@ -89,6 +85,7 @@ public class SAMultiHandler extends BaseClientRequestHandler implements IEventLi
             ISFSObject data = SFSObject.newInstance();
             data.putUtfString("game", user.getLastJoinedRoom().getName());
             getGame(user).Register(this);
+            getGame(user).initialize();
             send("gamelist.remove", data, this.getParentExtension().getParentZone().getRoomByName("lobby").getUserList());
             
         } catch(Exception e){
@@ -160,15 +157,6 @@ public class SAMultiHandler extends BaseClientRequestHandler implements IEventLi
         }        
     }
     
-    private void handleShootRequest(User user, ISFSObject params){
-        try{
-            
-        }catch(Exception e){
-            onException(e);
-        }
-        
-    }
-    
     private void handleCollisionRequest(User user, ISFSObject params){
         try{
             
@@ -180,6 +168,27 @@ public class SAMultiHandler extends BaseClientRequestHandler implements IEventLi
     @Override
     public void Notify(String event, Object data) {
         switch(event){
+            case "projectile.spawn":
+                break;
+                
+            case "projectile.update":
+                break;
+                    
+            case "player.update":
+                break;
+                        
+            case "collision":
+                break;
+                
+            case "game.over":
+                break;
+                    
+            case "player.death":
+                break;
+                
+            case "projectile.death":
+                break;
+            
             default:
                 trace("Unrecognized Event [ event: " + event + " data: " + data.toString());
                 break;
