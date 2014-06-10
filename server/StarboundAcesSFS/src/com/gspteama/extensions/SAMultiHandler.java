@@ -86,6 +86,7 @@ public class SAMultiHandler extends BaseClientRequestHandler implements IEventLi
             data.putUtfString("game", user.getLastJoinedRoom().getName());
             getGame(user).Register(this);
             getGame(user).initialize();
+            SmartFoxServer.getInstance().getTaskScheduler().scheduleAtFixedRate(getGame(user), 0, 333, TimeUnit.MILLISECONDS);
             send("gamelist.remove", data, this.getParentExtension().getParentZone().getRoomByName("lobby").getUserList());
             
         } catch(Exception e){
@@ -169,6 +170,12 @@ public class SAMultiHandler extends BaseClientRequestHandler implements IEventLi
     public void Notify(String event, Object data) {
         switch(event){
             case "projectile.spawn":
+                Projectile ref = (Projectile)data;
+                ISFSObject sfs = SFSObject.newInstance();
+                sfs.putInt("networkid", p.hashCode());
+                //get the user 
+                sendToAllInGame("projectile.spawn", null, sfs, false);
+                
                 break;
                 
             case "projectile.update":
