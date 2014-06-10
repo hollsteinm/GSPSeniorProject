@@ -42,7 +42,7 @@ public class Projectile {
         return damage;
     }
     
-    public void update(float deltaTime){
+    public void onUpdate(float deltaTime){
         movement.onUpdate(deltaTime);
     }
 }
