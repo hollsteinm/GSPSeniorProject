@@ -36,6 +36,12 @@ public class Ship {
         this.currentEnergy = maxEnergy;
     }
     
+    public void onUpdate(float deltaTime){
+        movement.onUpdate(deltaTime);
+        weapon.onUpdate(deltaTime);
+        restoreEnergy(deltaTime / 2.0f);
+    }
+    
     public long getOwningPlayerID(){
         return owningPlayerID;
     }
