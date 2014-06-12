@@ -104,7 +104,7 @@ public class SFSClient : IClientController {
     }
 
     //SFS callbacks
-    private void OnExtensionReponse ( BaseEvent evt ) {
+    public void OnExtensionReponse ( BaseEvent evt ) {
         string cmd = ( string ) evt.Params[ "cmd" ];
         SFSObject sfsdata = ( SFSObject ) evt.Params[ "params" ];
 

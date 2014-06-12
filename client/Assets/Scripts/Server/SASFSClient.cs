@@ -19,6 +19,79 @@ public class SASFSClient : IClientController {
     private SASFSClient()
     {
         SFSInstance = SFSClient.Singleton.SmartFoxInstance;
+        SFSInstance.RemoveEventListener(SFSEvent.EXTENSION_RESPONSE, SFSClient.Singleton.OnExtensionReponse);
+        SFSInstance.AddEventListener(SFSEvent.EXTENSION_RESPONSE, OnExtensionResponse);
+    }
+
+    private void OnExtensionResponse(BaseEvent evt)
+    {
+        string cmd = ( string ) evt.Params[ "cmd" ];
+        SFSObject sfsdata = ( SFSObject ) evt.Params[ "params" ];
+
+        Debug.Log(cmd + " : " + sfsdata.ToString());
+
+        switch (cmd)
+        {
+            case "gamelist":
+                SFSClient.Singleton.OnExtensionReponse(evt);
+                break;
+
+            case "projectile.spawn":
+                OnProjectileSpawnResponse(sfsdata);
+                break;
+
+            case "projectile.update":
+                OnProjectileUpdateResponse(sfsdata);
+                break;
+
+            case "transform":
+                //eat
+                break;
+
+            case "player.hit":
+                //eat
+                break;
+
+            case "death":
+                //eat
+                break;
+
+            case "spawn":
+                //eat
+                break;
+
+            case "$SignUp.Submit":
+                SFSClient.Singleton.OnExtensionReponse(evt);
+                break;
+
+            case "scores":
+                SFSClient.Singleton.OnExtensionReponse(evt);
+                break;
+
+            case "shoot":
+                SFSClient.Singleton.OnExtensionReponse(evt);
+                break;
+
+            case "game.start":
+                SFSClient.Singleton.OnExtensionReponse(evt);
+                break;
+
+            case "gamelist.remove":
+                SFSClient.Singleton.OnExtensionReponse(evt);
+                break;
+
+            case "projectile.expire":
+                //eat
+                break;
+
+            case "powerup":
+                //eat
+                break;
+
+            default:
+                break;
+        }
+        
     }
 
     //singleton caller
@@ -94,10 +167,6 @@ public class SASFSClient : IClientController {
 
             case DataType.SA_INPUT:
                 sendInputRequest(type, data);
-                break;
-
-            case DataType.SA_SHOOT:
-                sendShootRequest(type, data);
                 break;
 
             default:
@@ -204,12 +273,6 @@ public class SASFSClient : IClientController {
         _send(dataType, sfs);
     }
 
-    private void sendShootRequest(DataType dataType, object data)
-    {
-        SFSObject sfs = new SFSObject();
-        _send(dataType, sfs);
-    }
-
     private void sendInputRequest(DataType dataType, object data)
     {
         SFSObject sfs = new SFSObject();
@@ -222,5 +285,13 @@ public class SASFSClient : IClientController {
         sfs.PutUtfString("command", command);
 
         _send(dataType, sfs);
+    }
+
+    private void OnProjectileSpawnResponse(SFSObject sfsdata){
+        Debug.Log("YAY - PSpawn");
+    }
+
+    private void OnProjectileUpdateResponse(SFSObject sfsdata){
+        Debug.Log("YAY - PUpdate");
     }
 }

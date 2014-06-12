@@ -41,6 +41,7 @@ public class RoomAddEvent extends BaseServerEventHandler{
                         room.getName(), (int)userid);
                 
             }catch(SQLException e){
+                trace(e.getMessage());
                 for(StackTraceElement ste : e.getStackTrace()){
                     trace(e.toString());
                 }

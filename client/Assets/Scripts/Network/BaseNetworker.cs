@@ -74,6 +74,7 @@ public abstract class BaseNetworker : MonoBehaviour, IEventListener {
 
     void Update()
     {
+        _Update();
         if (TriggerSendData() && Send())
         {
             SendData();

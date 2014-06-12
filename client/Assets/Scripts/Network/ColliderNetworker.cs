@@ -15,7 +15,6 @@ public class ColliderNetworker : BaseNetworker {
     public ENetworkColliderType type;
     
     protected override void _Start(){
-        MessageType = ECommunicationType.SEND_AND_RECEIVE;
         SendDataType = DataType.SA_COLLISION;
     }
     

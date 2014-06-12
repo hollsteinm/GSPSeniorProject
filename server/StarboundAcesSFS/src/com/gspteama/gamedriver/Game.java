@@ -49,7 +49,7 @@ public class Game implements IEventMessenger, Runnable{
         state = EGameState.QUEUING;
     }
     
-    public void inititialize(){
+    public void initialize(){
         lastTime = System.nanoTime();
         state = EGameState.ACTIVE;
     }
@@ -177,6 +177,7 @@ public class Game implements IEventMessenger, Runnable{
     }
     
     private void update(float deltaTime){
+        System.out.println("Updating... DeltaTime : " + Float.toString(deltaTime));
         for(Player p : players.values()){
             p.update(deltaTime);
             HashMap<String, Object> data = new HashMap<String, Object>();
@@ -196,7 +197,8 @@ public class Game implements IEventMessenger, Runnable{
             data.put("projectile.position", pMovement.getPosition());
             data.put("projectile.rotation", pMovement.getQuaternion());
             data.put("projectile.id", new Long(p.getProjectileID()));
-            OnEvent("projectile.update", new HashMap<Integer, Float>());
+            data.put("projectile.owner", new Long(p.getOwningPlayerId()));
+            OnEvent("projectile.update", data);
         }
         //send new transforms and collision confirmations;
         

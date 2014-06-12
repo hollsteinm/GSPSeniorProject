@@ -6,6 +6,7 @@ package com.gspteama.main;
 import com.gspteama.db.*;
 import com.gspteama.extensions.SAMultiHandler;
 import com.gspteama.gamedriver.Game;
+import com.smartfoxserver.v2.SmartFoxServer;
 import com.smartfoxserver.v2.components.login.ILoginAssistantPlugin;
 import com.smartfoxserver.v2.components.login.LoginAssistantComponent;
 import com.smartfoxserver.v2.components.login.LoginData;
@@ -19,6 +20,8 @@ import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.extensions.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -29,6 +32,8 @@ import java.util.logging.Logger;
 public class StarboundAcesExtension extends SFSExtension{
     //integer is the room id and game is a game instance
     private ConcurrentHashMap<Integer, Game> gameList =  new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Integer, ScheduledFuture<?>> taskHandlers = new ConcurrentHashMap<>();
+
     
     private SignUpAssistantComponent signup;
     private LoginAssistantComponent login;
@@ -127,13 +132,13 @@ public class StarboundAcesExtension extends SFSExtension{
         
         addRequestHandler(SignUpAssistantComponent.COMMAND_PREFIX, signup);
     }
-    /*
+    
     @Override
     public void destroy(){
         super.destroy();
         login.destroy();
     }
-    */
+    
     public Game getGame(int roomid) throws Exception{
         return gameList.get(roomid); 
     }
@@ -143,6 +148,26 @@ public class StarboundAcesExtension extends SFSExtension{
             throw new Exception("Game already exists");
         }
         gameList.put(roomid, new Game());
-        trace("New game added: " + roomid);
+    }
+    
+    public void startGame(int roomid) throws Exception{
+        taskHandlers.put(roomid, 
+                SmartFoxServer.getInstance().getTaskScheduler().scheduleAtFixedRate(getGame(roomid), 
+                        0, 
+                        333, 
+                        TimeUnit.MILLISECONDS));
+    }
+    
+    public void endGame(int roomid) throws Exception{
+        taskHandlers.get(roomid).cancel(true);
+    }
+    
+    public void removeGame(int roomid) throws Exception{
+        if(gameList.containsKey(roomid)){
+            gameList.remove(roomid);
+            
+        } else {
+            throw new Exception("Game does not exist.");
+        }
     }
 }

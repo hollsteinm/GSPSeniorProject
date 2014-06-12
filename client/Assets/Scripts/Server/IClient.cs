@@ -20,7 +20,6 @@ public enum DataType{
     //New Age Systems - keep deprecated for who knows what reason.
     SA_INPUT, //a user submitted command from input - translated to a single pair of string and float
     SA_COLLISION,
-    SA_SHOOT,
 };
 
 public interface IClient {

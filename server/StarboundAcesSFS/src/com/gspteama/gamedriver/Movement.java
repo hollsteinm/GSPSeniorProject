@@ -15,6 +15,7 @@ public class Movement{
     
     //protected Vector3D position = Vector3D.ZERO;
     protected Vector3f position = new Vector3f();
+    protected Vector3f spawn = new Vector3f();
     //protected Vector3D rotation = Vector3D.ZERO;
     protected Vector3f rotation = new Vector3f();
     protected Vector4f quaternion = new Vector4f();
@@ -71,6 +72,22 @@ public class Movement{
         Velocity = 0.0f;
         Acceleration = 0.0f;
         transform.setIdentity();
+    }
+    
+    public void setSpawn(float x, float y, float z){
+        spawn.set(x, y, z);
+    }
+    
+    public static float distance(float ax, float ay, float az,
+            float bx, float by, float bz){
+        return Vector3f.dot(
+                new Vector3f(ax, ay, az),
+                new Vector3f(bx, by, bz)
+        );
+    }
+    
+    public float[] getSpawn(){
+        return new float[]{spawn.getX(), spawn.getY(), spawn.getZ()};
     }
     
     public void onLeft(float value){//A

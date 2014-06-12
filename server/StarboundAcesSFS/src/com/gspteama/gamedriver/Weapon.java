@@ -12,12 +12,12 @@ public class Weapon {
     protected float       cooldown    = 0.0f;
     protected Projectile  projectile;
     
-    private int maxClipSize = 0;
-    private int totalAmmo = 0;
+    private int           maxClipSize = 0;
+    private int           totalAmmo = 0;
     
     private float         currentCooldown = 0.0f;
     
-    private int currentAmmo = 0;
+    private int           currentAmmo = 0;
     
     public Weapon(float cooldown, Projectile projectile, int maxClipSize, int totalAmmo){
         this.cooldown = cooldown;
@@ -62,6 +62,18 @@ public class Weapon {
         currentCooldown = cooldown;
         currentAmmo--;
         return (Projectile)projectile.getClass().newInstance();
+    }
+    
+    @Override
+    public String toString(){
+        String value = "";
+        value += "Weapon [ " + "\n";
+        value += "{Cooldown: " + this.cooldown + "}";
+        value += "{Clip Size: " + this.maxClipSize + "}";
+        value += "{Total Ammo: " + this.totalAmmo + "}";
+        value += "{Projectile: " + this.projectile.toString() + "}";
+        value += "]\n";
+        return value;
     }
     
 }

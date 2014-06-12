@@ -33,9 +33,41 @@ import java.util.HashMap;
  * * ship_hull_id : bigint not null (references hull_id)
  * * ship_energy : bigint not null
  * * ship_velocity : bigint not null
+ * * ship_name : charvar(128) not null unique
  */
 public class DBService {
     
+    
+    public static HashMap<String, Object> selectShipConfiguration(Connection connection, long shipId) throws Exception{
+        HashMap<String, Object> results = new HashMap<>();
+        Connection con = connection;
+        PreparedStatement ps;
+        ResultSet rs;
+        
+        String stmt = "select * from sa_ship join sa_hull on hull_id = ship_hull_id where ship_id = ? ";
+        
+        ps = con.prepareStatement(stmt);
+        ps.setLong(1, shipId);
+        
+        rs = ps.executeQuery();
+        
+        if(rs.next()){
+            results.put("hull", new com.gspteama.gamedriver.Hull(rs.getLong("hull_max_health")));
+            results.put("name", rs.getString("ship_name"));
+            results.put("maxVelocity", rs.getLong("ship_velocity"));
+            results.put("maxEngergy", rs.getLong("ship_energy"));
+        } else {
+            rs.close();
+            ps.close();
+            con.close();
+            throw new Exception("Ship not found. ID: " + shipId);
+        }
+        
+        rs.close();
+        ps.close();
+        con.close();
+        return results;
+    }
     
     public static com.gspteama.gamedriver.IPowerup selectPowerup(Connection connection, String powerupShortName) throws Exception{
         Connection con = connection;
@@ -64,7 +96,7 @@ public class DBService {
             ps.close();
             rs.close();
             con.close();
-            throw new Exception("Powerup not found.");
+            throw new Exception("Powerup not found. Short Name: " + powerupShortName);
         }
         
     }
@@ -110,7 +142,7 @@ public class DBService {
             rs.close();
             ps.close();
             con.close();
-            throw new Exception("Weapon Configuration not found");
+            throw new Exception("Weapon Configuration not found. Weapon Name: " + weaponName);
             
         }     
     }
@@ -146,7 +178,7 @@ public class DBService {
             rs.close();
             ps.close();
             con.close();
-            throw new Exception("Projectile not found.");
+            throw new Exception("Projectile not found. Projectile Name: " + projectileName);
         }
         
         

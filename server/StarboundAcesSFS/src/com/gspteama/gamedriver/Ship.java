@@ -77,4 +77,16 @@ public class Ship {
         return amountToConsume <= currentEnergy;
     }
     
+    public String toString(){
+        String value = "";
+        value += this.shipTypeString + "\n";
+        value += "\tVelocity: " + this.movement.Velocity + "\n";
+        value += "\tEnergy: " + this.maxEnergy + "\n";
+        value += "\tWeapon: " + this.weapon.toString() + "\n";
+        value += "\tHull: " + this.hull.toString() + "\n";
+        
+        
+        return value;
+    }
+    
 }
