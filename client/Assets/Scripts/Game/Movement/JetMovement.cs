@@ -45,6 +45,9 @@ public class JetMovement : MonoBehaviour {
 	
 	private Texture2D infEnTex;
 	
+	//Change controls for the ship
+	private bool controlChange = false;
+	
 	// Use this for initialization
 	void Start () {
 		forwardVelocity = defaultForwardVelocity;
@@ -67,6 +70,11 @@ public class JetMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
+		//Check to see if we must change the controls
+		if (Input.GetKeyDown(KeyCode.C))
+			controlChange = !controlChange;
+		
 		//Check to see if the ship has hit the boundary for the level
 		if (!hitBoundary)
 		{
@@ -133,8 +141,11 @@ public class JetMovement : MonoBehaviour {
 					float rotX = Input.GetAxis("Mouse X") * lookSpeed;
 			        float rotY = Input.GetAxis("Mouse Y") * lookSpeed;
 					
-					transform.Rotate (Vector3.forward * rotX);
-					transform.Rotate (Vector3.left * rotY * 2.0f);
+					if (controlChange)
+						transform.Rotate (Vector3.up * rotX);
+					else
+						transform.Rotate (Vector3.forward * rotX *2.0f);
+						transform.Rotate (Vector3.left * rotY);
 					
 					//FORWARD THRUSTERS
 					
@@ -229,7 +240,10 @@ public class JetMovement : MonoBehaviour {
 					horizontalVelocity = Mathf.Clamp(horizontalVelocity, -horizontalVelocityDeviation, horizontalVelocityDeviation);*/
 			
 					thrust = Input.GetAxis("Horizontal") * lookSpeed;
-					transform.Rotate (Vector3.up * thrust * 2.0f);
+					if (controlChange)
+						transform.Rotate (Vector3.forward * thrust * 2.0f);
+					else
+						transform.Rotate (Vector3.up * thrust);
 					
 			        transform.position += transform.forward * forwardVelocity * Time.deltaTime;
 			        //transform.position += transform.right * horizontalVelocity * Time.deltaTime;

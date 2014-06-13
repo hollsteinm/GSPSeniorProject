@@ -23,6 +23,10 @@ public class ManeuverCamera : MonoBehaviour{
 	public float dampChange = 0.5f;
 	//Bool to control camera
 	private bool followingManeuver;
+	//First-person camera
+	private FPCamera fP;
+	//Bool to control camera perspective
+	private bool firstPerson = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -34,6 +38,10 @@ public class ManeuverCamera : MonoBehaviour{
 		// Early out if we don't have a target
 		if (!target)
 			return;
+		
+		//Check to see if we change perspectives
+		if (Input.GetKeyDown(KeyCode.P))
+			firstPerson = !firstPerson;
 		
 		//If the player is using a maneuver
 		if (playerMovement.GetUsingManeuver())
@@ -67,20 +75,27 @@ public class ManeuverCamera : MonoBehaviour{
 			followingManeuver = false;
 			currentFrame = target;
 			
-			// Calculate the position the camera should be in
-			Vector3 wantedHeight =  target.up * height;
-			Vector3 wantedDistance = target.forward * -distance;
+			// If we are in first-person mode
+			if (firstPerson)
+				fP.FPUpdate(transform,target);
 			
-			// Set the position of the camera on the x-z plane to:
-			// distance meters behind the target
-			Vector3 wantedPosition = target.position + wantedHeight + wantedDistance;
-			Vector3 cameraMoveVec = wantedPosition - transform.position;
-			
-			//Move the camera
-			transform.position += cameraMoveVec * dampRate;
-			
-			// Always look at the target
-			transform.LookAt (target, target.up);
+			else
+			{
+				// Calculate the position the camera should be in
+				Vector3 wantedHeight =  target.up * height;
+				Vector3 wantedDistance = target.forward * -distance;
+				
+				// Set the position of the camera on the x-z plane to:
+				// distance meters behind the target
+				Vector3 wantedPosition = target.position + wantedHeight + wantedDistance;
+				Vector3 cameraMoveVec = wantedPosition - transform.position;
+				
+				//Move the camera
+				transform.position += cameraMoveVec * dampRate;
+				
+				// Always look at the target
+				transform.LookAt (target, target.up);
+			}
 		}
 	}
 	
