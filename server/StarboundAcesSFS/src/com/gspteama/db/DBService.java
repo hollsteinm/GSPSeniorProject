@@ -15,25 +15,6 @@ import java.util.HashMap;
  *
  * @author Martin
  * 
- * //Add to database
- * table sa_powerup
- * * sequence sa_powerup_id_seq references powerup_id
- * * powerup_id : bigint unique not null default::sequence next val
- * * powerup_effect_class_name : charvar(128) unique not null
- * * powerup_effect_short_name : charvar(32) unique not null
- * 
- * table sa_hull
- * * sequence sa_hull_id references hull_id
- * * hull_id : bigint unique not null default::sequence next val
- * * hull_max_health : bigint not null
- * 
- * table sa_ship
- * * sequence sa_ship_id references ship_id
- * * ship_id : bigint unqiue not null default::sequence next val
- * * ship_hull_id : bigint not null (references hull_id)
- * * ship_energy : bigint not null
- * * ship_velocity : bigint not null
- * * ship_name : charvar(128) not null unique
  */
 public class DBService {
     
@@ -55,7 +36,7 @@ public class DBService {
             results.put("hull", new com.gspteama.gamedriver.Hull(rs.getLong("hull_max_health")));
             results.put("name", rs.getString("ship_name"));
             results.put("maxVelocity", rs.getLong("ship_velocity"));
-            results.put("maxEngergy", rs.getLong("ship_energy"));
+            results.put("maxEnergy", rs.getLong("ship_energy"));
         } else {
             rs.close();
             ps.close();

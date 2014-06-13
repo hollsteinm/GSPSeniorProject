@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour {
     private GameObject shipModelPrefab;
     private GameObject shipShieldPrefab;
 
+    public int shipid = 1;
+    public string weapon = "Cannon";
+
     public GameObject ShipModelPrefab {
         get {
             Debug.Log("Getting ShipModelPrefab");

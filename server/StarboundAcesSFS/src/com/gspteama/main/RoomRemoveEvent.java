@@ -31,6 +31,7 @@ public class RoomRemoveEvent extends BaseServerEventHandler{
                 DBService.updateGameStatus(conref, "D", room.getName());
                 ((StarboundAcesExtension)this.getParentExtension()).getGame(room.getId()).onEnd();
                 ((StarboundAcesExtension)this.getParentExtension()).endGame(room.getId());
+                ((StarboundAcesExtension)this.getParentExtension()).removeGame(room.getId());
                 
             }catch(Exception e){
                 trace(e.getMessage());

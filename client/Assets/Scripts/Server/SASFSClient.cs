@@ -36,6 +36,14 @@ public class SASFSClient : IClientController {
                 SFSClient.Singleton.OnExtensionReponse(evt);
                 break;
 
+            case "player.update":
+                Debug.Log(sfsdata.GetDump());
+                if (sfsdata.GetInt("networkid") == SFSInstance.MySelf.Id)
+                {
+                    OnPlayerUpdate(sfsdata);
+                }
+                break;
+
             case "projectile.spawn":
                 OnProjectileSpawnResponse(sfsdata);
                 break;
@@ -178,6 +186,12 @@ public class SASFSClient : IClientController {
     public void Update()
     {
         SFSClient.Singleton.Update();
+        if (SFSInstance.LastJoinedRoom != null)
+        {
+            SFSInstance.MySelf.SetVariable(new SFSUserVariable("shipid", GameManager.gameManager.shipid));
+            SFSInstance.MySelf.SetVariable(new SFSUserVariable("weapon", GameManager.gameManager.weapon));
+            SFSInstance.Send(new SetUserVariablesRequest(SFSInstance.MySelf.GetVariables()));
+        }
     }
 
     public void Logout()
@@ -293,5 +307,21 @@ public class SASFSClient : IClientController {
 
     private void OnProjectileUpdateResponse(SFSObject sfsdata){
         Debug.Log("YAY - PUpdate");
+    }
+
+    private void OnPlayerUpdate(SFSObject sfsdata)
+    {
+        Dictionary<string, object> data = new Dictionary<string, object>();
+
+        data.Add("networkid", sfsdata.GetInt("networkid"));
+        data.Add("player.position.x", sfsdata.GetFloat("player.position.x"));
+        data.Add("player.position.y", sfsdata.GetFloat("player.position.y"));
+        data.Add("player.position.z", sfsdata.GetFloat("player.position.z"));
+        data.Add("player.rotation.x", sfsdata.GetFloat("player.rotation.x"));
+        data.Add("player.rotation.y", sfsdata.GetFloat("player.rotation.y"));
+        data.Add("player.rotation.z", sfsdata.GetFloat("player.rotation.z"));
+        data.Add("player.rotation.w", sfsdata.GetFloat("player.rotation.w"));
+
+        OnEvent("player.update", data);
     }
 }

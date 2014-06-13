@@ -23,7 +23,8 @@ public class Weapon {
         this.cooldown = cooldown;
         this.projectile = projectile;
         this.maxClipSize = maxClipSize;
-        this.totalAmmo = totalAmmo;
+        this.totalAmmo = totalAmmo - maxClipSize;
+        this.currentAmmo = maxClipSize;
     }
 
     public float getCooldown() {
@@ -61,18 +62,18 @@ public class Weapon {
     public Projectile onFire() throws Exception{
         currentCooldown = cooldown;
         currentAmmo--;
-        return (Projectile)projectile.getClass().newInstance();
+        return new Projectile(this.projectile);
     }
     
     @Override
     public String toString(){
         String value = "";
-        value += "Weapon [ " + "\n";
+        value += "Weapon [ ";
         value += "{Cooldown: " + this.cooldown + "}";
         value += "{Clip Size: " + this.maxClipSize + "}";
         value += "{Total Ammo: " + this.totalAmmo + "}";
         value += "{Projectile: " + this.projectile.toString() + "}";
-        value += "]\n";
+        value += "]";
         return value;
     }
     

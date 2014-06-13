@@ -770,7 +770,7 @@ public class SFSClient : IClientController {
     }
 
     private void GameStartResponse(SFSObject data) {
-        OnEvent("game.start", null);
+        OnEvent("game.start", data);
     }
 
     private void GameListRemoveResponse(SFSObject data){

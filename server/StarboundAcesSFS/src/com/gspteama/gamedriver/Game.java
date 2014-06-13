@@ -55,6 +55,7 @@ public class Game implements IEventMessenger, Runnable{
     }
     
     public void onEnd(){
+        listeners.clear();
         state = EGameState.ENDED;
     }
 
@@ -116,7 +117,7 @@ public class Game implements IEventMessenger, Runnable{
                     break;
                     
                 case "reload":
-                    requester.getShip().getWeapon().onReload();
+                    registerReloadEvent(requester);
                     break;
                     
                 case "manuever_vertical":
@@ -139,9 +140,21 @@ public class Game implements IEventMessenger, Runnable{
     private void registerShootEvent(Player requester) throws Exception{
         if(requester.getShip().getWeapon().canFire()){
             Projectile p = requester.getShip().getWeapon().onFire();
+            float[] spawn = requester.getShip().movement.getPosition();
+            spawn[2] += 50.0f; //z
+            
+            p.movement.setSpawn(
+                    spawn[0],
+                    spawn[1],
+                    spawn[2]);
+            
             OnEvent("projectile.spawn", p);
             this.addProjectile(p.hashCode(), p);
         }        
+    }
+    
+    private void registerReloadEvent(Player requester) throws Exception{
+        requester.getShip().getWeapon().onReload();
     }
     
     public Player getPlayer(int playerId){
@@ -185,20 +198,27 @@ public class Game implements IEventMessenger, Runnable{
             Movement shipMovement = p.getShip().movement;
             data.put("player.position", shipMovement.getPosition());            
             data.put("player.rotation", shipMovement.getQuaternion());            
-            data.put("player.id", new Long(p.getPlayerId()));            
+            data.put("player.id", p.getPlayerId());            
             OnEvent("player.update", data);
         }
         
         for(Projectile p : firedProjectiles.values()){
-            p.update(deltaTime);
             HashMap<String, Object> data = new HashMap<String, Object>();
             
             Movement pMovement = p.movement;
             data.put("projectile.position", pMovement.getPosition());
             data.put("projectile.rotation", pMovement.getQuaternion());
-            data.put("projectile.id", new Long(p.getProjectileID()));
-            data.put("projectile.owner", new Long(p.getOwningPlayerId()));
-            OnEvent("projectile.update", data);
+            data.put("projectile.id", p.hashCode());
+            data.put("projectile.owner", p.getOwningPlayerId());
+            
+            if(p.expired()){
+                this.firedProjectiles.remove(p.hashCode());
+                OnEvent("projectile.expire", data);
+            } else {            
+                p.update(deltaTime);
+                OnEvent("projectile.update", data);
+            }
+            
         }
         //send new transforms and collision confirmations;
         

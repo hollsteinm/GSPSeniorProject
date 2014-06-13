@@ -132,13 +132,13 @@ public class StarboundAcesExtension extends SFSExtension{
         
         addRequestHandler(SignUpAssistantComponent.COMMAND_PREFIX, signup);
     }
-    
+    /*
     @Override
     public void destroy(){
         super.destroy();
         login.destroy();
     }
-    
+    */
     public Game getGame(int roomid) throws Exception{
         return gameList.get(roomid); 
     }
@@ -156,10 +156,15 @@ public class StarboundAcesExtension extends SFSExtension{
                         0, 
                         333, 
                         TimeUnit.MILLISECONDS));
+        trace("Game Started: " + roomid);
     }
     
     public void endGame(int roomid) throws Exception{
-        taskHandlers.get(roomid).cancel(true);
+        getGame(roomid).onEnd();
+        if(!taskHandlers.get(roomid).cancel(true)){
+            throw new Exception("Could not cancel task. RoomId: " + roomid);
+        }
+
     }
     
     public void removeGame(int roomid) throws Exception{

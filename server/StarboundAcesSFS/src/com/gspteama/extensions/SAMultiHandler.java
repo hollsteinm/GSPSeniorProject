@@ -9,7 +9,6 @@ import com.gspteama.gamedriver.Projectile;
 import com.gspteama.gamedriver.Ship;
 import com.gspteama.gamedriver.Weapon;
 import com.gspteama.main.StarboundAcesExtension;
-import com.smartfoxserver.v2.SmartFoxServer;
 import com.smartfoxserver.v2.entities.User;
 import com.smartfoxserver.v2.entities.data.ISFSObject;
 import com.smartfoxserver.v2.entities.data.SFSObject;
@@ -20,7 +19,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -29,9 +27,11 @@ import java.util.concurrent.TimeUnit;
 */
 @com.smartfoxserver.v2.annotations.MultiHandler
 public class SAMultiHandler extends BaseClientRequestHandler implements IEventListener{
-    
+    private int calls = 0;
     @Override
     public void handleClientRequest(User user, ISFSObject params){
+        calls++;
+        trace("Calls: "+ calls);
       String reqId = params.getUtfString(SFSExtension.MULTIHANDLER_REQUEST_ID);
         
         /*debugging*/trace(reqId);
@@ -88,8 +88,13 @@ public class SAMultiHandler extends BaseClientRequestHandler implements IEventLi
         return ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
     }
     
-    User getUser(int id){
-        return this.getParentExtension().getParentZone().getUserById(id);
+    User getUser(int id) throws Exception{
+        User user = this.getParentExtension().getParentZone().getUserById(id);
+        if(user == null){
+            throw new Exception("Null User.");
+        } else {
+            return user;
+        }
     }
     //End Helpers
     
@@ -101,28 +106,35 @@ public class SAMultiHandler extends BaseClientRequestHandler implements IEventLi
             ISFSObject data = SFSObject.newInstance();
             data.putUtfString("game", user.getLastJoinedRoom().getName());
             
-            getGame(user).Register(this);
-            
             List<User> users = user.getLastJoinedRoom().getUserList();
             for(User u : users){
+                long uid = (long)u.getId();
+                trace("User Variables ["+uid+"]["+u.getName()+"]\n " + u.getUserVariablesData().getDump());
+                
                 HashMap<String, Object> shiphull = DBService.selectShipConfiguration(
                         getConnection(),
                         (long)u.getVariable("shipid").getIntValue());
                 
                 Weapon w = DBService.selectWeaponConfigurations(getConnection(), 
                         u.getVariable("weapon").getStringValue(), 
-                        (long)u.getId());
+                        uid);
                 
-                Ship s = new Ship( (long)u.getId(),
-                        (long)u.getVariable("shipid").getIntValue(),
-                        shiphull.get("name").toString(),
+                //ship parameters
+                long shipid = (long)u.getVariable("shipid").getIntValue();
+                String name = (String)shiphull.get("name");
+                Hull shipHull = (Hull)shiphull.get("hull");
+                float maxVelocity = new Long((long)shiphull.get("maxVelocity")).floatValue();
+                float maxEnergy = new Long((long)shiphull.get("maxEnergy")).floatValue();
+                Ship s = new Ship( uid,
+                        shipid,
+                        name,
                         w,
-                        (Hull)shiphull.get("hull"),
-                        (float)shiphull.get("maxVelocity"),
-                        (float)shiphull.get("maxEnergy")
+                        shipHull,
+                        maxVelocity,
+                        maxEnergy
                 );
                 
-                getGame(user).AddPlayer(new Player((long)u.getId(), u.getName(),s));
+                getGame(user).AddPlayer(new Player(uid, u.getName(),s));
                 trace("Player ready!\nPlayer Name [" + u.getName() + "]\nShip[" + 
                         s.toString() + "]\n");
             }
@@ -134,6 +146,13 @@ public class SAMultiHandler extends BaseClientRequestHandler implements IEventLi
             onException(e);
         } finally{
             sendToAllInGame("game.start", SFSObject.newInstance(), user, false);
+            
+            try{
+                ((StarboundAcesExtension)this.getParentExtension()).startGame(user.getLastJoinedRoom().getId());
+                getGame(user).Register(this);
+            } catch (Exception e){
+                onException(e);
+            }
         } 
     }
     
@@ -209,56 +228,82 @@ public class SAMultiHandler extends BaseClientRequestHandler implements IEventLi
 
     @Override
     public void Notify(String event, Object data) {
-        switch(event){
-            case "projectile.spawn":
-                Projectile ref = (Projectile)data;
-                ISFSObject sfs = SFSObject.newInstance();
-                sfs.putInt("networkid", ref.hashCode());
-                User user = getUser(ref.getOwningPlayerId());
-                
-                /*debugging*/trace(sfs.getDump());
-                sendToAllInGame("projectile.spawn", sfs, user, false);                
-                break;
-                
-            case "projectile.update":
-                HashMap<String, Object> jdata = (HashMap<String, Object>)data;
-                
-                ISFSObject sfs2 = SFSObject.newInstance();
-                sfs2.putInt("networkid", (int)jdata.get("projectile.id"));
-                User user2 = getUser((int)jdata.get("projectile.owner"));
-                
-                sfs2.putFloat("projectile.position.x", ((float[])jdata.get("projectile.position"))[0]);
-                sfs2.putFloat("projectile.position.y", ((float[])jdata.get("projectile.position"))[1]);
-                sfs2.putFloat("projectile.position.z", ((float[])jdata.get("projectile.position"))[2]);
-                
-                sfs2.putFloat("projectile.rotation.x", ((float[])jdata.get("projectile.rotation"))[0]);
-                sfs2.putFloat("projectile.rotation.y", ((float[])jdata.get("projectile.rotation"))[1]);
-                sfs2.putFloat("projectile.rotation.z", ((float[])jdata.get("projectile.rotation"))[2]);
-                sfs2.putFloat("projectile.rotation.w", ((float[])jdata.get("projectile.rotation"))[3]);
-                
-                /*testing*/trace(sfs2.getDump());
-                sendToAllInGame("projectile.update", sfs2, user2, false);
-                
-                break;
-                    
-            case "player.update":
-                break;
-                        
-            case "collision":
-                break;
-                
-            case "game.over":
-                break;
-                    
-            case "player.death":
-                break;
-                
-            case "projectile.death":
-                break;
+        trace("Game Event: " + event);
+        
+        try{
+            User user = null;
+            ISFSObject sfs = SFSObject.newInstance();
             
-            default:
-                trace("Unrecognized Event [ event: " + event + " data: " + data.toString());
-                break;
+            switch(event){
+                case "projectile.spawn":
+                    Projectile ref = (Projectile)data;
+                    sfs.putInt("networkid", ref.hashCode());
+                    sfs.putUtfString("typename", ref.getProjectileStringID());
+                    user = getUser(ref.getOwningPlayerId());
+
+                    sendToAllInGame("projectile.spawn", sfs, user, false);                
+                    break;
+
+                case "projectile.update":
+                    HashMap<String, Object> jdata = (HashMap<String, Object>)data;
+                    user = getUser((int)jdata.get("projectile.owner"));
+
+                    sfs.putInt("networkid", (int)jdata.get("projectile.id"));
+
+                    sfs.putFloat("projectile.position.x", ((float[])jdata.get("projectile.position"))[0]);
+                    sfs.putFloat("projectile.position.y", ((float[])jdata.get("projectile.position"))[1]);
+                    sfs.putFloat("projectile.position.z", ((float[])jdata.get("projectile.position"))[2]);
+
+                    sfs.putFloat("projectile.rotation.x", ((float[])jdata.get("projectile.rotation"))[0]);
+                    sfs.putFloat("projectile.rotation.y", ((float[])jdata.get("projectile.rotation"))[1]);
+                    sfs.putFloat("projectile.rotation.z", ((float[])jdata.get("projectile.rotation"))[2]);
+                    sfs.putFloat("projectile.rotation.w", ((float[])jdata.get("projectile.rotation"))[3]);
+
+                    sendToAllInGame("projectile.update", sfs, user, false);
+
+                    break;
+
+                case "player.update":
+                    HashMap<String, Object> jdata2 = (HashMap<String, Object>)data;
+                    user = getUser(new Long((long)jdata2.get("player.id")).intValue());
+                    
+                    sfs.putInt("networkid", user.getId());
+                    sfs.putFloat("player.position.x", ((float[])jdata2.get("player.position"))[0]);
+                    sfs.putFloat("player.position.y", ((float[])jdata2.get("player.position"))[1]);
+                    sfs.putFloat("player.position.z", ((float[])jdata2.get("player.position"))[2]);
+
+                    sfs.putFloat("player.rotation.x", ((float[])jdata2.get("player.rotation"))[0]);
+                    sfs.putFloat("player.rotation.y", ((float[])jdata2.get("player.rotation"))[1]);
+                    sfs.putFloat("player.rotation.z", ((float[])jdata2.get("player.rotation"))[2]);
+                    sfs.putFloat("player.rotation.w", ((float[])jdata2.get("player.rotation"))[3]);
+                    
+                    sendToAllInGame("player.update", sfs, user, false);
+                    break;
+
+                case "collision":
+                    break;
+
+                case "game.over":
+                    break;
+
+                case "player.death":
+                    break;
+
+                case "projectile.expire":
+                    HashMap<String, Object> jdata3 = (HashMap<String, Object>)data;
+                    user = getUser((int)jdata3.get("projectile.owner"));
+                    
+                    sfs.putInt("networkid", (int)jdata3.get("projectile.id"));
+                    
+                    sendToAllInGame("projectile.expire", sfs, user, false);
+                    break;
+
+                default:
+                    trace("Unrecognized Event [ event: " + event + " data: " + data.toString());
+                    break;
+            }
+        } catch(Exception e){
+            onException(e);
         }
     }
 }

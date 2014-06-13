@@ -29,6 +29,38 @@ public class ColliderNetworker : BaseNetworker {
         return data;
     }
 
+    public override void Notify(string eventType, object o)
+    {
+        switch (eventType)
+        {
+            case "collision":
+                ENetworkColliderType othertype = (ENetworkColliderType)o;
+                switch (othertype)
+                {
+                    case ENetworkColliderType.OBSTACLE:
+                        if (type == ENetworkColliderType.PLAYER || type == ENetworkColliderType.PROJECTILE)
+                        {
+                            Destroy(gameObject);
+                        }
+                        break;
+
+                    case ENetworkColliderType.PLAYER:
+                        if (type == ENetworkColliderType.PLAYER || type == ENetworkColliderType.PROJECTILE)
+                        {
+                            Destroy(gameObject);
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
     void OnCollisionEnter(Collision collision){
         //See if we collided with a collider network communication type object
         ColliderNetworker other = collision.gameObject.GetComponent<ColliderNetworker>();

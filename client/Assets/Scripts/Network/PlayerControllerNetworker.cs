@@ -41,10 +41,58 @@ public class PlayerControllerNetworker : BaseNetworker{
 
     private void GetInput()
     {
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             bInput = true;
             command = EInputCommand.FIRE1;
+        }
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        if (horizontal != 0.0f)
+        {
+            bInput = true;
+            if (horizontal > 0.0f)
+            {
+                command = EInputCommand.RIGHT;
+            }
+            else
+            {
+                command = EInputCommand.LEFT;
+            }
+            value = horizontal;
+        }
+
+        if (vertical != 0.0f)
+        {
+            bInput = true;
+            if (vertical > 0.0f)
+            {
+                command = EInputCommand.UP;
+            }
+            else
+            {
+                command = EInputCommand.DOWN;
+            }
+            value = vertical;
+        }
+
+        float mousex = Input.GetAxis("Mouse X");
+        float mousey = Input.GetAxis("Mouse Y");
+
+        if (mousex != 0.0f)
+        {
+            bInput = true;
+            command = EInputCommand.HORIZONTAL;
+            value = mousex;
+        }
+
+        if (mousey != 0.0f)
+        {
+            bInput = true;
+            command = EInputCommand.VERTICAL;
+            value = mousey;
+
         }
     }
 
@@ -65,5 +113,21 @@ public class PlayerControllerNetworker : BaseNetworker{
     protected override bool TriggerSendData()
     {
         return bInput && command != EInputCommand.NONE;
+    }
+
+    public override void Notify(string eventType, object o)
+    {
+        switch (eventType)
+        {
+            case "player.spawn":
+                Dictionary<string, object> data = o as Dictionary<string, object>;
+                GameObject ship = (GameObject)Resources.Load((string)data["shipname"]);
+                ship.transform.parent = gameObject.transform;
+                
+                break;
+
+            default:
+                break;
+        }
     }
 }

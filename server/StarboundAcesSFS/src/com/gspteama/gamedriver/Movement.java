@@ -23,11 +23,18 @@ public class Movement{
     //private static final Vector3D UP = Vector3D.PLUS_J;
     protected static final Vector3f UP = new Vector3f(0.0f, 1.0f, 0.0f);
     //private static final Vector3D LEFT = Vector3D.MINUS_I;
-    protected static final Vector3f LEFT = new Vector3f(-1.0f, 0.0f, 0.0f);
+    protected static final Vector3f RIGHT = new Vector3f(1.0f, 0.0f, 0.0f);
     //private static final Vector3D FORWARD = Vector3D.PLUS_K;
     protected static final Vector3f FORWARD = new Vector3f(0.0f,0.0f, 1.0f);
     
     protected Matrix4f transform = new Matrix4f();
+    
+    public Vector3f toRadians(Vector3f in){
+        return new Vector3f(
+                in.getX() * (3.14f/180.0f),
+                in.getY() * (3.14f/180.0f),
+                in.getZ() * (3.14f/180.0f));
+    }
     
     public void onUpdate(float deltaTime){
         Velocity = Velocity + Acceleration * deltaTime;
@@ -43,13 +50,13 @@ public class Movement{
                 (float)rotator.getQ2(), 
                 (float)rotator.getQ3());
         
-        transform.setIdentity();
+        transform = new Matrix4f();
         
-        transform = transform.translate(position);
-        transform = transform.rotate(rotation.getY(), UP);
-        transform = transform.rotate(rotation.getX(), LEFT);
-        transform = transform.rotate(rotation.getZ(), FORWARD);
-        transform = transform.scale(new Vector3f(1.0f,  1.0f, 1.0f));
+        Matrix4f.scale(new Vector3f(1.0f, 1.0f, 1.0f), transform, transform);
+        Matrix4f.translate(position, transform, transform);
+        Matrix4f.rotate(toRadians(rotation).getZ(), FORWARD, transform, transform);
+        Matrix4f.rotate(toRadians(rotation).getY(), UP, transform, transform);
+        Matrix4f.rotate(toRadians(rotation).getX(), RIGHT, transform, transform);
         
         //to row major
         transform.transpose();
@@ -64,7 +71,11 @@ public class Movement{
                                             forward.getY() * Velocity,
                                             forward.getZ() * Velocity);
         
-        position = Vector3f.add(position, forwardVel, position);
+        Vector3f.add(position, forwardVel, position);
+    }
+    
+    public float getMaxVelocity(){
+        return maxVelocity;
     }
 
     public Movement(float maxVelocity){
@@ -76,6 +87,7 @@ public class Movement{
     
     public void setSpawn(float x, float y, float z){
         spawn.set(x, y, z);
+        position.set(x, y, z);
     }
     
     public static float distance(float ax, float ay, float az,

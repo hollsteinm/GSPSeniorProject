@@ -62,4 +62,11 @@ public class Hull {
         showSparks = health < maxHealth * 0.3f;
     }
     
+    @Override
+    public String toString(){
+        String value = "";
+        value += "[Hull]("+health+"/"+maxHealth+")\n";
+        return value;
+    }
+    
 }

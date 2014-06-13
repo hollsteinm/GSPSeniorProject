@@ -21,6 +21,17 @@ public class Projectile {
         return (int)owningPlayerID;
     }
     
+    public Projectile(Projectile other){
+        movement = new Movement(other.movement.getMaxVelocity());
+        movement.Acceleration = 0.0f;
+        movement.Velocity = this.movement.getMaxVelocity();
+        range = other.range;
+        damage = other.damage;
+        projectileID = other.projectileID;
+        projectileIDString = other.projectileIDString;
+        owningPlayerID = other.owningPlayerID;
+    }
+    
     public Projectile(long owningPlayerID, long projectileID, String projectileIDString, float damage, float maxVelocity, float range){
         movement = new Movement(maxVelocity);
         movement.Acceleration = 0.0f;
@@ -53,6 +64,15 @@ public class Projectile {
         
     }
     
+    public boolean expired(){
+        float[] current = movement.getPosition();
+        float[] spawn = movement.getSpawn();
+        return Movement.distance(
+                spawn[0], spawn[1], spawn[2], 
+                current[0], current[1], current[2]) > range;
+    }
+    
+    @Override
     public String toString(){
         String value = "";
         value += "[Projectile[\""+ this.projectileIDString + "\"](";
