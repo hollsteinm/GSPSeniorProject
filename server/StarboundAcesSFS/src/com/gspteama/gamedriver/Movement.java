@@ -37,7 +37,8 @@ public class Movement{
     }
     
     public void onUpdate(float deltaTime){
-        Velocity = Velocity + Acceleration * deltaTime;
+        Velocity = Acceleration;
+        //Velocity = Velocity + Acceleration * deltaTime;
         if(Velocity >= maxVelocity){
             Velocity = maxVelocity;
         }
@@ -67,9 +68,9 @@ public class Movement{
                                         transform.m22);
         forward.normalise();
                                         
-        Vector3f forwardVel = new Vector3f(forward.getX() * Velocity,
-                                            forward.getY() * Velocity,
-                                            forward.getZ() * Velocity);
+        Vector3f forwardVel = new Vector3f(forward.getX() * Velocity * deltaTime,
+                                            forward.getY() * Velocity * deltaTime,
+                                            forward.getZ() * Velocity * deltaTime);
         
         Vector3f.add(position, forwardVel, position);
     }
@@ -119,11 +120,11 @@ public class Movement{
     }
     
     public void onHorizontal(float value){//MouseX
-        rotation.z += value;
+        rotation.x += value;
     }
     
     public void onVertical(float value){//MouseY
-        rotation.x += value;
+        rotation.z += value;
     }
     
     //I am torn here, the manuevers will take alot to replicate from the C# code

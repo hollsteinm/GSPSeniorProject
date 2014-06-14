@@ -25,13 +25,13 @@ public class Game implements IEventMessenger, Runnable{
     
     private static final ArrayList<String> allowedCommands = new ArrayList<>();
     
-    private long lastTime;
+    private double lastTime;
     
-    private long deltaTime(){
-        long time = System.nanoTime();
-        long delta = time - lastTime;
+    private float deltaTime(){
+        double time = System.currentTimeMillis();
+        double delta = time - lastTime;
         lastTime = time;
-        return delta;
+        return new Double(delta).floatValue();
     }
     
     public Game(){
@@ -50,7 +50,7 @@ public class Game implements IEventMessenger, Runnable{
     }
     
     public void initialize(){
-        lastTime = System.nanoTime();
+        lastTime = System.currentTimeMillis();
         state = EGameState.ACTIVE;
     }
     

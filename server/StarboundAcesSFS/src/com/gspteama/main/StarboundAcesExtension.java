@@ -153,8 +153,8 @@ public class StarboundAcesExtension extends SFSExtension{
     public void startGame(int roomid) throws Exception{
         taskHandlers.put(roomid, 
                 SmartFoxServer.getInstance().getTaskScheduler().scheduleAtFixedRate(getGame(roomid), 
-                        0, 
-                        333, 
+                        500, 
+                        150, 
                         TimeUnit.MILLISECONDS));
         trace("Game Started: " + roomid);
     }
