@@ -81,6 +81,10 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: controlsList.Array.size
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -132,6 +136,18 @@ Prefab:
     - target: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
       propertyPath: backStyle.m_Hover.m_TextColor.a
       value: .921568632
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: controlsList.Array.data[12]
+      value: 'Change Perspective: P'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: controlsList.Array.data[13]
+      value: 'Change Controls: C'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: controlsList.Array.data[14]
+      value: 'Reload: Left Alt'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
@@ -313,6 +329,8 @@ MonoBehaviour:
   - 'Toggle Chatbox: ''F1'''
   - 'Match Menu: Esc'
   - 'Reload: Left Alt'
+  - 'Change Perspective: P'
+  - 'Change Controls: C'
 --- !u!4 &853423373
 Transform:
   m_ObjectHideFlags: 0
