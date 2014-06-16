@@ -55,9 +55,9 @@ public class Movement{
         
         Matrix4f.scale(new Vector3f(1.0f, 1.0f, 1.0f), transform, transform);
         Matrix4f.translate(position, transform, transform);
-        Matrix4f.rotate(toRadians(rotation).getZ(), FORWARD, transform, transform);
-        Matrix4f.rotate(toRadians(rotation).getY(), UP, transform, transform);
-        Matrix4f.rotate(toRadians(rotation).getX(), RIGHT, transform, transform);
+        Matrix4f.rotate(toRadians(rotation).getZ() * deltaTime, FORWARD, transform, transform);
+        Matrix4f.rotate(toRadians(rotation).getY() * deltaTime, UP, transform, transform);
+        Matrix4f.rotate(toRadians(rotation).getX() * deltaTime, RIGHT, transform, transform);
         
         //to row major
         transform.transpose();
