@@ -30,21 +30,11 @@ public class RoomJoinEvent extends BaseServerEventHandler{
         Room room = (Room)(isfse.getParameter(SFSEventParam.ROOM));
         User user = (User)(isfse.getParameter(SFSEventParam.USER));
         
-        trace("Player joining room: " + room.getId() + "/" + user.getLastJoinedRoom().getId());
-        
         if(room.isGame()){
             try {                
                 if(((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId()) == null){
-                    trace("Game was null");
                     ((StarboundAcesExtension)this.getParentExtension()).createGame(user.getLastJoinedRoom().getId());
                 }
-                Game game = ((StarboundAcesExtension)this.getParentExtension()).getGame(user.getLastJoinedRoom().getId());
-
-                String username = (String)((User)isfse.getParameter(SFSEventParam.USER)).getName();
-                int playerid = (int)((User)isfse.getParameter(SFSEventParam.USER)).getId();
-                
-                game.AddPlayer(playerid, new Player(username));
-                trace("Player added");
             } catch (Exception ex) {
                 trace(ex.toString());
                 Logger.getLogger(RoomJoinEvent.class.getName()).log(Level.SEVERE, null, ex);

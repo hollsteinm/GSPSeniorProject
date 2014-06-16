@@ -47,6 +47,14 @@ public class JetMovement : MonoBehaviour {
 	
 	//Change controls for the ship
 	private bool controlChange = false;
+
+    public float maxVelocity
+    {
+        set
+        {
+            defaultForwardVelocity = value;
+        }
+    }
 	
 	// Use this for initialization
 	void Start () {

@@ -10,32 +10,87 @@ package com.gspteama.gamedriver;
  */
 public class Weapon {
     protected float       cooldown    = 0.0f;
-    protected float       damage      = 0.0f;
+    protected Projectile  projectile;
     
-    public Weapon(float cooldown, float damage){
+    private int           maxClipSize = 0;
+    private int           totalAmmo = 0;
+    
+    private float         currentCooldown = 0.0f;
+    
+    private int           currentAmmo = 0;
+    
+    public Weapon(float cooldown, Projectile projectile, int maxClipSize, int totalAmmo){
         this.cooldown = cooldown;
-        this.damage = damage;
-    }
-    
-    public Weapon(){
-        cooldown = 0.25f;
-        
+        this.projectile = projectile;
+        this.maxClipSize = maxClipSize;
+        this.totalAmmo = totalAmmo - maxClipSize;
+        this.currentAmmo = maxClipSize;
     }
 
     public float getCooldown() {
         return cooldown;
     }
-
-    public void setCooldown(float cooldown) {
-        this.cooldown = cooldown;
+    
+    public void decrementCooldown(float value){
+        currentCooldown -= value;
     }
-
-    public float getDamage() {
-        return damage;
+    
+    public void onUpdate(float deltaTime){
+        decrementCooldown(deltaTime);
     }
-
-    public void setDamage(float damage) {
-        this.damage = damage;
+    
+    public void onReload(){
+        if(canReload()){
+            if(totalAmmo > (maxClipSize - currentAmmo)){
+                totalAmmo -= (maxClipSize - currentAmmo);
+                currentAmmo = maxClipSize;
+            } else {
+                currentAmmo += totalAmmo;
+                totalAmmo = 0;
+            }
+        }
+    }
+    
+    private boolean canReload(){
+        return currentAmmo < maxClipSize && totalAmmo > 0;
+    }
+    
+    public boolean canFire(){
+        return currentCooldown <= 0.0f && currentAmmo > 0;
+    }
+    
+    public Projectile onFire() throws Exception{
+        currentCooldown = cooldown;
+        currentAmmo--;
+        return new Projectile(this.projectile);
+    }
+    
+    public Projectile getProjectile(){
+        return projectile;
+    }
+    
+    public int getClipSize(){
+        return maxClipSize;
+    }
+    
+    public int getTotalAmmo(){
+        return totalAmmo;
+    }
+    
+    public int getCurrentAmmo(){
+        return currentAmmo;
+    }
+    
+    @Override
+    public String toString(){
+        String value = "";
+        value += "Weapon [ ";
+        value += "{Cooldown: " + this.cooldown + "}";
+        value += "{Clip Size: " + this.maxClipSize + "}";
+        value += "{Total Ammo: " + this.totalAmmo + "}";
+        value += "{Projectile: " + this.projectile.toString() + "}";
+        value += "]";
+        return value;
     }
     
 }

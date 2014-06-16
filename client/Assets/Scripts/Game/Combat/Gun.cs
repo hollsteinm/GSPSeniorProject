@@ -46,6 +46,16 @@ public class Gun : MonoBehaviour, IEventListener {
         }
     }
 
+    public int MaxAmmo = 100;
+
+    public int Clipsize
+    {
+        set
+        {
+            totalAmmunition = value;
+        }
+    }
+
 	// Use this for initialization
 	void Start () {
         gunType = GameManager.gameManager.CurrentWeaponChoice;

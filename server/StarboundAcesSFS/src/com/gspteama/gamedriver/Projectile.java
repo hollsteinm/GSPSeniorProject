@@ -9,66 +9,75 @@ package com.gspteama.gamedriver;
  * @author Martin
  */
 public class Projectile {
-    private float[]     rotation        = new float[4];
     private float       damage          ;
-    private float       speed           ;
-    private float[]     position        = new float[3];
     private float       range           ;
+    private long        projectileID    ;
+    private String      projectileIDString;
+    private long        owningPlayerID  ;
     
-    public Projectile(){
-        rotation = new float[4];
-        position = new float[3]; 
-        range = 2000.0f;
-        damage = 10.0f;
-        speed = 1000.0f;
+    public Movement     movement        ;
+    
+    public int getOwningPlayerId(){
+        return (int)owningPlayerID;
     }
     
-    public Projectile(float speed, float range, float damage){
-        rotation = new float[4];
-        position = new float[3]; 
+    public Projectile(Projectile other){
+        movement = new Movement(other.movement.getMaxVelocity());
+        movement.Acceleration = 0.0f;
+        movement.Velocity = this.movement.getMaxVelocity();
+        range = other.range;
+        damage = other.damage;
+        projectileID = other.projectileID;
+        projectileIDString = other.projectileIDString;
+        owningPlayerID = other.owningPlayerID;
+    }
+    
+    public Projectile(long owningPlayerID, long projectileID, String projectileIDString, float damage, float maxVelocity, float range){
+        movement = new Movement(maxVelocity);
+        movement.Acceleration = 0.0f;
+        movement.Velocity = maxVelocity;
         this.range = range;
-        this.speed = speed;
         this.damage = damage;
-        
+        this.projectileID = projectileID;
+        this.projectileIDString = projectileIDString;
+        this.owningPlayerID = owningPlayerID;
+    }
+    
+    public long getProjectileID(){
+        return projectileID;
+    }
+    
+    public String getProjectileStringID(){
+        return projectileIDString;
     }
 
     public float getRange() {
         return range;
     }
 
-    public void setRange(float range) {
-        this.range = range;
-    }
-    
-    public float[] getPosition() {
-        return position;
-    }
-
-    public void setPosition(float[] position) {
-        this.position = position;
-    }
-
-    public float[] getRotation() {
-        return rotation;
-    }
-
-    public void setRotation(float[] rotation) {
-        this.rotation = rotation;
-    }
-
     public float getDamage() {
         return damage;
     }
-
-    public void setDamage(float damage) {
-        this.damage = damage;
+    
+    public void update(float deltaTime){
+        movement.onUpdate(deltaTime);
+        
     }
-
-    public float getSpeed() {
-        return speed;
+    
+    public boolean expired(){
+        float[] current = movement.getPosition();
+        float[] spawn = movement.getSpawn();
+        return Movement.distance(
+                spawn[0], spawn[1], spawn[2], 
+                current[0], current[1], current[2]) > range;
     }
-
-    public void setSpeed(float speed) {
-        this.speed = speed;
+    
+    @Override
+    public String toString(){
+        String value = "";
+        value += "[Projectile[\""+ this.projectileIDString + "\"](";
+        value += "Damage(" + this.damage + ")";
+        value += "Range(" + this.range + "))]\n";
+        return value;
     }
 }

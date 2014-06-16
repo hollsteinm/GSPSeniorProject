@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour {
     private GameObject shipModelPrefab;
     private GameObject shipShieldPrefab;
 
+    public string weapon = "Cannon";
+    public int shipid = 1;
+
     public GameObject ShipModelPrefab {
         get {
             Debug.Log("Getting ShipModelPrefab");
@@ -73,13 +76,16 @@ public class GameManager : MonoBehaviour {
     }
 
     private GameManager() {
+        weapon = "Cannon";
+        shipid = 1;
     }
 
     void Start() {
         Debug.Log("Start");
         shipModelPrefab = (GameObject)Resources.Load("StandardShip");
         shipShieldPrefab = (GameObject)Resources.Load("ShieldEffectPrefab");
-
+        weapon = "Cannon";
+        shipid = 1;
         Physics.gravity = new Vector3(0.0f, 0.0f, 0.0f);
     }
 

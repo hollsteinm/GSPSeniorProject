@@ -11,54 +11,82 @@ import java.util.ArrayList;
  * @author Martin
  */
 public class Ship {
-    private float       position[]  = new float[]{0.0f, 0.0f, 0.0f};
-    private float       rotation[]  = new float[]{0.0f, 0.0f, 0.0f, 0.0f};
+    public Movement             movement;
+
+    private float               maxEnergy;
+    private float               currentEnergy;
+    private long                shipTypeID = 0;
+    private String              shipTypeString = "";
     
-    protected float             health      = 0.0f;
-    protected Weapon            weapon      = new Weapon();    
+    protected Weapon            weapon;
+    protected Hull              hull;
     
-    public Ship(float health, Weapon weapon){
-        weapon = new Weapon();
-        position = new float[3];
-        rotation = new float[4];
-        this.health = health;
-        this.weapon = weapon;
-    }
+    private long                owningPlayerID;
     
-    public Ship(float health){
-        this.health = health;
-    }
-    
-    public Ship(){
+    public Ship(long owningPlayerID, long shipTypeID, String shipTypeString, 
+            Weapon weapon, Hull hull, float maxVelocity, float maxEnergy){
         
+        movement = new Movement(maxVelocity);
+        this.hull = hull;
+        this.weapon = weapon;
+        this.shipTypeID = shipTypeID;
+        this.shipTypeString = shipTypeString;
+        this.owningPlayerID = owningPlayerID;
+        this.maxEnergy = maxEnergy;
+        this.currentEnergy = maxEnergy;
+    }
+    
+    public void onUpdate(float deltaTime){
+        movement.onUpdate(deltaTime);
+        weapon.onUpdate(deltaTime);
+        restoreEnergy(deltaTime / 2.0f);
+    }
+    
+    public long getOwningPlayerID(){
+        return owningPlayerID;
+    }
+    
+    public long getTypeID(){
+        return shipTypeID;
+    }
+    
+    public String getShipTypeString(){
+        return shipTypeString;
     }
 
-    public float[] getPosition() {
-        return position;
-    }
-
-    public void setPosition(float[] position) {
-        this.position = position;
-    }
-
-    public float[] getRotation() {
-        return rotation;
-    }
-
-    public void setRotation(float[] rotation) {
-        this.rotation = rotation;
-    }
-
-    public float getHealth() {
-        return health;
-    }
-
-    public void setHealth(float health) {
-        this.health = health;
+    public Hull getHull(){
+        return hull;
     }
 
     public Weapon getWeapon() {
         return weapon;
+    }
+    
+    public void useEnergy(float value){
+        currentEnergy -= value;
+    }
+    
+    public void restoreEnergy(float value){
+        currentEnergy += value;
+        if(currentEnergy >= maxEnergy){
+            currentEnergy = maxEnergy;
+        }
+    }
+    
+    public boolean canHasEnoughEnergy(float amountToConsume){
+        return amountToConsume <= currentEnergy;
+    }
+    
+    public String toString(){
+        String value = "";
+        value += this.shipTypeString + "\n";
+        value += "\tVelocity: " + this.movement.Velocity + "\n";
+        value += "\tEnergy: " + this.maxEnergy + "\n";
+        value += "\tWeapon: " + this.weapon.toString() + "\n";
+        value += "\tHull: " + this.hull.toString() + "\n";
+        
+        
+        return value;
     }
     
 }
