@@ -146,24 +146,25 @@ public class StarboundAcesExtension extends SFSExtension{
     public void createGame(int roomid) throws Exception{
         if(gameList.containsKey(roomid)){
             throw new Exception("Game already exists");
+        } else {
+            gameList.put(roomid, new Game());
         }
-        gameList.put(roomid, new Game());
     }
     
     public void startGame(int roomid) throws Exception{
-        taskHandlers.put(roomid, 
+        /*taskHandlers.put(roomid, 
                 SmartFoxServer.getInstance().getTaskScheduler().scheduleAtFixedRate(getGame(roomid), 
                         500, 
-                        150, 
-                        TimeUnit.MILLISECONDS));
+                        1000, 
+                        TimeUnit.MILLISECONDS));*/
         trace("Game Started: " + roomid);
     }
     
     public void endGame(int roomid) throws Exception{
         getGame(roomid).onEnd();
-        //if(!taskHandlers.get(roomid).cancel(true)){
-        //    throw new Exception("Could not cancel task. RoomId: " + roomid);
-        //}
+        /*if(!taskHandlers.get(roomid).cancel(true)){
+            throw new Exception("Could not cancel task. RoomId: " + roomid);
+        }*/
 
     }
     

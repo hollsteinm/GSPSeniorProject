@@ -120,7 +120,9 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
     }
     
     Player getPlayer(User user) throws Exception{
-        return getGame(user).getPlayer(user.getId());
+        Game game = getGame(user);
+        Player player = game.getPlayer(user.getId());
+        return player;
     }
     //End Helpers
     
@@ -156,7 +158,7 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
             
             List<User> users = user.getLastJoinedRoom().getUserList();
             for(User u : users){
-                long uid = (long)u.getId();
+                int uid = u.getId();
                 trace("User Variables ["+uid+"]["+u.getName()+"]\n " + u.getUserVariablesData().getDump());
                 
                 HashMap<String, Object> shiphull = DBService.selectShipConfiguration(
@@ -203,6 +205,7 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
                 
             }
             
+            getGame(user).Register(this);
             getGame(user).initialize();
             send("gamelist.remove", data, this.getParentExtension().getParentZone().getRoomByName("lobby").getUserList());
             
@@ -212,7 +215,7 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
             sendToAllInGame("game.start", SFSObject.newInstance(), user, false);
             
             try{
-                //((StarboundAcesExtension)this.getParentExtension()).startGame(user.getLastJoinedRoom().getId());
+                ((StarboundAcesExtension)this.getParentExtension()).startGame(user.getLastJoinedRoom().getId());
                 getGame(user).Register(this);
             } catch (Exception e){
                 onException(e);
@@ -326,7 +329,7 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
             send("transform", response, user.getLastJoinedRoom().getPlayersList());
 
         } catch (Exception e){
-            onException(e);
+            //onException(e);
         } 
     }
     
@@ -447,7 +450,8 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
     
     private void handlePlayerTransform(User user, ISFSObject params){
         try{
-            Ship ship = getPlayer(user).getShip();
+            Player p = getPlayer(user);
+            Ship ship = p.getShip();
             
             ship.movement.setPosition(new float[]{
                 params.getFloat("position.x"),
@@ -470,7 +474,7 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
             send("transform", response, user.getLastJoinedRoom().getPlayersList());
 
         } catch (Exception e){
-            onException(e);
+            //onException(e);
         } 
     }
     

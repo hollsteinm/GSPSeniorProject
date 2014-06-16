@@ -11,7 +11,7 @@ package com.gspteama.gamedriver;
 public class Player {
     private String      username   = "";
     private long        score      = 0L;
-    private long        id         = -1L;
+    private int         id         ;
     
     private Ship        ship        ;
     
@@ -19,13 +19,13 @@ public class Player {
         ship.onUpdate(deltaTime);
     }
     
-    public Player(long id, String username, Ship ship){
+    public Player(int id, String username, Ship ship){
         this.id = id;
         this.username = username;
         this.ship = ship;
     }
     
-    public long getPlayerId(){
+    public int getPlayerId(){
         return id;
     }
 

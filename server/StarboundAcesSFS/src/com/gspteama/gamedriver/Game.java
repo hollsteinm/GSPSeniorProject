@@ -228,7 +228,8 @@ public class Game implements IEventMessenger, Runnable{
 
     @Override
     public void run() {
-        update(deltaTime());
+        //update(deltaTime());
+        OnEvent("Still Running...", new Object());
     }
     
     public boolean isPlaying(){

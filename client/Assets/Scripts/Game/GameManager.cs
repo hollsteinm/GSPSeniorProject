@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour {
             AddQueuedPlayers();
         }
     }
-
+    public Dictionary<string, object> prespawnData = null;
     void OnLevelWasLoaded(int id) {
         Debug.Log("Level Loaded");
 
@@ -124,6 +124,15 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Adding Queued Players and locking cursor");
             AddQueuedPlayers();
             Screen.lockCursor = true;
+
+            if (prespawnData != null)
+            {
+                client.OnEvent("spawn", prespawnData);
+            }
+            else
+            {
+                print("Prespawn data was null.");
+            }
         }
 
         //clear the player queue
@@ -179,7 +188,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public int getQueuedCount() {
-        Debug.Log("Getting Queued Count");
+        //Debug.Log("Getting Queued Count");
         return queuedplayers.Count;
     }
 

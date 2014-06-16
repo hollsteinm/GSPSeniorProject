@@ -182,8 +182,8 @@ public class Gun : MonoBehaviour, IEventListener {
     public void Notify(string eventType, object o) {
         switch (eventType) {
             case "spawn":
-                Dictionary<string, float> data = o as Dictionary<string, float>;
-                cooldown = data["cooldown"];
+                Dictionary<string, object> data = o as Dictionary<string, object>;
+                cooldown = (float)data["cooldown"];
                 break;
 
             default:

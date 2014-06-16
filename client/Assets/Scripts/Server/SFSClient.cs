@@ -628,8 +628,8 @@ public class SFSClient : IClientController {
         data.Add("health", sfsdata.GetFloat("health"));
         data.Add("velocity", sfsdata.GetFloat("velocity"));
         data.Add("energy", sfsdata.GetFloat("energy"));
-
-        OnEvent ( "spawn", data );
+        GameManager.gameManager.prespawnData = data;
+        //OnEvent ( "spawn", data );
     }
 
     private void GameListResponse(SFSObject sfsdata) {

@@ -134,7 +134,7 @@ public class SAMultiHandler extends BaseClientRequestHandler implements IEventLi
                         maxEnergy
                 );
                 
-                getGame(user).AddPlayer(new Player(uid, u.getName(),s));
+                //getGame(user).AddPlayer(new Player(uid, u.getName(),s));
                 trace("Player ready!\nPlayer Name [" + u.getName() + "]\nShip[" + 
                         s.toString() + "]\n");
             }

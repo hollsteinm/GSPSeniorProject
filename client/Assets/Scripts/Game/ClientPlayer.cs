@@ -69,11 +69,13 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         switch ( eventType ) {
             case "spawn":
                 //early out for debugging due to 'jittering' issue on spawn - conflicting information, need to have a gameStart() method
-                if (o.GetType() != typeof(Dictionary<string, object>)) {
+                /*if (o.GetType() != typeof(Dictionary<string, object>)) {
                     return;
                 }
-                
+                */
                 Dictionary<string, float> data = o as Dictionary<string, float>;
+                Debug.Log(data.Values.ToString());
+                Debug.Log(data.Keys.ToString());
                 /*
                 float px = data["position.x"];
                 float py = data["position.y"];
