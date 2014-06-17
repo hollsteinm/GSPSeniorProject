@@ -117,7 +117,7 @@ public class SFSClient : IClientController {
                 DeathResponse ( sfsdata );
                 break;
 
-            case "spawn":
+            case "player.spawn":
                 SpawnResponse ( sfsdata );
                 break;
 
@@ -377,6 +377,15 @@ public class SFSClient : IClientController {
 
     public void Update ( ) {
         SFSInstance.ProcessEvents ();
+        if (SFSInstance != null)
+        {
+            if (SFSInstance.LastJoinedRoom != null)
+            {
+                SFSInstance.MySelf.SetVariable(new SFSUserVariable("weapon", GameManager.gameManager.weapon));
+                SFSInstance.MySelf.SetVariable(new SFSUserVariable("shipid", GameManager.gameManager.shipid));
+                SFSInstance.Send(new SetUserVariablesRequest(SFSInstance.MySelf.GetVariables()));
+            }
+        }
     }
 
     public string Username {
@@ -581,11 +590,14 @@ public class SFSClient : IClientController {
     }
 
     private void SpawnResponse ( SFSObject sfsdata ) {
-        int id = sfsdata.GetInt ( "player" );
+
+        Debug.Log(sfsdata.GetDump());
+        int id = sfsdata.GetInt ( "playerid" );
         if ( id != SFSInstance.MySelf.Id ) {
             return;
         }
-
+        Dictionary<string, object> data = new Dictionary<string, object>();
+        /*
         float px = sfsdata.GetFloat ( "position.x" );
         float py = sfsdata.GetFloat ( "position.y" );
         float pz = sfsdata.GetFloat ( "position.z" );
@@ -607,8 +619,19 @@ public class SFSClient : IClientController {
         data.Add("cooldown", sfsdata.GetFloat("cooldown"));
         data.Add("damage", sfsdata.GetFloat("damage"));
         data.Add("range", sfsdata.GetFloat("range"));
+        */
 
-        OnEvent ( "spawn", data );
+        data.Add("ship", sfsdata.GetUtfString("ship"));
+        data.Add("weapon", sfsdata.GetUtfString("weapon"));
+        data.Add("clipsize", sfsdata.GetInt("clipsize"));
+        data.Add("ammo", sfsdata.GetInt("ammo"));
+        data.Add("cooldown", sfsdata.GetFloat("cooldown"));
+        data.Add("range", sfsdata.GetFloat("range"));
+        data.Add("health", sfsdata.GetFloat("health"));
+        data.Add("velocity", sfsdata.GetFloat("velocity"));
+        data.Add("energy", sfsdata.GetFloat("energy"));
+        GameManager.gameManager.prespawnData = data;
+        //OnEvent ( "spawn", data );
     }
 
     private void GameListResponse(SFSObject sfsdata) {

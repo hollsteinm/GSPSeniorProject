@@ -14,14 +14,79 @@ import java.util.HashMap;
 /**
  *
  * @author Martin
+ * 
  */
 public class DBService {
     
-    public static HashMap<String, Object> selectWeaponConfigurations(Connection connection, String weaponName) throws SQLException{
+    
+    public static HashMap<String, Object> selectShipConfiguration(Connection connection, long shipId) throws Exception{
+        HashMap<String, Object> results = new HashMap<>();
         Connection con = connection;
         PreparedStatement ps;
         ResultSet rs;
-        HashMap<String, Object> results = new HashMap<String, Object>();
+        
+        String stmt = "select * from sa_ship join sa_hull on hull_id = ship_hull_id where ship_id = ? ";
+        
+        ps = con.prepareStatement(stmt);
+        ps.setLong(1, shipId);
+        
+        rs = ps.executeQuery();
+        
+        if(rs.next()){
+            results.put("hull", new com.gspteama.gamedriver.Hull(rs.getLong("hull_max_health")));
+            results.put("name", rs.getString("ship_name"));
+            results.put("maxVelocity", rs.getLong("ship_velocity"));
+            results.put("maxEnergy", rs.getLong("ship_energy"));
+        } else {
+            rs.close();
+            ps.close();
+            con.close();
+            throw new Exception("Ship not found. ID: " + shipId);
+        }
+        
+        rs.close();
+        ps.close();
+        con.close();
+        return results;
+    }
+    
+    public static com.gspteama.gamedriver.IPowerup selectPowerup(Connection connection, String powerupShortName) throws Exception{
+        Connection con = connection;
+        PreparedStatement ps;
+        ResultSet rs;
+        
+        com.gspteama.gamedriver.IPowerup powerup = null;
+        
+        String stmt = "select powerup_effect_class_name from sa_powerup where powerup_effect_short_name = ?";
+        
+        ps = con.prepareStatement(stmt);
+        ps.setString(1, powerupShortName);
+        
+        rs = ps.executeQuery();
+        
+        if(rs.next()){
+            powerup = com.gspteama.gamedriver.PowerupFactory.getPowerup(
+                    rs.getString("powerup_effect_class_name")
+                );
+                
+            ps.close();
+            rs.close();
+            con.close();
+            return powerup;
+        } else {
+            ps.close();
+            rs.close();
+            con.close();
+            throw new Exception("Powerup not found. Short Name: " + powerupShortName);
+        }
+        
+    }
+    
+    public static com.gspteama.gamedriver.Weapon selectWeaponConfigurations(Connection connection, String weaponName, long owningPlayerId) throws Exception{
+        Connection con = connection;
+        PreparedStatement ps;
+        ResultSet rs;
+        com.gspteama.gamedriver.Weapon result = null;
         
         String stmt = "select * from sa_weapon_config swc " +
                 " join sa_ammo_config sac " + 
@@ -35,30 +100,35 @@ public class DBService {
         
         if(rs.next()){
             
-            results.put("Weapon",
-                    new com.gspteama.gamedriver.Weapon(
-                            rs.getFloat("weapon_config_cooldown"), 
-                            rs.getInt("ammo_config_damage")
-                    ));
-
-            results.put("Ammo",
-                    new com.gspteama.gamedriver.Projectile(
-                            rs.getInt("sa_ammo_speed"),
-                            rs.getInt("ammo_config_range"),
-                            rs.getInt("ammo_config_damage")
-                    ));
+            result = new com.gspteama.gamedriver.Weapon(
+                            rs.getFloat("weapon_config_cooldown"),
+                            new com.gspteama.gamedriver.Projectile(
+                                    owningPlayerId,
+                                    rs.getLong("ammo_config_id"),
+                                    rs.getString("ammo_config_name"),
+                                    rs.getFloat("ammo_config_damage"),
+                                    rs.getFloat("sa_ammo_speed"),
+                                    rs.getFloat("ammo_config_range")),
+                                rs.getInt("weapon_config_max_clip_size"),
+                                rs.getInt("weapon_config_total_ammo")
+                                
+                        ); 
+                        
+            rs.close();
+            ps.close();
+            con.close();
+            return result;
+                        
         } else {
-            results.put("Weapon", new com.gspteama.gamedriver.Weapon(0.5f, 10.0f));
-            results.put("Ammo", new com.gspteama.gamedriver.Projectile());
-        }
-        
-        rs.close();
-        ps.close();
-        con.close();
-        return results;       
+            rs.close();
+            ps.close();
+            con.close();
+            throw new Exception("Weapon Configuration not found. Weapon Name: " + weaponName);
+            
+        }     
     }
     
-    public static com.gspteama.gamedriver.Projectile selectProjectile(Connection connection, String projectileName) throws SQLException{
+    public static com.gspteama.gamedriver.Projectile selectProjectile(Connection connection, String projectileName, long owningPlayerId) throws Exception{
         Connection con = connection;
         PreparedStatement ps;
         ResultSet rs;
@@ -70,20 +140,29 @@ public class DBService {
         
         rs = ps.executeQuery();
         com.gspteama.gamedriver.Projectile p = null;
+        
         if(rs.next()){
            p = new com.gspteama.gamedriver.Projectile(
-                   rs.getInt("sa_ammo_speed"), 
-                   rs.getInt("ammo_config_range"), 
-                   rs.getInt("ammo_config_damage")
+                   owningPlayerId,
+                   rs.getLong("ammo_config_id"),
+                   rs.getString("ammo_config_name"),
+                   rs.getFloat("ammo_config_damage"),
+                   rs.getFloat("sa_ammo_speed"),
+                   rs.getFloat("ammo_config_range")
            );
+           
+            rs.close();
+            ps.close();
+            con.close();
+            return p;
         } else {
-           p = new com.gspteama.gamedriver.Projectile();
+            rs.close();
+            ps.close();
+            con.close();
+            throw new Exception("Projectile not found. Projectile Name: " + projectileName);
         }
         
-        rs.close();
-        ps.close();
-        con.close();
-        return p;
+        
     }
     
     public static void insertNewGame(Connection connection, String gameName, int creatingUserId) throws SQLException{

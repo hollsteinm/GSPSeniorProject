@@ -37,6 +37,9 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         
         
         server.Send(DataType.SPAWNED, weaponType);
+
+        server.OnEvent("spawn", GameManager.gameManager.prespawnData);
+
 	}
 	
 	// Update is called once per frame
@@ -69,11 +72,15 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         switch ( eventType ) {
             case "spawn":
                 //early out for debugging due to 'jittering' issue on spawn - conflicting information, need to have a gameStart() method
-                if (o.GetType() != typeof(Dictionary<string, float>)) {
+                /*if (o.GetType() != typeof(Dictionary<string, object>)) {
                     return;
                 }
-
-                Dictionary<string, float> data = o as Dictionary<string, float>;
+                */
+                Dictionary<string, object> data = o as Dictionary<string, object>;
+                Debug.Log(data.ToString());
+                Debug.Log(data.Values.ToString());
+                Debug.Log(data.Keys.ToString());
+                /*
                 float px = data["position.x"];
                 float py = data["position.y"];
                 float pz = data["position.z"];
@@ -84,9 +91,15 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
                 
                 transform.position = new Vector3(px, py, pz);
                 transform.rotation = new Quaternion(rx, ry, rz, rw);
-
-                shipHull.Health = data["health"];
-                shipHull.MaxHealth = data["health"];
+                */
+                shipHull.Health = (float)data["health"];
+                shipHull.MaxHealth = (float)data["health"];
+                shipHull.weapon.Cooldown = (float)data["cooldown"];
+                GetComponent<Reticle>().range = (float)data["range"];
+                shipHull.weapon.MaxAmmo = (int)data["ammo"];
+                shipHull.weapon.Clipsize = (int)data["clipsize"];
+                GetComponent<JetMovement>().maxEnergy = (float)data["energy"];
+                GetComponent<JetMovement>().maxVelocity = (float)data["velocity"];
                 //TODO: once the database sends the right data, we will be able to set this for the reticle
                 //GetComponent<Reticle>().range = data["range"];
 

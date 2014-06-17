@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour {
     private GameObject shipModelPrefab;
     private GameObject shipShieldPrefab;
 
+    public string weapon = "Cannon";
+    public int shipid = 1;
+
     public GameObject ShipModelPrefab {
         get {
             Debug.Log("Getting ShipModelPrefab");
@@ -73,13 +76,16 @@ public class GameManager : MonoBehaviour {
     }
 
     private GameManager() {
+        weapon = "Cannon";
+        shipid = 1;
     }
 
     void Start() {
         Debug.Log("Start");
         shipModelPrefab = (GameObject)Resources.Load("StandardShip");
         shipShieldPrefab = (GameObject)Resources.Load("ShieldEffectPrefab");
-
+        weapon = "Cannon";
+        shipid = 1;
         Physics.gravity = new Vector3(0.0f, 0.0f, 0.0f);
     }
 
@@ -110,7 +116,7 @@ public class GameManager : MonoBehaviour {
             AddQueuedPlayers();
         }
     }
-
+    public Dictionary<string, object> prespawnData = null;
     void OnLevelWasLoaded(int id) {
         Debug.Log("Level Loaded");
 
@@ -118,6 +124,7 @@ public class GameManager : MonoBehaviour {
             Debug.Log("Adding Queued Players and locking cursor");
             AddQueuedPlayers();
             Screen.lockCursor = true;
+
         }
 
         //clear the player queue
@@ -173,7 +180,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public int getQueuedCount() {
-        Debug.Log("Getting Queued Count");
+        //Debug.Log("Getting Queued Count");
         return queuedplayers.Count;
     }
 
@@ -279,7 +286,15 @@ public class GameManager : MonoBehaviour {
 
         GameObject o = (GameObject)Instantiate(Resources.Load("RemoteProjectile"), position, rotation);
         o.GetComponent<NetworkTransformer>().NetworkId = (int)data["networkId"];
-        //TODO: Get Projectile type and load mesh with same name
+
+        Projectile p = o.GetComponent<Projectile>();
+        if (p != null)
+        {
+            p.Damage = (float)data["damage"];
+            p.Speed = (float)data["speed"];
+            p.Range = (float)data["speed"];
+        }
+
     }
 
 }

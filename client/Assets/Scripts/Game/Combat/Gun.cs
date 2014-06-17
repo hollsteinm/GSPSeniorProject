@@ -46,6 +46,16 @@ public class Gun : MonoBehaviour, IEventListener {
         }
     }
 
+    public int MaxAmmo = 100;
+
+    public int Clipsize
+    {
+        set
+        {
+            totalAmmunition = value;
+        }
+    }
+
 	// Use this for initialization
 	void Start () {
         gunType = GameManager.gameManager.CurrentWeaponChoice;
@@ -172,8 +182,10 @@ public class Gun : MonoBehaviour, IEventListener {
     public void Notify(string eventType, object o) {
         switch (eventType) {
             case "spawn":
-                Dictionary<string, float> data = o as Dictionary<string, float>;
-                cooldown = data["cooldown"];
+                print("In Gun Spawn");
+                Dictionary<string, object> data = o as Dictionary<string, object>;
+                print(data.ToString());
+                cooldown = (float)data["cooldown"];
                 break;
 
             default:

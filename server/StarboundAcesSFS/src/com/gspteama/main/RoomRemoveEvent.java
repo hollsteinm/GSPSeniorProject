@@ -13,7 +13,6 @@ import com.smartfoxserver.v2.entities.Room;
 import com.smartfoxserver.v2.exceptions.SFSException;
 import com.smartfoxserver.v2.extensions.BaseServerEventHandler;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 /**
  *
@@ -29,10 +28,14 @@ public class RoomRemoveEvent extends BaseServerEventHandler{
             try{                
                 Connection conref = this.getParentExtension().getParentZone().getDBManager().getConnection();
                 DBService.updateGameStatus(conref, "D", room.getName());
+                ((StarboundAcesExtension)this.getParentExtension()).getGame(room.getId()).onEnd();
+                ((StarboundAcesExtension)this.getParentExtension()).endGame(room.getId());
+                ((StarboundAcesExtension)this.getParentExtension()).removeGame(room.getId());
                 
-            }catch(SQLException e){
+            }catch(Exception e){
+                trace(e.getMessage());
                 for(StackTraceElement ste : e.getStackTrace()){
-                    trace(e.toString());
+                    trace(ste.toString());
                 }
             }
         }
