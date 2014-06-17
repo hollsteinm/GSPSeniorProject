@@ -37,6 +37,9 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
         
         
         server.Send(DataType.SPAWNED, weaponType);
+
+        server.OnEvent("spawn", GameManager.gameManager.prespawnData);
+
 	}
 	
 	// Update is called once per frame
@@ -73,7 +76,8 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
                     return;
                 }
                 */
-                Dictionary<string, float> data = o as Dictionary<string, float>;
+                Dictionary<string, object> data = o as Dictionary<string, object>;
+                Debug.Log(data.ToString());
                 Debug.Log(data.Values.ToString());
                 Debug.Log(data.Keys.ToString());
                 /*

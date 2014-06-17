@@ -125,14 +125,6 @@ public class GameManager : MonoBehaviour {
             AddQueuedPlayers();
             Screen.lockCursor = true;
 
-            if (prespawnData != null)
-            {
-                client.OnEvent("spawn", prespawnData);
-            }
-            else
-            {
-                print("Prespawn data was null.");
-            }
         }
 
         //clear the player queue
@@ -294,7 +286,15 @@ public class GameManager : MonoBehaviour {
 
         GameObject o = (GameObject)Instantiate(Resources.Load("RemoteProjectile"), position, rotation);
         o.GetComponent<NetworkTransformer>().NetworkId = (int)data["networkId"];
-        //TODO: Get Projectile type and load mesh with same name
+
+        Projectile p = o.GetComponent<Projectile>();
+        if (p != null)
+        {
+            p.Damage = (float)data["damage"];
+            p.Speed = (float)data["speed"];
+            p.Range = (float)data["speed"];
+        }
+
     }
 
 }

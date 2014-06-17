@@ -182,7 +182,9 @@ public class Gun : MonoBehaviour, IEventListener {
     public void Notify(string eventType, object o) {
         switch (eventType) {
             case "spawn":
+                print("In Gun Spawn");
                 Dictionary<string, object> data = o as Dictionary<string, object>;
+                print(data.ToString());
                 cooldown = (float)data["cooldown"];
                 break;
 

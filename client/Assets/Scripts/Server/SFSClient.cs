@@ -590,6 +590,8 @@ public class SFSClient : IClientController {
     }
 
     private void SpawnResponse ( SFSObject sfsdata ) {
+
+        Debug.Log(sfsdata.GetDump());
         int id = sfsdata.GetInt ( "playerid" );
         if ( id != SFSInstance.MySelf.Id ) {
             return;

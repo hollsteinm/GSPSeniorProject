@@ -61,7 +61,7 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
                     break;
 
                 case "death":
-                    trace("Player <" + user.getId() + "> is dead.");
+                   // trace("Player <" + user.getId() + "> is dead.");
                     handleDeath(user, params);
                     break;
 
@@ -92,7 +92,7 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
     }
     
     private void sendToAllInGame(String event, ISFSObject response, User user, boolean udp){
-        trace(response.getDump());
+        //trace(response.getDump());
         send(event, response, user.getLastJoinedRoom().getPlayersList(), udp);
     }
     
@@ -271,7 +271,9 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
                 });
 
                 id = p.hashCode();
-                game.addProjectile(id, p);
+                if(game != null){
+                    game.addProjectile(id, p);
+                }
 
                 ISFSObject response = SFSObject.newInstance();
 
@@ -285,8 +287,8 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
                 response.putFloat("range", p.getRange());
                 response.putUtfString("type", p.getProjectileStringID());
 
-                trace(response.getDump());
-                send("shoot", response, user.getLastJoinedRoom().getUserList());
+                //trace(response.getDump());
+                //send("shoot", response, user.getLastJoinedRoom().getUserList());
                 trace("data sent");
 
                 trace("Properties set");
@@ -294,7 +296,28 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
         } catch(Exception e){
             onException(e);
         } finally{
+            Projectile pp = DBService.selectProjectile(getConnection(),
+                    params.getUtfString("type"),
+                    user.getId());
+            
+            id = pp.hashCode();
+            game.addProjectile(id, pp);
 
+            ISFSObject response = SFSObject.newInstance();
+
+            response.putInt("playerId", user.getId());
+            response.putInt("networkId", id);
+
+            paramsIntoResponseTransform(params, response);
+
+            response.putFloat("damage", pp.getDamage());
+            response.putFloat("speed", pp.movement.getMaxVelocity());
+            response.putFloat("range", pp.getRange());
+            response.putUtfString("type", pp.getProjectileStringID());
+
+            //trace(response.getDump());
+            send("shoot", response, user.getLastJoinedRoom().getUserList());
+            trace("data sent");
         }
     }
     
@@ -325,12 +348,20 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
             
             paramsIntoResponseTransform(params, response);
             
-            trace(response.getDump());
-            send("transform", response, user.getLastJoinedRoom().getPlayersList());
+            //trace(response.getDump());
+            //send("transform", response, user.getLastJoinedRoom().getPlayersList());
 
         } catch (Exception e){
             //onException(e);
-        } 
+        } finally{
+             ISFSObject response = SFSObject.newInstance();            
+            
+            response.putInt("networkId", pid);
+            response.putUtfString("type", "projectile");
+            
+            paramsIntoResponseTransform(params, response);
+            send("transform", response, user.getLastJoinedRoom().getPlayersList());
+         }
     }
     
     private void paramsIntoResponseTransform(ISFSObject params, ISFSObject response){
@@ -466,21 +497,25 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
                 params.getFloat("rotation.w")
             });
             
+
+        } catch (Exception e){
+            //onException(e);
+        } finally {
             ISFSObject response = SFSObject.newInstance();
             response.putInt("player", user.getId());
             response.putUtfString("type", "player");
             paramsIntoResponseTransform(params, response);
 
             send("transform", response, user.getLastJoinedRoom().getPlayersList());
-
-        } catch (Exception e){
-            //onException(e);
-        } 
+        }
     }
     
     private void handleFire(User user, ISFSObject params){          
         try{
             Projectile p = getGame(user).getProjectile(params.getInt("projectileid"));
+            if(p==null){
+                p = DBService.selectProjectile(getConnection(), params.getUtfString("type"), user.getId());
+            }
         
             ISFSObject response = SFSObject.newInstance();
             response.putFloat("damage", p.getDamage());
@@ -489,7 +524,7 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
             response.putFloat("contact.point.y", params.getFloat("contact.point.y"));
             response.putFloat("contact.point.z", params.getFloat("contact.point.z"));
 
-            trace(response.getDump());
+            //trace(response.getDump());
 
             long score = 25;
 
