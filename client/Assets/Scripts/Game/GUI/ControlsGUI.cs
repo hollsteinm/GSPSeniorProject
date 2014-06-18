@@ -27,8 +27,10 @@ public class ControlsGUI : MonoBehaviour {
 	
 	}
 
+    public AudioSource click;
     void OnGUI() {
         if (GUI.Button(backRect, backContent, backStyle)) {
+            click.Play();
             Application.LoadLevel("launch");
         }
 

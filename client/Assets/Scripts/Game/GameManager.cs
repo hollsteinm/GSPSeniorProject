@@ -168,6 +168,12 @@ public class GameManager : MonoBehaviour {
                     other.GetComponent<RemotePlayerScript>().Id = entry.Key;
                     other.GetComponent<RemotePlayerScript>().Username = entry.Value;
 
+                    if (queueHealth.ContainsKey(entry.Key))
+                    {
+                        other.GetComponent<RemotePlayerScript>().MaxHealth = queueHealth[entry.Key];
+                        queueHealth.Remove(entry.Key);
+                    }
+
                     players.Add(entry.Key, other);
                     queuedplayers.Remove(entry.Key);
 
@@ -245,6 +251,20 @@ public class GameManager : MonoBehaviour {
             queuedplayers.Add(id, name);
         }
         Debug.Log("Queueing Player: " + id.ToString() + "/" + name);
+    }
+
+    private Dictionary<int, float> queueHealth = new Dictionary<int, float>();
+    public void assignRemoteHealth(int id, float data)
+    {
+        if (players.ContainsKey(id))
+        {
+            GameObject go = players[id];
+            go.GetComponent<RemotePlayerScript>().MaxHealth = data;
+        }
+        else
+        {
+            queueHealth.Add(id, data);
+        }
     }
 
     public void RemoveRemotePlayer(int id) {

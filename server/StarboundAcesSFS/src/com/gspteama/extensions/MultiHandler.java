@@ -8,6 +8,7 @@ import com.gspteama.db.DBService;
 import com.gspteama.gamedriver.Game;
 import com.gspteama.gamedriver.Hull;
 import com.gspteama.gamedriver.IEventListener;
+import com.gspteama.gamedriver.IPowerup;
 import com.gspteama.gamedriver.Player;
 import com.gspteama.gamedriver.Projectile;
 import com.gspteama.gamedriver.Ship;
@@ -76,6 +77,7 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
 
                 case "powerup":
                     handlePowerUp(user, params);
+                    break;
 
                 default:
                     trace("Unrecognized request Id sent... ignoring");
@@ -130,6 +132,15 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
         ISFSObject response = SFSObject.newInstance();
         response.putUtfString("powerup", params.getUtfString("powerup"));
         response.putInt("playerid", user.getId());
+        
+        try{
+            IPowerup ip = DBService.selectPowerup(getConnection(), 
+                   params.getUtfString("powerup"));
+            ip.execute(getGame(user).getPlayer(user.getId()).getShip());
+        }catch(Exception e){
+            onException(e);
+        }
+        
         send("powerup", response, user.getLastJoinedRoom().getUserList());
     }
     
@@ -512,10 +523,10 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
     
     private void handleFire(User user, ISFSObject params){          
         try{
-            Projectile p = getGame(user).getProjectile(params.getInt("projectileid"));
-            if(p==null){
-                p = DBService.selectProjectile(getConnection(), params.getUtfString("type"), user.getId());
-            }
+            //Projectile p = getGame(user).getProjectile(params.getInt("projectileid"));
+            //if(p==null){
+            Projectile p = DBService.selectProjectile(getConnection(), params.getUtfString("type"), user.getId());
+            //}
         
             ISFSObject response = SFSObject.newInstance();
             response.putFloat("damage", p.getDamage());

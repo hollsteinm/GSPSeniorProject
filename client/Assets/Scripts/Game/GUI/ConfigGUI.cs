@@ -7,6 +7,8 @@ public class ConfigGUI : MonoBehaviour {
     public GUIStyle configStyle;
     public Rect configArea;
 
+    public AudioSource click;
+
     private List<ConfigItem> weaponConfigs = new List<ConfigItem>();
     private List<ConfigItem> shipConfigs = new List<ConfigItem>();
 
@@ -52,6 +54,7 @@ public class ConfigGUI : MonoBehaviour {
     public void DrawWeaponConfigs() {
         foreach (ConfigItem ci in weaponConfigs) {
             if (GUILayout.Button(ci.display, configStyle, GUILayout.MaxWidth(128), GUILayout.MaxHeight(128))) {
+                click.Play();
                 GameManager.gameManager.CurrentWeaponChoice = ci.relatedGunChoice;
             }
         }
@@ -60,6 +63,7 @@ public class ConfigGUI : MonoBehaviour {
     public void DrawShipConfigs() {
         foreach (ConfigItem ci in shipConfigs) {
             if (GUILayout.Button(ci.display, configStyle, GUILayout.MaxWidth(128), GUILayout.MaxHeight(128))) {
+                click.Play();
                 GameManager.gameManager.ShipModelPrefab = ci.shipModelPrefab;
                 GameManager.gameManager.ShipShieldPrefab = ci.shipShieldEffectPrefab;
             }

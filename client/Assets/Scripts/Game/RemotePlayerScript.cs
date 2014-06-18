@@ -14,6 +14,15 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
     public GameObject fireDamage;
     public GameObject smokeDamage;
 
+    public float MaxHealth
+    {
+        set
+        {
+            maxHealth = value;
+            localHealth = value;
+        }
+    }
+
 	// Use this for initialization
 	void Start () {
         guiTextref = gameObject.GetComponentInChildren<GUIText>();
@@ -146,9 +155,11 @@ public class RemotePlayerScript : MonoBehaviour, IEventListener {
         }
     }
 
+    public GameObject deathPrefab;
     private void handlePlayerRemoteDeath ( object o ) {
         if ( ( int ) o == remoteId ) {
             GameManager.gameManager.RemoveRemotePlayer ( remoteId );
+            Instantiate(deathPrefab, transform.position, transform.rotation);
         }
     }
 }

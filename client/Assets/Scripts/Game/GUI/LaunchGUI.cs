@@ -19,10 +19,12 @@ public class LaunchGUI : MonoBehaviour {
     public float groupWidth;
     public float groupHeight;
 
+    public AudioSource click;
+
 	// Use this for initialization
 	void Start () {
         Screen.lockCursor = false;
-
+        
 	}
 	
 	// Update is called once per frame
@@ -36,25 +38,30 @@ public class LaunchGUI : MonoBehaviour {
 
         if ( GUI.Button ( singlePlayerRect, singlePlayerContent, launchStyle ) ) {
             GameManager.gameManager.gameType = GameType.SINGLEPLAYER;
+            click.Play();
             Application.LoadLevel ( "singleplayer" );
         }
 
         if ( GUI.Button ( multiPlayerRect, multiPlayerContent, launchStyle ) ) {
             GameManager.gameManager.gameType = GameType.MULTIPLAYER;
+            click.Play();
             Application.LoadLevel ( "login" );
         }
 
         if (GUI.Button(creditsRect, creditContent, launchStyle)) {
             GameManager.gameManager.gameType = GameType.SINGLEPLAYER;
+            click.Play();
             Application.LoadLevel("credits");
         }
 
         if (GUI.Button(controlsRect, controlsContent, launchStyle)) {
+            click.Play();
             Application.LoadLevel("controls");
         }
 
         if (!Application.isWebPlayer){
             if (GUI.Button(quitRect, quitContent, launchStyle)) {
+                click.Play();
                 Application.Quit();
             }
         }

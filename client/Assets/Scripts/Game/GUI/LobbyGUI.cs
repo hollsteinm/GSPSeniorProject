@@ -68,11 +68,14 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
         }	
 	}
 
+    public AudioSource click;
     void OnGUI ( ) {
         if ( GUI.Button ( playRect, playContent, lobbyStyle ) ) {
+            click.Play();
             server.Send ( DataType.MAKEGAME, null );
         }
         if (GUI.Button(logoutRect, logoutContent, lobbyStyle)) {
+            click.Play();
             server.Logout();
             Application.LoadLevel("launch");
         }
@@ -80,10 +83,12 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
         DrawGameList ();
 
         if (GUI.Button(configRect, configContent, lobbyStyle)) {
+            click.Play();
             Application.LoadLevel("shipconfig");
         }
 
         if (GUI.Button(highScoreRect, highScoreContent, lobbyStyle)) {
+            click.Play();
             Application.LoadLevel("highscores");
         }
 
@@ -130,6 +135,7 @@ public class LobbyGUI : MonoBehaviour, IEventListener {
         selected = GUILayout.SelectionGrid(selected, games, 1, lobbyStyle);
         
         if (selected >= 0 && !createdGames[selected].Equals("")) {
+            click.Play();
             server.Send(DataType.JOINGAME, createdGames[selected]);
         }
 

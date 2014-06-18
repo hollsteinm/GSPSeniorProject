@@ -8,6 +8,7 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
     private string email = "";
     private string message = "";
     private IClientController server;
+    public AudioSource click;
 
     public Rect usernameRect;
     public Rect passwordRect;
@@ -43,6 +44,7 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
         DrawPassword();
 
         if (GUI.Button(registerRect, registerContent, registrationStyle)) {
+            click.Play();
             if (!username.Equals("") && !password.Equals("") && !email.Equals("")) {
                 message = "Submitting...";
 
@@ -54,6 +56,7 @@ public class RegistrationGUI : MonoBehaviour, IEventListener {
         }
 
         if (GUI.Button(backRect, backContent, registrationStyle)) {
+            click.Play();
             server.Logout();
             server.Disconnect();
             Application.LoadLevel("login");

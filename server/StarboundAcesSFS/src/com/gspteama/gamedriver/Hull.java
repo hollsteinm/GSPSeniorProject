@@ -48,6 +48,11 @@ public class Hull {
         return showShield;
     }
     
+    public boolean showSheild(boolean value){
+        showShield = true;
+        return showShield;
+    }
+    
     public boolean showFire(){
         return showFire;
     }

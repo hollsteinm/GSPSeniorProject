@@ -2362,6 +2362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireDamage: {fileID: 100026}
   smokeDamage: {fileID: 100052}
+  deathPrefab: {fileID: 100014, guid: 62907f463e26cc347b01b3f2c3c759ce, type: 2}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

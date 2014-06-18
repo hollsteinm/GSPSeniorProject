@@ -41,6 +41,7 @@ public class LoginGUI : MonoBehaviour, IEventListener {
         }
     }
 
+    public AudioSource click;
     void OnGUI ( ) {
         GUI.BeginGroup(new Rect(Screen.width / 2.0f - groupWidth / 2.0f, Screen.height / 2.0f - groupHeight / 2.0f, groupWidth, groupHeight));
 
@@ -48,20 +49,24 @@ public class LoginGUI : MonoBehaviour, IEventListener {
         PasswordField();
 
         if (GUI.Button(backRect, backContent, loginStyle)) {
+            click.Play();
             Application.LoadLevel("launch");
         }
 
         if ( GUI.Button ( loginRect, loginContent, loginStyle ) ) {
             if (!username.Equals("") && !username.Equals("")) {
+                click.Play();
                 server.Login(username, password);
             }
         }
 
         if (GUI.Button(guestRect, guestContent, loginStyle)) {
+            click.Play();
             server.Login("", "");
         }
 
         if (GUI.Button(registerRect, registerContent, loginStyle)) {
+            click.Play();
             Application.LoadLevel("register");
         }
 

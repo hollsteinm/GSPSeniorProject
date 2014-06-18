@@ -16,6 +16,8 @@ public class MatchGUI : MonoBehaviour {
     public GUIStyle buttonStyle;
     public GUIStyle infoStyle;
 
+    public AudioSource click;
+
     public int infoX;
     public int infoY;
     public int infoWidth;
@@ -58,7 +60,7 @@ public class MatchGUI : MonoBehaviour {
         if (isActive) {
             DrawOverlay();
         }
-        if (showWinningScreen) {
+        if (showWinningScreen && Application.loadedLevelName != "singleplayer") {
             GUILayout.BeginArea(new Rect(Screen.width / 2.0f - 128, Screen.height / 2.0f - 32, 256, 64));
             GUILayout.BeginVertical();
             GUILayout.Label("You are the Ace!", infoStyle);
@@ -78,10 +80,12 @@ public class MatchGUI : MonoBehaviour {
         }
 
         if (GUI.Button(leaveMatchRect, leaveMatchContent, buttonStyle)) {
+            click.Play();
             GameManager.gameManager.ClientController.Send(DataType.JOINGAME, "lobby");
         }
 
         if (GUI.Button(logoutRect, logoutContent, buttonStyle)) {
+            click.Play();
             GameManager.gameManager.ClientController.Disconnect();
             Application.LoadLevel("launch");
         }

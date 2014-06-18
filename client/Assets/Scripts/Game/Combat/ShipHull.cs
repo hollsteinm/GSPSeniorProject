@@ -82,7 +82,7 @@ public class ShipHull : MonoBehaviour {
         Instantiate(deathPrefab, transform.position, transform.rotation);
         GameManager.gameManager.ClientController.Send(DataType.DEATH, new object());
         deathSound.Play();
-        Destroy(gameObject);
+        Destroy(transform.root.gameObject);
         //Application.LoadLevel("lobby");
     }
 

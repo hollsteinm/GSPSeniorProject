@@ -48,9 +48,10 @@ public class HighScoresGUI : MonoBehaviour, IEventListener {
                 break;
         }
     }
-
+    public AudioSource click;
     void OnGUI() {
         if (GUI.Button(backRect, backContent, buttonStyle)) {
+            click.Play();
             Application.LoadLevel("lobby");
         }
 

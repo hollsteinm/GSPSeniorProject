@@ -8,7 +8,7 @@ public class QueueGUI : MonoBehaviour, IEventListener {
     public GUIContent readyContent;
     public GUIContent backContent;
     public GUIStyle textStyle;
-
+    public AudioSource click;
     void Start() {
         GameManager.gameManager.ClientController.Register(this);
     }
@@ -27,11 +27,13 @@ public class QueueGUI : MonoBehaviour, IEventListener {
         GUILayout.BeginHorizontal();
         if (GameManager.gameManager.getQueuedCount() > 0) {
             if (GUILayout.Button(readyContent, queueStyle, GUILayout.MaxWidth(512))) {
+                click.Play();
                 GameManager.gameManager.ClientController.Send(DataType.PLAYER_GAME_READY, null);
             }
         }
 
         if (GUILayout.Button(backContent, queueStyle, GUILayout.MaxWidth(512))) {
+            click.Play();
             GameManager.gameManager.ClientController.Send(DataType.JOINGAME, "lobby");
             //Application.LoadLevel("lobby");
         }

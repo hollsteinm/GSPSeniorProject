@@ -146,7 +146,9 @@ public class NetworkTransformer : MonoBehaviour, IEventListener {
         float rz = (float)data["rotation.z"];
         float rw = (float)data["rotation.w"];
 
-        transform.position = new Vector3(px, py, pz);
-        transform.rotation = new Quaternion(rx, ry, rz, rw);
+        iTween.MoveTo(transform.root.gameObject, new Vector3(px, py, pz), 0.04f);
+        iTween.RotateTo(transform.root.gameObject, new Quaternion(rx, ry, rz, rw).eulerAngles, 0.04f);
+        //transform.position = new Vector3(px, py, pz);
+        //transform.rotation = new Quaternion(rx, ry, rz, rw);
     }
 }

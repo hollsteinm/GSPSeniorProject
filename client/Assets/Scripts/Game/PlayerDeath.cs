@@ -10,8 +10,11 @@ public class PlayerDeath : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        dcamera = Camera.main;
-        dcamera.GetComponent<ManeuverCamera>().target = transform;
+        if (isClient)
+        {
+            dcamera = Camera.main;
+            dcamera.GetComponent<ManeuverCamera>().target = transform;
+        }
 
 	}
 

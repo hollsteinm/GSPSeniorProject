@@ -183,9 +183,12 @@ public class Gun : MonoBehaviour, IEventListener {
         switch (eventType) {
             case "spawn":
                 print("In Gun Spawn");
-                Dictionary<string, object> data = o as Dictionary<string, object>;
-                print(data.ToString());
-                cooldown = (float)data["cooldown"];
+                if (o != null)
+                {
+                    Dictionary<string, object> data = o as Dictionary<string, object>;
+                    print(data.ToString());
+                    cooldown = (float)data["cooldown"];
+                }
                 break;
 
             default:

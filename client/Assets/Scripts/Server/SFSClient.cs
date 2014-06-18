@@ -593,45 +593,49 @@ public class SFSClient : IClientController {
 
         Debug.Log(sfsdata.GetDump());
         int id = sfsdata.GetInt ( "playerid" );
-        if ( id != SFSInstance.MySelf.Id ) {
-            return;
+        if (id != SFSInstance.MySelf.Id)
+        {
+            GameManager.gameManager.assignRemoteHealth(id, sfsdata.GetFloat("health"));
         }
-        Dictionary<string, object> data = new Dictionary<string, object>();
-        /*
-        float px = sfsdata.GetFloat ( "position.x" );
-        float py = sfsdata.GetFloat ( "position.y" );
-        float pz = sfsdata.GetFloat ( "position.z" );
-        float rx = sfsdata.GetFloat ( "rotation.x" );
-        float ry = sfsdata.GetFloat ( "rotation.y" );
-        float rz = sfsdata.GetFloat ( "rotation.z" );
-        float rw = sfsdata.GetFloat ( "rotation.w" );
+        else
+        {
+            Dictionary<string, object> data = new Dictionary<string, object>();
+            /*
+            float px = sfsdata.GetFloat ( "position.x" );
+            float py = sfsdata.GetFloat ( "position.y" );
+            float pz = sfsdata.GetFloat ( "position.z" );
+            float rx = sfsdata.GetFloat ( "rotation.x" );
+            float ry = sfsdata.GetFloat ( "rotation.y" );
+            float rz = sfsdata.GetFloat ( "rotation.z" );
+            float rw = sfsdata.GetFloat ( "rotation.w" );
 
-        Dictionary<string, float> data = new Dictionary<string, float> ();
-        data.Add ( "position.x", px );
-        data.Add ( "position.y", py );
-        data.Add ( "position.z", pz );
-        data.Add ( "rotation.x", rx );
-        data.Add ( "rotation.y", ry );
-        data.Add ( "rotation.z", rz );
-        data.Add ( "rotation.w", rw );
+            Dictionary<string, float> data = new Dictionary<string, float> ();
+            data.Add ( "position.x", px );
+            data.Add ( "position.y", py );
+            data.Add ( "position.z", pz );
+            data.Add ( "rotation.x", rx );
+            data.Add ( "rotation.y", ry );
+            data.Add ( "rotation.z", rz );
+            data.Add ( "rotation.w", rw );
 
-        data.Add("health", sfsdata.GetFloat("health"));
-        data.Add("cooldown", sfsdata.GetFloat("cooldown"));
-        data.Add("damage", sfsdata.GetFloat("damage"));
-        data.Add("range", sfsdata.GetFloat("range"));
-        */
+            data.Add("health", sfsdata.GetFloat("health"));
+            data.Add("cooldown", sfsdata.GetFloat("cooldown"));
+            data.Add("damage", sfsdata.GetFloat("damage"));
+            data.Add("range", sfsdata.GetFloat("range"));
+            */
 
-        data.Add("ship", sfsdata.GetUtfString("ship"));
-        data.Add("weapon", sfsdata.GetUtfString("weapon"));
-        data.Add("clipsize", sfsdata.GetInt("clipsize"));
-        data.Add("ammo", sfsdata.GetInt("ammo"));
-        data.Add("cooldown", sfsdata.GetFloat("cooldown"));
-        data.Add("range", sfsdata.GetFloat("range"));
-        data.Add("health", sfsdata.GetFloat("health"));
-        data.Add("velocity", sfsdata.GetFloat("velocity"));
-        data.Add("energy", sfsdata.GetFloat("energy"));
-        GameManager.gameManager.prespawnData = data;
-        //OnEvent ( "spawn", data );
+            data.Add("ship", sfsdata.GetUtfString("ship"));
+            data.Add("weapon", sfsdata.GetUtfString("weapon"));
+            data.Add("clipsize", sfsdata.GetInt("clipsize"));
+            data.Add("ammo", sfsdata.GetInt("ammo"));
+            data.Add("cooldown", sfsdata.GetFloat("cooldown"));
+            data.Add("range", sfsdata.GetFloat("range"));
+            data.Add("health", sfsdata.GetFloat("health"));
+            data.Add("velocity", sfsdata.GetFloat("velocity"));
+            data.Add("energy", sfsdata.GetFloat("energy"));
+            GameManager.gameManager.prespawnData = data;
+            //OnEvent ( "spawn", data );
+        }
     }
 
     private void GameListResponse(SFSObject sfsdata) {
