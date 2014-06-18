@@ -57,7 +57,7 @@ public class DBService {
         
         com.gspteama.gamedriver.IPowerup powerup = null;
         
-        String stmt = "select powerup_effect_class_name from sa_powerup where powerup_effect_short_name = ?";
+        String stmt = "select effect_class_name from sa_powerup where effect_short_name = ?";
         
         ps = con.prepareStatement(stmt);
         ps.setString(1, powerupShortName);
@@ -66,7 +66,7 @@ public class DBService {
         
         if(rs.next()){
             powerup = com.gspteama.gamedriver.PowerupFactory.getPowerup(
-                    rs.getString("powerup_effect_class_name")
+                    rs.getString("effect_class_name")
                 );
                 
             ps.close();
