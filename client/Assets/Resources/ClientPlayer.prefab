@@ -2342,7 +2342,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 772f0e78a4f3d4587b6bc4b78fbe9763, type: 3}
     m_FontSize: 16
     m_FontStyle: 0
-    m_Alignment: 5
+    m_Alignment: 0
     m_WordWrap: 0
     m_RichText: 1
     m_TextClipping: 0
@@ -2434,7 +2434,7 @@ MonoBehaviour:
     m_Font: {fileID: 12800000, guid: 772f0e78a4f3d4587b6bc4b78fbe9763, type: 3}
     m_FontSize: 16
     m_FontStyle: 0
-    m_Alignment: 5
+    m_Alignment: 0
     m_WordWrap: 0
     m_RichText: 1
     m_TextClipping: 0

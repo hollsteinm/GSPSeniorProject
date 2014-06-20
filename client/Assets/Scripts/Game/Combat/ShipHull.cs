@@ -28,7 +28,10 @@ public class ShipHull : MonoBehaviour {
     }
 
     public float MaxHealth {
-        set {
+        get {
+			return maxHealth;
+		}
+		set {
             maxHealth = value;
         }
     }

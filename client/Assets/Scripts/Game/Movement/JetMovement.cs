@@ -43,7 +43,8 @@ public class JetMovement : MonoBehaviour {
 	private bool infEnergy = false;
 	private float infEnTimer;
 	
-	private Texture2D infEnTex;
+	private Texture2D infEnTex, mainGUITex, g_OutlineGUITex, g_BackGUITex, g_BlueGUITex;
+	private Texture2D g_GreenGUITex, g_RedGUITex, g_YellowGUITex;
 	
 	//Change controls for the ship
 	private bool controlChange = false;
@@ -61,10 +62,55 @@ public class JetMovement : MonoBehaviour {
 		forwardVelocity = defaultForwardVelocity;
 		rigidbody.freezeRotation = true;
 		infEnTex = Resources.Load("Textures/Energy") as Texture2D;
+		mainGUITex = Resources.Load("GUI/GUI") as Texture2D;
+		g_OutlineGUITex = Resources.Load("GUI/GaugeOutline") as Texture2D;
+		g_BackGUITex = Resources.Load("GUI/GaugeBack") as Texture2D;
+		g_BlueGUITex = Resources.Load("GUI/GaugeBlue") as Texture2D;
+		g_GreenGUITex = Resources.Load("GUI/GaugeGreen") as Texture2D;
+		g_RedGUITex = Resources.Load("GUI/GaugeRed") as Texture2D;
+		g_YellowGUITex = Resources.Load("GUI/GaugeYellow") as Texture2D;
 	}
 	
 	void OnGUI() {
-        GUI.Label(new Rect(Screen.width - 196, Screen.height - 64, 128, 32), currentEnergy.ToString("F") + " / " + maxEnergy.ToString("F"), EnergyHUDStyle);
+		//Initialize information
+		Gun shipsGun = GetComponent<Gun>();
+		ShipHull shipsHealth = GetComponent<ShipHull>();
+		
+		//Main GUI
+		GUI.DrawTexture(new Rect(10,Screen.height - 110,
+								 Screen.width - Screen.width/4.0f,100), mainGUITex, ScaleMode.StretchToFill, true, 0);
+		
+		//Health GUI
+		GUI.DrawTexture(new Rect(Screen.width/7.0f + 10,Screen.height - 90,
+								 (Screen.width * 5.0f)/9.0f,25), g_BackGUITex, ScaleMode.StretchToFill, true, 0);
+		if (shipsHealth.Health > (shipsHealth.MaxHealth / 10.0f * 6.0f))
+		{
+			GUI.DrawTexture(new Rect(Screen.width/7.0f + 10,Screen.height - 90,
+								 ((Screen.width * 5.0f)/9.0f) * (shipsHealth.Health/shipsHealth.MaxHealth),25), g_GreenGUITex, ScaleMode.StretchToFill, true, 0);
+		}
+		else if (shipsHealth.Health > (shipsHealth.MaxHealth / 10.0f * 3.0f))
+		{
+			GUI.DrawTexture(new Rect(Screen.width/7.0f + 10,Screen.height - 90,
+								 ((Screen.width * 5.0f)/9.0f) * (shipsHealth.Health/shipsHealth.MaxHealth),25), g_YellowGUITex, ScaleMode.StretchToFill, true, 0);
+		}
+		else
+		{
+			GUI.DrawTexture(new Rect(Screen.width/7.0f + 10,Screen.height - 90,
+								 ((Screen.width * 5.0f)/9.0f) * (shipsHealth.Health/shipsHealth.MaxHealth),25), g_RedGUITex, ScaleMode.StretchToFill, true, 0);
+		}
+		GUI.DrawTexture(new Rect(Screen.width/7.0f + 10,Screen.height - 90,
+								 (Screen.width * 5.0f)/9.0f,25), g_OutlineGUITex, ScaleMode.StretchToFill, true, 0);
+		GUI.Label(new Rect(Screen.width/7.0f - 10,Screen.height - 102, 128, 32), "Shield", EnergyHUDStyle);
+		
+		//Energy GUI
+		GUI.DrawTexture(new Rect(Screen.width/7.0f + 10,Screen.height - 50,
+								 (Screen.width * 5.0f)/9.0f,25), g_BackGUITex, ScaleMode.StretchToFill, true, 0);
+		GUI.DrawTexture(new Rect(Screen.width/7.0f + 10,Screen.height - 50,
+							 ((Screen.width * 5.0f)/9.0f) * (currentEnergy/maxEnergy),25), g_BlueGUITex, ScaleMode.StretchToFill, true, 0);
+		GUI.DrawTexture(new Rect(Screen.width/7.0f + 10,Screen.height - 50,
+								 (Screen.width * 5.0f)/9.0f,25), g_OutlineGUITex, ScaleMode.StretchToFill, true, 0);
+		GUI.Label(new Rect(Screen.width/7.0f - 10,Screen.height - 62, 128, 32), "Energy", EnergyHUDStyle);
+		
 		if (infEnergy)
 		{
 			if(!infEnTex)

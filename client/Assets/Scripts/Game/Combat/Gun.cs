@@ -81,8 +81,8 @@ public class Gun : MonoBehaviour, IEventListener {
 	}
 
     void OnGUI() {
-        GUI.Label(new Rect(Screen.width - 196, Screen.height - 128, 128, 32), currentCooldown.ToString("F"), gunHUDStyle);
-        GUI.Label(new Rect(Screen.width - 196, Screen.height - 96, 128, 32), currentAmmunition.ToString() + " / " + clipSize.ToString(), gunHUDStyle);
+        GUI.Label(new Rect(Screen.width / 20.0f, Screen.height - 95, 128, 32), "Ammo", gunHUDStyle);
+        GUI.Label(new Rect(Screen.width / 20.0f, Screen.height - 70, 128, 32), currentAmmunition.ToString() + "\n / " + clipSize.ToString(), gunHUDStyle);
 		
 		if (rapid)
 		{
@@ -200,5 +200,15 @@ public class Gun : MonoBehaviour, IEventListener {
 	{
 		rapid = true;
 		rapidTimer = 30;
+	}
+	
+	public int CurrentAmmo()
+	{
+		return currentAmmunition;
+	}
+	
+	public int TotalAmmo()
+	{
+		return totalAmmunition;
 	}
 }
