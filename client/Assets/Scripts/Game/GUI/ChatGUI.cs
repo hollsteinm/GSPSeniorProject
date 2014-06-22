@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ChatGUI : MonoBehaviour, IEventListener {
     public float deltaTop;
     public float deltaWidth;
+    public bool rightAlign = false;
 
     private List<string> messages = new List<string>();
     Vector2 scrollPos;
@@ -34,7 +35,13 @@ public class ChatGUI : MonoBehaviour, IEventListener {
 
     void OnGUI() {
         if (toggleActive) {
-            GUILayout.BeginArea(new Rect(0, Screen.height - deltaTop, Screen.width - deltaWidth, deltaTop));
+            float left = 0.0f;
+            if (rightAlign)
+            {
+                left = deltaWidth;
+            }
+
+            GUILayout.BeginArea(new Rect(left, Screen.height - deltaTop, Screen.width - deltaWidth, deltaTop));
             GUILayout.Box("Chat", GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
             GUILayout.BeginVertical();
             GUILayout.BeginArea(new Rect(20, 25, Screen.width - deltaWidth - 64, deltaTop - 96));
