@@ -18,6 +18,15 @@ public class PlayerDeath : MonoBehaviour {
 
 	}
 
+    public void AssignFocus(int remoteid)
+    {
+        if (GameManager.gameManager.Players[remoteid] != null)
+        {
+            dcamera = Camera.main;
+            dcamera.GetComponent<ManeuverCamera>().target = GameManager.gameManager.Players[remoteid].transform;
+        }
+    }
+
     private bool LifeOver() {
         return timePassed >= effectLength;
     }
@@ -41,6 +50,10 @@ public class PlayerDeath : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (isClient)
+        {
+            dcamera = Camera.main;
+        }
         if (LifeOver()) {
             OnFinish();
         } else {

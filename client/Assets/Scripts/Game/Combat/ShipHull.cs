@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ShipHull : MonoBehaviour {
-    private float hullHealth = 100.0f;
+    public float hullHealth = 100.0f;
     private float maxHealth = 100.0f;
 	
 	private bool shielded = false;
@@ -81,9 +82,10 @@ public class ShipHull : MonoBehaviour {
     }
 
     private void OnDeath() {
-        deathPrefab.GetComponent<PlayerDeath>().isClient = true;
-        Instantiate(deathPrefab, transform.position, transform.rotation);
-        GameManager.gameManager.ClientController.Send(DataType.DEATH, new object());
+        GameObject o = Instantiate(deathPrefab, transform.position, transform.rotation) as GameObject;
+        o.GetComponent<PlayerDeath>().isClient = true;
+        o.GetComponent<PlayerDeath>().AssignFocus(gameObject.GetComponent<ClientPlayer>().hitByPlayerLast);
+        GameManager.gameManager.ClientController.Send(DataType.DEATH, new Dictionary<string, int>());
         deathSound.Play();
         Destroy(transform.root.gameObject);
         //Application.LoadLevel("lobby");

@@ -2271,6 +2271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shipHull: {fileID: 11400008}
+  hitByPlayerLast: -1
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2363,6 +2364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ddb7aa64d63d8440970ec9e3dcc14ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hullHealth: 100
   weapon: {fileID: 11400010}
   deathPrefab: {fileID: 100006, guid: bf0aa60bf2d0e374da3a1b360aee5272, type: 2}
   deathSound: {fileID: 8200000}

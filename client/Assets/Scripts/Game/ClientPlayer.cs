@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ClientPlayer : MonoBehaviour, IEventListener {
     IClientController server;
     public ShipHull shipHull;
+    public int hitByPlayerLast = -1;
 
     private GameObject model;
     private GameObject shield;
@@ -100,8 +101,6 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
                 shipHull.weapon.Clipsize = (int)data["clipsize"];
                 GetComponent<JetMovement>().maxEnergy = (float)data["energy"];
                 GetComponent<JetMovement>().maxVelocity = (float)data["velocity"];
-                //TODO: once the database sends the right data, we will be able to set this for the reticle
-                //GetComponent<Reticle>().range = data["range"];
 
                 break;
 
@@ -117,6 +116,7 @@ public class ClientPlayer : MonoBehaviour, IEventListener {
                     (float)hitdata["contact.point.y"],
                     (float)hitdata["contact.point.z"]);
 
+                hitByPlayerLast = (int)hitdata["playerid"];
                 shipHull.OnHit(dmg, contactPoint);
                 transform.FindChild("ShieldEffectPrefab(Clone)").gameObject.SetActive(true);
                 Debug.Log("Damage Taken by Client. Damage: " + dmg + " Remaining Health: " + shipHull.Health);

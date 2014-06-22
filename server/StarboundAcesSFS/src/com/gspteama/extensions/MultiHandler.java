@@ -531,6 +531,7 @@ public class MultiHandler extends BaseClientRequestHandler implements IEventList
             ISFSObject response = SFSObject.newInstance();
             response.putFloat("damage", p.getDamage());
             response.putInt("player.hit.id", params.getInt("player.hit.id"));
+            response.putInt("playerid", user.getId());
             response.putFloat("contact.point.x", params.getFloat("contact.point.x"));
             response.putFloat("contact.point.y", params.getFloat("contact.point.y"));
             response.putFloat("contact.point.z", params.getFloat("contact.point.z"));

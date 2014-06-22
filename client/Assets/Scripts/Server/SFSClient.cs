@@ -733,6 +733,7 @@ public class SFSClient : IClientController {
         fdata.Add ( "contact.point.x", sfsdata.GetFloat ( "contact.point.x" ) );
         fdata.Add ( "contact.point.y", sfsdata.GetFloat ( "contact.point.y" ) );
         fdata.Add ( "contact.point.z", sfsdata.GetFloat ( "contact.point.z" ) );
+        fdata.Add("playerid", sfsdata.GetInt("playerid"));
 
         if ( playerid == SFSInstance.MySelf.Id ) {
             OnEvent ( "player.hit", fdata );
