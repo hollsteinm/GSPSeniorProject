@@ -113,6 +113,38 @@ Prefab:
       propertyPath: click
       value: 
       objectReference: {fileID: 853423374}
+    - target: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: controlsList.Array.data[3]
+      value: 'Boost: W'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: controlsList.Array.data[4]
+      value: 'Brake: S'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: controlsList.Array.data[1]
+      value: 'Turn Left: A'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: controlsList.Array.data[2]
+      value: 'Turn Right: D'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: controlsList.Array.data[5]
+      value: 'Dodge Left: Right Mouse Button + A'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: controlsList.Array.data[6]
+      value: 'Dodge Right: Right Mouse Button + D'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: controlsList.Array.data[7]
+      value: 'Basic Loop: Right Mouse Button + W'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
+      propertyPath: controlsList.Array.data[8]
+      value: 'U-Turn: Right Mouse Button + S'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 946e2e5dea1d3ff4599a94ec796e82a8, type: 2}
   m_RootGameObject: {fileID: 853423371}
@@ -283,14 +315,14 @@ MonoBehaviour:
   ystride: 24
   controlsList:
   - 'Shoot: Left Mouse Button'
-  - 'Strafe Left: A'
-  - 'Strafe Right: D'
-  - 'Accelerate: W'
-  - 'Deaccelerate: S'
-  - 'Manuever Left: Right Mouse Button + A'
-  - 'Manuever Right: Right Mouse Button + D'
-  - 'Manuever Up: Right Mouse Button + W'
-  - 'Manuever Down: Right Mouse Button + S'
+  - 'Turn Left: A'
+  - 'Turn Right: D'
+  - 'Boost: W'
+  - 'Brake: S'
+  - 'Dodge Left: Right Mouse Button + A'
+  - 'Dodge Right: Right Mouse Button + D'
+  - 'Basic Loop: Right Mouse Button + W'
+  - 'U-Turn: Right Mouse Button + S'
   - 'Toggle Chatbox: ''F1'''
   - 'Match Menu: Esc'
   - 'Reload: Left Alt'

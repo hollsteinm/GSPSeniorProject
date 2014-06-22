@@ -2298,7 +2298,7 @@ MonoBehaviour:
     m_Name: 
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: .501960814, b: .501960814, a: 1}
+      m_TextColor: {r: 0, g: 1, b: .189414978, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -2341,7 +2341,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 772f0e78a4f3d4587b6bc4b78fbe9763, type: 3}
-    m_FontSize: 16
+    m_FontSize: 10
     m_FontStyle: 0
     m_Alignment: 0
     m_WordWrap: 0
@@ -2391,7 +2391,7 @@ MonoBehaviour:
     m_Name: 
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: .501960814, b: .501960814, a: 1}
+      m_TextColor: {r: 0, g: 1, b: .189414978, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -2434,7 +2434,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 772f0e78a4f3d4587b6bc4b78fbe9763, type: 3}
-    m_FontSize: 16
+    m_FontSize: 10
     m_FontStyle: 0
     m_Alignment: 0
     m_WordWrap: 0
