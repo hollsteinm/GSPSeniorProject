@@ -914,7 +914,7 @@ MonoBehaviour:
     m_Name: 
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: .501960814, b: .501960814, a: 1}
+      m_TextColor: {r: 0, g: 1, b: .189414978, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -957,7 +957,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 772f0e78a4f3d4587b6bc4b78fbe9763, type: 3}
-    m_FontSize: 16
+    m_FontSize: 10
     m_FontStyle: 0
     m_Alignment: 0
     m_WordWrap: 0
@@ -1016,7 +1016,7 @@ MonoBehaviour:
     m_Name: 
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: 0, g: .501960814, b: .501960814, a: 1}
+      m_TextColor: {r: 0, g: 1, b: .189414978, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
@@ -1059,7 +1059,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 772f0e78a4f3d4587b6bc4b78fbe9763, type: 3}
-    m_FontSize: 16
+    m_FontSize: 10
     m_FontStyle: 0
     m_Alignment: 0
     m_WordWrap: 0
@@ -1554,6 +1554,10 @@ Prefab:
       propertyPath: m_Name
       value: PowerupShield
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 1fdaa7d6ceb795b439cb104bad44f7f1, type: 2}
+      propertyPath: numberOfInstances
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1fdaa7d6ceb795b439cb104bad44f7f1, type: 2}
   m_RootGameObject: {fileID: 1525513004}
@@ -2023,6 +2027,7 @@ GameObject:
   - 23: {fileID: 828610287}
   - 114: {fileID: 828610286}
   - 82: {fileID: 828610291}
+  - 122: {fileID: 828610292}
   m_Layer: 0
   m_Name: PowerupRapid
   m_TagString: Untagged
@@ -2043,6 +2048,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  numberOfInstances: 5
+  clone: {fileID: 828610290}
+  player: {fileID: 400010, guid: a0288f45248d7f943a99dc34b046e158, type: 2}
+  timer: 30
 --- !u!23 &828610287
 Renderer:
   m_ObjectHideFlags: 0
@@ -2153,6 +2162,18 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!122 &828610292
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 12200000, guid: c898c5bceb731c64da4964456fb02a17,
+    type: 2}
+  m_PrefabInternal: {fileID: 841856433}
+  m_GameObject: {fileID: 828610285}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4286216904
+  m_Size: 20
 --- !u!1001 &841856433
 Prefab:
   m_ObjectHideFlags: 0
@@ -2187,6 +2208,10 @@ Prefab:
     - target: {fileID: 400000, guid: c898c5bceb731c64da4964456fb02a17, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: c898c5bceb731c64da4964456fb02a17, type: 2}
+      propertyPath: numberOfInstances
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c898c5bceb731c64da4964456fb02a17, type: 2}
@@ -2345,7 +2370,12 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 11400000, guid: 47fc1a9cf36b3b945978f3660a75cc17, type: 2}
+      propertyPath: numberOfInstances
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: 47fc1a9cf36b3b945978f3660a75cc17, type: 2}
   m_RootGameObject: {fileID: 2001564303}
   m_IsPrefabParent: 0
@@ -3102,6 +3132,7 @@ GameObject:
   - 23: {fileID: 1525513005}
   - 114: {fileID: 1525513009}
   - 82: {fileID: 1525513010}
+  - 122: {fileID: 1525513011}
   m_Layer: 0
   m_Name: PowerupShield
   m_TagString: Untagged
@@ -3173,6 +3204,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  numberOfInstances: 5
+  clone: {fileID: 1525513008}
+  player: {fileID: 400010, guid: a0288f45248d7f943a99dc34b046e158, type: 2}
+  timer: 30
 --- !u!82 &1525513010
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3232,6 +3267,18 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!122 &1525513011
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 12200000, guid: 1fdaa7d6ceb795b439cb104bad44f7f1,
+    type: 2}
+  m_PrefabInternal: {fileID: 470411740}
+  m_GameObject: {fileID: 1525513004}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4286236796
+  m_Size: 20
 --- !u!1 &1560372894
 GameObject:
   m_ObjectHideFlags: 0
@@ -4092,6 +4139,7 @@ GameObject:
   - 23: {fileID: 2001564305}
   - 114: {fileID: 2001564304}
   - 82: {fileID: 2001564309}
+  - 122: {fileID: 2001564310}
   m_Layer: 0
   m_Name: PowerupEnergy
   m_TagString: Untagged
@@ -4112,6 +4160,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
+  numberOfInstances: 5
+  clone: {fileID: 2001564308}
+  player: {fileID: 400010, guid: a0288f45248d7f943a99dc34b046e158, type: 2}
+  timer: 30
 --- !u!23 &2001564305
 Renderer:
   m_ObjectHideFlags: 0
@@ -4222,6 +4274,18 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!122 &2001564310
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 12200000, guid: 47fc1a9cf36b3b945978f3660a75cc17,
+    type: 2}
+  m_PrefabInternal: {fileID: 871472537}
+  m_GameObject: {fileID: 2001564303}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4291347322
+  m_Size: 20
 --- !u!1001 &2001695313
 Prefab:
   m_ObjectHideFlags: 0

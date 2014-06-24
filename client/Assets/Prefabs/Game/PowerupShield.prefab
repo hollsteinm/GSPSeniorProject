@@ -13,6 +13,7 @@ GameObject:
   - 23: {fileID: 2300000}
   - 114: {fileID: 11400000}
   - 82: {fileID: 8200000}
+  - 122: {fileID: 12200000}
   m_Layer: 0
   m_Name: PowerupShield
   m_TagString: Untagged
@@ -138,6 +139,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  numberOfInstances: 1
+  clone: {fileID: 400000}
+  player: {fileID: 400010, guid: a0288f45248d7f943a99dc34b046e158, type: 2}
+--- !u!122 &12200000
+Halo:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4286236796
+  m_Size: 20
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
